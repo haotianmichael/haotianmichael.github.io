@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="HBlog">
 <meta property="og:description" content="实验1: 查看CPU和内存，用机器指令和汇编指令编程1.笔记1.1硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-03T07:32:12.688Z">
+<meta property="og:updated_time" content="2018-10-03T07:37:02.907Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch1">
 <meta name="twitter:description" content="实验1: 查看CPU和内存，用机器指令和汇编指令编程1.笔记1.1硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
@@ -473,10 +473,21 @@
 <li>内部总线连接各种器件，在它们之间进行数据的传送  </li>
 </ul>
 <h5 id="1-3-2-8086架构（16位机）"><a href="#1-3-2-8086架构（16位机）" class="headerlink" title="1.3.2 8086架构（16位机）"></a>1.3.2 8086架构（16位机）</h5><p>具体深究到物理实现就是《组成原理》知识了。  </p>
-<pre><code>1. 运算器一次最多可以处理16位数据  
-2. 寄存器的最大宽度为16位      
-3. 寄存器和运算器之间的通路为16位  
-</code></pre><h5 id="1-3-3-汇编层面的内存"><a href="#1-3-3-汇编层面的内存" class="headerlink" title="1.3.3 汇编层面的内存"></a>1.3.3 汇编层面的内存</h5><blockquote>
+<ul>
+<li><ol>
+<li>运算器一次最多可以处理16位数据  </li>
+</ol>
+</li>
+<li><ol start="2">
+<li>寄存器的最大宽度为16位      </li>
+</ol>
+</li>
+<li><ol start="3">
+<li>寄存器和运算器之间的通路为16位  </li>
+</ol>
+</li>
+</ul>
+<h5 id="1-3-3-汇编层面的内存"><a href="#1-3-3-汇编层面的内存" class="headerlink" title="1.3.3 汇编层面的内存"></a>1.3.3 汇编层面的内存</h5><blockquote>
 <p>PU在访问内存单元的时候，需要知道内存单元的地址。所有的内存单元构成的存储空间是一个一维的线性空间，每一个内存空间在这个空间上都有唯一的地址，这个惟一的地址就叫做<code>物理地址</code>。<br>CPU首先在内部形成这个物理地址，然后通过地址总线送入存储器。这个地址一定是一个内存单元的物理地址。不同的CPU架构形成地址的方式不一样。  </p>
 </blockquote>
 <h5 id="1-3-4-CS-IP"><a href="#1-3-4-CS-IP" class="headerlink" title="1.3.4 CS:IP"></a>1.3.4 CS:IP</h5><blockquote>
