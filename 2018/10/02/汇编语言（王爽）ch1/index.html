@@ -112,7 +112,8 @@
 <meta property="og:description" content="实验1: 查看CPU和内存，用机器指令和汇编指令编程笔记硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/2.png">
-<meta property="og:updated_time" content="2018-10-03T12:33:26.680Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/3.png">
+<meta property="og:updated_time" content="2018-10-03T12:35:57.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch1">
 <meta name="twitter:description" content="实验1: 查看CPU和内存，用机器指令和汇编指令编程笔记硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
@@ -533,8 +534,10 @@
 <blockquote>
 <p>   有意思的是这个算法，a += a；如果这里的a是2的话，实际上<code>a+a</code>等于<code>ax2</code>所以可以2的8次方可以通过8次这样的加法完成，但是如果a是其他的值就不行了。</p>
 </blockquote>
-<h5 id="最后两个实验"><a href="#最后两个实验" class="headerlink" title="最后两个实验"></a>最后两个实验</h5><pre><code>&lt;img src=&quot;https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/3.png&quot; width = &quot;300&quot; height = &quot;200&quot; alt=&quot;图片名称&quot; align=center /&gt;
-</code></pre><blockquote>
+<h5 id="最后两个实验"><a href="#最后两个实验" class="headerlink" title="最后两个实验"></a>最后两个实验</h5><blockquote>
+<p>使用<code>e</code>参数对特定的内存单元进行读写。<br>    <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/3.png" width="300" height="200" alt="图片名称" align="center"></p>
+</blockquote>
+<blockquote>
 <p>   这两个实验间接地证明了<strong>内存地址空间</strong>的存在。<br>   我在向内存<code>B810:0000</code>中写数据的时候，发现显示器上会出现有颜色的字符和表情包，猜想这个地址应该是显存的物理地址。这也说明这里的内存不仅仅指的是主存储器，还有其他的和CPU直接相连的RAM。</p>
 </blockquote>
 
