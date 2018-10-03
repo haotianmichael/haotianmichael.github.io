@@ -112,7 +112,7 @@
 <meta property="og:description" content="Abstract 王爽老师的《汇编语言》是国内的经典教材。学习汇编的目的在于:充分获得底层编程的体验和深刻理解机器运行程序的机理。所以经典的做法往往不是只针对于某一种指令集，而是以一种指令集为手段来深入理解机器工作的原理，体会一个没有操作系统的编程开发环境。正如书中:编程的平台是硬件而不是操作系统。或许这也是汇编语言真正的价值所在吧。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/1.png">
-<meta property="og:updated_time" content="2018-10-02T00:58:46.180Z">
+<meta property="og:updated_time" content="2018-10-02T15:22:31.565Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch0">
 <meta name="twitter:description" content="Abstract 王爽老师的《汇编语言》是国内的经典教材。学习汇编的目的在于:充分获得底层编程的体验和深刻理解机器运行程序的机理。所以经典的做法往往不是只针对于某一种指令集，而是以一种指令集为手段来深入理解机器工作的原理，体会一个没有操作系统的编程开发环境。正如书中:编程的平台是硬件而不是操作系统。或许这也是汇编语言真正的价值所在吧。">
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  291
+                  335
                 </span>
               
 
@@ -453,15 +453,17 @@
 </blockquote>
 <a id="more"></a>    
 <h4 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h4><blockquote>
-<p>全书的实验都是在8086CPU的体系结构下展开的，这也是Intel第一块32的处理器。<br>我们有两种办法再自己的计算机上进行实验:一种是使用虚拟机Windowsxp系统。一种是采用DOSBox模拟器，第二种比较方便。<a href="https://pan.baidu.com/s/1-Da6IPYym54QbokzFMiNvA" target="_blank" rel="noopener">这里是链接</a>。</p>
+<p>全书的实验都是在8086CPU的体系结构下展开的，这也是Intel第一块16的处理器。<br>我们有两种办法在自己的计算机上进行模拟8086:一种是使用虚拟机WindowsXP系统。一种是采用DOSBox模拟器，第二种比较方便。<a href="https://pan.baidu.com/s/1-Da6IPYym54QbokzFMiNvA" target="_blank" rel="noopener">这里是链接</a>。<br>本书有17个实验，2个课程设计，5个研究试验。我主要是以这些实验为章节展开学习。</p>
 </blockquote>
 <h4 id="搭建实验条件"><a href="#搭建实验条件" class="headerlink" title="搭建实验条件"></a>搭建实验条件</h4><ul>
 <li>将下载好的环境包放在<code>~/x86</code>，作为我们的工作目录。</li>
 <li>打开DOSBox模拟器。</li>
 <li>挂载C盘:<code>mount C ~/x86</code>。</li>
 <li>进入C盘:<code>C:</code>。</li>
-<li>开始实验。<br>下图是安装成功的界面。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/1.png" width="300" height="200" alt="图片名称" align="center"></li>
+<li>开始实验:<code>debug</code>。</li>
+<li>突出程序<code>quit</code>，退出模拟器<code>exit</code>。</li>
 </ul>
+<h4 id="安装成功展示"><a href="#安装成功展示" class="headerlink" title="安装成功展示"></a>安装成功展示</h4><p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/1.png" width="300" height="200" alt="图片名称" align="center"></p>
 
       
     </div>
@@ -482,7 +484,7 @@
   <p><span>本文标题:</span><a href="/2018/10/02/汇编语言（王爽）ch0/">汇编语言（王爽）ch0</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 haotianmichael 的个人博客">haotianmichael</a></p>
   <p><span>发布时间:</span>2018年10月02日 - 08:10</p>
-  <p><span>最后更新:</span>2018年10月02日 - 08:10</p>
+  <p><span>最后更新:</span>2018年10月02日 - 23:10</p>
   <p><span>原始链接:</span><a href="/2018/10/02/汇编语言（王爽）ch0/" title="汇编语言（王爽）ch0">http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch0/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch0/"  aria-label="复制成功！"></i></span>
   </p>
@@ -528,6 +530,22 @@
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/02/汇编语言（王爽）ch1/" rel="prev" title="汇编语言（王爽）ch1">
+                汇编语言（王爽）ch1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -601,7 +619,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -700,7 +718,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验环境"><span class="nav-number">2.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建实验条件"><span class="nav-number">3.</span> <span class="nav-text">搭建实验条件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验环境"><span class="nav-number">2.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建实验条件"><span class="nav-number">3.</span> <span class="nav-text">搭建实验条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装成功展示"><span class="nav-number">4.</span> <span class="nav-text">安装成功展示</span></a></li></ol></div>
             
 
           </div>
