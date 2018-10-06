@@ -103,18 +103,18 @@
 
 
 
-<meta name="description" content="实验2：用机器指令和汇编指令编程笔记回顾 上一个实验抽象出汇编语言编程需要的模型，也就是从寄存器的角度来进行硬件管理。这里的硬件主要指的是狭义上的内存和寄存器。第二次实验也是接上一章寄存器的部分，这一次实验中也讲了好几个寄存器，而且通过这几个寄存器统一了汇编语言的结构和一些运行规则， 关键字:数据段,代码段,栈段。最后还提到了和操作系统相关的重要概念:中断。  ####">
+<meta name="description" content="第二部分:汇编结构笔记汇编语言的结构Oneof 内存寻址方式s 汇编的角度是寄存器。但是寄存器到内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
 <meta name="keywords" content="i386,Assembly">
 <meta property="og:type" content="article">
 <meta property="og:title" content="汇编语言（王爽）ch2">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/index.html">
 <meta property="og:site_name" content="HBlog">
-<meta property="og:description" content="实验2：用机器指令和汇编指令编程笔记回顾 上一个实验抽象出汇编语言编程需要的模型，也就是从寄存器的角度来进行硬件管理。这里的硬件主要指的是狭义上的内存和寄存器。第二次实验也是接上一章寄存器的部分，这一次实验中也讲了好几个寄存器，而且通过这几个寄存器统一了汇编语言的结构和一些运行规则， 关键字:数据段,代码段,栈段。最后还提到了和操作系统相关的重要概念:中断。  ####">
+<meta property="og:description" content="第二部分:汇编结构笔记汇编语言的结构Oneof 内存寻址方式s 汇编的角度是寄存器。但是寄存器到内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-04T11:04:13.398Z">
+<meta property="og:updated_time" content="2018-10-06T14:32:39.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch2">
-<meta name="twitter:description" content="实验2：用机器指令和汇编指令编程笔记回顾 上一个实验抽象出汇编语言编程需要的模型，也就是从寄存器的角度来进行硬件管理。这里的硬件主要指的是狭义上的内存和寄存器。第二次实验也是接上一章寄存器的部分，这一次实验中也讲了好几个寄存器，而且通过这几个寄存器统一了汇编语言的结构和一些运行规则， 关键字:数据段,代码段,栈段。最后还提到了和操作系统相关的重要概念:中断。  ####">
+<meta name="twitter:description" content="第二部分:汇编结构笔记汇编语言的结构Oneof 内存寻址方式s 汇编的角度是寄存器。但是寄存器到内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
 
 
 
@@ -409,7 +409,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  165
+                  671
                 </span>
               
 
@@ -425,7 +425,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  2
                 </span>
               
             </div>
@@ -446,11 +446,29 @@
       
 
       
-        <h2 id="实验2：用机器指令和汇编指令编程"><a href="#实验2：用机器指令和汇编指令编程" class="headerlink" title="实验2：用机器指令和汇编指令编程"></a>实验2：用机器指令和汇编指令编程</h2><h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><h4 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h4><blockquote>
-<p>上一个实验抽象出汇编语言编程需要的模型，也就是从寄存器的角度来进行硬件管理。这里的硬件主要指的是狭义上的内存和寄存器。<br>第二次实验也是接上一章寄存器的部分，这一次实验中也讲了好几个寄存器，而且通过这几个寄存器统一了汇编语言的结构和一些运行规则， 关键字:<code>数据段</code>,<code>代码段</code>,<code>栈段</code>。最后还提到了和操作系统相关的重要概念:<code>中断</code>。</p>
+        <h2 id="第二部分-汇编结构"><a href="#第二部分-汇编结构" class="headerlink" title="第二部分:汇编结构"></a>第二部分:汇编结构</h2><h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><h4 id="汇编语言的结构"><a href="#汇编语言的结构" class="headerlink" title="汇编语言的结构"></a>汇编语言的结构</h4><h5 id="Oneof-内存寻址方式s"><a href="#Oneof-内存寻址方式s" class="headerlink" title="Oneof 内存寻址方式s"></a>Oneof 内存寻址方式s</h5><blockquote>
+<p>汇编的角度是寄存器。但是寄存器到内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。<br><a id="more"></a><br><strong>字节存储和字存储</strong>就是两种解决办法，在8086中寄存器是16位的(16位为一字)，而存储器的最小存储单元是8位也就是一个字节，所以如果在一些读写中需要用到字存储而不是字节存储的话，就需要两块连续的内存单元才能完成数据的传输，而且很重要的一点是<strong>高地址存放字的高位字节，低地址存放字的低位字节</strong>。<br><strong>CPU要读写一块内存单元的时候，必须先要给出这个内存单元的地址。</strong>在实验1中我们知道了CPU使用<code>段地址+偏移地址</code>的方式来进行寻址。而实现这些功能的就是一些具有特殊功能的寄存器。最简单的也最常使用的两种类型:  </p>
+<ul>
+<li><code>CS</code>+<code>IP</code></li>
+<li><code>DS</code>+[idata]<br>在任意时刻CPU将CS:IP指向的内容当做指令执行。<br>而<code>DS</code>通常用来存放需要访问的数据的段地址。  </li>
+</ul>
 </blockquote>
-<p>#### </p>
-
+<h6 id="MOV指令"><a href="#MOV指令" class="headerlink" title="MOV指令"></a>MOV指令</h6><p>如果要访问具体的内存地址，下面就是两个例子:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx,1000h</span><br><span class="line">mov ds,bx</span><br><span class="line">mov al,[0]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>第三条指令就是一条寄存器访问内存的指令。首先注意单位是字节因为使用的是8位的寄存器，其次这里的<code>[0]</code>指的是偏移地址，而段地址是默认存储在<code>DS</code>段寄存器中的。<br><code>MOV</code>指令的操作对象还有很多。下面做一些总结:  </p>
+<ul>
+<li>MOV 寄存器，数据</li>
+<li>MOV 寄存器，寄存器</li>
+<li>MOV 寄存器，内存单元</li>
+<li>MOV 内存单元，寄存器</li>
+<li>MOV 段寄存器，寄存器<br>等……<br><strong>所以总结一下，访问内存（内存寻址）注意的两点:处理数据的单位（字还是字节），使用什么方式。</strong></li>
+</ul>
+</blockquote>
+<h5 id="数据段"><a href="#数据段" class="headerlink" title="数据段"></a>数据段</h5><blockquote>
+<p>将一段内存当做数据段，是我们在编程的时候的一种安排，可以在具体操作的时候，<strong>用ds存放数据的段地址，</strong>再根据相关指令访问数据段中的具体单元。</p>
+</blockquote>
+<h5 id="栈段"><a href="#栈段" class="headerlink" title="栈段"></a>栈段</h5><h5 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h5><h5 id="段的概念"><a href="#段的概念" class="headerlink" title="段的概念"></a>段的概念</h5><h4 id="汇编语言的编译、连接过程及其工具的使用"><a href="#汇编语言的编译、连接过程及其工具的使用" class="headerlink" title="汇编语言的编译、连接过程及其工具的使用"></a>汇编语言的编译、连接过程及其工具的使用</h4><h3 id="实验2-用机器指令和汇编指令编程"><a href="#实验2-用机器指令和汇编指令编程" class="headerlink" title="实验2 用机器指令和汇编指令编程"></a>实验2 用机器指令和汇编指令编程</h3><h3 id="实验3-用编程、编译、连接、跟踪"><a href="#实验3-用编程、编译、连接、跟踪" class="headerlink" title="实验3 用编程、编译、连接、跟踪"></a>实验3 用编程、编译、连接、跟踪</h3>
       
     </div>
     
@@ -470,7 +488,7 @@
   <p><span>本文标题:</span><a href="/2018/10/04/汇编语言（王爽）ch2/">汇编语言（王爽）ch2</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 haotianmichael 的个人博客">haotianmichael</a></p>
   <p><span>发布时间:</span>2018年10月03日 - 20:10</p>
-  <p><span>最后更新:</span>2018年10月04日 - 19:10</p>
+  <p><span>最后更新:</span>2018年10月06日 - 22:10</p>
   <p><span>原始链接:</span><a href="/2018/10/04/汇编语言（王爽）ch2/" title="汇编语言（王爽）ch2">http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/"  aria-label="复制成功！"></i></span>
   </p>
@@ -704,7 +722,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验2：用机器指令和汇编指令编程"><span class="nav-number">1.</span> <span class="nav-text">实验2：用机器指令和汇编指令编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#回顾"><span class="nav-number">1.1.1.</span> <span class="nav-text">回顾</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部分-汇编结构"><span class="nav-number">1.</span> <span class="nav-text">第二部分:汇编结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#汇编语言的结构"><span class="nav-number">1.1.1.</span> <span class="nav-text">汇编语言的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Oneof-内存寻址方式s"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Oneof 内存寻址方式s</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#MOV指令"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text">MOV指令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据段"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">数据段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#栈段"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">栈段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码段"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">代码段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#段的概念"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">段的概念</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#汇编语言的编译、连接过程及其工具的使用"><span class="nav-number">1.1.2.</span> <span class="nav-text">汇编语言的编译、连接过程及其工具的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验2-用机器指令和汇编指令编程"><span class="nav-number">1.2.</span> <span class="nav-text">实验2 用机器指令和汇编指令编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验3-用编程、编译、连接、跟踪"><span class="nav-number">1.3.</span> <span class="nav-text">实验3 用编程、编译、连接、跟踪</span></a></li></ol></li></ol></div>
             
 
           </div>

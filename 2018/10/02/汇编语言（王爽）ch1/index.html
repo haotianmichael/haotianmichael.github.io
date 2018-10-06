@@ -103,20 +103,20 @@
 
 
 
-<meta name="description" content="实验1: 查看CPU和内存，用机器指令和汇编指令编程笔记硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
+<meta name="description" content="第一部分:硬件模型笔记硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta name="keywords" content="i386,Assembly">
 <meta property="og:type" content="article">
 <meta property="og:title" content="汇编语言（王爽）ch1">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/index.html">
 <meta property="og:site_name" content="HBlog">
-<meta property="og:description" content="实验1: 查看CPU和内存，用机器指令和汇编指令编程笔记硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
+<meta property="og:description" content="第一部分:硬件模型笔记硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/3.png">
-<meta property="og:updated_time" content="2018-10-03T12:35:57.059Z">
+<meta property="og:updated_time" content="2018-10-06T12:07:18.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch1">
-<meta name="twitter:description" content="实验1: 查看CPU和内存，用机器指令和汇编指令编程笔记硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
+<meta name="twitter:description" content="第一部分:硬件模型笔记硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/2.png">
 
 
@@ -449,7 +449,7 @@
       
 
       
-        <h2 id="实验1-查看CPU和内存，用机器指令和汇编指令编程"><a href="#实验1-查看CPU和内存，用机器指令和汇编指令编程" class="headerlink" title="实验1: 查看CPU和内存，用机器指令和汇编指令编程"></a>实验1: 查看CPU和内存，用机器指令和汇编指令编程</h2><h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><h4 id="硬件基础"><a href="#硬件基础" class="headerlink" title="硬件基础"></a>硬件基础</h4><blockquote>
+        <h2 id="第一部分-硬件模型"><a href="#第一部分-硬件模型" class="headerlink" title="第一部分:硬件模型"></a>第一部分:硬件模型</h2><h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><h4 id="硬件基础"><a href="#硬件基础" class="headerlink" title="硬件基础"></a>硬件基础</h4><blockquote>
 <p>   全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————<code>冯诺依曼结构</code>。<br>   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？<br><a id="more"></a>  </p>
 </blockquote>
 <ul>
@@ -502,7 +502,7 @@
 <li>在汇编语言这门课中，我们所面对的是<strong>内存地址空间</strong>。CPU向这段地址中读写数据实际上就是向相应的物理存储器中读写数据。</li>
 <li>内存地址空间的大小收到CPU地址总线宽度的限制。</li>
 </ul>
-<h3 id="实验1"><a href="#实验1" class="headerlink" title="实验1"></a>实验1</h3><h4 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h4><blockquote>
+<h3 id="实验1-查看CPU和内存，用机器指令和汇编指令编程"><a href="#实验1-查看CPU和内存，用机器指令和汇编指令编程" class="headerlink" title="实验1 查看CPU和内存，用机器指令和汇编指令编程"></a>实验1 查看CPU和内存，用机器指令和汇编指令编程</h3><h4 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h4><blockquote>
 <p>   debug是DOS,Windows都提供的实模式（8086方式）程序的调试工具。下面是本次实验将会用到的参数:  </p>
 </blockquote>
 <h5 id="r-读写寄存器"><a href="#r-读写寄存器" class="headerlink" title="r (读写寄存器)"></a>r (读写寄存器)</h5><ul>
@@ -560,7 +560,7 @@
   <p><span>本文标题:</span><a href="/2018/10/02/汇编语言（王爽）ch1/">汇编语言（王爽）ch1</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 haotianmichael 的个人博客">haotianmichael</a></p>
   <p><span>发布时间:</span>2018年10月02日 - 09:10</p>
-  <p><span>最后更新:</span>2018年10月03日 - 20:10</p>
+  <p><span>最后更新:</span>2018年10月06日 - 20:10</p>
   <p><span>原始链接:</span><a href="/2018/10/02/汇编语言（王爽）ch1/" title="汇编语言（王爽）ch1">http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/"  aria-label="复制成功！"></i></span>
   </p>
@@ -798,7 +798,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验1-查看CPU和内存，用机器指令和汇编指令编程"><span class="nav-number">1.</span> <span class="nav-text">实验1: 查看CPU和内存，用机器指令和汇编指令编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件基础"><span class="nav-number">1.1.1.</span> <span class="nav-text">硬件基础</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指令和数据"><span class="nav-number">1.1.2.</span> <span class="nav-text">指令和数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寄存器"><span class="nav-number">1.1.3.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编层面的CPU"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">汇编层面的CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8086架构（16位机）"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">8086架构（16位机）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编层面的内存"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">汇编层面的内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CS-IP"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">CS:IP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行过程"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#8086的工作过程"><span class="nav-number">1.1.3.5.1.</span> <span class="nav-text">8086的工作过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书中划线"><span class="nav-number">1.2.</span> <span class="nav-text">书中划线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验1"><span class="nav-number">1.3.</span> <span class="nav-text">实验1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工具介绍"><span class="nav-number">1.3.1.</span> <span class="nav-text">工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#r-读写寄存器"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">r (读写寄存器)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-（读写内存）"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">d （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-（读写内存）"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">e （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-u-t"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">e+u+t</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">a</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验任务"><span class="nav-number">1.3.2.</span> <span class="nav-text">实验任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第二个实验"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">第二个实验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最后两个实验"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">最后两个实验</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分-硬件模型"><span class="nav-number">1.</span> <span class="nav-text">第一部分:硬件模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件基础"><span class="nav-number">1.1.1.</span> <span class="nav-text">硬件基础</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指令和数据"><span class="nav-number">1.1.2.</span> <span class="nav-text">指令和数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寄存器"><span class="nav-number">1.1.3.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编层面的CPU"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">汇编层面的CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8086架构（16位机）"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">8086架构（16位机）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编层面的内存"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">汇编层面的内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CS-IP"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">CS:IP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行过程"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#8086的工作过程"><span class="nav-number">1.1.3.5.1.</span> <span class="nav-text">8086的工作过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书中划线"><span class="nav-number">1.2.</span> <span class="nav-text">书中划线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验1-查看CPU和内存，用机器指令和汇编指令编程"><span class="nav-number">1.3.</span> <span class="nav-text">实验1 查看CPU和内存，用机器指令和汇编指令编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工具介绍"><span class="nav-number">1.3.1.</span> <span class="nav-text">工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#r-读写寄存器"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">r (读写寄存器)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-（读写内存）"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">d （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-（读写内存）"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">e （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-u-t"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">e+u+t</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">a</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验任务"><span class="nav-number">1.3.2.</span> <span class="nav-text">实验任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第二个实验"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">第二个实验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最后两个实验"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">最后两个实验</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
