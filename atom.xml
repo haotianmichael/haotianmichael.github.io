@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2018-10-10T13:38:06.772Z</updated>
+  <updated>2018-10-10T13:38:58.484Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>汇编语言（王爽）ch3</title>
+    <link href="http://haotianmcihael.github.io/2018/10/11/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%88%E7%8E%8B%E7%88%BD%EF%BC%89ch3/"/>
+    <id>http://haotianmcihael.github.io/2018/10/11/汇编语言（王爽）ch3/</id>
+    <published>2018-10-10T21:29:35.000Z</published>
+    <updated>2018-10-10T13:38:58.484Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="第三部分-指令核心"><a href="#第三部分-指令核心" class="headerlink" title="第三部分:指令核心"></a>第三部分:指令核心</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;第三部分-指令核心&quot;&gt;&lt;a href=&quot;#第三部分-指令核心&quot; class=&quot;headerlink&quot; title=&quot;第三部分:指令核心&quot;&gt;&lt;/a&gt;第三部分:指令核心&lt;/h2&gt;
+      
+    
+    </summary>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
+    
+    
+      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+  </entry>
   
   <entry>
     <title>汇编语言（王爽）ch2</title>
