@@ -113,7 +113,8 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/5.png">
-<meta property="og:updated_time" content="2018-10-10T13:15:08.273Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/6.png">
+<meta property="og:updated_time" content="2018-10-10T13:22:43.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch2">
 <meta name="twitter:description" content="第二部分:汇编结构笔记汇编语言的结构内存寻址 汇编的角度是寄存器。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
@@ -412,7 +413,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  1.7k
                 </span>
               
 
@@ -428,7 +429,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  5
+                  6
                 </span>
               
             </div>
@@ -477,7 +478,7 @@
 <p>从硬件角度讲，CPU只认被CS:IP指向的内存单元中的内容为指令。要让CPU执行我们放在代码段的指令，必须要将CS:IP指向所定义的代码段中的第一条指令的首地址。</p>
 </blockquote>
 <h5 id="栈段"><a href="#栈段" class="headerlink" title="栈段"></a>栈段</h5><blockquote>
-<p>   <strong>栈是一种先进后出的数据结构</strong>，这是最基本的栈的概念。这里讲到的栈指的是内存区域。从操作系统的角度讲一个线程需要分配一个栈(stack)。相对应的一个进程需要分配一个堆(heap)。栈的大小在分配的时候就已经确定好了，其作用主要是存放一些局部和确定的变量和数据。<br>   关于栈也有两个寄存器:<code>SS:SP</code>。换句话讲CPU如何知道一段内存区域是不是栈？栈顶的段地址厨房在<code>SS</code>中，而偏移地址放在<code>SP</code>中。<strong>任意时刻，SS:SP指向栈顶元素</strong>。这是规定。<br>   另外，上微机原理课的时候，老师讲到栈的分类:  </p>
+<p>   <strong>栈是一种先进后出的数据结构</strong>，这是最基本的栈的概念。这里讲到的栈指的是内存区域。从操作系统的角度讲一个线程需要分配一个栈(stack)。相对应的一个进程需要分配一个堆(heap)。栈的大小在分配的时候就已经确定好了，其作用主要是存放一些局部和确定的变量和数据。<br>   关于栈也有两个寄存器:<code>SS:SP</code>。换句话讲CPU如何知道一段内存区域是不是栈？栈顶的段地址放在<code>SS</code>中，而偏移地址放在<code>SP</code>中。<strong>任意时刻，SS:SP指向栈顶元素</strong>。这是规定。<br>   另外，上微机原理课的时候，老师讲到栈的分类:  </p>
 <ul>
 <li>向高地址生长的称为递增堆栈。</li>
 <li>向地地址生长的称为递减堆栈。<br> 地址延伸主要的影响就是内存中的大段寻址和小段寻址。<br>  <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/4.png" alt="pic4">  </li>
@@ -522,8 +523,11 @@ end
 </code></pre><blockquote>
 <p>   汇编指令指的是编译成为机器指令最终为CPU所执行的代码。伪指令没有相对应的机器指令，主要是由编译器来执行的指令。</p>
 </blockquote>
-<h5 id="编译、链接、执行"><a href="#编译、链接、执行" class="headerlink" title="编译、链接、执行"></a>编译、链接、执行</h5><pre><code>![pic6](https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/6.png)
-</code></pre><h3 id="实验2-用机器指令和汇编指令编程"><a href="#实验2-用机器指令和汇编指令编程" class="headerlink" title="实验2 用机器指令和汇编指令编程"></a>实验2 用机器指令和汇编指令编程</h3><h3 id="实验3-用编程、编译、连接、跟踪"><a href="#实验3-用编程、编译、连接、跟踪" class="headerlink" title="实验3 用编程、编译、连接、跟踪"></a>实验3 用编程、编译、连接、跟踪</h3>
+<h5 id="编译、链接、执行"><a href="#编译、链接、执行" class="headerlink" title="编译、链接、执行"></a>编译、链接、执行</h5><blockquote>
+<p>源程序经过编译成为可重定位文件，然后经过链接成为可执行文件。可执行文件是可以直接在操作系统中执行的。上述两种文件都属于ELF格式的文件，ELF是Linux下面的一种文件格式，具体的细节在后面的操作系统中会谈到，这里只是了解。  </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/6.png" alt="pic6"></p>
+<h3 id="实验2-用机器指令和汇编指令编程"><a href="#实验2-用机器指令和汇编指令编程" class="headerlink" title="实验2 用机器指令和汇编指令编程"></a>实验2 用机器指令和汇编指令编程</h3><h3 id="实验3-用编程、编译、连接、跟踪"><a href="#实验3-用编程、编译、连接、跟踪" class="headerlink" title="实验3 用编程、编译、连接、跟踪"></a>实验3 用编程、编译、连接、跟踪</h3>
       
     </div>
     
