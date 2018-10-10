@@ -114,7 +114,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/5.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/6.png">
-<meta property="og:updated_time" content="2018-10-10T13:22:43.144Z">
+<meta property="og:updated_time" content="2018-10-10T13:26:53.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch2">
 <meta name="twitter:description" content="第二部分:汇编结构笔记汇编语言的结构内存寻址 汇编的角度是寄存器。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
@@ -524,7 +524,7 @@ end
 <p>   汇编指令指的是编译成为机器指令最终为CPU所执行的代码。伪指令没有相对应的机器指令，主要是由编译器来执行的指令。</p>
 </blockquote>
 <h5 id="编译、链接、执行"><a href="#编译、链接、执行" class="headerlink" title="编译、链接、执行"></a>编译、链接、执行</h5><blockquote>
-<p>源程序经过编译成为可重定位文件，然后经过链接成为可执行文件。可执行文件是可以直接在操作系统中执行的。上述两种文件都属于ELF格式的文件，ELF是Linux下面的一种文件格式，具体的细节在后面的操作系统中会谈到，这里只是了解。  </p>
+<p>源程序经过编译成为可重定位文件，然后经过链接成为可执行文件。可执行文件是可以直接在操作系统中执行的。上述两种文件都属于ELF格式的文件，ELF是Linux下面的一种文件格式，具体的细节在后面的操作系统中会谈到，这里只是了解。<br>    <code>编程</code>（edit）————&gt;<code>1.asm</code>————&gt;<code>编译</code>(masm)————&gt;<code>1.obj</code>————&gt;<code>链接</code>(link)————&gt;<code>1.exe</code>————&gt;<code>加载</code>(shell)————&gt;<code>内存中的程序</code>————&gt;<code>运行</code>(CPU)</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/6.png" alt="pic6"></p>
 <h3 id="实验2-用机器指令和汇编指令编程"><a href="#实验2-用机器指令和汇编指令编程" class="headerlink" title="实验2 用机器指令和汇编指令编程"></a>实验2 用机器指令和汇编指令编程</h3><h3 id="实验3-用编程、编译、连接、跟踪"><a href="#实验3-用编程、编译、连接、跟踪" class="headerlink" title="实验3 用编程、编译、连接、跟踪"></a>实验3 用编程、编译、连接、跟踪</h3>
