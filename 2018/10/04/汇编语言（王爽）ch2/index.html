@@ -116,7 +116,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/6.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/7.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/8.png">
-<meta property="og:updated_time" content="2018-10-11T00:07:55.357Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/10.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/11.png">
+<meta property="og:updated_time" content="2018-10-11T02:15:23.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch2">
 <meta name="twitter:description" content="第二部分:汇编结构笔记汇编语言的结构内存寻址 汇编的角度是寄存器。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
@@ -415,7 +418,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.1k
+                  2.9k
                 </span>
               
 
@@ -431,7 +434,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  7
+                  10
                 </span>
               
             </div>
@@ -522,14 +525,24 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2000</span><br><span class="line">mov ss,ax</span><br><span class="line">mov sp,10</span><br><span class="line">mov ax,3123</span><br><span class="line">push ax</span><br><span class="line">mov ax,3366</span><br><span class="line">push ax</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>会发现在单步调试的时候，在<code>mov ss,ax</code>之后的下一条指令竟然不是<code>mov sp,10</code>。但是查看寄存器的时候发现实际上这条执行已经被执行结束了。这事第一个现象。</p>
+<p>会发现在单步调试的时候，在<code>mov ss,ax</code>之后的下一条指令竟然不是<code>mov sp,10</code>。但是查看寄存器的时候发现实际上这条执行已经被执行结束了。这是第一个现象。</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/7.png" alt="pic7"></p>
 <h4 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h4><blockquote>
-<p>对上面的代码继续调试，如下：<br>会发现最开始对栈初始化之后，到执行到<code>mov ss,ax</code>指令的时候，查看内存竟然会有变化，而且变化的这些数字还都是和段寄存器相关的。  </p>
+<p>对上面的代码继续调试，如下：<br>会发现最开始对栈初始化之后，到执行到<code>mov ss,ax</code>指令的时候，查看原来的栈段内容竟然不再是零，且这些数字还都是和段寄存器相关的。  </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/8.png" alt="pic8"></p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
+<p>下图是接下来的每一步后栈段中的内存变化。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/9.png" alt="pic9"><br>可以看到的现象是:开始的时候栈中是没有数据的，栈桢SP指向<code>2000:0010</code>的位置。<br>在<code>mov ss,ax</code>和<code>mov sp,10</code>这两步执行结束之后，发现栈中已经有数据了，这里称位初始化。初始化的一共有6字节的数据:4个字节为<code>CS:IP</code>，还有两字节在栈底确定为<code>01A3H</code>。<br>之后的每一条栈操作的指令执行结束之后栈中的<code>CS:IP</code>值也会跟着变化，这说明每一次指令都有可能产生一次中断。<br>但是在栈底的<code>01A3H</code>一直没有变化估计应该是中断向量号。在正式压栈操作的过程中发现最开始初始化过的那些数据并没有被压到栈底，<strong>这就意味着堆栈指针SP应该还在栈底，然后真正有数据项压栈的时候才会SP-=2操作。</strong></p>
+</blockquote>
+<h5 id="小实验"><a href="#小实验" class="headerlink" title="小实验"></a>小实验</h5><blockquote>
+<p>就上面的三个现象，我在想仅仅是初始化的过程就已经占据了一大半栈空间，那如果将栈大小调整成为8字节的。那会出现什么情况？<br>   我将<code>mov sp,10</code>改成<code>mov sp,08</code>；然后准备了8字节数据，所以栈会被压满。这时候我想看看现象。<br>这是一张初始化的图:<br>    <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/10.png" alt="pic10"></p>
+</blockquote>
+<blockquote>
+<p>这是末尾压栈满了的图:<br>    <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/11.png" alt="pic11"><br>因为书上关于中断的详细讲解在第四部分，所以这里只是一个猜测。现象中随着栈不断被压满，之前初始化的那些数据都被挤出去了，具体去哪了不知道。那6个字节的数据到底有什么用也不知道。  </p>
+</blockquote>
+<h5 id="猜测"><a href="#猜测" class="headerlink" title="猜测"></a>猜测</h5><blockquote>
+<p>不过可以知道的是初始化栈帧的时候会有参数压到栈里，参数有<code>CS:IP</code>和中断向量号，其中<code>CS:IP</code>还在<strong>不断变化</strong>。而随着栈中的数据越来越多，栈中的这6个字节的参数被慢慢挤出。难道这6个字节不重要吗，或者说只是在初始化的时候用了一下？但是过程中这些参数一直也在变化，所以不可能不重要.不过这些数据之所以放到栈中的原因一定不是为了存储，否则就不会被随便挤出。<br>结合第一部分实验，<code>mov sp,10</code>是紧跟着前一条指令执行的，所以我能想到的唯一一个合理的解释就是:这些参数是在指令执行过程中直接使用的，而执行过程对shell屏蔽不可见，所以在栈中数据越来越多的时候这些参数还可以随意的移动位置并且被抛弃，这些参数是过程中使用的参数，而这个过程就是中断！至于中断到底是什么，到第4章再详细学习吧。</p>
 </blockquote>
 <h3 id="实验3-用编程、编译、连接、跟踪"><a href="#实验3-用编程、编译、连接、跟踪" class="headerlink" title="实验3 用编程、编译、连接、跟踪"></a>实验3 用编程、编译、连接、跟踪</h3>
       
@@ -551,7 +564,7 @@
   <p><span>本文标题:</span><a href="/2018/10/04/汇编语言（王爽）ch2/">汇编语言（王爽）ch2</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 haotianmichael 的个人博客">haotianmichael</a></p>
   <p><span>发布时间:</span>2018年10月03日 - 20:10</p>
-  <p><span>最后更新:</span>2018年10月11日 - 08:10</p>
+  <p><span>最后更新:</span>2018年10月11日 - 10:10</p>
   <p><span>原始链接:</span><a href="/2018/10/04/汇编语言（王爽）ch2/" title="汇编语言（王爽）ch2">http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/"  aria-label="复制成功！"></i></span>
   </p>
@@ -789,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部分-汇编结构"><span class="nav-number">1.</span> <span class="nav-text">第二部分:汇编结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#汇编语言的结构"><span class="nav-number">1.1.1.</span> <span class="nav-text">汇编语言的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内存寻址"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">内存寻址</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#MOV指令"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text">MOV指令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据段"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">数据段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码段"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">代码段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#栈段"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">栈段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#栈指令"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">栈指令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#push执行过程"><span class="nav-number">1.1.1.5.1.</span> <span class="nav-text">push执行过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pop执行过程"><span class="nav-number">1.1.1.5.2.</span> <span class="nav-text">pop执行过程</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#段的概念"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">段的概念</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#汇编语言的编译、连接过程及其工具的使用"><span class="nav-number">1.1.2.</span> <span class="nav-text">汇编语言的编译、连接过程及其工具的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#源程序组成"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">源程序组成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译、链接、执行"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">编译、链接、执行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具进阶"><span class="nav-number">1.2.</span> <span class="nav-text">工具进阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验2-用机器指令和汇编指令编程"><span class="nav-number">1.3.</span> <span class="nav-text">实验2 用机器指令和汇编指令编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一部分"><span class="nav-number">1.3.1.</span> <span class="nav-text">第一部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二部分"><span class="nav-number">1.3.2.</span> <span class="nav-text">第二部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.3.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验3-用编程、编译、连接、跟踪"><span class="nav-number">1.4.</span> <span class="nav-text">实验3 用编程、编译、连接、跟踪</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部分-汇编结构"><span class="nav-number">1.</span> <span class="nav-text">第二部分:汇编结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#汇编语言的结构"><span class="nav-number">1.1.1.</span> <span class="nav-text">汇编语言的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内存寻址"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">内存寻址</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#MOV指令"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text">MOV指令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据段"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">数据段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码段"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">代码段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#栈段"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">栈段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#栈指令"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">栈指令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#push执行过程"><span class="nav-number">1.1.1.5.1.</span> <span class="nav-text">push执行过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pop执行过程"><span class="nav-number">1.1.1.5.2.</span> <span class="nav-text">pop执行过程</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#段的概念"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">段的概念</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#汇编语言的编译、连接过程及其工具的使用"><span class="nav-number">1.1.2.</span> <span class="nav-text">汇编语言的编译、连接过程及其工具的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#源程序组成"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">源程序组成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译、链接、执行"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">编译、链接、执行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具进阶"><span class="nav-number">1.2.</span> <span class="nav-text">工具进阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验2-用机器指令和汇编指令编程"><span class="nav-number">1.3.</span> <span class="nav-text">实验2 用机器指令和汇编指令编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一部分"><span class="nav-number">1.3.1.</span> <span class="nav-text">第一部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二部分"><span class="nav-number">1.3.2.</span> <span class="nav-text">第二部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.3.3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小实验"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">小实验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#猜测"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">猜测</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验3-用编程、编译、连接、跟踪"><span class="nav-number">1.4.</span> <span class="nav-text">实验3 用编程、编译、连接、跟踪</span></a></li></ol></li></ol></div>
             
 
           </div>
