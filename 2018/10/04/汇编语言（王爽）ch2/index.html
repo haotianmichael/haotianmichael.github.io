@@ -119,7 +119,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/9.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/10.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/11.png">
-<meta property="og:updated_time" content="2018-10-11T02:15:23.172Z">
+<meta property="og:updated_time" content="2018-10-11T02:22:58.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch2">
 <meta name="twitter:description" content="第二部分:汇编结构笔记汇编语言的结构内存寻址 汇编的角度是寄存器。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
@@ -533,7 +533,7 @@
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/8.png" alt="pic8"></p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
-<p>下图是接下来的每一步后栈段中的内存变化。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/9.png" alt="pic9"><br>可以看到的现象是:开始的时候栈中是没有数据的，栈桢SP指向<code>2000:0010</code>的位置。<br>在<code>mov ss,ax</code>和<code>mov sp,10</code>这两步执行结束之后，发现栈中已经有数据了，这里称位初始化。初始化的一共有6字节的数据:4个字节为<code>CS:IP</code>，还有两字节在栈底确定为<code>01A3H</code>。<br>之后的每一条栈操作的指令执行结束之后栈中的<code>CS:IP</code>值也会跟着变化，这说明每一次指令都有可能产生一次中断。<br>但是在栈底的<code>01A3H</code>一直没有变化估计应该是中断向量号。在正式压栈操作的过程中发现最开始初始化过的那些数据并没有被压到栈底，<strong>这就意味着堆栈指针SP应该还在栈底，然后真正有数据项压栈的时候才会SP-=2操作。</strong></p>
+<p>下图是接下来的每一步后栈段中的内存变化。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/9.png" alt="pic9"><br>可以看到的现象是:开始的时候栈中是没有数据的，栈桢SP指向<code>2000:0010</code>的位置。<br>在<code>mov ss,ax</code>和<code>mov sp,10</code>这两步执行结束之后，发现栈中已经有数据了，这里称为初始化。初始化的一共有6字节的数据:4个字节为<code>CS:IP</code>，还有两字节在栈底确定为<code>01A3H</code>。<br>之后的每一条栈操作的指令执行结束之后栈中的<code>CS:IP</code>值也会跟着变化，这说明每一次指令都有可能产生一次中断。<br>但是在栈底的<code>01A3H</code>一直没有变化估计应该是中断向量号。在正式压栈操作的过程中发现最开始初始化过的那些数据并没有被压到栈底，<strong>这就意味着堆栈指针SP应该还在栈底，然后真正有数据项压栈的时候才会SP-=2操作。</strong></p>
 </blockquote>
 <h5 id="小实验"><a href="#小实验" class="headerlink" title="小实验"></a>小实验</h5><blockquote>
 <p>就上面的三个现象，我在想仅仅是初始化的过程就已经占据了一大半栈空间，那如果将栈大小调整成为8字节的。那会出现什么情况？<br>   我将<code>mov sp,10</code>改成<code>mov sp,08</code>；然后准备了8字节数据，所以栈会被压满。这时候我想看看现象。<br>这是一张初始化的图:<br>    <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/10.png" alt="pic10"></p>
@@ -713,10 +713,10 @@
             
             
             <div class="site-state-item site-state-categories">
-              
+              <a href="/categories/index.html">
                 <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">categories</span>
-              
+              </a>
             </div>
           
 
@@ -724,10 +724,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">tags</span>
-              
+              </a>
             </div>
           
 
