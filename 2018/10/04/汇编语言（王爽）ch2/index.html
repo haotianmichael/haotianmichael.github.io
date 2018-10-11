@@ -119,7 +119,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/9.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/10.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/11.png">
-<meta property="og:updated_time" content="2018-10-11T03:40:13.679Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/12.png">
+<meta property="og:updated_time" content="2018-10-11T03:45:40.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch2">
 <meta name="twitter:description" content="第二部分:汇编结构笔记汇编语言的结构内存寻址 汇编的角度是寄存器。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
@@ -434,7 +435,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  10
+                  11
                 </span>
               
             </div>
@@ -548,7 +549,7 @@
 <p>不过可以知道的是初始化栈帧的时候会有参数压到栈里，参数有<code>CS:IP</code>和中断向量号，其中<code>CS:IP</code>还在<strong>不断变化</strong>。而随着栈中的数据越来越多，栈中的这6个字节的参数被慢慢挤出。难道这6个字节不重要吗，或者说只是在初始化的时候用了一下？但是过程中这些参数一直也在变化，所以不可能不重要.不过这些数据之所以放到栈中的原因一定不是为了存储，否则就不会被随便挤出。<br>结合第一部分实验，<code>mov sp,10</code>是紧跟着前一条指令执行的，所以我能想到的唯一一个合理的解释就是:这些参数是在指令执行过程中直接使用的，而执行过程对shell屏蔽不可见，所以在栈中数据越来越多的时候这些参数还可以随意的移动位置并且被抛弃，这些参数是过程中使用的参数，而这个过程就是中断！至于中断到底是什么，到第4章再详细学习吧。</p>
 </blockquote>
 <h3 id="实验3-用编程、编译、连接、跟踪"><a href="#实验3-用编程、编译、连接、跟踪" class="headerlink" title="实验3 用编程、编译、连接、跟踪"></a>实验3 用编程、编译、连接、跟踪</h3><blockquote>
-<p>最后一个实验查看PSP（就是加载开始前256字节）的内容。  </p>
+<p>最后一个实验查看PSP（就是加载开始前256字节）的内容。<br>使用<code>u</code>来查看汇编好像又和中断有关系。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/12.png" alt="pic12"></p>
 </blockquote>
 
       
