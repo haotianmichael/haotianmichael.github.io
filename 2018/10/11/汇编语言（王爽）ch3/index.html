@@ -112,7 +112,9 @@
 <meta property="og:description" content="第三部分:指令核心笔记内存寻址 内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，注意这里的内存指的是内存地址空间。CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/%2013.png">
-<meta property="og:updated_time" content="2018-10-12T00:26:25.624Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/7.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/13.png">
+<meta property="og:updated_time" content="2018-10-12T02:07:23.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch3">
 <meta name="twitter:description" content="第三部分:指令核心笔记内存寻址 内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，注意这里的内存指的是内存地址空间。CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。">
@@ -411,7 +413,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  2.2k
                 </span>
               
 
@@ -427,7 +429,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  4
+                  8
                 </span>
               
             </div>
@@ -509,10 +511,47 @@
 <h6 id="2-jcxz"><a href="#2-jcxz" class="headerlink" title="2-jcxz"></a>2-jcxz</h6><blockquote>
 <p>该指令为有条件转移指令，<strong>所有的有条件转移指令都是短转移</strong>。方式为:<br><code>if((cx)==0)jmp short offset</code><br>另外，所有的<code>loop</code>循环指令都是短转移。</p>
 </blockquote>
-<h5 id="CALL和RET指令"><a href="#CALL和RET指令" class="headerlink" title="CALL和RET指令"></a>CALL和RET指令</h5><blockquote>
+<h5 id="CALL和RET指令"><a href="#CALL和RET指令" class="headerlink" title="CALL和RET指令"></a>CALL和RET指令</h5><h6 id="ret-近转移"><a href="#ret-近转移" class="headerlink" title="ret(近转移)"></a>ret(近转移)</h6><blockquote>
+<p>书中说<strong>ret指令用栈中的数据修改IP中的内容</strong>。之前对栈有一个分类，这里的栈是<strong>满递减堆栈</strong>。所以由此可知堆栈指针<code>SP</code>一直指向最后一个压栈的数据。<code>ret</code>指令实际上把堆栈中的最后一个数据作为自己跳转的偏移地址。方式如下:<br><code>(IP)=((ss)*16+(sp))</code>,<code>(sp)=(sp)+2</code><br>从上面也可以看出来这两条指令等同于:<code>pop IP</code></p>
 </blockquote>
-<h4 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h4><p>### </p>
-
+<h6 id="retf-远转移"><a href="#retf-远转移" class="headerlink" title="retf(远转移)"></a>retf(远转移)</h6><blockquote>
+<p>书中说<strong>retf指令用栈中的数据修改IP和CS中的内容</strong>。类似:<br><code>(IP)=((ss)*16+(sp))</code>,<code>(sp)=(sp)+2</code><br><code>（CS）=（（ss）*16+(sp)）</code>,<code>(sp)=(sp)+2</code><br>这四条指令等同于:<code>pop IP</code>,<code>pop CS</code></p>
+</blockquote>
+<h6 id="call指令"><a href="#call指令" class="headerlink" title="call指令"></a>call指令</h6><blockquote>
+<p>call指令不能实现短转移，但是其转移的原理和jmp指令相同。如下：<br><code>(sp)=(sp)-2</code>,<code>((ss)*16+(sp))=(IP)</code>,<code>(IP)=(IP)+16位位移</code>这几条指令相当于:<br><code>push IP</code>和<code>jmp near ptr offset</code></p>
+</blockquote>
+<h6 id="call和ret指令-子程序"><a href="#call和ret指令-子程序" class="headerlink" title="call和ret指令(子程序)"></a>call和ret指令(子程序)</h6><blockquote>
+<p>先看一段代码:  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">start: mov ax,1</span><br><span class="line">	   mov cx,3</span><br><span class="line">	   call s</span><br><span class="line">	   mov bx,ax</span><br><span class="line">	   mov ax,4c00h</span><br><span class="line">	   int 21h</span><br><span class="line">	s: add ax,ax</span><br><span class="line">	   loop s</span><br><span class="line">	   ret</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>程序执行到<code>call s</code>的时候，IP指向了后面的一条指令，然后CPU执行<code>call s</code>指令————<code>将当前的IP（mov bx,ax的地址）压栈，然后修改为s地址</code>。然后子程序开始执行，执行结束之后执行<code>ret</code>指令————<code>从栈中弹出一个值，将CS:IP的值指向mov bx,ax</code>。然后返回为原来的地址。这两条指令为子程序的调用提供了可能。</p>
+</blockquote>
+<h4 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h4><blockquote>
+<p>寄存器是汇编程序员解决问题的最有利的手段，不仅仅在于可以存储数据，还具有辅助指令执行的功能。标志寄存器就是如此，<strong>用来存储CPU执行指令的某些执行结果。</strong>存储的信息称为“程序状态字PSW”。状态寄存器的每一位都有具体的含义。下面分别介绍:  </p>
+</blockquote>
+<h5 id="ZF标志"><a href="#ZF标志" class="headerlink" title="ZF标志"></a>ZF标志</h5><blockquote>
+<p>零标志位，相关指令执行结束如果结果为0，zf=1；如果不为0，zf=0.</p>
+</blockquote>
+<h5 id="PF标志"><a href="#PF标志" class="headerlink" title="PF标志"></a>PF标志</h5><blockquote>
+<p>奇偶标志位，相关指令执行结束如果结果的所有bit位中1的个数为偶数，pf=1,否则pf=0.</p>
+</blockquote>
+<h5 id="SF标志"><a href="#SF标志" class="headerlink" title="SF标志"></a>SF标志</h5><blockquote>
+<p>符号标志位，相关指令执行结束如果结果为负，sf=1；否则sf=0。<strong>该标志是CPU对有符号数计算结果的一种记录。</strong></p>
+</blockquote>
+<h5 id="CF标志"><a href="#CF标志" class="headerlink" title="CF标志"></a>CF标志</h5><blockquote>
+<p>进位标志位，在进行<strong>无符号</strong>数运算的时候，它记录了运算结果的最高有效位向更高位的进位值，或从更高位的借位值。</p>
+</blockquote>
+<h5 id="OF标志"><a href="#OF标志" class="headerlink" title="OF标志"></a>OF标志</h5><blockquote>
+<p>溢出标志位，在进行<strong>有符号</strong>数运算的时候，记录了是否发生溢出。</p>
+</blockquote>
+<h5 id="标志寄存器在Debug中的使用"><a href="#标志寄存器在Debug中的使用" class="headerlink" title="标志寄存器在Debug中的使用"></a>标志寄存器在Debug中的使用</h5><blockquote>
+<p>标志寄存器是按照有意义的各个标志位单独表示的。如下。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/7.png" alt="pic7"><br>下图是已知的标志位的表示:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/13.png" alt="pic13"></p>
+</blockquote>
+<h4 id="其他指令（总结性质）"><a href="#其他指令（总结性质）" class="headerlink" title="其他指令（总结性质）"></a>其他指令（总结性质）</h4><blockquote>
+<p>还有很多的指令比如<code>MOV</code>,<code>CMP</code>，<code>abc</code>等。但这里并不打算详细讲解每一条指令，就像书中所说:<strong>汇编语言只是载体，目的在于理解机器运行的原理和方式。</strong><br>至此，我们已经学习了<code>寄存器</code>，<code>内存</code>,<code>汇编指令</code>，并且掌握了一个<strong>正常的程序控制流</strong>在机器层面的运行过程。接下来的内容，就属于操作系统的层面，引入<strong>异常控制流</strong>，也就是在正常的执行过程中有外界干扰的情况，这是理解整个OS的重点，也是我写这几篇技术博客的主要学习目的。(<code>mit6.828</code>中的汇编大同小异，只是指令集换成了AT&amp;T的格式)。</p>
+</blockquote>
+<h3 id="实验7-寻址方式在结构化数据访问中的应用"><a href="#实验7-寻址方式在结构化数据访问中的应用" class="headerlink" title="实验7 寻址方式在结构化数据访问中的应用"></a>实验7 寻址方式在结构化数据访问中的应用</h3><h3 id="实验9-根据材料编程"><a href="#实验9-根据材料编程" class="headerlink" title="实验9 根据材料编程"></a>实验9 根据材料编程</h3><h3 id="实验10-编写子程序"><a href="#实验10-编写子程序" class="headerlink" title="实验10 编写子程序"></a>实验10 编写子程序</h3>
       
     </div>
     
@@ -532,7 +571,7 @@
   <p><span>本文标题:</span><a href="/2018/10/11/汇编语言（王爽）ch3/">汇编语言（王爽）ch3</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 haotianmichael 的个人博客">haotianmichael</a></p>
   <p><span>发布时间:</span>2018年10月10日 - 21:10</p>
-  <p><span>最后更新:</span>2018年10月12日 - 08:10</p>
+  <p><span>最后更新:</span>2018年10月12日 - 10:10</p>
   <p><span>原始链接:</span><a href="/2018/10/11/汇编语言（王爽）ch3/" title="汇编语言（王爽）ch3">http://haotianmcihael.github.io/2018/10/11/汇编语言（王爽）ch3/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/11/汇编语言（王爽）ch3/"  aria-label="复制成功！"></i></span>
   </p>
@@ -770,7 +809,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三部分-指令核心"><span class="nav-number">1.</span> <span class="nav-text">第三部分:指令核心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内存寻址"><span class="nav-number">1.1.1.</span> <span class="nav-text">内存寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据处理-总结性质"><span class="nav-number">1.1.2.</span> <span class="nav-text">数据处理(总结性质)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题一"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">问题一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题二"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">问题二</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指令详解"><span class="nav-number">1.1.3.</span> <span class="nav-text">指令详解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#伪指令补充"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">伪指令补充</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LOOP循环指令"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">LOOP循环指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JMP转移指令"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">JMP转移指令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-JMP-short-offset"><span class="nav-number">1.1.3.3.1.</span> <span class="nav-text">1-JMP short offset</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-JMP-near-ptr-offset"><span class="nav-number">1.1.3.3.2.</span> <span class="nav-text">1-JMP near ptr offset</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-JMP-far-ptr-offset"><span class="nav-number">1.1.3.3.3.</span> <span class="nav-text">2-JMP far ptr offset</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-JMP-16位reg"><span class="nav-number">1.1.3.3.4.</span> <span class="nav-text">2-JMP 16位reg</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-JMP-word-ptr-内存单元地址"><span class="nav-number">1.1.3.3.5.</span> <span class="nav-text">2-JMP word ptr 内存单元地址</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-jcxz"><span class="nav-number">1.1.3.3.6.</span> <span class="nav-text">2-jcxz</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CALL和RET指令"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">CALL和RET指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标志寄存器"><span class="nav-number">1.1.4.</span> <span class="nav-text">标志寄存器</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三部分-指令核心"><span class="nav-number">1.</span> <span class="nav-text">第三部分:指令核心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.1.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内存寻址"><span class="nav-number">1.1.1.</span> <span class="nav-text">内存寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据处理-总结性质"><span class="nav-number">1.1.2.</span> <span class="nav-text">数据处理(总结性质)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题一"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">问题一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题二"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">问题二</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指令详解"><span class="nav-number">1.1.3.</span> <span class="nav-text">指令详解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#伪指令补充"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">伪指令补充</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LOOP循环指令"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">LOOP循环指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JMP转移指令"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">JMP转移指令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-JMP-short-offset"><span class="nav-number">1.1.3.3.1.</span> <span class="nav-text">1-JMP short offset</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-JMP-near-ptr-offset"><span class="nav-number">1.1.3.3.2.</span> <span class="nav-text">1-JMP near ptr offset</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-JMP-far-ptr-offset"><span class="nav-number">1.1.3.3.3.</span> <span class="nav-text">2-JMP far ptr offset</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-JMP-16位reg"><span class="nav-number">1.1.3.3.4.</span> <span class="nav-text">2-JMP 16位reg</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-JMP-word-ptr-内存单元地址"><span class="nav-number">1.1.3.3.5.</span> <span class="nav-text">2-JMP word ptr 内存单元地址</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-jcxz"><span class="nav-number">1.1.3.3.6.</span> <span class="nav-text">2-jcxz</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CALL和RET指令"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">CALL和RET指令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ret-近转移"><span class="nav-number">1.1.3.4.1.</span> <span class="nav-text">ret(近转移)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#retf-远转移"><span class="nav-number">1.1.3.4.2.</span> <span class="nav-text">retf(远转移)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#call指令"><span class="nav-number">1.1.3.4.3.</span> <span class="nav-text">call指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#call和ret指令-子程序"><span class="nav-number">1.1.3.4.4.</span> <span class="nav-text">call和ret指令(子程序)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标志寄存器"><span class="nav-number">1.1.4.</span> <span class="nav-text">标志寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ZF标志"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">ZF标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PF标志"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">PF标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SF标志"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">SF标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CF标志"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">CF标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#OF标志"><span class="nav-number">1.1.4.5.</span> <span class="nav-text">OF标志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#标志寄存器在Debug中的使用"><span class="nav-number">1.1.4.6.</span> <span class="nav-text">标志寄存器在Debug中的使用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他指令（总结性质）"><span class="nav-number">1.1.5.</span> <span class="nav-text">其他指令（总结性质）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验7-寻址方式在结构化数据访问中的应用"><span class="nav-number">1.2.</span> <span class="nav-text">实验7 寻址方式在结构化数据访问中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验9-根据材料编程"><span class="nav-number">1.3.</span> <span class="nav-text">实验9 根据材料编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验10-编写子程序"><span class="nav-number">1.4.</span> <span class="nav-text">实验10 编写子程序</span></a></li></ol></li></ol></div>
             
 
           </div>
