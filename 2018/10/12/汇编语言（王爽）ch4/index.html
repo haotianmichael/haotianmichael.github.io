@@ -125,7 +125,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/14.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/15.png">
-<meta property="og:updated_time" content="2018-10-13T03:09:52.897Z">
+<meta property="og:updated_time" content="2018-10-13T03:13:10.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch4">
 <meta name="twitter:description" content="第四部分:中断Abstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。作者很强调知识屏蔽以达到专注统一的目的。个人认为从汇编的角度看中断本身就具有一定的局限性，主要体现在写汇编的人无法一直">
@@ -466,7 +466,7 @@
 <p>在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是<code>CS:IP</code>的跳转<strong>唯一取决于</strong>汇编程序员的代码。<code>CSAPP</code>将这个过程称为<strong>程序控制流</strong>。而<strong>中断</strong>则是将这种流程打断，建立更复杂的<strong>异常控制流</strong>。中断分为<code>内中断</code>和<code>外中断</code>两种。<br>作者很强调<code>知识屏蔽</code>以达到专注统一的目的。个人认为从汇编的角度看中断本身就具有一定的局限性，主要体现在写汇编的人无法<strong>一直</strong>站在纯硬件的角度来思考。有组成原理的基础当然很好————但就本书来讲，汇编也只是其中一种角度而已。<br><a id="more"></a></p>
 </blockquote>
 <h3 id="内中断"><a href="#内中断" class="headerlink" title="内中断"></a>内中断</h3><h4 id="中断产生"><a href="#中断产生" class="headerlink" title="中断产生"></a>中断产生</h4><blockquote>
-<p>8086CPU使用<strong>中断类型码</strong>来标识中断信息的来源。中断类型码为一个字节型数据，可以表示256种<strong>中断信息的来源</strong>————具体指的是产生中断信息的事件，简称<strong>中断源</strong>。下面是8086中4中常见的中断源及其中断类型码:  </p>
+<p>8086CPU使用<strong>中断类型码</strong>来标识中断信息的来源。中断类型码为一个字节型数据，可以表示256种<strong>中断信息的来源</strong>————具体指的是产生中断信息的事件，简称<strong>中断源</strong>。下面是8086中4种常见的中断源及其中断类型码:  </p>
 <ul>
 <li>除法错误: 0</li>
 <li>单步执行: 1</li>
