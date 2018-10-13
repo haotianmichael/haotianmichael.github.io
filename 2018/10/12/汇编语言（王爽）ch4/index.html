@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="第四部分:中断笔记">
+<meta name="description" content="第四部分:中断Abstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。作者很强调知识屏蔽以达到专注统一的目的。个人认为从汇编的角度看中断本身就具有一定的局限性，主要体现在写汇编的人无法一直">
 <meta name="keywords" content="i386,Assembly">
 <meta property="og:type" content="article">
 <meta property="og:title" content="汇编语言（王爽）ch4">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/index.html">
 <meta property="og:site_name" content="HBlog">
-<meta property="og:description" content="第四部分:中断笔记">
+<meta property="og:description" content="第四部分:中断Abstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。作者很强调知识屏蔽以达到专注统一的目的。个人认为从汇编的角度看中断本身就具有一定的局限性，主要体现在写汇编的人无法一直">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-11T13:28:28.815Z">
+<meta property="og:updated_time" content="2018-10-13T02:02:36.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch4">
-<meta name="twitter:description" content="第四部分:中断笔记">
+<meta name="twitter:description" content="第四部分:中断Abstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。作者很强调知识屏蔽以达到专注统一的目的。个人认为从汇编的角度看中断本身就具有一定的局限性，主要体现在写汇编的人无法一直">
 
 
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  8
+                  221
                 </span>
               
 
@@ -459,7 +459,12 @@
       
 
       
-        <h2 id="第四部分-中断"><a href="#第四部分-中断" class="headerlink" title="第四部分:中断"></a>第四部分:中断</h2><h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3>
+        <h2 id="第四部分-中断"><a href="#第四部分-中断" class="headerlink" title="第四部分:中断"></a>第四部分:中断</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是<code>CS:IP</code>的跳转<strong>唯一取决于</strong>汇编程序员的代码。<code>CSAPP</code>将这个过程称为<strong>程序控制流</strong>。而<strong>中断</strong>则是将这种流程打断，建立更复杂的<strong>异常控制流</strong>。中断分为<code>内中断</code>和<code>外中断</code>两种。<br>作者很强调<code>知识屏蔽</code>以达到专注统一的目的。个人认为从汇编的角度看中断本身就具有一定的局限性，主要体现在写汇编的人无法<strong>一直</strong>站在纯硬件的角度来思考。有组成原理的基础当然很好————但就本书来讲，汇编也只是其中一种角度而已。<br><a id="more"></a></p>
+</blockquote>
+<h3 id="内中断"><a href="#内中断" class="headerlink" title="内中断"></a>内中断</h3><h4 id="基本过程"><a href="#基本过程" class="headerlink" title="基本过程"></a>基本过程</h4><blockquote>
+</blockquote>
+
       
     </div>
     
@@ -479,7 +484,7 @@
   <p><span>本文标题:</span><a href="/2018/10/12/汇编语言（王爽）ch4/">汇编语言（王爽）ch4</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 haotianmichael 的个人博客">haotianmichael</a></p>
   <p><span>发布时间:</span>2018年10月11日 - 21:10</p>
-  <p><span>最后更新:</span>2018年10月11日 - 21:10</p>
+  <p><span>最后更新:</span>2018年10月13日 - 10:10</p>
   <p><span>原始链接:</span><a href="/2018/10/12/汇编语言（王爽）ch4/" title="汇编语言（王爽）ch4">http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/"  aria-label="复制成功！"></i></span>
   </p>
@@ -715,7 +720,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四部分-中断"><span class="nav-number">1.</span> <span class="nav-text">第四部分:中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.1.</span> <span class="nav-text">笔记</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四部分-中断"><span class="nav-number">1.</span> <span class="nav-text">第四部分:中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内中断"><span class="nav-number">1.2.</span> <span class="nav-text">内中断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本过程"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本过程</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
