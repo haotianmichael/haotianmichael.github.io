@@ -123,10 +123,13 @@
 <meta property="og:site_name" content="HBlog">
 <meta property="og:description" content="第四部分:中断Abstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。作者很强调知识屏蔽以达到专注统一的目的。个人认为从汇编的角度看中断本身就具有一定的局限性，主要体现在写汇编的人无法一直">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-13T02:02:36.538Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/14.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/15.png">
+<meta property="og:updated_time" content="2018-10-13T03:09:52.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch4">
 <meta name="twitter:description" content="第四部分:中断Abstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。作者很强调知识屏蔽以达到专注统一的目的。个人认为从汇编的角度看中断本身就具有一定的局限性，主要体现在写汇编的人无法一直">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/14.png">
 
 
 
@@ -422,7 +425,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  221
+                  740
                 </span>
               
 
@@ -438,7 +441,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  2
                 </span>
               
             </div>
@@ -462,9 +465,34 @@
         <h2 id="第四部分-中断"><a href="#第四部分-中断" class="headerlink" title="第四部分:中断"></a>第四部分:中断</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
 <p>在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是<code>CS:IP</code>的跳转<strong>唯一取决于</strong>汇编程序员的代码。<code>CSAPP</code>将这个过程称为<strong>程序控制流</strong>。而<strong>中断</strong>则是将这种流程打断，建立更复杂的<strong>异常控制流</strong>。中断分为<code>内中断</code>和<code>外中断</code>两种。<br>作者很强调<code>知识屏蔽</code>以达到专注统一的目的。个人认为从汇编的角度看中断本身就具有一定的局限性，主要体现在写汇编的人无法<strong>一直</strong>站在纯硬件的角度来思考。有组成原理的基础当然很好————但就本书来讲，汇编也只是其中一种角度而已。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="内中断"><a href="#内中断" class="headerlink" title="内中断"></a>内中断</h3><h4 id="基本过程"><a href="#基本过程" class="headerlink" title="基本过程"></a>基本过程</h4><blockquote>
+<h3 id="内中断"><a href="#内中断" class="headerlink" title="内中断"></a>内中断</h3><h4 id="中断产生"><a href="#中断产生" class="headerlink" title="中断产生"></a>中断产生</h4><blockquote>
+<p>8086CPU使用<strong>中断类型码</strong>来标识中断信息的来源。中断类型码为一个字节型数据，可以表示256种<strong>中断信息的来源</strong>————具体指的是产生中断信息的事件，简称<strong>中断源</strong>。下面是8086中4中常见的中断源及其中断类型码:  </p>
+<ul>
+<li>除法错误: 0</li>
+<li>单步执行: 1</li>
+<li>执行<code>into</code>指令: 4</li>
+<li>执行<code>int n</code>指令: n</li>
+</ul>
 </blockquote>
-
+<h4 id="中断过程"><a href="#中断过程" class="headerlink" title="中断过程"></a>中断过程</h4><blockquote>
+<p>CPU获得<strong>中断类型码</strong>之后，需要跳转到该<strong>中断类型码</strong>对应的<strong>中断处理程序</strong>中进行处理。如何跳转呢？使用<strong>中断向量表</strong>。而跳转通常意味着改变CPU的状态，所以需要使用栈来保存现场。所以<strong>识别</strong>，<strong>保存</strong>和<strong>跳转</strong>就是中断过程主要干的事儿————其中识别由硬件完成！<br><strong>中断向量表</strong>保存在内存<code>0000:0000</code>到<code>0000:03FF</code>的这1KB单元里。一个表项存放一个<strong>中断向量</strong>————也就是中断处理程序的地址入口。占2个字节，高地址放段地址，低地址放偏移地址。</p>
+</blockquote>
+<h5 id="识别"><a href="#识别" class="headerlink" title="识别"></a>识别</h5><blockquote>
+<p>下图是一张8086的内存分布图:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/14.png" alt="pic14"><br>从内存0开始，所以存储<code>N号中断源对应的中断向量的偏移地址</code>的内存地址为:<code>0000:4N</code>，存储<code>N号中断源对应的中断向量的段地址</code>的内存地址为:<code>0000：4N+2</code>。看下图:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/15.png" alt="pic15">  </p>
+</blockquote>
+<h5 id="跳转和保存"><a href="#跳转和保存" class="headerlink" title="跳转和保存"></a>跳转和保存</h5><ul>
+<li>获得中断类型码</li>
+<li>标志寄存器的值入栈: <code>pushf</code></li>
+<li>设置标志寄存器第8位TF和第9位IF的值位0: TF=0,IF=0</li>
+<li>CS的内容入栈: <code>push CS</code></li>
+<li>IP的内容入栈: <code>push IP</code></li>
+<li>通过中断类型码获取入口地址: <code>(IP)=(N*4),(CS)=(N*4+2)</code></li>
+<li>最后一步执行结束后，CPU开始执行由程序员编写的中断处理程序  </li>
+</ul>
+<h4 id="中断处理"><a href="#中断处理" class="headerlink" title="中断处理"></a>中断处理</h4><blockquote>
+<p>所谓中断处理程序就是在操作系统对各种中断的反应。 下面的实验就是通过来实现中断处理程序。</p>
+</blockquote>
+<h4 id="实验-编写0号中断的处理程序"><a href="#实验-编写0号中断的处理程序" class="headerlink" title="实验 编写0号中断的处理程序"></a>实验 编写0号中断的处理程序</h4>
       
     </div>
     
@@ -484,7 +512,7 @@
   <p><span>本文标题:</span><a href="/2018/10/12/汇编语言（王爽）ch4/">汇编语言（王爽）ch4</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 haotianmichael 的个人博客">haotianmichael</a></p>
   <p><span>发布时间:</span>2018年10月11日 - 21:10</p>
-  <p><span>最后更新:</span>2018年10月13日 - 10:10</p>
+  <p><span>最后更新:</span>2018年10月13日 - 11:10</p>
   <p><span>原始链接:</span><a href="/2018/10/12/汇编语言（王爽）ch4/" title="汇编语言（王爽）ch4">http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/"  aria-label="复制成功！"></i></span>
   </p>
@@ -720,7 +748,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四部分-中断"><span class="nav-number">1.</span> <span class="nav-text">第四部分:中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内中断"><span class="nav-number">1.2.</span> <span class="nav-text">内中断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本过程"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本过程</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四部分-中断"><span class="nav-number">1.</span> <span class="nav-text">第四部分:中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内中断"><span class="nav-number">1.2.</span> <span class="nav-text">内中断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中断产生"><span class="nav-number">1.2.1.</span> <span class="nav-text">中断产生</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断过程"><span class="nav-number">1.2.2.</span> <span class="nav-text">中断过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#识别"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">识别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#跳转和保存"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">跳转和保存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断处理"><span class="nav-number">1.2.3.</span> <span class="nav-text">中断处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验-编写0号中断的处理程序"><span class="nav-number">1.2.4.</span> <span class="nav-text">实验 编写0号中断的处理程序</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
