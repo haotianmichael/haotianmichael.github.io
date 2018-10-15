@@ -132,7 +132,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/20.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/21.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/22.png">
-<meta property="og:updated_time" content="2018-10-15T05:16:17.972Z">
+<meta property="og:updated_time" content="2018-10-15T05:22:42.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch4">
 <meta name="twitter:description" content="第四部分:中断Abstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。作者很强调知识屏蔽以达到专注统一的目的。但是从汇编的角度看中断本身也是具有一定的局限性，主要体现在写汇编的人无法一直站">
@@ -570,7 +570,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,0b800h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,160*12  //确定显存的地址</span><br><span class="line"></span><br><span class="line">	mov bx,offset s-offset se</span><br><span class="line">	mov cx,80</span><br><span class="line">s:	mov byte ptr es:[di],&apos;!&apos;</span><br><span class="line">	add di,2</span><br><span class="line">	int 7ch    //在这里int指令充当了loop的功能</span><br><span class="line"></span><br><span class="line">se:	nop</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h	</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
 <p>然后执行<code>demo.exe</code>,看现象:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/22.png" alt="pic22"></p>
 <h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><blockquote>
-<p>这是最简单的一个例程，不过我们可以因此也得知对<strong>跳转指令</strong>和<strong>栈</strong>的重要性!</p>
+<p>这是最简单的一个例程，不过我们可以因此得知<strong>跳转指令</strong>和<strong>栈</strong>的重要性!</p>
 </blockquote>
 
       
