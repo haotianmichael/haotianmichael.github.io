@@ -133,8 +133,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/21.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/22.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/23.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/24.png">
-<meta property="og:updated_time" content="2018-10-15T07:13:40.864Z">
+<meta property="og:updated_time" content="2018-10-15T07:18:42.285Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch4">
 <meta name="twitter:description" content="第四部分:中断Abstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。作者很强调知识屏蔽以达到专注统一的目的。但是从汇编的角度看中断本身也是具有一定的局限性，主要体现在写汇编的人无法一直站">
@@ -434,7 +433,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  3.4k
+                  3.5k
                 </span>
               
 
@@ -591,9 +590,11 @@
 <p><strong>int 10h</strong>用来设置和字符和光标。见代码:  </p>
 </blockquote>
 <blockquote>
-<p>看现象:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/23.png" alt="pic23"></p>
+<p>看现象:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/23.png" alt="pic23">  </p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ah,2  	  ;置光标	</span><br><span class="line">	mov bh,0		;第0页</span><br><span class="line">	mov dh,5		;行号</span><br><span class="line">	mov dl,12		;列号</span><br><span class="line">	int 10h	</span><br><span class="line"></span><br><span class="line">	mov ah,9   ;在光标位置显示字符</span><br><span class="line">	mov al, &apos;a&apos;  ;字符</span><br><span class="line">	mov bl,11001010b   ;颜色属性</span><br><span class="line">	mov bh,0    ;第0页</span><br><span class="line">	mov cx,5   ;字符重复个数</span><br><span class="line">	int 10h</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h </span><br><span class="line"></span><br><span class="line">code ends </span><br><span class="line">end	</span><br><span class="line"></span><br><span class="line">```   </span><br><span class="line"></span><br><span class="line">##### DOS中断例程</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下面是代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ah,2  	  ;置光标	</span><br><span class="line">	mov bh,0		;第0页</span><br><span class="line">	mov dh,5		;行号</span><br><span class="line">	mov dl,12		;列号</span><br><span class="line">	int 10h	</span><br><span class="line"></span><br><span class="line">	mov ah,9   ;在光标位置显示字符</span><br><span class="line">	mov al, &apos;a&apos;  ;字符</span><br><span class="line">	mov bl,11001010b   ;颜色属性</span><br><span class="line">	mov bh,0    ;第0页</span><br><span class="line">	mov cx,5   ;字符重复个数</span><br><span class="line">	int 10h</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h </span><br><span class="line"></span><br><span class="line">code ends </span><br><span class="line">end	</span><br><span class="line"></span><br><span class="line">```   </span><br><span class="line"></span><br><span class="line">##### DOS中断例程</span><br><span class="line">&gt;DOS中断**int 21h**，之前一直使用**4ch00**参数即程序返回功能:`mov ah, 4ch`,`mov al,0`,`int 21h`。  </span><br><span class="line">&gt;参数**ah=9**表示调用第21h号中断例程的9号子程序:在光标位置上显示字符串.看现象:  </span><br><span class="line">![pic24](https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/24.png)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
 <pre><code>assume cs:code
 data segment
 db &apos;Dos is shit!&apos;,&apos;$&apos;
@@ -610,9 +611,6 @@ int 21h       ;DOS中断例程
 mov ax,4c00h
 int 21h
 </code></pre><p>code ends<br>end start<br><code>`</code></p>
-<blockquote>
-<p>DOS中断<strong>int 21h</strong>，之前一直使用<strong>4ch00</strong>参数即程序返回功能:<code>mov ah, 4ch</code>,<code>mov al,0</code>,<code>int 21h</code>。<br>参数<strong>ah=9</strong>表示调用第21h号中断例程的9号子程序:在光标位置上显示字符串.看现象:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/24.png" alt="pic24"></p>
-</blockquote>
 
       
     </div>
