@@ -129,7 +129,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/17.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/18.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/19.png">
-<meta property="og:updated_time" content="2018-10-15T02:35:27.715Z">
+<meta property="og:updated_time" content="2018-10-15T03:39:51.234Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch4">
 <meta name="twitter:description" content="第四部分:中断Abstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。作者很强调知识屏蔽以达到专注统一的目的。但是从汇编的角度看中断本身也是具有一定的局限性，主要体现在写汇编的人无法一直站">
@@ -429,7 +429,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.5k
+                  2.8k
                 </span>
               
 
@@ -445,7 +445,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  9
+                  10
                 </span>
               
             </div>
@@ -545,13 +545,23 @@
 <p>至此，应该已经完全可以看懂这些汇编程序。可是核心的功能呢？如下:<br>跳转到标号s处需要知道s的段地址和偏移地址。先来分析一下在执行<code>int 7ch</code>之后发生了什么？画得不好凑活着看吧:)<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/19.png" width="300" height="200" alt="图片名称" align="center"></p>
 </blockquote>
 <blockquote>
-<p>首先标志寄存器入栈，然后对se标号的CS:IP压栈。因为代码只有一个段，所以se的段地址和s的段地址一样。而<code>bx</code>中存储了<code>s-se</code>，所以对于s来说:<code>bx+se</code>就是它自己的偏移量。而se的偏移量就是栈中的<code>IP</code>。所以思路顺下来了。可以写代码了。</p>
+<p>x86中的栈是一个<strong>满堆栈</strong>。首先标志寄存器入栈，然后对se标号的CS:IP压栈。因为代码只有一个段，所以se的段地址和s的段地址一样。而<code>bx</code>中存储了<code>s-se</code>，所以对于s来说:<code>bx+se</code>就是它自己的偏移量。而se的偏移量就是栈中的<code>IP</code>。所以思路顺下来了。可以写代码了。</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lp: push bp</span><br><span class="line">	mov bp,sp</span><br><span class="line">	dec cx      //cx--</span><br><span class="line">	jcxz lpret       //if(cx=0) (cs:ip)=lpret</span><br><span class="line">	add [bp+2],bx   //重点</span><br><span class="line">lpret: pop bp</span><br><span class="line">	iret</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>上述代码中<code>add [bp+2],bx</code>就是前面刚顺下来的算法实现。将栈中的<code>IP</code>修改称为s的偏移地址。</p>
+<p>上述代码中<code>add [bp+2],bx</code>就是前面刚顺下来的算法实现。将栈中的<code>IP</code>修改称为s的偏移地址。这里的重点是<code>iret</code>指令，这个指令和跳转指令经常组合在一起共同使用，相当于<code>pop ip</code>,<code>pop cs</code>,<code>popf</code>这三条指令的和。<strong>上述代码就是在栈中修改好<code>CS:IP</code>的值，然后使用<code>iret</code>出栈执行。</strong></p>
 </blockquote>
-
+<h5 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h5><blockquote>
+<p>本次实验的过程实际上就是分为两部分:<code>安装例程</code>和<code>执行例程</code>。</p>
+</blockquote>
+<h6 id="安装例程"><a href="#安装例程" class="headerlink" title="安装例程"></a>安装例程</h6><blockquote>
+<p>对于<code>7ch</code>中断类型码来说，对应的中断例程地址应该在<code>0000:01f0</code>。我们<strong>首先将中断例程写进该地址，然后修改中断向量表项。</strong>  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">	code segment</span><br><span class="line">start:</span><br><span class="line">	mov ax,cs</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov si,offset do0</span><br><span class="line">	mov ax,0</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,200h</span><br><span class="line"></span><br><span class="line">	mov cx,offset do0end-offset do0   //将中断例程写进对应的地址中</span><br><span class="line"></span><br><span class="line">	cld</span><br><span class="line">	rep movsb</span><br><span class="line"></span><br><span class="line">	mov ax,0   //这4行代码修改中断向量表</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov word ptr es:[7ch*4],200h</span><br><span class="line">	mov word ptr es:[7ch*4+2],0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">do0:     //这是中断例程</span><br><span class="line">	push bp</span><br><span class="line">	mov bp,sp</span><br><span class="line">	dec cx</span><br><span class="line">	jcxz lpret</span><br><span class="line">	add [bp+2],bx</span><br><span class="line">lpret:	pop bp</span><br><span class="line">	iret</span><br><span class="line">	</span><br><span class="line">do0end:	nop</span><br><span class="line">	</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们将上述代码保存为<code>sample.asm</code>然后编译连接。见下图:</p>
+</blockquote>
+<h6 id="执行例程"><a href="#执行例程" class="headerlink" title="执行例程"></a>执行例程</h6>
       
     </div>
     
@@ -571,7 +581,7 @@
   <p><span>本文标题:</span><a href="/2018/10/12/汇编语言（王爽）ch4/">汇编语言（王爽）ch4</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 haotianmichael 的个人博客">haotianmichael</a></p>
   <p><span>发布时间:</span>2018年10月11日 - 21:10</p>
-  <p><span>最后更新:</span>2018年10月15日 - 10:10</p>
+  <p><span>最后更新:</span>2018年10月15日 - 11:10</p>
   <p><span>原始链接:</span><a href="/2018/10/12/汇编语言（王爽）ch4/" title="汇编语言（王爽）ch4">http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/"  aria-label="复制成功！"></i></span>
   </p>
@@ -807,7 +817,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四部分-中断"><span class="nav-number">1.</span> <span class="nav-text">第四部分:中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内中断"><span class="nav-number">1.2.</span> <span class="nav-text">内中断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中断产生"><span class="nav-number">1.2.1.</span> <span class="nav-text">中断产生</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断过程"><span class="nav-number">1.2.2.</span> <span class="nav-text">中断过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#识别"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">识别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#跳转和保存"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">跳转和保存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断处理"><span class="nav-number">1.2.3.</span> <span class="nav-text">中断处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#0号中断"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">0号中断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验-编写0号中断的处理程序"><span class="nav-number">1.2.4.</span> <span class="nav-text">实验 编写0号中断的处理程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装处理程序do0"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">安装处理程序do0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置中断向量号"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">设置中断向量号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#验证"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">验证</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#现象"><span class="nav-number">1.2.4.3.1.</span> <span class="nav-text">现象</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1号中断"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">1号中断</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-指令"><span class="nav-number">1.3.</span> <span class="nav-text">int 指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中断例程"><span class="nav-number">1.3.1.</span> <span class="nav-text">中断例程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写loop中断例程"><span class="nav-number">1.3.2.</span> <span class="nav-text">编写loop中断例程</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四部分-中断"><span class="nav-number">1.</span> <span class="nav-text">第四部分:中断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内中断"><span class="nav-number">1.2.</span> <span class="nav-text">内中断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中断产生"><span class="nav-number">1.2.1.</span> <span class="nav-text">中断产生</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断过程"><span class="nav-number">1.2.2.</span> <span class="nav-text">中断过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#识别"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">识别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#跳转和保存"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">跳转和保存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中断处理"><span class="nav-number">1.2.3.</span> <span class="nav-text">中断处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#0号中断"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">0号中断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验-编写0号中断的处理程序"><span class="nav-number">1.2.4.</span> <span class="nav-text">实验 编写0号中断的处理程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装处理程序do0"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">安装处理程序do0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置中断向量号"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">设置中断向量号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#验证"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">验证</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#现象"><span class="nav-number">1.2.4.3.1.</span> <span class="nav-text">现象</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1号中断"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">1号中断</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-指令"><span class="nav-number">1.3.</span> <span class="nav-text">int 指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中断例程"><span class="nav-number">1.3.1.</span> <span class="nav-text">中断例程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写loop中断例程"><span class="nav-number">1.3.2.</span> <span class="nav-text">编写loop中断例程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#结果"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">结果</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#安装例程"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">安装例程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#执行例程"><span class="nav-number">1.3.2.1.2.</span> <span class="nav-text">执行例程</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
