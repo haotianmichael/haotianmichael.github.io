@@ -123,12 +123,12 @@
 <meta property="og:site_name" content="HBlog">
 <meta property="og:description" content="第五部分:中断IIAbstract CPU实现I/O功能的两个问题:从何处获得外设的输入？如何解决外设输入随时可能发生的问题？首先外设芯片内部有若干寄存器，CPU将这些寄存器当做端口来访问。外设的输入输出不直接送入CPU和内存而是通过这些寄存器。第二，CPU通过外中断控制I/O的随时性。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://github.com/haotianmichael/markdownPhotos/blob/master/i386/25.png">
-<meta property="og:updated_time" content="2018-10-15T13:05:53.473Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/25.png">
+<meta property="og:updated_time" content="2018-10-15T13:09:54.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch5">
 <meta name="twitter:description" content="第五部分:中断IIAbstract CPU实现I/O功能的两个问题:从何处获得外设的输入？如何解决外设输入随时可能发生的问题？首先外设芯片内部有若干寄存器，CPU将这些寄存器当做端口来访问。外设的输入输出不直接送入CPU和内存而是通过这些寄存器。第二，CPU通过外中断控制I/O的随时性。">
-<meta name="twitter:image" content="https://github.com/haotianmichael/markdownPhotos/blob/master/i386/25.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/25.png">
 
 
 
@@ -501,7 +501,7 @@
 <p>其中<code>cmp al,1</code>和<code>jne int9ret</code>就相当于<code>if_else</code>的功能。在主程序中有了栈，栈在中断例程中的主要作用就是保护现场，分析一下:  </p>
 <ul>
 <li>需要保护最开始的<code>int 9h</code>的中断向量号</li>
-<li>因为在显示字符的主程序中，<code>ax</code>,<code>es</code>,<code>bx</code>都保存了重要的中间参数，所以需要保护<br>除此之外,栈并没有起到什么作用。这样看下来其实源程序也简单了不少。<br><img src="https://github.com/haotianmichael/markdownPhotos/blob/master/i386/25.png" alt="pic25"></li>
+<li>因为在显示字符的主程序中，<code>ax</code>,<code>es</code>,<code>bx</code>都保存了重要的中间参数，所以需要保护<br>除此之外,栈并没有起到什么作用。这样看下来其实源程序也简单了不少。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/25.png" alt="pic25"></li>
 </ul>
 </blockquote>
 
