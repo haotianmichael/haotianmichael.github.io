@@ -2,19 +2,41 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>HBlog</title>
   
-  <subtitle>Haotian</subtitle>
+  <subtitle>Mechanic</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2018-10-15T13:09:54.889Z</updated>
+  <updated>2018-10-20T07:16:25.409Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
-    <name>haotianmichael</name>
+    <name>Tony Ma</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>8086实模式和保护模式</title>
+    <link href="http://haotianmcihael.github.io/2018/10/20/8086%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%92%8C%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://haotianmcihael.github.io/2018/10/20/8086实模式和保护模式/</id>
+    <published>2018-10-20T15:13:53.000Z</published>
+    <updated>2018-10-20T07:16:25.409Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
+    
+    
+      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="Operating System" scheme="http://haotianmcihael.github.io/tags/Operating-System/"/>
+    
+  </entry>
   
   <entry>
     <title>汇编语言（王爽）ch5</title>
