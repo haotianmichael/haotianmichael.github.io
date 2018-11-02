@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>HBlog</title>
   
-  <subtitle>Mechanic</subtitle>
+  <subtitle>Haotian</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
@@ -10,7 +10,7 @@
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
-    <name>Tony Ma</name>
+    <name>HaotianMichael</name>
     
   </author>
   
