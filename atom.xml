@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2018-10-15T13:09:54.889Z</updated>
+  <updated>2018-11-04T11:15:10.656Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mit6.828(Fall 2018) Lab0</title>
+    <link href="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/"/>
+    <id>http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/</id>
+    <published>2018-11-04T16:35:45.000Z</published>
+    <updated>2018-11-04T11:15:10.656Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Lab0"><a href="#Lab0" class="headerlink" title="Lab0"></a>Lab0</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>从<code>8086汇编</code>实验之后，前后两周的时间勉强通过Lab1。<br>最大的感触是<strong>基础太差</strong>:对C语言的理解，对程序编译链接本质的理解，对<code>GDB</code>等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。<br>但是这次触动中却又多了一丝<code>见山不是山，见山又是山</code>的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如<code>printf</code>函数的实现就涉及C语言中变参的特性。有理由相信这种<strong>血浓于水</strong>的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————<strong>Talk is cheap, show me the code.</strong>。<br>截止到Lab1，整个学习的过程显得很清晰————就是<strong>通过调试<code>kernel</code>的反汇编代码来理解运行原理并加以修改</strong>。Lab0是我在实验过程中掉进的坑和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。<br><a id="more"></a></p></blockquote><h3 id="6-828实验环境的搭建"><a href="#6-828实验环境的搭建" class="headerlink" title="6.828实验环境的搭建"></a>6.828实验环境的搭建</h3><h3 id="ELF文件"><a href="#ELF文件" class="headerlink" title="ELF文件"></a>ELF文件</h3><h3 id="80386汇编和内联汇编"><a href="#80386汇编和内联汇编" class="headerlink" title="80386汇编和内联汇编"></a>80386汇编和内联汇编</h3><h3 id="反汇编工具"><a href="#反汇编工具" class="headerlink" title="反汇编工具"></a>反汇编工具</h3><h3 id="VIM进阶"><a href="#VIM进阶" class="headerlink" title="VIM进阶"></a>VIM进阶</h3><h3 id="其他的相关资源"><a href="#其他的相关资源" class="headerlink" title="其他的相关资源"></a>其他的相关资源</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Lab0&quot;&gt;&lt;a href=&quot;#Lab0&quot; class=&quot;headerlink&quot; title=&quot;Lab0&quot;&gt;&lt;/a&gt;Lab0&lt;/h2&gt;&lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;从&lt;code&gt;8086汇编&lt;/code&gt;实验之后，前后两周的时间勉强通过Lab1。&lt;br&gt;最大的感触是&lt;strong&gt;基础太差&lt;/strong&gt;:对C语言的理解，对程序编译链接本质的理解，对&lt;code&gt;GDB&lt;/code&gt;等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。&lt;br&gt;但是这次触动中却又多了一丝&lt;code&gt;见山不是山，见山又是山&lt;/code&gt;的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如&lt;code&gt;printf&lt;/code&gt;函数的实现就涉及C语言中变参的特性。有理由相信这种&lt;strong&gt;血浓于水&lt;/strong&gt;的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————&lt;strong&gt;Talk is cheap, show me the code.&lt;/strong&gt;。&lt;br&gt;截止到Lab1，整个学习的过程显得很清晰————就是&lt;strong&gt;通过调试&lt;code&gt;kernel&lt;/code&gt;的反汇编代码来理解运行原理并加以修改&lt;/strong&gt;。Lab0是我在实验过程中掉进的坑和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
+    
+    
+      <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
+    
+      <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
+    
+      <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>汇编语言（王爽）ch5</title>
@@ -35,9 +66,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
-    
       <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
     
   </entry>
   
@@ -60,9 +91,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
-    
       <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
     
   </entry>
   
@@ -85,9 +116,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
-    
       <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
     
   </entry>
   
@@ -110,9 +141,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
-    
       <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
     
   </entry>
   
@@ -135,9 +166,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
-    
       <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
     
   </entry>
   
@@ -161,9 +192,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
-    
       <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
     
   </entry>
   
