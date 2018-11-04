@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Mit6.828(Fall2018) Lab1]]></title>
+    <url>%2F2018%2F11%2F05%2FMit6-828-Fall2018-Lab1%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[Mit6.828(Fall 2018) Lab0]]></title>
     <url>%2F2018%2F11%2F05%2FMit6-828-Fall-2018-Lab0%2F</url>
-    <content type="text"><![CDATA[Lab0Abstract 从8086汇编实验之后，前后两周的时间勉强通过Lab1。最大的感触是基础太差:对C语言的理解，对程序编译链接本质的理解，对GDB等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。但是这次触动中却又多了一丝见山不是山，见山又是山的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如printf函数的实现就涉及C语言中变参的特性。有理由相信这种血浓于水的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————Talk is cheap, show me the code.。截止到Lab1，整个学习的过程显得很清晰————就是通过调试kernel的反汇编代码来理解运行原理并加以修改。Lab0是我在实验过程中掉进的坑，查阅的资料和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。 6.828实验环境的搭建 虚拟机环境: Ubuntu14.4 (32位) 仿真器: Qemu git clone https://github.com/mit-pdos/6.828-qemu.git qemu 实验代码: Lab git clone https://pdos.csail.mit.edu/6.828/2018/jos.git lab 虚拟机环境32位，因为JOS就是32位的操作系统。仿真器使用MIT进行patched过的(见上链接)。原因是实验中分页机制是有意修改过的，使用patched version的话在后面Exercise中不需要手动转换地址。关于实验代码，默认熟悉Git和MakeFile。每做完一个Exercise可以使用./grade-labx进行测试。在整个实验环境搭建的过程中，可能会因为虚拟机发型版本的不同而出现不同的链接库丢失，Google一下。详细的搭建过程见Tools Guide 关于6.828 MIT的OS课程。学习共有三条主线:Lectures,Readings,Labs。当然最重要的就是Labs。关于剩余的两部分，主要围绕一个叫做xv6的小型OS展开的。简单来讲，这是一个麻雀虽小五脏俱全的OS。有Documents和Source Code两份资料。知乎上评价很高，有人将其翻译成为中文版本上传至Github.XV6_Ch，传说看懂源码之后可以超神……做Lab的过程中，课程会提供大量的Readings来阅读，当然都是英文的。详细见Reference。 80386汇编和内联汇编AT&amp;T-80386 在之前的汇编实验中，我们学习了16位的Intel-8086汇编。而在32位机器上需要使用32位的80386汇编语言。虽然对于Linux来说，8086和80386的机器是有很大的差别的，主要体现在实模式和保护模式上。但是就语言本身而言，更多的是递进的关系而语法差别并不大。目前还没有遇到保护模式相关的障碍。x86的汇编主要有两种格式:Intel和AT&amp;T。6.828使用的是AT&amp;T,而实际上Linux中的汇编也是后者居多。汇编语言本身主要有指令集Instruction Set和伪指令Directives两大部分内容。当然最全的文献是Intel自家的Documents，不过我觉得有些太杂和多了。下面的的资料在实验过程中帮了我很多。值得细看。 MIT—-pcasm-book。 Wikipedia—-x86 Instruction Set Oracle—-x86 Assembler Directives 内联汇编 因为操作系统本身就是和硬件打交道最频繁的系统软件，有些地方需要使用到汇编来简单粗暴的完成工作。内联汇编就是嵌入在C语言中的汇编语言，格式和原来的有很大的不同。不过IBM的那份资料可以解决一大半问题，也是难得的中文文档…… MIT—-Brennan’s Guide to Inline Assembly IBM—-汇编语言开发指南 ELF文件 实名Diss网上各种对ELF的讲解，完 反汇编工具ObjdumpReadElf#### VIM进阶 这里主要介绍几个VIM的插件，在阅读源码的时候非常有用。 CtagsCListTmux]]></content>
+    <content type="text"><![CDATA[Lab0Abstract 从8086汇编实验之后，前后两周的时间勉强通过Lab1。最大的感触是基础太差:对C语言的理解，对程序编译链接本质的理解，对GDB等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。但是这次触动中却又多了一丝见山不是山，见山又是山的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如printf函数的实现就涉及C语言中变参的特性。有理由相信这种血浓于水的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————Talk is cheap, show me the code.。截止到Lab1，整个学习的过程显得很清晰————就是通过调试kernel的反汇编代码来理解运行原理并加以修改。Lab0是我在实验过程中掉进的坑，查阅的资料和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。 6.828实验环境的搭建 虚拟机环境: Ubuntu14.4 (32位) 仿真器: Qemu git clone https://github.com/mit-pdos/6.828-qemu.git qemu 实验代码: Lab git clone https://pdos.csail.mit.edu/6.828/2018/jos.git lab 虚拟机环境32位，因为JOS就是32位的操作系统。仿真器使用MIT进行patched过的(见上链接)。原因是实验中分页机制是有意修改过的，使用patched version的话在后面Exercise中不需要手动转换地址。关于实验代码，默认熟悉Git和MakeFile。每做完一个Exercise可以使用./grade-labx进行测试。在整个实验环境搭建的过程中，可能会因为虚拟机发型版本的不同而出现不同的链接库丢失，Google一下。详细的搭建过程见Tools Guide 关于6.828 MIT的OS课程。学习共有三条主线:Lectures,Readings,Labs。当然最重要的就是Labs。关于剩余的两部分，主要围绕一个叫做xv6的小型OS展开的。简单来讲，这是一个麻雀虽小五脏俱全的OS。有Documents和Source Code两份资料。知乎上评价很高，有人将其翻译成为中文版本上传至Github.XV6_Ch，传说看懂源码之后可以超神……做Lab的过程中，课程会提供大量的Readings来阅读，当然都是英文的。详细见Reference。 80386汇编和内联汇编AT&amp;T-80386 在之前的汇编实验中，我们学习了16位的Intel-8086汇编。而在32位机器上需要使用32位的80386汇编语言。虽然对于Linux来说，8086和80386的机器是有很大的差别的，主要体现在实模式和保护模式上。但是就语言本身而言，更多的是递进的关系而语法差别并不大。目前还没有遇到保护模式相关的障碍。x86的汇编主要有两种格式:Intel和AT&amp;T。6.828使用的是AT&amp;T,而实际上Linux中的汇编也是后者居多。汇编语言本身主要有指令集Instruction Set和伪指令Directives两大部分内容。当然最全的文献是Intel自家的Documents，不过我觉得有些太杂和多了。下面的的资料在实验过程中帮了我很多。值得细看。 MIT—-pcasm-book。 Wikipedia—-x86 Instruction Set Oracle—-x86 Assembler Directives 内联汇编 因为操作系统本身就是和硬件打交道最频繁的系统软件，有些地方需要使用到汇编来简单粗暴的完成工作。内联汇编就是嵌入在C语言中的汇编语言，格式和原来的有很大的不同。不过IBM的那份资料可以解决一大半问题，也是难得的中文文档…… MIT—-Brennan’s Guide to Inline Assembly IBM—-汇编语言开发指南 ELF文件 实名Diss网上各种对ELF的讲解，故意弄混section和segment的概念。加上对不同的二进制工具不熟练，让我一度以为链接的难度是整个实验过程中最难的。直到我看到CSAPP中关于链接部分的讲解。才明白section和segment的关系。 反汇编工具 基本工具可以通过man来查看用法，这里列出几个最常见的。 Objdump -f Display file headers -d Disassembly -h Section headers -x All headers -S Display source code ReadElf -h headers -l Programm Headers -s Section Headers NmHexdumpVIM进阶 虽然我是Emacs党，但是不得不承认VIM在进行文本操作的时候还是更方便:)一些。 Ctags 这个就很强大了，用于在tags文件所在的根目录下寻找函数声明和宏定义，尤其是在多文件目录下尤其有用。 CListTmuxsearch]]></content>
       <categories>
         <category>C</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>MIT 6.828</tag>
         <tag>OS</tag>
+        <tag>Assembly</tag>
         <tag>C</tag>
         <tag>Linux</tag>
       </tags>
@@ -23,8 +28,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>i386</tag>
         <tag>Assembly</tag>
+        <tag>i386</tag>
       </tags>
   </entry>
   <entry>
@@ -35,8 +40,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>i386</tag>
         <tag>Assembly</tag>
+        <tag>i386</tag>
       </tags>
   </entry>
   <entry>
@@ -47,8 +52,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>i386</tag>
         <tag>Assembly</tag>
+        <tag>i386</tag>
       </tags>
   </entry>
   <entry>
@@ -59,8 +64,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>i386</tag>
         <tag>Assembly</tag>
+        <tag>i386</tag>
       </tags>
   </entry>
   <entry>
@@ -71,8 +76,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>i386</tag>
         <tag>Assembly</tag>
+        <tag>i386</tag>
       </tags>
   </entry>
   <entry>
@@ -83,8 +88,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>i386</tag>
         <tag>Assembly</tag>
+        <tag>i386</tag>
       </tags>
   </entry>
 </search>
