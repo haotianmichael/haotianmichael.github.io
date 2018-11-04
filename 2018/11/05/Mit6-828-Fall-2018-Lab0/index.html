@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux," />
+  <meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux," />
 
 
 
@@ -116,7 +116,7 @@
 
 
 <meta name="description" content="Lab0Abstract 从8086汇编实验之后，前后两周的时间勉强通过Lab1。最大的感触是基础太差:对C语言的理解，对程序编译链接本质的理解，对GDB等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。但是这次触动中却又多了一丝见山不是山，见山又是山的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如printf函数的实现就涉及C语言中变参的特性。有理由相">
-<meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux">
+<meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Lab0">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/index.html">
@@ -125,7 +125,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/1.png">
 <meta property="og:image" content="https://github.com/haotianmichael/markdownPhotos/blob/master/MIT6.828/2.png">
-<meta property="og:updated_time" content="2018-11-04T14:02:30.042Z">
+<meta property="og:updated_time" content="2018-11-04T14:20:14.574Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab0">
 <meta name="twitter:description" content="Lab0Abstract 从8086汇编实验之后，前后两周的时间勉强通过Lab1。最大的感触是基础太差:对C语言的理解，对程序编译链接本质的理解，对GDB等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。但是这次触动中却又多了一丝见山不是山，见山又是山的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如printf函数的实现就涉及C语言中变参的特性。有理由相">
@@ -425,7 +425,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.4k
+                  1.5k
                 </span>
               
 
@@ -515,9 +515,12 @@
 <p>虽然我是<a href="https://www.gnu.org/software/emacs/" target="_blank" rel="noopener">Emacs</a>党，但是不得不承认VIM在进行文本操作的时候还是更<strong>方便:)</strong>一些。</p>
 </blockquote>
 <h4 id="Ctags"><a href="#Ctags" class="headerlink" title="Ctags"></a>Ctags</h4><blockquote>
-<p>这个就很强大了，用于在<code>tags</code>文件所在的根目录下寻找函数声明和宏定义，尤其是在多文件目录下尤其有用。</p>
+<p>这个就很强大了，用于在<code>tags</code>文件所在的根目录下寻找函数声明和宏定义，在阅读源码的时候基本上不知道的定义和关键字都可以使用<code>Ctags</code>来进行定位，非常实用。<br>安装成功之后，在工程目录下面执行命令<code>ctags -R *</code>对当前目录递归建立索引，会生成<code>tags</code>文件。在源码中遇到未见过的函数便将光标放在其上<code>Ctrl - }</code>即可跳转到其声明的位置。<code>Ctrl - o</code>自动返回。</p>
 </blockquote>
-<h4 id="CList"><a href="#CList" class="headerlink" title="CList"></a>CList</h4><h4 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h4><blockquote>
+<h4 id="TagList"><a href="#TagList" class="headerlink" title="TagList"></a>TagList</h4><blockquote>
+<p>这个实际上没怎么用，功能是在VIM中打开目录树，便于程序员操作。可以先留下来，进一步观察。</p>
+</blockquote>
+<h4 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h4><blockquote>
 <p>这又是一个神器，终端分屏功能强大，有<code>window</code>,<code>pannel</code>等概念。和<code>on-my-zsh</code>配合使用简直了。不愿意折腾的话也可以在<code>bash</code>下直接使用。我们在<code>GDB</code>调试OS的时候使用她作为分屏工具，需要在家目录下加入配置文件<code>~/.tmux.conf</code>。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/1.png" width="300" height="200" alt="pic1" align="center"></p>
 </blockquote>
 <h4 id="VimGrep"><a href="#VimGrep" class="headerlink" title="VimGrep"></a>VimGrep</h4><blockquote>
@@ -585,11 +588,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
-          
             <a href="/tags/MIT-6-828/" rel="tag"><i class="fa fa-tag"></i> MIT 6.828</a>
           
             <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
+          
+            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
           
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
           
@@ -796,7 +799,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab0"><span class="nav-number">1.</span> <span class="nav-text">Lab0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-828实验环境的搭建"><span class="nav-number">1.2.</span> <span class="nav-text">6.828实验环境的搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于6-828"><span class="nav-number">1.3.</span> <span class="nav-text">关于6.828</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#80386汇编和内联汇编"><span class="nav-number">1.4.</span> <span class="nav-text">80386汇编和内联汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AT-amp-T-80386"><span class="nav-number">1.4.1.</span> <span class="nav-text">AT&amp;T-80386</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联汇编"><span class="nav-number">1.4.2.</span> <span class="nav-text">内联汇编</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ELF文件"><span class="nav-number">1.5.</span> <span class="nav-text">ELF文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反汇编工具"><span class="nav-number">1.6.</span> <span class="nav-text">反汇编工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Objdump"><span class="nav-number">1.6.1.</span> <span class="nav-text">Objdump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReadElf"><span class="nav-number">1.6.2.</span> <span class="nav-text">ReadElf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nm"><span class="nav-number">1.6.3.</span> <span class="nav-text">Nm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hexdump"><span class="nav-number">1.6.4.</span> <span class="nav-text">Hexdump</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VIM进阶"><span class="nav-number">1.7.</span> <span class="nav-text">VIM进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ctags"><span class="nav-number">1.7.1.</span> <span class="nav-text">Ctags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CList"><span class="nav-number">1.7.2.</span> <span class="nav-text">CList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tmux"><span class="nav-number">1.7.3.</span> <span class="nav-text">Tmux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VimGrep"><span class="nav-number">1.7.4.</span> <span class="nav-text">VimGrep</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab0"><span class="nav-number">1.</span> <span class="nav-text">Lab0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-828实验环境的搭建"><span class="nav-number">1.2.</span> <span class="nav-text">6.828实验环境的搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于6-828"><span class="nav-number">1.3.</span> <span class="nav-text">关于6.828</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#80386汇编和内联汇编"><span class="nav-number">1.4.</span> <span class="nav-text">80386汇编和内联汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AT-amp-T-80386"><span class="nav-number">1.4.1.</span> <span class="nav-text">AT&amp;T-80386</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联汇编"><span class="nav-number">1.4.2.</span> <span class="nav-text">内联汇编</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ELF文件"><span class="nav-number">1.5.</span> <span class="nav-text">ELF文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反汇编工具"><span class="nav-number">1.6.</span> <span class="nav-text">反汇编工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Objdump"><span class="nav-number">1.6.1.</span> <span class="nav-text">Objdump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReadElf"><span class="nav-number">1.6.2.</span> <span class="nav-text">ReadElf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nm"><span class="nav-number">1.6.3.</span> <span class="nav-text">Nm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hexdump"><span class="nav-number">1.6.4.</span> <span class="nav-text">Hexdump</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VIM进阶"><span class="nav-number">1.7.</span> <span class="nav-text">VIM进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ctags"><span class="nav-number">1.7.1.</span> <span class="nav-text">Ctags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TagList"><span class="nav-number">1.7.2.</span> <span class="nav-text">TagList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tmux"><span class="nav-number">1.7.3.</span> <span class="nav-text">Tmux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VimGrep"><span class="nav-number">1.7.4.</span> <span class="nav-text">VimGrep</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
