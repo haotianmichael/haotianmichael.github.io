@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2018-11-04T11:15:10.656Z</updated>
+  <updated>2018-11-04T12:47:41.053Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,25 +21,25 @@
     <link href="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/"/>
     <id>http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/</id>
     <published>2018-11-04T16:35:45.000Z</published>
-    <updated>2018-11-04T11:15:10.656Z</updated>
+    <updated>2018-11-04T12:47:41.053Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Lab0"><a href="#Lab0" class="headerlink" title="Lab0"></a>Lab0</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>从<code>8086汇编</code>实验之后，前后两周的时间勉强通过Lab1。<br>最大的感触是<strong>基础太差</strong>:对C语言的理解，对程序编译链接本质的理解，对<code>GDB</code>等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。<br>但是这次触动中却又多了一丝<code>见山不是山，见山又是山</code>的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如<code>printf</code>函数的实现就涉及C语言中变参的特性。有理由相信这种<strong>血浓于水</strong>的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————<strong>Talk is cheap, show me the code.</strong>。<br>截止到Lab1，整个学习的过程显得很清晰————就是<strong>通过调试<code>kernel</code>的反汇编代码来理解运行原理并加以修改</strong>。Lab0是我在实验过程中掉进的坑和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。<br><a id="more"></a></p></blockquote><h3 id="6-828实验环境的搭建"><a href="#6-828实验环境的搭建" class="headerlink" title="6.828实验环境的搭建"></a>6.828实验环境的搭建</h3><h3 id="ELF文件"><a href="#ELF文件" class="headerlink" title="ELF文件"></a>ELF文件</h3><h3 id="80386汇编和内联汇编"><a href="#80386汇编和内联汇编" class="headerlink" title="80386汇编和内联汇编"></a>80386汇编和内联汇编</h3><h3 id="反汇编工具"><a href="#反汇编工具" class="headerlink" title="反汇编工具"></a>反汇编工具</h3><h3 id="VIM进阶"><a href="#VIM进阶" class="headerlink" title="VIM进阶"></a>VIM进阶</h3><h3 id="其他的相关资源"><a href="#其他的相关资源" class="headerlink" title="其他的相关资源"></a>其他的相关资源</h3>]]></content>
+    <content type="html"><![CDATA[<h2 id="Lab0"><a href="#Lab0" class="headerlink" title="Lab0"></a>Lab0</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>从<code>8086汇编</code>实验之后，前后两周的时间勉强通过Lab1。<br>最大的感触是<strong>基础太差</strong>:对C语言的理解，对程序编译链接本质的理解，对<code>GDB</code>等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。<br>但是这次触动中却又多了一丝<code>见山不是山，见山又是山</code>的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如<code>printf</code>函数的实现就涉及C语言中变参的特性。有理由相信这种<strong>血浓于水</strong>的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————<strong>Talk is cheap, show me the code.</strong>。<br>截止到Lab1，整个学习的过程显得很清晰————就是<strong>通过调试<code>kernel</code>的反汇编代码来理解运行原理并加以修改</strong>。Lab0是我在实验过程中掉进的坑，查阅的资料和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。<br><a id="more"></a></p></blockquote><h3 id="6-828实验环境的搭建"><a href="#6-828实验环境的搭建" class="headerlink" title="6.828实验环境的搭建"></a>6.828实验环境的搭建</h3><ul><li>虚拟机环境: Ubuntu14.4 (<strong>32位</strong>)</li><li>仿真器: Qemu <code>git clone https://github.com/mit-pdos/6.828-qemu.git qemu</code></li><li>实验代码: Lab <code>git clone https://pdos.csail.mit.edu/6.828/2018/jos.git lab</code><blockquote><p>虚拟机环境<code>32位</code>，因为<code>JOS</code>就是32位的操作系统。<br>仿真器使用MIT进行patched过的(见上链接)。原因是实验中分页机制是有意修改过的，使用<code>patched version</code>的话在后面<code>Exercise</code>中不需要手动转换地址。<br>关于实验代码，默认熟悉<code>Git</code>和<code>MakeFile</code>。每做完一个<code>Exercise</code>可以使用<code>./grade-labx</code>进行测试。<br>在整个实验环境搭建的过程中，可能会因为虚拟机发型版本的不同而出现不同的链接库丢失，Google一下。详细的搭建过程见<a href="https://pdos.csail.mit.edu/6.828/2018/tools.html#" target="_blank" rel="noopener">Tools Guide</a></p></blockquote></li></ul><h3 id="关于6-828"><a href="#关于6-828" class="headerlink" title="关于6.828"></a>关于6.828</h3><blockquote><p>MIT的OS课程。学习共有三条主线:<code>Lectures</code>,<code>Readings</code>,<code>Labs</code>。<br>当然最重要的就是<code>Labs</code>。关于剩余的两部分，主要围绕一个叫做<code>xv6</code>的小型OS展开的。简单来讲，这是一个<strong>麻雀虽小五脏俱全</strong>的OS。有<code>Documents</code>和<code>Source Code</code>两份资料。知乎上评价很高，有人将其翻译成为中文版本上传至Github.<a href="https://github.com/ranxian/xv6-chinese" target="_blank" rel="noopener">XV6_Ch</a>，传说看懂源码之后可以超神……<br>做<code>Lab</code>的过程中，课程会提供大量的Readings来阅读，当然都是英文的。详细见<a href="https://pdos.lcs.mit.edu/6.828/2018/reference.html" target="_blank" rel="noopener">Reference</a>。</p></blockquote><h3 id="80386汇编和内联汇编"><a href="#80386汇编和内联汇编" class="headerlink" title="80386汇编和内联汇编"></a>80386汇编和内联汇编</h3><h4 id="AT-amp-T-80386"><a href="#AT-amp-T-80386" class="headerlink" title="AT&amp;T-80386"></a>AT&amp;T-80386</h4><blockquote><p>在之前的汇编实验中，我们学习了16位的<code>Intel-8086</code>汇编。而在32位机器上需要使用32位的<code>80386</code>汇编语言。虽然对于<code>Linux</code>来说，<code>8086</code>和<code>80386</code>的机器是有很大的差别的，主要体现在实模式和保护模式上。但是就语言本身而言，更多的是递进的关系而语法差别并不大。目前还没有遇到保护模式相关的障碍。<br><code>x86</code>的汇编主要有两种格式:<code>Intel</code>和<code>AT&amp;T</code>。<code>6.828</code>使用的是<code>AT&amp;T</code>,而实际上Linux中的汇编也是后者居多。<strong>汇编语言本身主要有指令集<code>Instruction Set</code>和伪指令<code>Directives</code>两大部分内容</strong>。当然最全的文献是Intel自家的Documents，不过我觉得有些太杂和多了。下面的的资料在实验过程中帮了我很多。值得细看。</p></blockquote><ul><li>MIT—-<a href="https://pdos.lcs.mit.edu/6.828/2018/readings/pcasm-book.pdf" target="_blank" rel="noopener">pcasm-book</a>。</li><li>Wikipedia—-<a href="https://en.wikipedia.org/wiki/X86_instruction_listings#Added_with_80386" target="_blank" rel="noopener">x86 Instruction Set</a></li><li>Oracle—-<a href="https://docs.oracle.com/cd/E26502_01/html/E28388/eoiyg.html" target="_blank" rel="noopener">x86 Assembler Directives</a></li></ul><h4 id="内联汇编"><a href="#内联汇编" class="headerlink" title="内联汇编"></a>内联汇编</h4><blockquote><p>因为操作系统本身就是和硬件打交道最频繁的系统软件，有些地方需要使用到汇编来简单粗暴的完成工作。<strong>内联汇编</strong>就是嵌入在C语言中的汇编语言，格式和原来的有很大的不同。不过IBM的那份资料可以解决一大半问题，也是难得的中文文档……  </p></blockquote><ul><li>MIT—-<a href="http://www.delorie.com/djgpp/doc/brennan/brennan_att_inline_djgpp.html" target="_blank" rel="noopener">Brennan’s Guide to Inline Assembly</a></li><li>IBM—-<a href="https://www.ibm.com/developerworks/cn/linux/l-assembly/index.html" target="_blank" rel="noopener">汇编语言开发指南</a></li></ul><h3 id="ELF文件"><a href="#ELF文件" class="headerlink" title="ELF文件"></a>ELF文件</h3><blockquote><p>实名Diss网上各种对ELF的讲解，完</p></blockquote><h3 id="反汇编工具"><a href="#反汇编工具" class="headerlink" title="反汇编工具"></a>反汇编工具</h3><h4 id="Objdump"><a href="#Objdump" class="headerlink" title="Objdump"></a>Objdump</h4><h4 id="ReadElf"><a href="#ReadElf" class="headerlink" title="ReadElf"></a>ReadElf</h4><p>#### </p><h3 id="VIM进阶"><a href="#VIM进阶" class="headerlink" title="VIM进阶"></a>VIM进阶</h3><blockquote><p>这里主要介绍几个VIM的插件，在阅读源码的时候非常有用。 </p></blockquote><h4 id="Ctags"><a href="#Ctags" class="headerlink" title="Ctags"></a>Ctags</h4><h4 id="CList"><a href="#CList" class="headerlink" title="CList"></a>CList</h4><h4 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h4>]]></content>
     
     <summary type="html">
     
       &lt;h2 id=&quot;Lab0&quot;&gt;&lt;a href=&quot;#Lab0&quot; class=&quot;headerlink&quot; title=&quot;Lab0&quot;&gt;&lt;/a&gt;Lab0&lt;/h2&gt;&lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;从&lt;code&gt;8086汇编&lt;/code&gt;实验之后，前后两周的时间勉强通过Lab1。&lt;br&gt;最大的感触是&lt;strong&gt;基础太差&lt;/strong&gt;:对C语言的理解，对程序编译链接本质的理解，对&lt;code&gt;GDB&lt;/code&gt;等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。&lt;br&gt;但是这次触动中却又多了一丝&lt;code&gt;见山不是山，见山又是山&lt;/code&gt;的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如&lt;code&gt;printf&lt;/code&gt;函数的实现就涉及C语言中变参的特性。有理由相信这种&lt;strong&gt;血浓于水&lt;/strong&gt;的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————&lt;strong&gt;Talk is cheap, show me the code.&lt;/strong&gt;。&lt;br&gt;截止到Lab1，整个学习的过程显得很清晰————就是&lt;strong&gt;通过调试&lt;code&gt;kernel&lt;/code&gt;的反汇编代码来理解运行原理并加以修改&lt;/strong&gt;。Lab0是我在实验过程中掉进的坑和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。&lt;br&gt;
+&lt;p&gt;从&lt;code&gt;8086汇编&lt;/code&gt;实验之后，前后两周的时间勉强通过Lab1。&lt;br&gt;最大的感触是&lt;strong&gt;基础太差&lt;/strong&gt;:对C语言的理解，对程序编译链接本质的理解，对&lt;code&gt;GDB&lt;/code&gt;等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。&lt;br&gt;但是这次触动中却又多了一丝&lt;code&gt;见山不是山，见山又是山&lt;/code&gt;的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如&lt;code&gt;printf&lt;/code&gt;函数的实现就涉及C语言中变参的特性。有理由相信这种&lt;strong&gt;血浓于水&lt;/strong&gt;的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————&lt;strong&gt;Talk is cheap, show me the code.&lt;/strong&gt;。&lt;br&gt;截止到Lab1，整个学习的过程显得很清晰————就是&lt;strong&gt;通过调试&lt;code&gt;kernel&lt;/code&gt;的反汇编代码来理解运行原理并加以修改&lt;/strong&gt;。Lab0是我在实验过程中掉进的坑，查阅的资料和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。&lt;br&gt;
     
     </summary>
     
       <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
       <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
-    
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
@@ -66,9 +66,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -91,9 +91,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -116,9 +116,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -141,9 +141,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -166,9 +166,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -192,9 +192,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
