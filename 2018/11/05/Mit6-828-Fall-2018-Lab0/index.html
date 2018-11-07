@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux," />
+  <meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux," />
 
 
 
@@ -116,7 +116,7 @@
 
 
 <meta name="description" content="Lab0Abstract 从8086汇编实验之后，前后两周的时间勉强通过Lab1。最大的感触是基础太差:对C语言的理解，对程序编译链接本质的理解，对GDB等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。但是这次触动中却又多了一丝见山不是山，见山又是山的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如printf函数的实现就涉及C语言中变参的特性。有理由相">
-<meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux">
+<meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Lab0">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/index.html">
@@ -128,7 +128,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/5.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/2.png">
-<meta property="og:updated_time" content="2018-11-05T07:28:35.886Z">
+<meta property="og:updated_time" content="2018-11-07T13:18:23.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab0">
 <meta name="twitter:description" content="Lab0Abstract 从8086汇编实验之后，前后两周的时间勉强通过Lab1。最大的感触是基础太差:对C语言的理解，对程序编译链接本质的理解，对GDB等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。但是这次触动中却又多了一丝见山不是山，见山又是山的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如printf函数的实现就涉及C语言中变参的特性。有理由相">
@@ -472,7 +472,7 @@
 <li>虚拟机环境: Ubuntu14.4 (<strong>32位</strong>)</li>
 <li>仿真器: Qemu <code>git clone https://github.com/mit-pdos/6.828-qemu.git qemu</code></li>
 <li>实验代码: Lab <code>git clone https://pdos.csail.mit.edu/6.828/2018/jos.git lab</code><blockquote>
-<p>虚拟机环境<code>32位</code>，因为<code>JOS</code>就是32位的操作系统。<br>仿真器使用MIT进行patched过的(见上链接)。原因是实验中分页机制是有意修改过的，使用<code>patched version</code>的话在后面<code>Exercise</code>中不需要手动转换地址。<br>关于实验代码，默认熟悉<code>Git</code>和<code>MakeFile</code>。每做完一个<code>Exercise</code>可以使用<code>./grade-labx</code>进行测试。<br>在整个实验环境搭建的过程中，可能会因为虚拟机发型版本的不同而出现不同的链接库丢失，Google一下。详细的搭建过程见<a href="https://pdos.csail.mit.edu/6.828/2018/tools.html#" target="_blank" rel="noopener">Tools Guide</a></p>
+<p>虚拟机环境<code>32位</code>，因为<code>JOS</code>就是32位的操作系统。<br>仿真器使用MIT进行patched过的(见上链接)。原因是实验中分页机制是有意修改过的，使用<code>patched version</code>的话在后面<code>Exercise</code>中不需要手动转换地址。<br>关于实验代码，默认熟悉<code>Git</code>和<code>MakeFile</code>。每做完一个<code>Exercise</code>可以使用<code>make grade</code>进行测试。<br>在整个实验环境搭建的过程中，可能会因为虚拟机发型版本的不同而出现不同的链接库丢失，Google一下。详细的搭建过程见<a href="https://pdos.csail.mit.edu/6.828/2018/tools.html#" target="_blank" rel="noopener">Tools Guide</a></p>
 </blockquote>
 </li>
 </ul>
@@ -581,7 +581,7 @@
   <p><span>本文标题:</span><a href="/2018/11/05/Mit6-828-Fall-2018-Lab0/">Mit6.828(Fall 2018) Lab0</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月04日 - 16:11</p>
-  <p><span>最后更新:</span>2018年11月05日 - 15:11</p>
+  <p><span>最后更新:</span>2018年11月07日 - 21:11</p>
   <p><span>原始链接:</span><a href="/2018/11/05/Mit6-828-Fall-2018-Lab0/" title="Mit6.828(Fall 2018) Lab0">http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/"  aria-label="复制成功！"></i></span>
   </p>
@@ -616,11 +616,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
-          
             <a href="/tags/MIT-6-828/" rel="tag"><i class="fa fa-tag"></i> MIT 6.828</a>
           
             <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
+          
+            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
           
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
           
