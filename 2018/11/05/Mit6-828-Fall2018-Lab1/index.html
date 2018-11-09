@@ -125,7 +125,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/6.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/7.png">
-<meta property="og:updated_time" content="2018-11-09T11:40:09.354Z">
+<meta property="og:updated_time" content="2018-11-09T11:57:29.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab1">
 <meta name="twitter:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
@@ -498,7 +498,7 @@
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/7.png" width="300" height="200" alt="pic2" align="center"></p>
 <blockquote>
-<p><code>strip</code>命令将ELF文件中的符号表信息等调试信息删掉，减少文件本身的大小。但是我不知道这个<code>boot</code>文件是如何形成的，而且不可以使用二进制工具分析。BIOS加载到内存中的到底是<code>boot</code>还是<code>boot.out</code>呢？如果是<code>boot</code>,那在<code>obj/kernel</code>中为什么没有相应格式的<code>kernel</code>？这个应该和<strong>链接</strong>关系很大，<a href="https://book.douban.com/subject/3652388/" target="_blank" rel="noopener">《程序员的自我修养》</a>这本书是国内少有的讲链接装载的好书，有时间再拜读吧。</p>
+<p><code>strip</code>命令将ELF文件中的符号表信息等调试信息删掉，减少文件本身的大小。理论上讲<code>bootsect</code>最后应该被链接到启动盘<code>kernel</code>的第一个扇区上，换句话讲最后的<strong>操作系统启动盘</strong>只有一个。这个目录下生成的这个两个文件应该是顺序处理过的，但是具体的细节不清楚，而且<code>boot</code>不可以使用二进制工具分析。这个应该和<strong>链接</strong>关系很大，<a href="https://book.douban.com/subject/3652388/" target="_blank" rel="noopener">《程序员的自我修养》</a>这本书是国内少有的讲链接装载的好书，有时间再拜读吧。</p>
 </blockquote>
 <h3 id="The-Boot-Loader"><a href="#The-Boot-Loader" class="headerlink" title="The Boot Loader"></a>The Boot Loader</h3><h4 id="Loading-the-Kernel"><a href="#Loading-the-Kernel" class="headerlink" title="Loading the Kernel"></a>Loading the Kernel</h4><h4 id="Link-vs-Load-Address"><a href="#Link-vs-Load-Address" class="headerlink" title="Link vs. Load Address"></a>Link vs. Load Address</h4><h3 id="The-kernel"><a href="#The-kernel" class="headerlink" title="The kernel"></a>The kernel</h3><h4 id="Using-virtual-memory-to-work-around-position-dependence"><a href="#Using-virtual-memory-to-work-around-position-dependence" class="headerlink" title="Using virtual memory to work around position dependence"></a>Using virtual memory to work around position dependence</h4><h4 id="Formatted-Printing-to-the-Console"><a href="#Formatted-Printing-to-the-Console" class="headerlink" title="Formatted Printing to the Console"></a>Formatted Printing to the Console</h4><h4 id="The-Stack"><a href="#The-Stack" class="headerlink" title="The Stack"></a>The Stack</h4>
       
