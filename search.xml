@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Mit6.828(Fall 2018) Lab1]]></title>
     <url>%2F2018%2F11%2F05%2FMit6-828-Fall2018-Lab1%2F</url>
-    <content type="text"><![CDATA[Lab1Abstract]]></content>
+    <content type="text"><![CDATA[Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir/.gdbinitline to your configuration file &quot;/root/.gdbinit&quot; PC BootstrapGetting Started with x86 assembly JOS中使用AT&amp;T格式的汇编语言，在Lab0中介绍了相关资料。实验要求熟悉x86汇编和Inline汇编两种写法。 Simulating the x86 Lab1的工作目录: /boot目录包含和启动相关的文件。 /kern目录包含内核和监视器相关的文件。 /lib目录包含一些链接使用的库函数比如printf。 /inc目录包含头文件，申明了需要使用的数据结构。 /obj目录是make之后相应的反汇编代码，供调试使用。Lab1主要分析/obj/kern/kern.asm和obj/boot/boot.asm两个文件。这两个文件分别是/boot和/kern目录下的文件编译连接后的目标文件被反汇编而生成的。之所以这样做是因为反汇编之后可以看到每一条指令在内存中的绝对地址。这样调试的时候非常方便。至于实模式和保护模式下的地址转换在后续的实验中也会重点关注。 The PC’s Physical Address Space The ROM BIOSThe Boot LoaderLoading the KernelLink vs. Load AddressThe kernelUsing virtual memory to work around position dependenceFormatted Printing to the ConsoleThe Stack]]></content>
       <categories>
         <category>C</category>
       </categories>

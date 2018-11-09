@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Lab1Abstract">
+<meta name="description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
 <meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Lab1">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/index.html">
 <meta property="og:site_name" content="HBlog">
-<meta property="og:description" content="Lab1Abstract">
+<meta property="og:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-07T12:41:55.785Z">
+<meta property="og:updated_time" content="2018-11-09T07:43:07.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab1">
-<meta name="twitter:description" content="Lab1Abstract">
+<meta name="twitter:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
 
 
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1
+                  389
                 </span>
               
 
@@ -459,7 +459,26 @@
       
 
       
-        <h2 id="Lab1"><a href="#Lab1" class="headerlink" title="Lab1"></a>Lab1</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3>
+        <h2 id="Lab1"><a href="#Lab1" class="headerlink" title="Lab1"></a>Lab1</h2><h3 id="Before-Lab"><a href="#Before-Lab" class="headerlink" title="Before Lab"></a>Before Lab</h3><blockquote>
+<p>Lab1一共有三部分:<code>Bootstrap</code>,<code>BootLoader</code>,<code>Kernel</code>;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分<code>monitor</code>中<strong>test_backtrace</strong>的功能。<br>如果<code>GDB</code>调试出错，可能是因为调试器没有链接到操作系统上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add </span><br><span class="line">add-auto-load-safe-path /Your Working Dir/.gdbinit</span><br><span class="line">line to your configuration file &quot;/root/.gdbinit&quot;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<!--mkore-->
+<h3 id="PC-Bootstrap"><a href="#PC-Bootstrap" class="headerlink" title="PC Bootstrap"></a>PC Bootstrap</h3><h4 id="Getting-Started-with-x86-assembly"><a href="#Getting-Started-with-x86-assembly" class="headerlink" title="Getting Started with x86 assembly"></a>Getting Started with x86 assembly</h4><blockquote>
+<p>JOS中使用AT&amp;T格式的汇编语言，在Lab0中介绍了相关资料。实验要求熟悉<strong>x86汇编</strong>和<strong>Inline汇编</strong>两种写法。</p>
+</blockquote>
+<h4 id="Simulating-the-x86"><a href="#Simulating-the-x86" class="headerlink" title="Simulating the x86"></a>Simulating the x86</h4><blockquote>
+<p>Lab1的工作目录:</p>
+<ul>
+<li><code>/boot</code>目录包含和启动相关的文件。</li>
+<li><code>/kern</code>目录包含内核和监视器相关的文件。</li>
+<li><code>/lib</code>目录包含一些链接使用的库函数比如printf。</li>
+<li><code>/inc</code>目录包含头文件，申明了需要使用的数据结构。</li>
+<li><code>/obj</code>目录是make之后相应的反汇编代码，供调试使用。<br>Lab1主要分析<code>/obj/kern/kern.asm</code>和<code>obj/boot/boot.asm</code>两个文件。这两个文件分别是<code>/boot</code>和<code>/kern</code>目录下的文件编译连接后的目标文件被反汇编而生成的。之所以这样做是因为反汇编之后可以看到每一条指令在内存中的绝对地址。这样调试的时候非常方便。至于<strong>实模式</strong>和<strong>保护模式</strong>下的地址转换在后续的实验中也会重点关注。</li>
+</ul>
+</blockquote>
+<h4 id="The-PC’s-Physical-Address-Space"><a href="#The-PC’s-Physical-Address-Space" class="headerlink" title="The PC’s Physical Address Space"></a>The PC’s Physical Address Space</h4><blockquote>
+</blockquote>
+<h4 id="The-ROM-BIOS"><a href="#The-ROM-BIOS" class="headerlink" title="The ROM BIOS"></a>The ROM BIOS</h4><h3 id="The-Boot-Loader"><a href="#The-Boot-Loader" class="headerlink" title="The Boot Loader"></a>The Boot Loader</h3><h4 id="Loading-the-Kernel"><a href="#Loading-the-Kernel" class="headerlink" title="Loading the Kernel"></a>Loading the Kernel</h4><h4 id="Link-vs-Load-Address"><a href="#Link-vs-Load-Address" class="headerlink" title="Link vs. Load Address"></a>Link vs. Load Address</h4><h3 id="The-kernel"><a href="#The-kernel" class="headerlink" title="The kernel"></a>The kernel</h3><h4 id="Using-virtual-memory-to-work-around-position-dependence"><a href="#Using-virtual-memory-to-work-around-position-dependence" class="headerlink" title="Using virtual memory to work around position dependence"></a>Using virtual memory to work around position dependence</h4><h4 id="Formatted-Printing-to-the-Console"><a href="#Formatted-Printing-to-the-Console" class="headerlink" title="Formatted Printing to the Console"></a>Formatted Printing to the Console</h4><h4 id="The-Stack"><a href="#The-Stack" class="headerlink" title="The Stack"></a>The Stack</h4>
       
     </div>
     
@@ -479,7 +498,7 @@
   <p><span>本文标题:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/">Mit6.828(Fall 2018) Lab1</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月04日 - 21:11</p>
-  <p><span>最后更新:</span>2018年11月07日 - 20:11</p>
+  <p><span>最后更新:</span>2018年11月09日 - 15:11</p>
   <p><span>原始链接:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/" title="Mit6.828(Fall 2018) Lab1">http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/"  aria-label="复制成功！"></i></span>
   </p>
@@ -721,7 +740,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab1"><span class="nav-number">1.</span> <span class="nav-text">Lab1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab1"><span class="nav-number">1.</span> <span class="nav-text">Lab1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before-Lab"><span class="nav-number">1.1.</span> <span class="nav-text">Before Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PC-Bootstrap"><span class="nav-number">1.2.</span> <span class="nav-text">PC Bootstrap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Getting-Started-with-x86-assembly"><span class="nav-number">1.2.1.</span> <span class="nav-text">Getting Started with x86 assembly</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Simulating-the-x86"><span class="nav-number">1.2.2.</span> <span class="nav-text">Simulating the x86</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-PC’s-Physical-Address-Space"><span class="nav-number">1.2.3.</span> <span class="nav-text">The PC’s Physical Address Space</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-ROM-BIOS"><span class="nav-number">1.2.4.</span> <span class="nav-text">The ROM BIOS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Boot-Loader"><span class="nav-number">1.3.</span> <span class="nav-text">The Boot Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Loading-the-Kernel"><span class="nav-number">1.3.1.</span> <span class="nav-text">Loading the Kernel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Link-vs-Load-Address"><span class="nav-number">1.3.2.</span> <span class="nav-text">Link vs. Load Address</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-kernel"><span class="nav-number">1.4.</span> <span class="nav-text">The kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-virtual-memory-to-work-around-position-dependence"><span class="nav-number">1.4.1.</span> <span class="nav-text">Using virtual memory to work around position dependence</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Formatted-Printing-to-the-Console"><span class="nav-number">1.4.2.</span> <span class="nav-text">Formatted Printing to the Console</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Stack"><span class="nav-number">1.4.3.</span> <span class="nav-text">The Stack</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
