@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux," />
+  <meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux," />
 
 
 
@@ -116,7 +116,7 @@
 
 
 <meta name="description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
-<meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux">
+<meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Lab1">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/index.html">
@@ -125,7 +125,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/6.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/7.png">
-<meta property="og:updated_time" content="2018-11-09T11:57:29.801Z">
+<meta property="og:updated_time" content="2018-11-09T12:16:34.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab1">
 <meta name="twitter:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
@@ -466,7 +466,7 @@
 <p>Lab1一共有三部分:<code>Bootstrap</code>,<code>BootLoader</code>,<code>Kernel</code>;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分<code>monitor</code>中<strong>test_backtrace</strong>的功能。<br>如果<code>GDB</code>调试出错，可能是因为调试器没有链接到操作系统上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add </span><br><span class="line">add-auto-load-safe-path /Your Working Dir/.gdbinit</span><br><span class="line">line to your configuration file &quot;/root/.gdbinit&quot;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <a id="more"></a>
-<h3 id="PC-Bootstrap"><a href="#PC-Bootstrap" class="headerlink" title="PC Bootstrap"></a>PC Bootstrap</h3><h4 id="Getting-Started-with-x86-assembly"><a href="#Getting-Started-with-x86-assembly" class="headerlink" title="Getting Started with x86 assembly"></a>Getting Started with x86 assembly</h4><h5 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise 1"></a>Exercise 1</h5><blockquote>
+<h3 id="PC-Bootstrap"><a href="#PC-Bootstrap" class="headerlink" title="PC Bootstrap"></a>PC Bootstrap</h3><h4 id="Getting-Started-with-x86-assembly-Exercise-1"><a href="#Getting-Started-with-x86-assembly-Exercise-1" class="headerlink" title="Getting Started with x86 assembly (Exercise 1)"></a>Getting Started with x86 assembly (Exercise 1)</h4><blockquote>
 <p>JOS中使用AT&amp;T格式的汇编语言，在Lab0中介绍了相关资料。实验要求熟悉<strong>x86汇编</strong>和<strong>Inline汇编</strong>两种写法。</p>
 </blockquote>
 <h4 id="Simulating-the-x86"><a href="#Simulating-the-x86" class="headerlink" title="Simulating the x86"></a>Simulating the x86</h4><blockquote>
@@ -483,14 +483,14 @@
 <p>最早的8086机器只有1Mb的寻址空间，后面的80x86系列机器为了向后兼容所以衍生出实模式和保护模式这两种概念，但是BIOS一直都存在于从<code>0x00000000</code>到<code>0x00100000</code>这1Mb的空间中。JOS的内存布局也是规定只有<code>0x00000000</code>到<code>0x10000000</code>这256MB大小的空间，但是默认地址线是32位的。<strong>这个很重要，因为后面实验对JOS进行虚拟内存分配的时候页框地址最大也只能是<code>0x10000000</code>，内核如何处理映射就是一个问题。</strong>具体布局见下图:   </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/6.png" width="300" height="200" alt="pic2" align="center"></p>
-<h4 id="The-ROM-BIOS"><a href="#The-ROM-BIOS" class="headerlink" title="The ROM BIOS"></a>The ROM BIOS</h4><h5 id="Exercise-2"><a href="#Exercise-2" class="headerlink" title="Exercise 2"></a>Exercise 2</h5><blockquote>
+<h4 id="The-ROM-BIOS-Exercise-2"><a href="#The-ROM-BIOS-Exercise-2" class="headerlink" title="The ROM BIOS (Exercise 2)"></a>The ROM BIOS (Exercise 2)</h4><blockquote>
 <p>这里介绍一下常用的GDB调试参数: </p>
 <ul>
 <li><code>si</code>: 单步调试</li>
 <li><code>info register</code>: 查看当前各寄存器的值</li>
 <li><code>x/Nx Addr</code>: 查看内存地址Addr之后<strong>N字</strong>的内容</li>
 <li><code>x/Ni Addr</code>: 查看内存地址Addr之后的N条指令</li>
-<li><code>x/Ni $eip</code>: 查看CPU当前执行的下N条指令（其中$eip可以换成不同的寄存器，这里就不一一列举了）<br>通过分析前面的JOS内存的布局，BIOS作为固件存在于<code>0x000f0000</code>到<code>0x000fffff</code>这64KB的空间上。启动仿真器之后看到第一条代码停在了<code>0x000ffff0</code>的地址上，说明这是BIOS程序的入口。<code>0x000ffff0</code>到BIOS程序顶部<code>0x000fffff</code>只有16字节的空间，需要更大的运行空间，因此第一条指令<code>ljmp   $0xf000,$0xe05b</code>；也就是跳转到<code>0x000fe05b</code>这个地址正式开始运行BIOS的程序。<br>BIOS本身也是一个很复杂的系统，但是和OS关系不大。通过调试BIOS的代码我们知道了它的功能:</li>
+<li><code>x/Ni $eip</code>: 查看CPU当前执行的下N条指令（其中$eip可以换成不同的寄存器，这里就不一一列举了）<br>通过分析前面的JOS内存的布局，BIOS作为固件存在于<code>0xf0000</code>到<code>0xfffff</code>这64KB的空间上。<strong>注意启动为实模式，CPU的地址线寻址都是20位的。</strong>启动仿真器之后看到第一条代码停在了<code>0xffff0</code>的地址上，说明这是BIOS程序的入口。<code>0xffff0</code>到BIOS程序顶部<code>0xfffff</code>只有16字节的空间，需要更大的运行空间，因此第一条指令<code>ljmp   $0xf000,$0xe05b</code>；也就是跳转到<code>0xfe05b</code>这个地址正式开始运行BIOS的程序。<br>BIOS本身也是一个很复杂的系统，但是和OS关系不大。通过调试BIOS的代码我们知道了它的功能:</li>
 <li>建立中断向量表及相应的中断例程</li>
 <li>初始化部分硬件及自检(POST)</li>
 <li>激活<code>INT 19</code>中断来加载启动盘第一扇区512字节的内容到内存(Linux)<br>这里应该说明第一扇区的内容是<code>/boot</code>目录下的内容:<code>boot.S</code>和<code>main.c</code>,这两个文件最后被编译链接成为可执行目标文件(这里需要ELF的知识)。在Linux系统中，这个可执行目标文件大小就是512字节，正好放在启动盘的第一个sector中,被称为<strong>bootsect</strong>。JOS的bootsect只有4K没有这么精确不过原理都是一样的，BIOS执行完任务之后，跳转到<code>bootsect</code>的初始位置。至此将权限交给操作系统，OS继续完成剩下的启动过程。<br>这里发现了一个小问题:就是在查看<code>/obj/boot</code>目录的时候，发现出现了<code>boot.out</code>和<code>boot</code>两个文件，如下:</li>
@@ -500,7 +500,9 @@
 <blockquote>
 <p><code>strip</code>命令将ELF文件中的符号表信息等调试信息删掉，减少文件本身的大小。理论上讲<code>bootsect</code>最后应该被链接到启动盘<code>kernel</code>的第一个扇区上，换句话讲最后的<strong>操作系统启动盘</strong>只有一个。这个目录下生成的这个两个文件应该是顺序处理过的，但是具体的细节不清楚，而且<code>boot</code>不可以使用二进制工具分析。这个应该和<strong>链接</strong>关系很大，<a href="https://book.douban.com/subject/3652388/" target="_blank" rel="noopener">《程序员的自我修养》</a>这本书是国内少有的讲链接装载的好书，有时间再拜读吧。</p>
 </blockquote>
-<h3 id="The-Boot-Loader"><a href="#The-Boot-Loader" class="headerlink" title="The Boot Loader"></a>The Boot Loader</h3><h4 id="Loading-the-Kernel"><a href="#Loading-the-Kernel" class="headerlink" title="Loading the Kernel"></a>Loading the Kernel</h4><h4 id="Link-vs-Load-Address"><a href="#Link-vs-Load-Address" class="headerlink" title="Link vs. Load Address"></a>Link vs. Load Address</h4><h3 id="The-kernel"><a href="#The-kernel" class="headerlink" title="The kernel"></a>The kernel</h3><h4 id="Using-virtual-memory-to-work-around-position-dependence"><a href="#Using-virtual-memory-to-work-around-position-dependence" class="headerlink" title="Using virtual memory to work around position dependence"></a>Using virtual memory to work around position dependence</h4><h4 id="Formatted-Printing-to-the-Console"><a href="#Formatted-Printing-to-the-Console" class="headerlink" title="Formatted Printing to the Console"></a>Formatted Printing to the Console</h4><h4 id="The-Stack"><a href="#The-Stack" class="headerlink" title="The Stack"></a>The Stack</h4>
+<h3 id="The-Boot-Loader"><a href="#The-Boot-Loader" class="headerlink" title="The Boot Loader"></a>The Boot Loader</h3><h4 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3"></a>Exercise 3</h4><blockquote>
+</blockquote>
+<h4 id="Loading-the-Kernel"><a href="#Loading-the-Kernel" class="headerlink" title="Loading the Kernel"></a>Loading the Kernel</h4><h4 id="Link-vs-Load-Address"><a href="#Link-vs-Load-Address" class="headerlink" title="Link vs. Load Address"></a>Link vs. Load Address</h4><h3 id="The-kernel"><a href="#The-kernel" class="headerlink" title="The kernel"></a>The kernel</h3><h4 id="Using-virtual-memory-to-work-around-position-dependence"><a href="#Using-virtual-memory-to-work-around-position-dependence" class="headerlink" title="Using virtual memory to work around position dependence"></a>Using virtual memory to work around position dependence</h4><h4 id="Formatted-Printing-to-the-Console"><a href="#Formatted-Printing-to-the-Console" class="headerlink" title="Formatted Printing to the Console"></a>Formatted Printing to the Console</h4><h4 id="The-Stack"><a href="#The-Stack" class="headerlink" title="The Stack"></a>The Stack</h4>
       
     </div>
     
@@ -520,7 +522,7 @@
   <p><span>本文标题:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/">Mit6.828(Fall 2018) Lab1</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月04日 - 21:11</p>
-  <p><span>最后更新:</span>2018年11月09日 - 19:11</p>
+  <p><span>最后更新:</span>2018年11月09日 - 20:11</p>
   <p><span>原始链接:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/" title="Mit6.828(Fall 2018) Lab1">http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/"  aria-label="复制成功！"></i></span>
   </p>
@@ -555,11 +557,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
+          
             <a href="/tags/MIT-6-828/" rel="tag"><i class="fa fa-tag"></i> MIT 6.828</a>
           
             <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
-          
-            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
           
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
           
@@ -762,7 +764,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab1"><span class="nav-number">1.</span> <span class="nav-text">Lab1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before-Lab"><span class="nav-number">1.1.</span> <span class="nav-text">Before Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PC-Bootstrap"><span class="nav-number">1.2.</span> <span class="nav-text">PC Bootstrap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Getting-Started-with-x86-assembly"><span class="nav-number">1.2.1.</span> <span class="nav-text">Getting Started with x86 assembly</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Exercise 1</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Simulating-the-x86"><span class="nav-number">1.2.2.</span> <span class="nav-text">Simulating the x86</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-PC’s-Physical-Address-Space"><span class="nav-number">1.2.3.</span> <span class="nav-text">The PC’s Physical Address Space</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-ROM-BIOS"><span class="nav-number">1.2.4.</span> <span class="nav-text">The ROM BIOS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-2"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">Exercise 2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Boot-Loader"><span class="nav-number">1.3.</span> <span class="nav-text">The Boot Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Loading-the-Kernel"><span class="nav-number">1.3.1.</span> <span class="nav-text">Loading the Kernel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Link-vs-Load-Address"><span class="nav-number">1.3.2.</span> <span class="nav-text">Link vs. Load Address</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-kernel"><span class="nav-number">1.4.</span> <span class="nav-text">The kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-virtual-memory-to-work-around-position-dependence"><span class="nav-number">1.4.1.</span> <span class="nav-text">Using virtual memory to work around position dependence</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Formatted-Printing-to-the-Console"><span class="nav-number">1.4.2.</span> <span class="nav-text">Formatted Printing to the Console</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Stack"><span class="nav-number">1.4.3.</span> <span class="nav-text">The Stack</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab1"><span class="nav-number">1.</span> <span class="nav-text">Lab1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before-Lab"><span class="nav-number">1.1.</span> <span class="nav-text">Before Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PC-Bootstrap"><span class="nav-number">1.2.</span> <span class="nav-text">PC Bootstrap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Getting-Started-with-x86-assembly-Exercise-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">Getting Started with x86 assembly (Exercise 1)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Simulating-the-x86"><span class="nav-number">1.2.2.</span> <span class="nav-text">Simulating the x86</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-PC’s-Physical-Address-Space"><span class="nav-number">1.2.3.</span> <span class="nav-text">The PC’s Physical Address Space</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-ROM-BIOS-Exercise-2"><span class="nav-number">1.2.4.</span> <span class="nav-text">The ROM BIOS (Exercise 2)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Boot-Loader"><span class="nav-number">1.3.</span> <span class="nav-text">The Boot Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Exercise-3"><span class="nav-number">1.3.1.</span> <span class="nav-text">Exercise 3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Loading-the-Kernel"><span class="nav-number">1.3.2.</span> <span class="nav-text">Loading the Kernel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Link-vs-Load-Address"><span class="nav-number">1.3.3.</span> <span class="nav-text">Link vs. Load Address</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-kernel"><span class="nav-number">1.4.</span> <span class="nav-text">The kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-virtual-memory-to-work-around-position-dependence"><span class="nav-number">1.4.1.</span> <span class="nav-text">Using virtual memory to work around position dependence</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Formatted-Printing-to-the-Console"><span class="nav-number">1.4.2.</span> <span class="nav-text">Formatted Printing to the Console</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Stack"><span class="nav-number">1.4.3.</span> <span class="nav-text">The Stack</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

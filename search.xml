@@ -3,14 +3,14 @@
   <entry>
     <title><![CDATA[Mit6.828(Fall 2018) Lab1]]></title>
     <url>%2F2018%2F11%2F05%2FMit6-828-Fall2018-Lab1%2F</url>
-    <content type="text"><![CDATA[Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir/.gdbinitline to your configuration file &quot;/root/.gdbinit&quot; PC BootstrapGetting Started with x86 assemblyExercise 1 JOS中使用AT&amp;T格式的汇编语言，在Lab0中介绍了相关资料。实验要求熟悉x86汇编和Inline汇编两种写法。 Simulating the x86 Lab1的工作目录: /boot目录包含和启动相关的文件。 /kern目录包含内核和监视器相关的文件。 /lib目录包含一些链接使用的库函数比如printf。 /inc目录包含头文件，申明了需要使用的数据结构。 /obj目录是make之后相应的反汇编代码，供调试使用。Lab1主要分析/obj/kern/kern.asm和obj/boot/boot.asm两个文件。这两个文件分别是/boot和/kern目录下的文件编译连接后的目标文件被反汇编而生成的。之所以这样做是因为反汇编之后可以看到每一条指令在内存中的绝对地址。这样调试的时候非常方便。至于实模式和保护模式下的地址转换在后续的实验中也会重点关注。 The PC’s Physical Address Space 最早的8086机器只有1Mb的寻址空间，后面的80x86系列机器为了向后兼容所以衍生出实模式和保护模式这两种概念，但是BIOS一直都存在于从0x00000000到0x00100000这1Mb的空间中。JOS的内存布局也是规定只有0x00000000到0x10000000这256MB大小的空间，但是默认地址线是32位的。这个很重要，因为后面实验对JOS进行虚拟内存分配的时候页框地址最大也只能是0x10000000，内核如何处理映射就是一个问题。具体布局见下图: The ROM BIOSExercise 2 这里介绍一下常用的GDB调试参数: si: 单步调试 info register: 查看当前各寄存器的值 x/Nx Addr: 查看内存地址Addr之后N字的内容 x/Ni Addr: 查看内存地址Addr之后的N条指令 x/Ni $eip: 查看CPU当前执行的下N条指令（其中$eip可以换成不同的寄存器，这里就不一一列举了）通过分析前面的JOS内存的布局，BIOS作为固件存在于0x000f0000到0x000fffff这64KB的空间上。启动仿真器之后看到第一条代码停在了0x000ffff0的地址上，说明这是BIOS程序的入口。0x000ffff0到BIOS程序顶部0x000fffff只有16字节的空间，需要更大的运行空间，因此第一条指令ljmp $0xf000,$0xe05b；也就是跳转到0x000fe05b这个地址正式开始运行BIOS的程序。BIOS本身也是一个很复杂的系统，但是和OS关系不大。通过调试BIOS的代码我们知道了它的功能: 建立中断向量表及相应的中断例程 初始化部分硬件及自检(POST) 激活INT 19中断来加载启动盘第一扇区512字节的内容到内存(Linux)这里应该说明第一扇区的内容是/boot目录下的内容:boot.S和main.c,这两个文件最后被编译链接成为可执行目标文件(这里需要ELF的知识)。在Linux系统中，这个可执行目标文件大小就是512字节，正好放在启动盘的第一个sector中,被称为bootsect。JOS的bootsect只有4K没有这么精确不过原理都是一样的，BIOS执行完任务之后，跳转到bootsect的初始位置。至此将权限交给操作系统，OS继续完成剩下的启动过程。这里发现了一个小问题:就是在查看/obj/boot目录的时候，发现出现了boot.out和boot两个文件，如下: strip命令将ELF文件中的符号表信息等调试信息删掉，减少文件本身的大小。理论上讲bootsect最后应该被链接到启动盘kernel的第一个扇区上，换句话讲最后的操作系统启动盘只有一个。这个目录下生成的这个两个文件应该是顺序处理过的，但是具体的细节不清楚，而且boot不可以使用二进制工具分析。这个应该和链接关系很大，《程序员的自我修养》这本书是国内少有的讲链接装载的好书，有时间再拜读吧。 The Boot LoaderLoading the KernelLink vs. Load AddressThe kernelUsing virtual memory to work around position dependenceFormatted Printing to the ConsoleThe Stack]]></content>
+    <content type="text"><![CDATA[Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir/.gdbinitline to your configuration file &quot;/root/.gdbinit&quot; PC BootstrapGetting Started with x86 assembly (Exercise 1) JOS中使用AT&amp;T格式的汇编语言，在Lab0中介绍了相关资料。实验要求熟悉x86汇编和Inline汇编两种写法。 Simulating the x86 Lab1的工作目录: /boot目录包含和启动相关的文件。 /kern目录包含内核和监视器相关的文件。 /lib目录包含一些链接使用的库函数比如printf。 /inc目录包含头文件，申明了需要使用的数据结构。 /obj目录是make之后相应的反汇编代码，供调试使用。Lab1主要分析/obj/kern/kern.asm和obj/boot/boot.asm两个文件。这两个文件分别是/boot和/kern目录下的文件编译连接后的目标文件被反汇编而生成的。之所以这样做是因为反汇编之后可以看到每一条指令在内存中的绝对地址。这样调试的时候非常方便。至于实模式和保护模式下的地址转换在后续的实验中也会重点关注。 The PC’s Physical Address Space 最早的8086机器只有1Mb的寻址空间，后面的80x86系列机器为了向后兼容所以衍生出实模式和保护模式这两种概念，但是BIOS一直都存在于从0x00000000到0x00100000这1Mb的空间中。JOS的内存布局也是规定只有0x00000000到0x10000000这256MB大小的空间，但是默认地址线是32位的。这个很重要，因为后面实验对JOS进行虚拟内存分配的时候页框地址最大也只能是0x10000000，内核如何处理映射就是一个问题。具体布局见下图: The ROM BIOS (Exercise 2) 这里介绍一下常用的GDB调试参数: si: 单步调试 info register: 查看当前各寄存器的值 x/Nx Addr: 查看内存地址Addr之后N字的内容 x/Ni Addr: 查看内存地址Addr之后的N条指令 x/Ni $eip: 查看CPU当前执行的下N条指令（其中$eip可以换成不同的寄存器，这里就不一一列举了）通过分析前面的JOS内存的布局，BIOS作为固件存在于0xf0000到0xfffff这64KB的空间上。注意启动为实模式，CPU的地址线寻址都是20位的。启动仿真器之后看到第一条代码停在了0xffff0的地址上，说明这是BIOS程序的入口。0xffff0到BIOS程序顶部0xfffff只有16字节的空间，需要更大的运行空间，因此第一条指令ljmp $0xf000,$0xe05b；也就是跳转到0xfe05b这个地址正式开始运行BIOS的程序。BIOS本身也是一个很复杂的系统，但是和OS关系不大。通过调试BIOS的代码我们知道了它的功能: 建立中断向量表及相应的中断例程 初始化部分硬件及自检(POST) 激活INT 19中断来加载启动盘第一扇区512字节的内容到内存(Linux)这里应该说明第一扇区的内容是/boot目录下的内容:boot.S和main.c,这两个文件最后被编译链接成为可执行目标文件(这里需要ELF的知识)。在Linux系统中，这个可执行目标文件大小就是512字节，正好放在启动盘的第一个sector中,被称为bootsect。JOS的bootsect只有4K没有这么精确不过原理都是一样的，BIOS执行完任务之后，跳转到bootsect的初始位置。至此将权限交给操作系统，OS继续完成剩下的启动过程。这里发现了一个小问题:就是在查看/obj/boot目录的时候，发现出现了boot.out和boot两个文件，如下: strip命令将ELF文件中的符号表信息等调试信息删掉，减少文件本身的大小。理论上讲bootsect最后应该被链接到启动盘kernel的第一个扇区上，换句话讲最后的操作系统启动盘只有一个。这个目录下生成的这个两个文件应该是顺序处理过的，但是具体的细节不清楚，而且boot不可以使用二进制工具分析。这个应该和链接关系很大，《程序员的自我修养》这本书是国内少有的讲链接装载的好书，有时间再拜读吧。 The Boot LoaderExercise 3 Loading the KernelLink vs. Load AddressThe kernelUsing virtual memory to work around position dependenceFormatted Printing to the ConsoleThe Stack]]></content>
       <categories>
         <category>C</category>
       </categories>
       <tags>
+        <tag>Assembly</tag>
         <tag>MIT 6.828</tag>
         <tag>OS</tag>
-        <tag>Assembly</tag>
         <tag>C</tag>
         <tag>Linux</tag>
       </tags>
@@ -23,9 +23,9 @@
         <category>C</category>
       </categories>
       <tags>
+        <tag>Assembly</tag>
         <tag>MIT 6.828</tag>
         <tag>OS</tag>
-        <tag>Assembly</tag>
         <tag>C</tag>
         <tag>Linux</tag>
       </tags>
@@ -38,8 +38,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -50,8 +50,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -62,8 +62,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -74,8 +74,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -86,8 +86,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -98,8 +98,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
 </search>
