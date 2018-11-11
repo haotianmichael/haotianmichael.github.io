@@ -127,7 +127,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/7.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/8.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/9.png">
-<meta property="og:updated_time" content="2018-11-11T01:50:35.635Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/10.png">
+<meta property="og:updated_time" content="2018-11-11T03:25:44.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab1">
 <meta name="twitter:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
@@ -427,7 +428,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.5k
+                  2.9k
                 </span>
               
 
@@ -443,7 +444,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  9
+                  11
                 </span>
               
             </div>
@@ -520,7 +521,7 @@
 <blockquote>
 <p>先看这两个宏定义，<code>SECTSIZE</code>是磁盘一个<code>sector</code>的大小，一般读写操作都要求地址对齐，这个宏定义就会派上用场。<code>ELFHDR</code>是一个指向ELF文件结构体的指针，不得不说<strong>强转</strong>是C语言最有力的工具之一，由此可知<code>0x100000</code>便是内存载入的首地址。这个地址也是BIOS程序结束的地方，可见JOS对于内存的规划分配还是很精确的。  </p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void</span><br><span class="line">readseg(uint32_t pa, uint32_t count, uint32_t offset)</span><br><span class="line">&#123;</span><br><span class="line">	    //pa是加载地址    count是加载文件大小    offset是相对于加载地址的偏移量</span><br><span class="line">        uint32_t end_pa;</span><br><span class="line">        end_pa = pa + count;   //结束地址</span><br><span class="line">        pa &amp;= ~(SECTSIZE - 1);  //将加载地址与最小单位512对齐</span><br><span class="line">        offset = (offset / SECTSIZE) + 1;   //将offset转化为sector单位，因为sector从1开始算起</span><br><span class="line">        while (pa &lt; end_pa) &#123;</span><br><span class="line">                readsect((uint8_t*) pa, offset);  </span><br><span class="line">                pa += SECTSIZE;    //这句话表明 最终分配的内存有可能是大于实际需要内存的，因为总是以512为最小分配单元分配的</span><br><span class="line">                offset++;  </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void</span><br><span class="line">readseg(uint32_t pa, uint32_t count, uint32_t offset)</span><br><span class="line">&#123;</span><br><span class="line">	    //pa是加载地址    count是加载文件大小    offset是在内核文件中的偏移量</span><br><span class="line">        uint32_t end_pa;</span><br><span class="line">        end_pa = pa + count;   //结束地址</span><br><span class="line">        pa &amp;= ~(SECTSIZE - 1);  //将加载地址与最小单位512对齐</span><br><span class="line">        offset = (offset / SECTSIZE) + 1;   //计算加载部分在启动盘中的哪一个sector中，因为sector从1开始算起</span><br><span class="line">        while (pa &lt; end_pa) &#123;</span><br><span class="line">                readsect((uint8_t*) pa, offset);  </span><br><span class="line">                pa += SECTSIZE;    //这句话表明 最终分配的内存有可能是大于实际需要内存的，因为总是以512为最小分配单元分配的</span><br><span class="line">                offset++;  </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>readseg</code>函数中的对齐，看下面这个sample函数:  </p>
 </blockquote>
@@ -534,8 +535,23 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   ph = (struct Proghdr *) ((uint8_t *) ELFHDR + ELFHDR-&gt;e_phoff);</span><br><span class="line">   eph = ph + ELFHDR-&gt;e_phnum;</span><br><span class="line">   for (; ph &lt; eph; ph++)</span><br><span class="line">            readseg(ph-&gt;p_pa, ph-&gt;p_memsz, ph-&gt;p_offset);</span><br><span class="line">((void (*)(void)) (ELFHDR-&gt;e_entry))();</span><br></pre></td></tr></table></figure>
 <blockquote>
+<p>关于JOS对于ELF文件的申明见<code>/inc/elf.h</code>。一共有三个结构体，<code>Elf</code>代表文件头；<code>Proghdr</code>代表加载时候segment的信息；<code>Secthdr</code>代表运行时section的信息；<br>在Lab0中，我们分析过对一个程序加载的时候是以<code>segments</code>为最小粒度的。所以我们重点关注<code>Elf</code>和<code>Proghdr</code>这两个结构体的细节。  </p>
+<ul>
+<li><code>e_phoff</code>: segment表在整个程序中的偏移量</li>
+<li><code>e_phnum</code>: segment表项的个数</li>
+<li><code>ph-&gt;p_pa</code>: 该segment在内存中的加载地址</li>
+<li><code>ph-&gt;p_memsz</code>: 该segment的大小</li>
+<li><code>ph-&gt;p_offset</code>: 该segment相对于表起始地址的偏移量<br>所以<code>ph</code>就是segment段表的开始地址。而<code>eph</code>就是segment段表的项数。这个循环是把所有的segments都加载到相对应的内存地址中。<br>加载结束后，再次跳转<code>((void (*)(void)) (ELFHDR-&gt;e_entry))()</code>,通过调试反汇编代码，发现跳转的这个地址为<code>call *0x10018</code>,注意这里是一个指针，可以看到内核函数真正的入口在<code>0x0010000c</code>。所以正确的操作见下图:</li>
+</ul>
 </blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/10.png" width="300" height="200" alt="pic2" align="center"></p>
 <h4 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3"></a>Exercise 3</h4><blockquote>
+<p>在上面分析的过程基本上回答了所有的问题: </p>
+<ul>
+<li><code>%CR0</code>标志位的改变意味着实模式切换到保护模式</li>
+<li><code>call *0x10018</code>是最后一条BootLoader执行的指令，<code>movw $0x1234, 0x472</code>是内核第一条指令，这条指令在<code>0x0010000c</code>这个入口地址。</li>
+<li>通过读取ELF文件中关于加载segments的信息，因为main函数最开始加载了8个sectors的内容到内存中，这部分内容就是和ELF格式和细节信息有关系。</li>
+</ul>
 </blockquote>
 <h4 id="Loading-the-Kernel"><a href="#Loading-the-Kernel" class="headerlink" title="Loading the Kernel"></a>Loading the Kernel</h4><h4 id="Link-vs-Load-Address"><a href="#Link-vs-Load-Address" class="headerlink" title="Link vs. Load Address"></a>Link vs. Load Address</h4><h3 id="The-kernel"><a href="#The-kernel" class="headerlink" title="The kernel"></a>The kernel</h3><h4 id="Using-virtual-memory-to-work-around-position-dependence"><a href="#Using-virtual-memory-to-work-around-position-dependence" class="headerlink" title="Using virtual memory to work around position dependence"></a>Using virtual memory to work around position dependence</h4><h4 id="Formatted-Printing-to-the-Console"><a href="#Formatted-Printing-to-the-Console" class="headerlink" title="Formatted Printing to the Console"></a>Formatted Printing to the Console</h4><h4 id="The-Stack"><a href="#The-Stack" class="headerlink" title="The Stack"></a>The Stack</h4>
       
@@ -557,7 +573,7 @@
   <p><span>本文标题:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/">Mit6.828(Fall 2018) Lab1</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月04日 - 21:11</p>
-  <p><span>最后更新:</span>2018年11月11日 - 09:11</p>
+  <p><span>最后更新:</span>2018年11月11日 - 11:11</p>
   <p><span>原始链接:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/" title="Mit6.828(Fall 2018) Lab1">http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/"  aria-label="复制成功！"></i></span>
   </p>
