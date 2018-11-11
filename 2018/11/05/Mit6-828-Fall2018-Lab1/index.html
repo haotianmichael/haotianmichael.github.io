@@ -127,7 +127,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/7.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/8.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/9.png">
-<meta property="og:updated_time" content="2018-11-11T01:43:56.371Z">
+<meta property="og:updated_time" content="2018-11-11T01:50:35.635Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab1">
 <meta name="twitter:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
@@ -531,6 +531,9 @@
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/9.png" width="300" height="200" alt="pic2" align="center"></p>
 <blockquote>
 <p><code>readsect</code>函数都是一些端口操作。也没仔细研究Orz。下面主要看一下<code>bootmain</code>函数剩下的部分:  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   ph = (struct Proghdr *) ((uint8_t *) ELFHDR + ELFHDR-&gt;e_phoff);</span><br><span class="line">   eph = ph + ELFHDR-&gt;e_phnum;</span><br><span class="line">   for (; ph &lt; eph; ph++)</span><br><span class="line">            readseg(ph-&gt;p_pa, ph-&gt;p_memsz, ph-&gt;p_offset);</span><br><span class="line">((void (*)(void)) (ELFHDR-&gt;e_entry))();</span><br></pre></td></tr></table></figure>
+<blockquote>
 </blockquote>
 <h4 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3"></a>Exercise 3</h4><blockquote>
 </blockquote>
