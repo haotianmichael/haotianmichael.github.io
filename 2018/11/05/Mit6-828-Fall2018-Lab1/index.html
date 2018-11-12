@@ -133,7 +133,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/14.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/13.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/15.png">
-<meta property="og:updated_time" content="2018-11-12T14:02:58.112Z">
+<meta property="og:updated_time" content="2018-11-12T14:07:40.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab1">
 <meta name="twitter:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
@@ -585,7 +585,7 @@
 <p>Lab1中的地址映射: <code>0x00000000</code>————<code>0x00400000</code>映射到<code>0x00000000</code>————<code>0x00400000</code>；<code>0xf0000000</code>————<code>0xf0400000</code>映射到<code>0x00000000</code>————<code>0x00400000</code>;<br>在实验过程中关注了一下地址: 在执行到<code>kern/entry.S</code>文件之前，所有的内存地址都是物理地址（书中代言为线性地址，但是线性地址=物理地址所以没有太大区分）。直到<code>%CR0</code>寄存器的PG标志位被置零。这时候分页机制才被激活。<code>0x00100000</code>和<code>0xf0100000</code>都映射到<code>0x00100000</code>，所有两个地址存储的数值是一样的。而在映射还没有建好之前是不一样的。  </p>
 </blockquote>
 <h5 id="Exercise-7"><a href="#Exercise-7" class="headerlink" title="Exercise 7"></a>Exercise 7</h5><blockquote>
-<p><code>%CR0</code>寄存器PG位控制分页机制的实现。看到<code>mov %eax, %cr0</code>执行结束之后，索引地址变成了<code>0xf0100010</code>。具体的分页细节在Lab2中分析。实验操作见下图:  </p>
+<p><code>%CR0</code>寄存器PG位控制分页机制的实现。看到<code>mov %eax, %cr0</code>执行结束之后，索引地址变成了<code>0xf0100010</code>。地址映射不对，第一条错误的指令一定会是跳转指令<code>jmp *%eax</code>。具体的分页细节在Lab2中分析。实验操作见下图:  </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/15.png" width="300" height="200" alt="pic2" align="center"></p>
 <h4 id="Formatted-Printing-to-the-Console"><a href="#Formatted-Printing-to-the-Console" class="headerlink" title="Formatted Printing to the Console"></a>Formatted Printing to the Console</h4><h4 id="The-Stack"><a href="#The-Stack" class="headerlink" title="The Stack"></a>The Stack</h4>
