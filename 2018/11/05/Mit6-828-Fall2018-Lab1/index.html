@@ -133,7 +133,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/14.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/13.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/15.png">
-<meta property="og:updated_time" content="2018-11-13T10:35:39.456Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/16.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/17.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/18.png">
+<meta property="og:updated_time" content="2018-11-13T11:21:35.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab1">
 <meta name="twitter:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
@@ -433,7 +436,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  4.6k
+                  5k
                 </span>
               
 
@@ -449,7 +452,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  18
+                  19
                 </span>
               
             </div>
@@ -600,7 +603,7 @@
 <li><code>va_arg(ap, type)</code>: 将ap指向下一个可变参数</li>
 <li><code>va_end(ap)</code>: 清除ap指针，结束函数<br>可以看到变参<code>fmt</code>和变参指针<code>ap</code>被一路传到<code>vcprintf</code>———&gt;<code>vprintfmt</code>。在<code>vprintfmt</code>中使用。该文件中重点关注两个函数:</li>
 <li>在<code>lib/printfmt.c</code>中的函数: <code>vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)</code></li>
-<li>在<code>kern/console.c</code>中的函数: <code>cputchar(int c)</code><br>经过观察之后就可以知道: <strong><code>printfmt</code>函数判断字符串输出参数的类型并调用<code>cputchar</code>函数将相应的输出显示到显示屏上</strong>。在函数分析之前再介绍一个vim的新技能:搜索高亮<code>:match Search /xxx/</code>:</li>
+<li>在<code>kern/console.c</code>中的函数: <code>cputchar(int c)</code><br>经过观察之后就可以知道: <strong><code>vprintfmt</code>函数判断字符串输出参数的类型并调用<code>cputchar</code>函数将相应的输出显示到显示屏上</strong>。在函数分析之前再介绍一个vim的新技能:搜索高亮<code>:match Search /xxx/</code>:</li>
 </ul>
 </blockquote>
 <h6 id="分析函数vprintfmt"><a href="#分析函数vprintfmt" class="headerlink" title="分析函数vprintfmt"></a>分析函数vprintfmt</h6><blockquote>
@@ -622,7 +625,25 @@
 <blockquote>
 <p>简单来讲就是如果输出满屏之后，需要页面向上滚动一行。</p>
 </blockquote>
-<h4 id="Formatted-Printing-to-the-Console"><a href="#Formatted-Printing-to-the-Console" class="headerlink" title="Formatted Printing to the Console"></a>Formatted Printing to the Console</h4><h4 id="The-Stack"><a href="#The-Stack" class="headerlink" title="The Stack"></a>The Stack</h4>
+<h4 id="Formatted-Printing-to-the-Console"><a href="#Formatted-Printing-to-the-Console" class="headerlink" title="Formatted Printing to the Console"></a>Formatted Printing to the Console</h4><h5 id="Exercise-8"><a href="#Exercise-8" class="headerlink" title="Exercise 8"></a>Exercise 8</h5><blockquote>
+<p>经过上面的分析之后，知道格式化输出是在<code>kern/printfmt.c/vprintfmt()</code>这个函数中。找到相应的位置修改就行。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/16.png" width="300" height="200" alt="pic2" align="center"></p>
+<h5 id="Questions"><a href="#Questions" class="headerlink" title="Questions"></a>Questions</h5><blockquote>
+<p>这是Exercise.8后面的一些问题，当然很简单了:<br>1.cputchar(int c)         2.一句话，就是满屏时候的处理方法          3.主要是变参指针<code>ap</code>和格式化变参<code>fmt</code>的指向问题，之前分析过<br>4.将代码加到<code>kern/monitor.c</code>中，输出见下图。因为57616的十六进制就是ell。而0x0x00646c72在小端存储的机器上用char*表示就是<code>rld\0</code>。如果想要用大端存储的话，只要反过来就行0x726c6400。  </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/17.png" width="300" height="200" alt="pic2" align="center"></p>
+<blockquote>
+<p>5.根据变参的定义，如果fmt参数不够，那最终ap指针会指向一个未知内存区域。所以输出的数不一定。见下图:  </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/18.png" width="300" height="200" alt="pic2" align="center"></p>
+<blockquote>
+<p>6.关于变参的定义是在<code>inc/stdarg.h</code>中,我们看一下<code>va_arg</code>是如何一次一次取出变参的:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#define va_arg(ap, type) __builtin_va_arg(ap, type) //Fall 2018</span><br><span class="line"></span><br><span class="line">#define va_arg(ap, type) \</span><br><span class="line">	(*(type *)((ap) += __va_size(type), (ap) - __va_size(type)))  //Fall 2015</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>可以看到va_arg是通过地址往后增长来取出下一个变参的。<strong>而正常编译器是从右往左的顺序将参数入栈的（因为栈是从高地址向低地址延伸的）。</strong>如果这时候栈的顺序变了，那只需要将va_arg函数中的对地址的加法改为减法就行。  </p>
+</blockquote>
+<h4 id="The-Stack"><a href="#The-Stack" class="headerlink" title="The Stack"></a>The Stack</h4>
       
     </div>
     
@@ -642,7 +663,7 @@
   <p><span>本文标题:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/">Mit6.828(Fall 2018) Lab1</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月04日 - 21:11</p>
-  <p><span>最后更新:</span>2018年11月13日 - 18:11</p>
+  <p><span>最后更新:</span>2018年11月13日 - 19:11</p>
   <p><span>原始链接:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/" title="Mit6.828(Fall 2018) Lab1">http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/"  aria-label="复制成功！"></i></span>
   </p>
@@ -884,7 +905,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab1"><span class="nav-number">1.</span> <span class="nav-text">Lab1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before-Lab"><span class="nav-number">1.1.</span> <span class="nav-text">Before Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PC-Bootstrap"><span class="nav-number">1.2.</span> <span class="nav-text">PC Bootstrap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Getting-Started-with-x86-assembly"><span class="nav-number">1.2.1.</span> <span class="nav-text">Getting Started with x86 assembly</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Exercise 1</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Simulating-the-x86"><span class="nav-number">1.2.2.</span> <span class="nav-text">Simulating the x86</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-PC’s-Physical-Address-Space"><span class="nav-number">1.2.3.</span> <span class="nav-text">The PC’s Physical Address Space</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-ROM-BIOS"><span class="nav-number">1.2.4.</span> <span class="nav-text">The ROM BIOS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-2"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">Exercise 2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Boot-Loader"><span class="nav-number">1.3.</span> <span class="nav-text">The Boot Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code"><span class="nav-number">1.3.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分析boot-boot-S"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">分析boot/boot.S</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分析boot-main-c"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">分析boot/main.c</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-3"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Exercise 3</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Loading-the-Kernel"><span class="nav-number">1.3.2.</span> <span class="nav-text">Loading the Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-4"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Exercise 4</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-5"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Exercise 5</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-6"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">Exercise 6</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Kernel"><span class="nav-number">1.4.</span> <span class="nav-text">The Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-virtual-memory-to-work-around-position-dependence"><span class="nav-number">1.4.1.</span> <span class="nav-text">Using virtual memory to work around position dependence</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-7"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Exercise 7</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分析kern-printf-c"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">分析kern/printf.c</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#分析函数vprintfmt"><span class="nav-number">1.4.2.1.1.</span> <span class="nav-text">分析函数vprintfmt</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#分析函数cputchar"><span class="nav-number">1.4.2.1.2.</span> <span class="nav-text">分析函数cputchar</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Formatted-Printing-to-the-Console"><span class="nav-number">1.4.3.</span> <span class="nav-text">Formatted Printing to the Console</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Stack"><span class="nav-number">1.4.4.</span> <span class="nav-text">The Stack</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab1"><span class="nav-number">1.</span> <span class="nav-text">Lab1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before-Lab"><span class="nav-number">1.1.</span> <span class="nav-text">Before Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PC-Bootstrap"><span class="nav-number">1.2.</span> <span class="nav-text">PC Bootstrap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Getting-Started-with-x86-assembly"><span class="nav-number">1.2.1.</span> <span class="nav-text">Getting Started with x86 assembly</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Exercise 1</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Simulating-the-x86"><span class="nav-number">1.2.2.</span> <span class="nav-text">Simulating the x86</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-PC’s-Physical-Address-Space"><span class="nav-number">1.2.3.</span> <span class="nav-text">The PC’s Physical Address Space</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-ROM-BIOS"><span class="nav-number">1.2.4.</span> <span class="nav-text">The ROM BIOS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-2"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">Exercise 2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Boot-Loader"><span class="nav-number">1.3.</span> <span class="nav-text">The Boot Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code"><span class="nav-number">1.3.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分析boot-boot-S"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">分析boot/boot.S</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分析boot-main-c"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">分析boot/main.c</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-3"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Exercise 3</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Loading-the-Kernel"><span class="nav-number">1.3.2.</span> <span class="nav-text">Loading the Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-4"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Exercise 4</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-5"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Exercise 5</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-6"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">Exercise 6</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Kernel"><span class="nav-number">1.4.</span> <span class="nav-text">The Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-virtual-memory-to-work-around-position-dependence"><span class="nav-number">1.4.1.</span> <span class="nav-text">Using virtual memory to work around position dependence</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-7"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Exercise 7</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分析kern-printf-c"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">分析kern/printf.c</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#分析函数vprintfmt"><span class="nav-number">1.4.2.1.1.</span> <span class="nav-text">分析函数vprintfmt</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#分析函数cputchar"><span class="nav-number">1.4.2.1.2.</span> <span class="nav-text">分析函数cputchar</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Formatted-Printing-to-the-Console"><span class="nav-number">1.4.3.</span> <span class="nav-text">Formatted Printing to the Console</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exercise-8"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">Exercise 8</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Questions"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">Questions</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Stack"><span class="nav-number">1.4.4.</span> <span class="nav-text">The Stack</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
