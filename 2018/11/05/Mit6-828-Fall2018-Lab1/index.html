@@ -141,7 +141,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/20.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/21.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/23.png">
-<meta property="og:updated_time" content="2018-11-14T01:14:01.176Z">
+<meta property="og:updated_time" content="2018-11-14T01:47:12.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab1">
 <meta name="twitter:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
@@ -441,7 +441,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  6k
+                  6.2k
                 </span>
               
 
@@ -457,7 +457,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  23
+                  24
                 </span>
               
             </div>
@@ -671,13 +671,21 @@
 <p>第三条指令就正式进入到<code>test_backtrace</code>函数内部了。分析一下函数内部的<strong>调用代码</strong>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void test_backtrace(int x)</span><br><span class="line">&#123;</span><br><span class="line">f0100040:       55                      push   %ebp</span><br><span class="line">f0100041:       89 e5                   mov    %esp,%ebp</span><br><span class="line">f0100043:       53                      push   %ebx</span><br><span class="line">f0100044:       83 ec 14                sub    $0x14,%esp</span><br><span class="line">f0100047:       8b 5d 08                mov    0x8(%ebp),%ebx</span><br><span class="line">        cprintf(&quot;entering test_backtrace %d\n&quot;, x);</span><br><span class="line">f010004a:       89 5c 24 04             mov    %ebx,0x4(%esp)</span><br><span class="line">f010004e:       c7 04 24 20 1a 10 f0    movl   $0xf0101a20,(%esp)</span><br><span class="line">f0100055:       e8 c1 09 00 00          call   f0100a1b &lt;cprintf&gt;</span><br><span class="line">        if (x &gt; 0)</span><br><span class="line">f010005a:       85 db                   test   %ebx,%ebx    </span><br><span class="line">f010005c:       7e 0d                   jle    f010006b &lt;test_backtrace+0x2b&gt;</span><br><span class="line">                test_backtrace(x-1);</span><br><span class="line">f010005e:       8d 43 ff                lea    -0x1(%ebx),%eax</span><br><span class="line">f0100061:       89 04 24                mov    %eax,(%esp)</span><br><span class="line">f0100064:       e8 d7 ff ff ff          call   f0100040 &lt;test_backtrace&gt;</span><br><span class="line">f0100069:       eb 1c                   jmp    f0100087 &lt;test_backtrace+0x47&gt;</span><br><span class="line">        else</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
-<p>基本上所有被调用的函数开头都会有这两条指令:<code>push %ebp</code>;<code>mov %esp, %ebp</code>;<br>实验指导书上也解释了<code>%ebp</code>寄存器的作用:<strong>On entry to a C function, the function’s prologue code normally saves the previous function’s base pointer by pushing it onto the stack, and then copies the current esp value into ebp for the duration of the function.</strong>每一个函数都有一个<code>%ebp</code>值，作为函数的栈帧，需要在每次调用新函数的时候压栈以保存上一个函数的返回地址。<br>这个时候莫名其妙的压栈了一个寄存器<code>%ebx</code>。我们将<code>%ebx</code>全局高亮显示发现，后面紧接着会有<code>mov 0x8(%ebp), %ebx</code>。那<code>0x8(%ebp)</code>存储的到底是啥？不难想到就是参数5。然后<code>%esp</code>指针接着扩展下一个函数的参数空间。关注一下第二次调用<code>test_backtrace()</code>，前一条指令<code>mov %eax, (%esp)</code>和第一次调用的时候完全一样，而<code>%eax</code>中存的也是参数5-1=4;当然调用指令<code>call</code>也需要一次压栈。总结一下，如果是从<code>push %ebp</code>开始算起是函数栈的开头的话，那我们每一个函数调用会花费<code>4（push %ebp）+4(push %ebx)+20(sub $0x14,%esp)+4(call)</code>一共是32Bytes字节的空间。所以整个栈的布局见下图:   </p>
+<p>基本上所有被调用的函数开头都会有这两条指令:<code>push %ebp</code>;<code>mov %esp, %ebp</code>;<br>实验指导书上也解释了<code>%ebp</code>寄存器的作用:<strong>On entry to a C function, the function’s prologue code normally saves the previous function’s base pointer by pushing it onto the stack, and then copies the current esp value into ebp for the duration of the function.</strong>每一个函数都有一个<code>%ebp</code>值，作为函数的栈帧，需要在每次调用新函数的时候压栈以保存上一个函数的返回地址。<br>这个时候莫名其妙的压栈了一个寄存器<code>%ebx</code>。我们将<code>%ebx</code>全局高亮显示发现，后面紧接着会有<code>mov 0x8(%ebp), %ebx</code>。那<code>0x8(%ebp)</code>存储的到底是啥？不难想到就是参数5。然后<code>%esp</code>指针接着扩展当前函数的栈空间。关注一下第二次调用<code>test_backtrace()</code>，前一条指令<code>mov %eax, (%esp)</code>和第一次调用的时候完全一样，而<code>%eax</code>中存的也是参数5-1=4;当然调用指令<code>call</code>也需要一次压栈。总结一下，如果是从<code>push %ebp</code>开始算起是函数栈的开头的话，那我们每一个函数调用会花费<code>4（push %ebp）+4(push %ebx)+20(sub $0x14,%esp)+4(call)</code>一共是32Bytes字节的空间。所以整个栈的布局见下图:   </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/23.png" width="300" height="200" alt="pic2" align="center"></p>
 <blockquote>
 <p>当然在调用过程中还调用了<code>cprintf()</code>这个函数，不过20字节用来分配栈空间也够了。</p>
 </blockquote>
-<h5 id="Exercise-11"><a href="#Exercise-11" class="headerlink" title="Exercise 11"></a>Exercise 11</h5><h5 id="Exercise-12"><a href="#Exercise-12" class="headerlink" title="Exercise 12"></a>Exercise 12</h5>
+<h5 id="Exercise-11"><a href="#Exercise-11" class="headerlink" title="Exercise 11"></a>Exercise 11</h5><blockquote>
+<p>经过上面的分析，栈的布局已经很清楚了。所以我们需要知道对于<code>read_ebp()</code>函数来说读出的是当前<code>%ebp</code>指针指向的地址，所以按照上面栈的布局:<code>(%ebp)--&gt;上一个%ebp</code>,<code>0x4（%ebp）--&gt;%eip</code>,<code>0x8(%ebp)--&gt;参数1</code>…当然这里的参数比5个少。<br>下面就是考验C语言的时刻，一定要注意格式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">int</span><br><span class="line">mon_backtrace(int argc, char **argv, struct Trapframe *tf)</span><br><span class="line">&#123;</span><br><span class="line">        // Your code here.</span><br><span class="line">        /*</span><br><span class="line">         parameter &quot;argc&quot; indicates numbers of paras passed by the command-line;  parameter &quot;argv&quot; indicates specific paras accordingly.</span><br><span class="line">        */</span><br><span class="line">        struct Eipdebuginfo info;</span><br><span class="line">        cprintf(&quot;Stack backtrace:\n&quot;);</span><br><span class="line">        uint32_t *ebp = (uint32_t*)read_ebp();</span><br><span class="line">        while(ebp) &#123;</span><br><span class="line">                uint32_t eip = ebp[1];</span><br><span class="line">                cprintf(&quot;  ebp %x  eip %x  args &quot;, ebp, eip);</span><br><span class="line">                cprintf(&quot;%08.x &quot;, *(ebp+2));</span><br><span class="line">                cprintf(&quot;%08.x &quot;, *(ebp+3));</span><br><span class="line">                cprintf(&quot;%08.x &quot;, *(ebp+4));</span><br><span class="line">                cprintf(&quot;%08.x &quot;, *(ebp+5));</span><br><span class="line">                cprintf(&quot;%08.x\n&quot;, *(ebp+6));</span><br><span class="line"></span><br><span class="line">                ebp = (uint32_t*)*(ebp);</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>后面还有一个小练习：</p>
+</blockquote>
+<h5 id="Exercise-12"><a href="#Exercise-12" class="headerlink" title="Exercise 12"></a>Exercise 12</h5><blockquote>
+</blockquote>
+
       
     </div>
     
