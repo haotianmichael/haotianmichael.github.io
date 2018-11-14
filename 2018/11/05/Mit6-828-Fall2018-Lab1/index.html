@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux," />
+  <meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux," />
 
 
 
@@ -116,7 +116,7 @@
 
 
 <meta name="description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
-<meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux">
+<meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Lab1">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/index.html">
@@ -133,13 +133,15 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/14.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/13.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/15.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/22.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/16.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/17.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/18.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/19.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/20.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/21.png">
-<meta property="og:updated_time" content="2018-11-13T15:24:27.236Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/23.png">
+<meta property="og:updated_time" content="2018-11-14T01:14:01.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab1">
 <meta name="twitter:description" content="Lab1Before Lab Lab1一共有三部分:Bootstrap,BootLoader,Kernel;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分monitor中test_backtrace的功能。如果GDB调试出错，可能是因为调试器没有链接到操作系统上：123add add-auto-load-safe-path /Your Working Dir">
@@ -439,7 +441,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  5.5k
+                  6k
                 </span>
               
 
@@ -455,7 +457,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  21
+                  23
                 </span>
               
             </div>
@@ -606,9 +608,10 @@
 <li><code>va_arg(ap, type)</code>: 将ap指向下一个可变参数</li>
 <li><code>va_end(ap)</code>: 清除ap指针，结束函数<br>可以看到变参<code>fmt</code>和变参指针<code>ap</code>被一路传到<code>vcprintf</code>———&gt;<code>vprintfmt</code>。在<code>vprintfmt</code>中使用。该文件中重点关注两个函数:</li>
 <li>在<code>lib/printfmt.c</code>中的函数: <code>vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)</code></li>
-<li>在<code>kern/console.c</code>中的函数: <code>cputchar(int c)</code><br>经过观察之后就可以知道: <strong><code>vprintfmt</code>函数判断字符串输出参数的类型并调用<code>cputchar</code>函数将相应的输出显示到显示屏上</strong>。在函数分析之前再介绍一个vim的新技能:搜索高亮<code>:match Search /xxx/</code>:</li>
+<li>在<code>kern/console.c</code>中的函数: <code>cputchar(int c)</code><br>经过观察之后就可以知道: <strong><code>vprintfmt</code>函数判断字符串输出参数的类型并调用<code>cputchar</code>函数将相应的输出显示到显示屏上</strong>。<br>在函数分析之前再介绍一个vim的新技能:搜索高亮<code>:match Search /xxx/</code>,可以对现在正在关注的关键字进行高亮显示，调试的时候很有用:  </li>
 </ul>
 </blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/22.png" width="300" height="200" alt="pic2" align="center"></p>
 <h6 id="分析函数vprintfmt"><a href="#分析函数vprintfmt" class="headerlink" title="分析函数vprintfmt"></a>分析函数vprintfmt</h6><blockquote>
 <p><code>vprintfmt</code>函数其实很简单，主体就是一个while循环:在遇到<code>%</code>之前直接输出，遇到<code>%</code>之后开始判断格式并输出。</p>
 </blockquote>
@@ -665,7 +668,14 @@
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/21.png" width="300" height="200" alt="pic2" align="center"></p>
 <blockquote>
-<p>第三条指令就正式进入到<code>test_backtrace</code>函数内部了，</p>
+<p>第三条指令就正式进入到<code>test_backtrace</code>函数内部了。分析一下函数内部的<strong>调用代码</strong>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void test_backtrace(int x)</span><br><span class="line">&#123;</span><br><span class="line">f0100040:       55                      push   %ebp</span><br><span class="line">f0100041:       89 e5                   mov    %esp,%ebp</span><br><span class="line">f0100043:       53                      push   %ebx</span><br><span class="line">f0100044:       83 ec 14                sub    $0x14,%esp</span><br><span class="line">f0100047:       8b 5d 08                mov    0x8(%ebp),%ebx</span><br><span class="line">        cprintf(&quot;entering test_backtrace %d\n&quot;, x);</span><br><span class="line">f010004a:       89 5c 24 04             mov    %ebx,0x4(%esp)</span><br><span class="line">f010004e:       c7 04 24 20 1a 10 f0    movl   $0xf0101a20,(%esp)</span><br><span class="line">f0100055:       e8 c1 09 00 00          call   f0100a1b &lt;cprintf&gt;</span><br><span class="line">        if (x &gt; 0)</span><br><span class="line">f010005a:       85 db                   test   %ebx,%ebx    </span><br><span class="line">f010005c:       7e 0d                   jle    f010006b &lt;test_backtrace+0x2b&gt;</span><br><span class="line">                test_backtrace(x-1);</span><br><span class="line">f010005e:       8d 43 ff                lea    -0x1(%ebx),%eax</span><br><span class="line">f0100061:       89 04 24                mov    %eax,(%esp)</span><br><span class="line">f0100064:       e8 d7 ff ff ff          call   f0100040 &lt;test_backtrace&gt;</span><br><span class="line">f0100069:       eb 1c                   jmp    f0100087 &lt;test_backtrace+0x47&gt;</span><br><span class="line">        else</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>基本上所有被调用的函数开头都会有这两条指令:<code>push %ebp</code>;<code>mov %esp, %ebp</code>;<br>实验指导书上也解释了<code>%ebp</code>寄存器的作用:<strong>On entry to a C function, the function’s prologue code normally saves the previous function’s base pointer by pushing it onto the stack, and then copies the current esp value into ebp for the duration of the function.</strong>每一个函数都有一个<code>%ebp</code>值，作为函数的栈帧，需要在每次调用新函数的时候压栈以保存上一个函数的返回地址。<br>这个时候莫名其妙的压栈了一个寄存器<code>%ebx</code>。我们将<code>%ebx</code>全局高亮显示发现，后面紧接着会有<code>mov 0x8(%ebp), %ebx</code>。那<code>0x8(%ebp)</code>存储的到底是啥？不难想到就是参数5。然后<code>%esp</code>指针接着扩展下一个函数的参数空间。关注一下第二次调用<code>test_backtrace()</code>，前一条指令<code>mov %eax, (%esp)</code>和第一次调用的时候完全一样，而<code>%eax</code>中存的也是参数5-1=4;当然调用指令<code>call</code>也需要一次压栈。总结一下，如果是从<code>push %ebp</code>开始算起是函数栈的开头的话，那我们每一个函数调用会花费<code>4（push %ebp）+4(push %ebx)+20(sub $0x14,%esp)+4(call)</code>一共是32Bytes字节的空间。所以整个栈的布局见下图:   </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/23.png" width="300" height="200" alt="pic2" align="center"></p>
+<blockquote>
+<p>当然在调用过程中还调用了<code>cprintf()</code>这个函数，不过20字节用来分配栈空间也够了。</p>
 </blockquote>
 <h5 id="Exercise-11"><a href="#Exercise-11" class="headerlink" title="Exercise 11"></a>Exercise 11</h5><h5 id="Exercise-12"><a href="#Exercise-12" class="headerlink" title="Exercise 12"></a>Exercise 12</h5>
       
@@ -687,7 +697,7 @@
   <p><span>本文标题:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/">Mit6.828(Fall 2018) Lab1</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月04日 - 21:11</p>
-  <p><span>最后更新:</span>2018年11月13日 - 23:11</p>
+  <p><span>最后更新:</span>2018年11月14日 - 09:11</p>
   <p><span>原始链接:</span><a href="/2018/11/05/Mit6-828-Fall2018-Lab1/" title="Mit6.828(Fall 2018) Lab1">http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall2018-Lab1/"  aria-label="复制成功！"></i></span>
   </p>
@@ -722,11 +732,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
-          
             <a href="/tags/MIT-6-828/" rel="tag"><i class="fa fa-tag"></i> MIT 6.828</a>
           
             <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
+          
+            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
           
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
           
