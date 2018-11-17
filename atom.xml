@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2018-11-17T00:54:29.160Z</updated>
+  <updated>2018-11-17T00:56:29.131Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,19 +21,22 @@
     <link href="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/"/>
     <id>http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/</id>
     <published>2018-11-17T07:48:07.000Z</published>
-    <updated>2018-11-17T00:54:29.160Z</updated>
+    <updated>2018-11-17T00:56:29.131Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="HW-Shell"><a href="#HW-Shell" class="headerlink" title="HW:Shell"></a>HW:Shell</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的资料有:  </p><ul><li>XV-6.Ch0</li><li>man 3 exec</li><li>TCPL<br>学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————<a href="http://vim-taglist.sourceforge.net/manual.html#taglist-using" target="_blank" rel="noopener">Taglist</a>。  </li></ul></blockquote><p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/27.png" width="300" height="200" alt="pic2" align="center"></p><a id="more"></a><blockquote><p>简单来讲，它以目录树的形式列出当前文件中的symbol:函数名，宏定义和变量。帮助我们从宏观上快速了解源码。本身支持跳转。安装manual中讲的很清楚，就不再赘述了。下面是我的配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nnoremap &lt;silent&gt; &lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt;   &quot;按f8开启Taglist</span><br><span class="line">let Tlist_Show_One_File=0                    </span><br><span class="line">let Tlist_Exit_OnlyWindow=1                  </span><br><span class="line">let Tlist_Use_Left_Window=1                 </span><br><span class="line">let Tlist_File_Fold_Auto_Close=1             </span><br><span class="line"></span><br><span class="line">     add the above Configs to your ~/.vimrc</span><br></pre></td></tr></table></figure></p></blockquote><blockquote></blockquote>]]></content>
+    <content type="html"><![CDATA[<h2 id="HW-Shell"><a href="#HW-Shell" class="headerlink" title="HW:Shell"></a>HW:Shell</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的Readings有:    </p></blockquote><ul><li>XV-6.Ch0</li><li>man 3 exec</li><li>TCPL  </li></ul><blockquote><p>学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————<a href="http://vim-taglist.sourceforge.net/manual.html#taglist-using" target="_blank" rel="noopener">Taglist</a>。  </p></blockquote><p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/27.png" width="300" height="200" alt="pic2" align="center"></p><a id="more"></a><blockquote><p>简单来讲，它以目录树的形式列出当前文件中的symbol:函数名，宏定义和变量。帮助我们从宏观上快速了解源码。本身支持跳转。安装manual中讲的很清楚，就不再赘述了。下面是我的配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nnoremap &lt;silent&gt; &lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt;   &quot;按f8开启Taglist</span><br><span class="line">let Tlist_Show_One_File=0                    </span><br><span class="line">let Tlist_Exit_OnlyWindow=1                  </span><br><span class="line">let Tlist_Use_Left_Window=1                 </span><br><span class="line">let Tlist_File_Fold_Auto_Close=1             </span><br><span class="line"></span><br><span class="line">     add the above Configs to your ~/.vimrc</span><br></pre></td></tr></table></figure></p></blockquote><blockquote></blockquote>]]></content>
     
     <summary type="html">
     
       &lt;h2 id=&quot;HW-Shell&quot;&gt;&lt;a href=&quot;#HW-Shell&quot; class=&quot;headerlink&quot; title=&quot;HW:Shell&quot;&gt;&lt;/a&gt;HW:Shell&lt;/h2&gt;&lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的资料有:  &lt;/p&gt;
+&lt;p&gt;6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的Readings有:    &lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;XV-6.Ch0&lt;/li&gt;
 &lt;li&gt;man 3 exec&lt;/li&gt;
-&lt;li&gt;TCPL&lt;br&gt;学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————&lt;a href=&quot;http://vim-taglist.sourceforge.net/manual.html#taglist-using&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Taglist&lt;/a&gt;。  &lt;/li&gt;
+&lt;li&gt;TCPL  &lt;/li&gt;
 &lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————&lt;a href=&quot;http://vim-taglist.sourceforge.net/manual.html#taglist-using&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Taglist&lt;/a&gt;。  &lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/27.png&quot; width=&quot;300&quot; height=&quot;200&quot; alt=&quot;pic2&quot; align=&quot;center&quot;&gt;&lt;/p&gt;
     
@@ -46,11 +49,11 @@
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
     
+      <category term="Shell" scheme="http://haotianmcihael.github.io/tags/Shell/"/>
+    
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
       <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
-    
-      <category term="Shell" scheme="http://haotianmcihael.github.io/tags/Shell/"/>
     
   </entry>
   
@@ -78,11 +81,11 @@
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
       <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -109,11 +112,11 @@
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
       <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -136,9 +139,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -161,9 +164,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -186,9 +189,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -211,9 +214,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -236,9 +239,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -262,9 +265,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
