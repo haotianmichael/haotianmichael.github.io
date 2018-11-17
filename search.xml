@@ -14,6 +14,8 @@
           
           <category> C </category>
           
+          <category> Shell </category>
+          
       </categories>
       
       
@@ -23,11 +25,11 @@
             
             <tag> OS </tag>
             
-            <tag> Shell </tag>
-            
             <tag> C </tag>
             
             <tag> Linux </tag>
+            
+            <tag> Shell </tag>
             
         </tags>
       
@@ -54,11 +56,11 @@
             
             <tag> OS </tag>
             
+            <tag> Assembly </tag>
+            
             <tag> C </tag>
             
             <tag> Linux </tag>
-            
-            <tag> Assembly </tag>
             
         </tags>
       
@@ -85,11 +87,11 @@
             
             <tag> OS </tag>
             
+            <tag> Assembly </tag>
+            
             <tag> C </tag>
             
             <tag> Linux </tag>
-            
-            <tag> Assembly </tag>
             
         </tags>
       
@@ -112,9 +114,9 @@
       
         <tags>
             
-            <tag> i386 </tag>
-            
             <tag> Assembly </tag>
+            
+            <tag> i386 </tag>
             
         </tags>
       
@@ -137,9 +139,9 @@
       
         <tags>
             
-            <tag> i386 </tag>
-            
             <tag> Assembly </tag>
+            
+            <tag> i386 </tag>
             
         </tags>
       
@@ -162,9 +164,9 @@
       
         <tags>
             
-            <tag> i386 </tag>
-            
             <tag> Assembly </tag>
+            
+            <tag> i386 </tag>
             
         </tags>
       
@@ -187,9 +189,9 @@
       
         <tags>
             
-            <tag> i386 </tag>
-            
             <tag> Assembly </tag>
+            
+            <tag> i386 </tag>
             
         </tags>
       
@@ -212,9 +214,9 @@
       
         <tags>
             
-            <tag> i386 </tag>
-            
             <tag> Assembly </tag>
+            
+            <tag> i386 </tag>
             
         </tags>
       
@@ -237,9 +239,9 @@
       
         <tags>
             
-            <tag> i386 </tag>
-            
             <tag> Assembly </tag>
+            
+            <tag> i386 </tag>
             
         </tags>
       
