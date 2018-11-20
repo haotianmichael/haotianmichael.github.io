@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Mit6.828(Fall 2018) Shell]]></title>
     <url>%2F2018%2F11%2F17%2FMit6-828-Fall-2018-Shell%2F</url>
-    <content type="text"><![CDATA[HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的Readings有: XV-6.Ch0 man 3 exec TCPL 学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————Taglist。 简单来讲，它以目录树的形式列出当前文件中的symbol:函数名，宏定义和变量。帮助我们从宏观上快速了解源码。本身支持跳转。安装manual中讲的很清楚，就不再赘述了。下面是我的配置:1234567nnoremap &lt;silent&gt; &lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt; &quot;按f8开启Taglistlet Tlist_Show_One_File=0 let Tlist_Exit_OnlyWindow=1 let Tlist_Use_Left_Window=1 let Tlist_File_Fold_Auto_Close=1 add the above Configs to your ~/.vimrc 操作系统调用——System Calls 操作系统的工作总结起来就是抽象和资源分配。资源有内存分配，CPU调度等。而抽象指的就是系统调用。实验需要实现Shell中的简单ls命令，重定向和管道。每一个功能都是使用系统调用来实现的，所以将System Calls称为操作系统的接口一点都不过分。 Executing Simple Commandsfork fork系统调用创建一个子进程，对于父进程返回子进程的pid，对于子进程返回0。见下面代码:1234567891011int pid = fork(); //创建了子进程if(pid == 0) &#123; //父子进程都从这里开始执行，唯一区别就是pid不一样 printf(&quot;child: existing!\n&quot;); exit();&#125;else if(pid &gt; 0) &#123; printf(&quot;parent: %d&quot;, pid); wait(); //父进程等待 printf(&quot;child is done\n&quot;);&#125;else &#123; fprintf(stdeer, &quot;fork error!\n&quot;);&#125; 其中wait()系统调用返回一个退出的子进程。上面这段代码其实就是整个Shell执行指令的原理:Shell提示符由父进程提供，然后创建一个子进程执行真正的命令，而父进程则wait()直到子进程返回,然后父进程等待下一条命令。执行效果如下: 回到Shell中来，我们需要修改子进程中的代码，能够正确执行ls命令。涉及到exec()函数族。 exec exec提供了在一个进程中执行另一个进程的方法: 根据参数提供的文件路径和名称找到可执行文件，并执行。执行结束之后原调用进程的内容除进程号之外其他的全部被替换。通常和fork一起联合实现进程中执行程序。exec函数族是由6个以exec开头的函数构成的，这6个函数的用法根据名称的不同会有些微的区别: 查找可执行文件的方式 其中execlp，execvp在查找可执行文件的时候不用写文件的绝对路径，系统会自动根据环境变量“$PATH”查找。比较方便。 参数传递方式 其中execlp,execl,execle这三个第五个字母是l的函数参数只能分别列出来————const char *argv...。而execv,execve,execvp这单个第五个字母是v的函数参数可以整体构造数组传递————char *const argv[]。所有的参数都应该以NULL结尾。 环境变量 其中execle和execle可以在使用指定的环境变量。通过在参数末尾加上char *const envp[]的方法。 总结见下图: exec函数族使用注意事项 因为exec函数经常调用失败，所以需要加上判断语句 最后参数一定用NULL结尾 I/O RedirectionImplement pipesdup]]></content>
+    <content type="text"><![CDATA[HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的Readings有: XV-6.Ch0 man 3 exec TCPL 学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————Taglist。 简单来讲，它以目录树的形式列出当前文件中的symbol:函数名，宏定义和变量。帮助我们从宏观上快速了解源码。本身支持跳转。安装manual中讲的很清楚，就不再赘述了。下面是我的配置:1234567nnoremap &lt;silent&gt; &lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt; &quot;按f8开启Taglistlet Tlist_Show_One_File=0 let Tlist_Exit_OnlyWindow=1 let Tlist_Use_Left_Window=1 let Tlist_File_Fold_Auto_Close=1 add the above Configs to your ~/.vimrc 操作系统调用——System Calls 操作系统的工作总结起来就是抽象和资源分配。资源有内存分配，CPU调度等。而抽象指的就是系统调用。实验需要实现Shell中的简单ls命令，重定向和管道。每一个功能都是使用系统调用来实现的，所以将System Calls称为操作系统的接口一点都不过分。 Executing Simple Commandsfork fork系统调用创建一个子进程，对于父进程返回子进程的pid，对于子进程返回0。见下面代码:1234567891011int pid = fork(); //创建了子进程if(pid == 0) &#123; //父子进程都从这里开始执行，唯一区别就是pid不一样 printf(&quot;child: existing!\n&quot;); exit();&#125;else if(pid &gt; 0) &#123; printf(&quot;parent: %d&quot;, pid); wait(); //父进程等待 printf(&quot;child is done\n&quot;);&#125;else &#123; fprintf(stdeer, &quot;fork error!\n&quot;);&#125; 其中wait()系统调用返回一个退出的子进程。上面这段代码其实就是整个Shell执行指令的原理:Shell提示符由父进程提供，然后创建一个子进程执行真正的命令，而父进程则wait()直到子进程返回,然后父进程等待下一条命令。执行效果如下: 回到Shell中来，我们需要修改子进程中的代码，能够正确执行ls命令。涉及到exec()函数族。 exec exec提供了在一个进程中执行另一个进程的方法: 根据参数提供的文件路径和名称找到可执行文件，并执行。执行结束之后原调用进程的内容除进程号之外其他的全部被替换。通常和fork一起联合实现进程中执行程序。exec函数族是由6个以exec开头的函数构成的，这6个函数的用法根据名称的不同会有些微的区别: 查找可执行文件的方式 其中execlp，execvp在查找可执行文件的时候不用写文件的绝对路径，系统会自动根据环境变量“$PATH”查找。env命令可以列出系统中当前的$PATH。 参数传递方式 其中execlp,execl,execle这三个第五个字母是l的函数参数只能分别列出来————const char *argv...。而execv,execve,execvp这单个第五个字母是v的函数参数可以整体构造数组传递————char *const argv[]。所有的参数都应该以NULL结尾。 环境变量 其中execle和execle可以在使用指定的环境变量。通过在参数末尾加上char *const envp[]的方法。 总结见下图: exec函数族使用注意事项 因为exec函数经常调用失败，所以需要加上判断语句 最后参数一定用NULL结尾1234567int exec() &#123; int ret; if( fork() == 0 )&#123; if((ret = execlp(&quot;ls&quot;, &quot;ls&quot;, &quot;-al&quot;, NULL)) &lt; 0) //参数以NULL结束 fprintf(stderror, &quot;execlp error!\n&quot;); &#125;&#125; 实现ls命令 Shell代码分为两个部分:词法分析和命令执行；实验需要修改runcmd()函数部分的代码，实现EXEC。execcmd结构体中argv[0]中存储的是命令的名称。根据调试知道了&#39; &#39;属于命令类型，直接创建子进程用exec族函数实现相应的命令就行了: 1234567891011121314151617181920case &apos; &apos;: ecmd = (struct execcmd*)cmd; if(ecmd-&gt;argv[0] == 0) _exit(0); if(strcmp(ecmd-&gt;argv[0], &quot;ls&quot;) == 0)&#123; int pid, ret; if ((pid = fork()) == 0) &#123; if((ret = execl(&quot;/bin/ls&quot;, &quot;ls&quot;, &quot;-l&quot;, NULL)) &lt; 0) &#123; fprintf(stderr, &quot;execution failed\n&quot;); exit(-1); &#125; exit(0); &#125; else if (pid &gt; 0) &#123; wait(0); &#125; &#125;else &#123; fprintf(stderr, &quot;exec not implemented\n&quot;); &#125; break; 注意因为是多线程编程，所以调试的时候会出现很多不可思议的现象。可以先将fork()部分注释掉，进入执行函数看一下现象，然后输出调试。执行效果如下: I/O RedirectionImplement pipesdup]]></content>
       <categories>
         <category>C</category>
         <category>Shell</category>
@@ -39,8 +39,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -51,8 +51,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -63,8 +63,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -75,8 +75,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -87,8 +87,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -99,8 +99,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>i386</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
 </search>
