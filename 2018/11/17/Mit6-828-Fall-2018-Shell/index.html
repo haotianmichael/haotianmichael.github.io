@@ -128,7 +128,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/29.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/30.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/31.png">
-<meta property="og:updated_time" content="2018-11-21T12:04:20.791Z">
+<meta property="og:updated_time" content="2018-11-21T12:05:04.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Shell">
 <meta name="twitter:description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要">
@@ -549,6 +549,9 @@
 </blockquote>
 <h4 id="gt-输出重定向"><a href="#gt-输出重定向" class="headerlink" title="&gt; 输出重定向"></a>&gt; 输出重定向</h4><blockquote>
 <p>如果文件不存在。创建新的文件时需要注意文件的权限。<code>creat</code>函数的参数0777权限为<code>-rwx rwx rwx</code>。关于umask的知识见<a href="https://my.oschina.net/alphajay/blog/112428" target="_blank" rel="noopener">这里</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">case &apos;&gt;&apos;:</span><br><span class="line">rcmd = (struct redircmd*)cmd;</span><br><span class="line">int fd;</span><br><span class="line">if((fd = open(rcmd-&gt;file, O_RDWR)) &lt; 0) &#123;  //fd为新打开文件的文件描述符</span><br><span class="line">	if((fd = creat(rcmd-&gt;file, 0777)) &lt; 0 ) &#123;</span><br><span class="line">		fprintf(stderr, &quot;Bash: No such file or directory:  %s\n&quot;, rcmd-&gt;file);</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		dup2(fd, 1);   //将标准输出指向到新打开的文件fd上，所以输出就到了该文件上（实现了重定向）</span><br><span class="line">		runcmd(rcmd-&gt;cmd);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;else &#123;</span><br><span class="line">	dup2(fd, 1);</span><br><span class="line">	runcmd(rcmd-&gt;cmd);</span><br><span class="line">&#125;</span><br><span class="line">	break;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>执行效果如下: </p>
 </blockquote>
 <h3 id="Implement-pipes"><a href="#Implement-pipes" class="headerlink" title="Implement pipes"></a>Implement pipes</h3><blockquote>
 <p>对于</p>
