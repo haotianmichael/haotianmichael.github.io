@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2018-11-21T12:33:33.476Z</updated>
+  <updated>2018-11-21T12:53:38.335Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mit6.828(Fall 2018) Lab2</title>
+    <link href="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/"/>
+    <id>http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/</id>
+    <published>2018-11-21T20:51:42.000Z</published>
+    <updated>2018-11-21T12:53:38.335Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Lab2"><a href="#Lab2" class="headerlink" title="Lab2"></a>Lab2</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Lab2&quot;&gt;&lt;a href=&quot;#Lab2&quot; class=&quot;headerlink&quot; title=&quot;Lab2&quot;&gt;&lt;/a&gt;Lab2&lt;/h2&gt;&lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;A
+      
+    
+    </summary>
+    
+      <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
+    
+    
+      <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
+    
+      <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
+    
+      <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Mit6.828(Fall 2018) Shell</title>
