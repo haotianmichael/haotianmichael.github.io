@@ -115,23 +115,23 @@
 
 
 
-<meta name="description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的Readings有:">
+<meta name="description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要">
 <meta name="keywords" content="MIT 6.828,OS,Shell,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Shell">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/index.html">
 <meta property="og:site_name" content="HBlog">
-<meta property="og:description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的Readings有:">
+<meta property="og:description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/27.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/28.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/29.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/30.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/31.png">
-<meta property="og:updated_time" content="2018-11-20T23:30:30.782Z">
+<meta property="og:updated_time" content="2018-11-21T12:04:20.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Shell">
-<meta name="twitter:description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的Readings有:">
+<meta name="twitter:description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/27.png">
 
 
@@ -439,7 +439,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  1.9k
                 </span>
               
 
@@ -455,7 +455,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  5
+                  7
                 </span>
               
             </div>
@@ -477,10 +477,10 @@
 
       
         <h2 id="HW-Shell"><a href="#HW-Shell" class="headerlink" title="HW:Shell"></a>HW:Shell</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
-<p>6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，关于这次HW需要阅读的Readings有:    </p>
+<p>6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW<strong>需要实现一个小型的Shell</strong>，需要阅读的Readings有:    </p>
 </blockquote>
 <ul>
-<li>XV-6.Ch0</li>
+<li>XV-6.Chapter.0</li>
 <li>man  fork, (3)exec，open， close</li>
 <li>TCPL</li>
 </ul>
@@ -535,7 +535,25 @@
 <p>注意因为是多线程编程，所以调试的时候会出现很多不可思议的现象。<strong>可以先将fork()部分注释掉，进入执行函数看一下现象，然后输出调试。</strong>执行效果如下:  </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/31.png" width="300" height="200" alt="pic2" align="center"></p>
-<h3 id="I-O-Redirection"><a href="#I-O-Redirection" class="headerlink" title="I/O Redirection"></a>I/O Redirection</h3><h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><h4 id="open"><a href="#open" class="headerlink" title="open"></a>open</h4><h3 id="Implement-pipes"><a href="#Implement-pipes" class="headerlink" title="Implement pipes"></a>Implement pipes</h3><h4 id="dup"><a href="#dup" class="headerlink" title="dup"></a>dup</h4>
+<h3 id="I-O-Redirection"><a href="#I-O-Redirection" class="headerlink" title="I/O Redirection"></a>I/O Redirection</h3><h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><blockquote>
+<p>文件描述符是很重要的概念，它使得重定向成为可能。<code>File Descriptor</code>是一个整数，常常把其指向的对象称为文件。本实验中需要了解<code>open</code>，<code>creat</code>，<code>close</code>，<code>dup2</code>等系统调用返回值就是一个文件描述符。<strong>我们需要做的就是将Shell本身的文件描述符指向其他的文件描述符，从而实现重定向。</strong>Shell保证在任何时候都有3个打开的文件描述符————<code>0-标准输入</code>,<code>1-标准输出</code>,<code>2-错误输出</code>。<br>下面是会用到的几个系统调用: </p>
+<ul>
+<li><code>open(&quot;file_name&quot;, O_RDWR)</code> 打开文件，打开成功返回值最小的文件描述符————标准输入0，打开失败返回-1</li>
+<li><code>create(&quot;file_name&quot;, 0777)</code> 创建文件，返回值和open一眼</li>
+<li><code>close(fd)</code> 释放一个文件描述符</li>
+<li><code>dup2(oldfd, newfd)</code> 将oldfd复制给newfd<br>重定向不需要考虑子进程的问题，但还是需要深入了解<code>fork</code>函数的机理，<strong>一旦fork，父进程拥有和子进程一模一样的文件描述符</strong>。而重定向需要考虑的是在子进程中将标准输入（输出）定向到其他文件即可。  </li>
+</ul>
+</blockquote>
+<h4 id="lt-输入重定向"><a href="#lt-输入重定向" class="headerlink" title="&lt; 输入重定向"></a>&lt; 输入重定向</h4><blockquote>
+<p>较简单，一旦文件不存在直接报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">case &apos;&lt;&apos;:</span><br><span class="line">           rcmd = (struct redircmd*)cmd;</span><br><span class="line">           close(0);//关掉父进程的标准输入</span><br><span class="line">           if(open(rcmd-&gt;file, O_RDONLY) &lt; 0) &#123;</span><br><span class="line">               fprintf(stderr, &quot;Bash: No such file or directory:  %s\n&quot;, rcmd-&gt;file);  //输入不存在直接报错</span><br><span class="line">           &#125;else &#123;</span><br><span class="line">               runcmd(rcmd-&gt;cmd);  //这里就是执行EXEC部分，所以fork的时候标准输入也是关闭的（和父进程一样）</span><br><span class="line">           &#125;</span><br><span class="line">           break;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="gt-输出重定向"><a href="#gt-输出重定向" class="headerlink" title="&gt; 输出重定向"></a>&gt; 输出重定向</h4><blockquote>
+<p>如果文件不存在。创建新的文件时需要注意文件的权限。<code>creat</code>函数的参数0777权限为<code>-rwx rwx rwx</code>。关于umask的知识见<a href="https://my.oschina.net/alphajay/blog/112428" target="_blank" rel="noopener">这里</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">case &apos;&gt;&apos;:</span><br><span class="line">rcmd = (struct redircmd*)cmd;</span><br><span class="line">int fd;</span><br><span class="line">if((fd = open(rcmd-&gt;file, O_RDWR)) &lt; 0) &#123;  //fd为新打开文件的文件描述符</span><br><span class="line">	if((fd = creat(rcmd-&gt;file, 0777)) &lt; 0 ) &#123;</span><br><span class="line">		fprintf(stderr, &quot;Bash: No such file or directory:  %s\n&quot;, rcmd-&gt;file);</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		dup2(fd, 1);   //将标准输出指向到新打开的文件fd上，所以输出就到了该文件上（实现了重定向）</span><br><span class="line">		runcmd(rcmd-&gt;cmd);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;else &#123;</span><br><span class="line">	dup2(fd, 1);</span><br><span class="line">	runcmd(rcmd-&gt;cmd);</span><br><span class="line">&#125;</span><br><span class="line">	break;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="Implement-pipes"><a href="#Implement-pipes" class="headerlink" title="Implement pipes"></a>Implement pipes</h3><blockquote>
+<p>对于</p>
+</blockquote>
+
       
     </div>
     
@@ -555,7 +573,7 @@
   <p><span>本文标题:</span><a href="/2018/11/17/Mit6-828-Fall-2018-Shell/">Mit6.828(Fall 2018) Shell</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月17日 - 07:11</p>
-  <p><span>最后更新:</span>2018年11月21日 - 07:11</p>
+  <p><span>最后更新:</span>2018年11月21日 - 20:11</p>
   <p><span>原始链接:</span><a href="/2018/11/17/Mit6-828-Fall-2018-Shell/" title="Mit6.828(Fall 2018) Shell">http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/"  aria-label="复制成功！"></i></span>
   </p>
@@ -797,7 +815,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HW-Shell"><span class="nav-number">1.</span> <span class="nav-text">HW:Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统调用——System-Calls"><span class="nav-number">1.2.</span> <span class="nav-text">操作系统调用——System Calls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Executing-Simple-Commands"><span class="nav-number">1.3.</span> <span class="nav-text">Executing Simple Commands</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fork"><span class="nav-number">1.3.1.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exec"><span class="nav-number">1.3.2.</span> <span class="nav-text">exec</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查找可执行文件的方式"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">查找可执行文件的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参数传递方式"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">参数传递方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#环境变量"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#exec函数族使用注意事项"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">exec函数族使用注意事项</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现命令"><span class="nav-number">1.3.3.</span> <span class="nav-text">实现命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O-Redirection"><span class="nav-number">1.4.</span> <span class="nav-text">I/O Redirection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.4.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#open"><span class="nav-number">1.4.2.</span> <span class="nav-text">open</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Implement-pipes"><span class="nav-number">1.5.</span> <span class="nav-text">Implement pipes</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dup"><span class="nav-number">1.5.1.</span> <span class="nav-text">dup</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HW-Shell"><span class="nav-number">1.</span> <span class="nav-text">HW:Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统调用——System-Calls"><span class="nav-number">1.2.</span> <span class="nav-text">操作系统调用——System Calls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Executing-Simple-Commands"><span class="nav-number">1.3.</span> <span class="nav-text">Executing Simple Commands</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fork"><span class="nav-number">1.3.1.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exec"><span class="nav-number">1.3.2.</span> <span class="nav-text">exec</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查找可执行文件的方式"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">查找可执行文件的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参数传递方式"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">参数传递方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#环境变量"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#exec函数族使用注意事项"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">exec函数族使用注意事项</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现命令"><span class="nav-number">1.3.3.</span> <span class="nav-text">实现命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O-Redirection"><span class="nav-number">1.4.</span> <span class="nav-text">I/O Redirection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.4.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-输入重定向"><span class="nav-number">1.4.2.</span> <span class="nav-text">&lt; 输入重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gt-输出重定向"><span class="nav-number">1.4.3.</span> <span class="nav-text">&gt; 输出重定向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Implement-pipes"><span class="nav-number">1.5.</span> <span class="nav-text">Implement pipes</span></a></li></ol></li></ol></div>
             
 
           </div>
