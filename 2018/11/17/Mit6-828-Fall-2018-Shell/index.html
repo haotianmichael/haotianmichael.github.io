@@ -129,7 +129,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/30.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/31.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/31.png">
-<meta property="og:updated_time" content="2018-11-21T12:07:28.967Z">
+<meta property="og:updated_time" content="2018-11-21T12:12:50.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Shell">
 <meta name="twitter:description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要">
@@ -539,14 +539,17 @@
 <h3 id="I-O-Redirection"><a href="#I-O-Redirection" class="headerlink" title="I/O Redirection"></a>I/O Redirection</h3><h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><blockquote>
 <p>文件描述符是很重要的概念，它使得重定向成为可能。<code>File Descriptor</code>是一个整数，常常把其指向的对象称为文件。本实验中需要了解<code>open</code>，<code>creat</code>，<code>close</code>，<code>dup2</code>等系统调用返回值就是一个文件描述符。<strong>我们需要做的就是将Shell本身的文件描述符指向其他的文件描述符，从而实现重定向。</strong>Shell保证在任何时候都有3个打开的文件描述符————<code>0-标准输入</code>,<code>1-标准输出</code>,<code>2-错误输出</code>。<br>下面是会用到的几个系统调用: </p>
 <ul>
-<li><code>open(&quot;file_name&quot;, O_RDWR)</code> 打开文件，打开成功返回值最小的文件描述符————标准输入0，打开失败返回-1</li>
-<li><code>create(&quot;file_name&quot;, 0777)</code> 创建文件，返回值和open一眼</li>
-<li><code>close(fd)</code> 释放一个文件描述符</li>
-<li><code>dup2(oldfd, newfd)</code> 将oldfd复制给newfd<br>重定向不需要考虑子进程的问题，但还是需要深入了解<code>fork</code>函数的机理，<strong>一旦fork，父进程拥有和子进程一模一样的文件描述符</strong>。而重定向需要考虑的是在子进程中将标准输入（输出）定向到其他文件即可。  </li>
+<li><code>open(&quot;file_name&quot;, O_RDWR):</code> 打开文件，打开成功返回值最小的文件描述符————标准输入0，打开失败返回-1</li>
+<li><code>create(&quot;file_name&quot;, 0777):</code> 创建文件，返回值同open</li>
+<li><code>close(fd):</code> 释放一个文件描述符</li>
+<li><code>dup2(oldfd, newfd):</code> 将oldfd复制给newfd  </li>
 </ul>
 </blockquote>
+<blockquote>
+<p>重定向不需要考虑子进程的问题，但还是需要深入了解<code>fork</code>函数的机理，<strong>一旦fork，父进程拥有和子进程一模一样的文件描述符</strong>。而重定向需要考虑的是在子进程中将标准输入（输出）定向到其他文件即可。  </p>
+</blockquote>
 <h4 id="lt-输入重定向"><a href="#lt-输入重定向" class="headerlink" title="&lt; 输入重定向"></a>&lt; 输入重定向</h4><blockquote>
-<p>较简单，一旦文件不存在直接报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">case &apos;&lt;&apos;:</span><br><span class="line">           rcmd = (struct redircmd*)cmd;</span><br><span class="line">           close(0);//关掉父进程的标准输入</span><br><span class="line">           if(open(rcmd-&gt;file, O_RDONLY) &lt; 0) &#123;</span><br><span class="line">               fprintf(stderr, &quot;Bash: No such file or directory:  %s\n&quot;, rcmd-&gt;file);  //输入不存在直接报错</span><br><span class="line">           &#125;else &#123;</span><br><span class="line">               runcmd(rcmd-&gt;cmd);  //这里就是执行EXEC部分，所以fork的时候标准输入也是关闭的（和父进程一样）</span><br><span class="line">           &#125;</span><br><span class="line">           break;</span><br></pre></td></tr></table></figure></p>
+<p>较简单，一旦文件不存在直接报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">case &apos;&lt;&apos;:</span><br><span class="line">           rcmd = (struct redircmd*)cmd;</span><br><span class="line">           close(0);//关掉父进程的标准输入</span><br><span class="line">           if(open(rcmd-&gt;file, O_RDONLY) &lt; 0) &#123;</span><br><span class="line">               fprintf(stderr, &quot;Bash: No such file or directory:  %s\n&quot;, rcmd-&gt;file);  //输入不存在直接报错</span><br><span class="line">           &#125;else &#123;</span><br><span class="line">			//一旦open函数执行成功，它返回得文件描述符就是0，所以这时候该文件就变成了输入,定向成功</span><br><span class="line">               runcmd(rcmd-&gt;cmd);  //这里就是执行EXEC部分，所以fork的时候标准输入也是关闭的（和父进程一样close）</span><br><span class="line">           &#125;</span><br><span class="line">           break;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <h4 id="gt-输出重定向"><a href="#gt-输出重定向" class="headerlink" title="&gt; 输出重定向"></a>&gt; 输出重定向</h4><blockquote>
 <p>如果文件不存在。创建新的文件时需要注意文件的权限。<code>creat</code>函数的参数0777权限为<code>-rwx rwx rwx</code>。关于umask的知识见<a href="https://my.oschina.net/alphajay/blog/112428" target="_blank" rel="noopener">这里</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">case &apos;&gt;&apos;:</span><br><span class="line">rcmd = (struct redircmd*)cmd;</span><br><span class="line">int fd;</span><br><span class="line">if((fd = open(rcmd-&gt;file, O_RDWR)) &lt; 0) &#123;  //fd为新打开文件的文件描述符</span><br><span class="line">	if((fd = creat(rcmd-&gt;file, 0777)) &lt; 0 ) &#123;</span><br><span class="line">		fprintf(stderr, &quot;Bash: No such file or directory:  %s\n&quot;, rcmd-&gt;file);</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		dup2(fd, 1);   //将标准输出指向到新打开的文件fd上，所以输出就到了该文件上（实现了重定向）</span><br><span class="line">		runcmd(rcmd-&gt;cmd);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;else &#123;</span><br><span class="line">	dup2(fd, 1);</span><br><span class="line">	runcmd(rcmd-&gt;cmd);</span><br><span class="line">&#125;</span><br><span class="line">	break;</span><br></pre></td></tr></table></figure></p>
@@ -556,7 +559,6 @@
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/31.png" width="300" height="200" alt="pic2" align="center"></p>
 <h3 id="Implement-pipes"><a href="#Implement-pipes" class="headerlink" title="Implement pipes"></a>Implement pipes</h3><blockquote>
-<p>对于</p>
 </blockquote>
 
       
