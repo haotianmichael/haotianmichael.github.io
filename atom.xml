@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>CodeSaw</title>
   
-  <subtitle>Talk is cheap, show me the Code.</subtitle>
+  
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
