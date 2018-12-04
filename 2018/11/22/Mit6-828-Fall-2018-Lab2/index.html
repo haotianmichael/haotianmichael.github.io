@@ -128,7 +128,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/3.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/5.png">
-<meta property="og:updated_time" content="2018-12-04T15:03:23.320Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg">
+<meta property="og:updated_time" content="2018-12-04T15:19:55.533Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。实验过程就是不断回顾理解inc/memlayout.h和kern/pmap.h这两个头文件并逐渐完善自己脑中">
@@ -428,7 +429,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.4k
+                  1.6k
                 </span>
               
 
@@ -503,7 +504,7 @@
 <p>我觉得整个Lab2就是在实现两种映射：<strong>物理内存到空闲链表的映射</strong>和<strong>虚拟内存到物理内存的映射</strong>。而上述的两个头文件基本讲清楚了映射需要实现的步骤和原理，应该反复阅读。初此之外还应该对C语言的<strong>强转</strong>，<strong>指针</strong>，<strong>位运算</strong>有一个很深的了解，最好先看一下TCPL。</p>
 </blockquote>
 <h3 id="Physical-Page-Management"><a href="#Physical-Page-Management" class="headerlink" title="Physical Page Management"></a>Physical Page Management</h3><blockquote>
-<p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。<br>从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。<br>PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。<br>基本上需要实现的代码都在<code>pmap.c</code>中。我们用Taglist统筹一下该文件中所有的函数和宏定义: </p>
+<p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。<br>从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。而第一部分物理内存就是完成将物理内存映射到空闲链表上。<br>PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。<br>基本上需要实现的代码都在<code>pmap.c</code>中。我们用Taglist统筹一下该文件中所有的函数和宏定义: </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/4.png" width="300" height="200" alt="pic2" align="center">  </p>
 <blockquote>
@@ -516,6 +517,13 @@
 <p>看一下输出结果: </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/5.png" width="300" height="200" alt="pic2" align="center">  </p>
+<blockquote>
+<p>然后就是实现<code>page_init()</code>函数。<strong>此时我们已经建立了一个和全部物理内存相对应的数组pages</strong>。这位接下来空闲链表的实现奠定了基础:<strong><code>page_init()</code>函数就是按照Hints中提示的物理内存的基本布局，找到那些空闲的物理内存并将其对应的pages数组元素链接起来形成一个链表。</strong>可能不好理解，直接上图:  </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg" width="300" height="200" alt="pic2" align="center">  </p>
+<blockquote>
+<p>这个功能是由下面简单的几句C语言实现的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Part of the code:</span><br><span class="line"></span><br><span class="line"> for (i = 1; i &lt; npages_basemem; i++) &#123;</span><br><span class="line">                pages[i].pp_ref = 0;</span><br><span class="line">                pages[i].pp_link = page_free_list;</span><br><span class="line">                page_free_list = &amp;pages[i];</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
 <blockquote>
 </blockquote>
 <h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><h3 id="Kernel-Address-Space"><a href="#Kernel-Address-Space" class="headerlink" title="Kernel Address Space"></a>Kernel Address Space</h3>
