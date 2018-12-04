@@ -124,12 +124,12 @@
 <meta property="og:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。实验过程就是不断回顾理解inc/memlayout.h和kern/pmap.h这两个头文件并逐渐完善自己脑中">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/2.jpeg">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/3.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/5.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg">
-<meta property="og:updated_time" content="2018-12-04T15:19:55.533Z">
+<meta property="og:updated_time" content="2018-12-04T15:25:21.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。实验过程就是不断回顾理解inc/memlayout.h和kern/pmap.h这两个头文件并逐渐完善自己脑中">
@@ -479,7 +479,7 @@
 <h4 id="pmap-h"><a href="#pmap-h" class="headerlink" title="pmap.h"></a>pmap.h</h4><blockquote>
 <p>Lab2中需要重点关注的对象有三个:物理内存，虚拟内存，空闲链表<strong><code>struct PageInfo</code></strong>。该头文件中的函数实现了三者之间的相互转化。  </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/2.jpeg" width="300" height="200" alt="pic2" align="center">  </p>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/2.png" width="300" height="200" alt="pic2" align="center">  </p>
 <blockquote>
 <p>另外还有几个外部变量也需要重点关注一下: </p>
 <ul>
@@ -492,7 +492,7 @@
 <h4 id="memlayout-h"><a href="#memlayout-h" class="headerlink" title="memlayout.h"></a>memlayout.h</h4><blockquote>
 <p>介绍了JOS虚拟内存的详细布局，定义了所有需要使用的宏。<strong>在Lab2中，我们需要完成的是内核部分虚拟地址到物理的映射。所以重点关注的是UTOP之上的布局.</strong>当然需要注意的细节就很多了，比如大小，权限，每一部分内存的作用等。  </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/3.jpeg" width="300" height="200" alt="pic2" align="center">  </p>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/3.png" width="300" height="200" alt="pic2" align="center">  </p>
 <blockquote>
 <p>上图只是一个简化图，结合源码看会好很多，比如一些和大小有关的宏定义: </p>
 </blockquote>
@@ -518,7 +518,7 @@
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/5.png" width="300" height="200" alt="pic2" align="center">  </p>
 <blockquote>
-<p>然后就是实现<code>page_init()</code>函数。<strong>此时我们已经建立了一个和全部物理内存相对应的数组pages</strong>。这位接下来空闲链表的实现奠定了基础:<strong><code>page_init()</code>函数就是按照Hints中提示的物理内存的基本布局，找到那些空闲的物理内存并将其对应的pages数组元素链接起来形成一个链表。</strong>可能不好理解，直接上图:  </p>
+<p>然后就是实现<code>page_init()</code>函数。<strong>此时我们已经建立了一个和全部物理内存相对应的数组pages</strong>。这为接下来空闲链表的实现奠定了基础:<strong><code>page_init()</code>函数就是按照Hints中提示的物理内存的基本布局，找到那些空闲的物理内存并将其对应的pages数组元素链接起来形成一个链表。</strong>可能不好理解，直接上图:  </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg" width="300" height="200" alt="pic2" align="center">  </p>
 <blockquote>
