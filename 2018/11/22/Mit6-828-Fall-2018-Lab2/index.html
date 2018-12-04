@@ -126,7 +126,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/2.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/3.jpeg">
-<meta property="og:updated_time" content="2018-12-04T11:32:44.732Z">
+<meta property="og:updated_time" content="2018-12-04T11:48:54.994Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。实验过程就是不断回顾理解inc/memlayout.h和kern/pmap.h这两个头文件并逐渐完善自己脑中">
@@ -426,7 +426,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  664
+                  783
                 </span>
               
 
@@ -494,6 +494,9 @@
 <p>上图只是一个简化图，结合源码看会好很多，比如一些和大小有关的宏定义: </p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#define PGSIZE          4096            // bytes mapped by a page</span><br><span class="line">#define KSTKSIZE        (8*PGSIZE)              // size of a kernel stack</span><br><span class="line">#define PTSIZE          (PGSIZE*NPTENTRIES) // bytes mapped by a page directory entry</span><br><span class="line">#define NPTENTRIES      1024            // page table entries per page table</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>其中阴影部分指的是<code>page_init()</code>函数之前已经初始化好的。这是因为在<code>page_init()</code>函数之前分页机制还没有建立好，所以只能用字节分配的方法分配物理内存。这些阴影部分的物理内存都是<code>boot_alloc(uing32_t n)</code>函数分配的；而<code>page_init()</code>函数之后，所有的物理内存分配都是以页</strong>Page<strong>为单位，所以字节分配函数<code>boot_alloc()</code>也就被禁止使用。</strong></p>
+</blockquote>
 <h3 id="Physical-Page-Management"><a href="#Physical-Page-Management" class="headerlink" title="Physical Page Management"></a>Physical Page Management</h3><blockquote>
 <p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。<br>从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局主要指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。  </p>
 </blockquote>
