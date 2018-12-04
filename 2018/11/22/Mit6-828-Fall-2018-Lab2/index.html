@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux," />
+  <meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux," />
 
 
 
@@ -116,7 +116,7 @@
 
 
 <meta name="description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。实验过程就是不断回顾理解inc/memlayout.h和kern/pmap.h这两个头文件并逐渐完善自己脑中">
-<meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux">
+<meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Lab2">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/index.html">
@@ -127,7 +127,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/2.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/3.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/4.png">
-<meta property="og:updated_time" content="2018-12-04T14:28:02.332Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/1.png">
+<meta property="og:updated_time" content="2018-12-04T14:56:36.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。实验过程就是不断回顾理解inc/memlayout.h和kern/pmap.h这两个头文件并逐渐完善自己脑中">
@@ -427,7 +428,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.1k
+                  1.4k
                 </span>
               
 
@@ -443,7 +444,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  4
+                  5
                 </span>
               
             </div>
@@ -499,7 +500,7 @@
 <p><strong>其中阴影部分指的是<code>page_init()</code>函数之前已经初始化好的。这是因为在<code>page_init()</code>函数之前分页机制还没有建立好，所以只能用字节分配的方法分配物理内存。这些阴影部分的物理内存都是<code>boot_alloc(uing32_t n)</code>函数分配的；而<code>page_init()</code>函数之后，所有的物理内存分配都是以页</strong>Page**为单位，所以字节分配函数<code>boot_alloc()</code>也被禁用了。</p>
 </blockquote>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
-<p>我觉得整个Lab2就是在实现两种映射：<strong>物理内存到空闲链表的映射</strong>和<strong>虚拟内存到物理内存的映射</strong>。而上述的两个头文件基本讲清楚了映射需要实现的步骤和原理，应该反复阅读。初次之外还应该对C语言的<strong>强转</strong>，<strong>指针</strong>，<strong>位运算</strong>有一个很深的了解，最好先看一下TCPL。</p>
+<p>我觉得整个Lab2就是在实现两种映射：<strong>物理内存到空闲链表的映射</strong>和<strong>虚拟内存到物理内存的映射</strong>。而上述的两个头文件基本讲清楚了映射需要实现的步骤和原理，应该反复阅读。初此之外还应该对C语言的<strong>强转</strong>，<strong>指针</strong>，<strong>位运算</strong>有一个很深的了解，最好先看一下TCPL。</p>
 </blockquote>
 <h3 id="Physical-Page-Management"><a href="#Physical-Page-Management" class="headerlink" title="Physical Page Management"></a>Physical Page Management</h3><blockquote>
 <p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。<br>从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。<br>PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。<br>基本上需要实现的代码都在<code>pmap.c</code>中。我们用Taglist统筹一下该文件中所有的函数和宏定义: </p>
@@ -509,7 +510,13 @@
 <p>彼时<code>mem_init()</code>函数中还只有一个函数————<code>i386_detect_memory()</code>。用来检测物理内存的硬件状态及其参数，其中有几个比较重要的变量:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npages: 未分配</span><br><span class="line">npages_basemem: 160</span><br><span class="line">kern_pgdir: 未分配</span><br><span class="line">basemem: 640KB</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
-<p>其中<code>basemem=640K</code>是因为在<code>inc/memlayout.h</code>中定义过一个宏:<code>#define IOPHYSMEM 0xA0000</code>。在这个宏定义的地址往上有一部分I/O内存。所以将宏定义以下到<code>0x00000000</code>的内存称为base_mem。而这部分需要被映射到空闲链表中，所以按照页式单位可以映射640K/4K=160个pages。  </p>
+<p>其中<code>basemem=640K</code>是因为在<code>inc/memlayout.h</code>中定义过一个宏:<code>#define IOPHYSMEM 0xA0000</code>。在这个宏定义的地址往上有一部分用于I/O操作内存端口。所以将宏定义以下到<code>0x00000000</code>的内存称为base_mem。而这部分需要被映射到空闲链表中，所以按照页式单位可以映射640K/4K=160个pages。<br>接下来就是实现代码。因为代码太多不打算贴出来，主要是做Lab的思路并分享一些完善内存布局过程中画的草稿。<br>从<code>mem_init()</code>的进度来看，首先需要实现<code>boot_alloc()</code>函数，然后用该函数直接分配物理内存给<code>kern_pgdir</code>和<code>pages</code>两个数据结构。而<code>boot_alloc</code>中值得一提就是<code>extern char end[]</code>和对齐函数<code>ROUNDUP(a, n)</code>。暂且可以理解成物理内存分配最开始的地址。而<code>ROUNDUP(a, n)</code>的功能是向上对齐。<strong>最后函数返回的是已分配内存的首地址。</strong><br>指导书中推荐使用断言<strong>assert</strong>进行调试的方法。不过我一般使用输出调试<strong>cprintf</strong>。当分配好<code>kern_pgdir</code>和<code>pages</code>之后，我们使用输出调试看一下这两个数据结构的虚拟地址:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void boot_alloc() &#123;</span><br><span class="line">	cprintf(&quot;before allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">	/*</span><br><span class="line">	address allocator</span><br><span class="line">	*/</span><br><span class="line">	cprintf(&quot;after allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>看一下输出结果: </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/1.png" width="300" height="200" alt="pic2" align="center">  </p>
+<blockquote>
 </blockquote>
 <h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><h3 id="Kernel-Address-Space"><a href="#Kernel-Address-Space" class="headerlink" title="Kernel Address Space"></a>Kernel Address Space</h3>
       
@@ -566,11 +573,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
+          
             <a href="/tags/MIT-6-828/" rel="tag"><i class="fa fa-tag"></i> MIT 6.828</a>
           
             <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
-          
-            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
           
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
           
