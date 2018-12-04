@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2018-12-04T07:26:05.579Z</updated>
+  <updated>2018-12-04T08:51:34.039Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,14 +21,14 @@
     <link href="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/"/>
     <id>http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/</id>
     <published>2018-11-21T20:51:42.000Z</published>
-    <updated>2018-12-04T07:26:05.579Z</updated>
+    <updated>2018-12-04T08:51:34.039Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Lab2"><a href="#Lab2" class="headerlink" title="Lab2"></a>Lab2</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>Lab2的主要内容:<code>Physical Page Management</code>,<code>Virtual Memroy</code>,<code>Kernel Address Space</code>;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。<strong>实验过程就是不断回顾理解<code>inc/memoryout.h</code>和<code>kern/pmap.h</code>这两个头文件并逐渐完善自己脑中的内存布局的过程</strong>。实验最终的目的是是通过几个检测函数:  </p></blockquote><p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/1.png" width="300" height="200" alt="pic2" align="center">  </p><blockquote><p>切换合并Git分支的时候可能会出现冲突，需要手动注释掉Lab1中的一些代码来解决，这里不再赘述。<br><a id="more"></a></p></blockquote>]]></content>
+    <content type="html"><![CDATA[<h2 id="Lab2"><a href="#Lab2" class="headerlink" title="Lab2"></a>Lab2</h2><h3 id="Before-Lab"><a href="#Before-Lab" class="headerlink" title="Before Lab"></a>Before Lab</h3><blockquote><p>Lab2的主要内容:<code>Physical Page Management</code>,<code>Virtual Memroy</code>,<code>Kernel Address Space</code>;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。<strong>实验过程就是不断回顾理解<code>inc/memlayout.h</code>和<code>kern/pmap.h</code>这两个头文件并逐渐完善自己脑中的内存布局的过程</strong>。实验最终的目的是是通过几个检测函数:  </p></blockquote><p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/1.png" width="300" height="200" alt="pic2" align="center">  </p><blockquote><p>切换合并Git分支的时候可能会出现冲突，需要手动注释掉Lab1中的一些代码来解决，这里不再赘述。<br><a id="more"></a></p></blockquote><h3 id="memlayout-h和pmap-h"><a href="#memlayout-h和pmap-h" class="headerlink" title="memlayout.h和pmap.h"></a>memlayout.h和pmap.h</h3><blockquote><p>掌握这两个文件中的函数是完成Lab2必不可少的条件，在此进行总结。  </p></blockquote><h4 id="memlayout-h"><a href="#memlayout-h" class="headerlink" title="memlayout.h"></a>memlayout.h</h4><h4 id="pmap-h"><a href="#pmap-h" class="headerlink" title="pmap.h"></a>pmap.h</h4><h3 id="Physical-Page-Management"><a href="#Physical-Page-Management" class="headerlink" title="Physical Page Management"></a>Physical Page Management</h3><blockquote><p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。<br>从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局主要指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。  </p></blockquote><h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><h3 id="Kernel-Address-Space"><a href="#Kernel-Address-Space" class="headerlink" title="Kernel Address Space"></a>Kernel Address Space</h3>]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;Lab2&quot;&gt;&lt;a href=&quot;#Lab2&quot; class=&quot;headerlink&quot; title=&quot;Lab2&quot;&gt;&lt;/a&gt;Lab2&lt;/h2&gt;&lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;Lab2的主要内容:&lt;code&gt;Physical Page Management&lt;/code&gt;,&lt;code&gt;Virtual Memroy&lt;/code&gt;,&lt;code&gt;Kernel Address Space&lt;/code&gt;;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。&lt;strong&gt;实验过程就是不断回顾理解&lt;code&gt;inc/memoryout.h&lt;/code&gt;和&lt;code&gt;kern/pmap.h&lt;/code&gt;这两个头文件并逐渐完善自己脑中的内存布局的过程&lt;/strong&gt;。实验最终的目的是是通过几个检测函数:  &lt;/p&gt;
+      &lt;h2 id=&quot;Lab2&quot;&gt;&lt;a href=&quot;#Lab2&quot; class=&quot;headerlink&quot; title=&quot;Lab2&quot;&gt;&lt;/a&gt;Lab2&lt;/h2&gt;&lt;h3 id=&quot;Before-Lab&quot;&gt;&lt;a href=&quot;#Before-Lab&quot; class=&quot;headerlink&quot; title=&quot;Before Lab&quot;&gt;&lt;/a&gt;Before Lab&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;Lab2的主要内容:&lt;code&gt;Physical Page Management&lt;/code&gt;,&lt;code&gt;Virtual Memroy&lt;/code&gt;,&lt;code&gt;Kernel Address Space&lt;/code&gt;;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。&lt;strong&gt;实验过程就是不断回顾理解&lt;code&gt;inc/memlayout.h&lt;/code&gt;和&lt;code&gt;kern/pmap.h&lt;/code&gt;这两个头文件并逐渐完善自己脑中的内存布局的过程&lt;/strong&gt;。实验最终的目的是是通过几个检测函数:  &lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/1.png&quot; width=&quot;300&quot; height=&quot;200&quot; alt=&quot;pic2&quot; align=&quot;center&quot;&gt;  &lt;/p&gt;
 &lt;blockquote&gt;
@@ -43,11 +43,11 @@
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
     
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
       <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
-    
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -84,11 +84,11 @@
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
     
-      <category term="Shell" scheme="http://haotianmcihael.github.io/tags/Shell/"/>
-    
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
       <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
+    
+      <category term="Shell" scheme="http://haotianmcihael.github.io/tags/Shell/"/>
     
   </entry>
   
@@ -116,11 +116,11 @@
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
     
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
       <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
-    
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
@@ -147,11 +147,11 @@
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
     
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
       <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
-    
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
   </entry>
   
