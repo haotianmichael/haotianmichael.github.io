@@ -129,9 +129,9 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/5.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/8.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/7.png">
-<meta property="og:updated_time" content="2018-12-05T01:01:53.371Z">
+<meta property="og:updated_time" content="2018-12-05T01:04:39.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。实验过程就是不断回顾理解inc/memlayout.h和kern/pmap.h这两个头文件并逐渐完善自己脑中">
@@ -529,7 +529,7 @@
 <blockquote>
 <p><code>page_init</code>函数实现了空闲链表。至此内存的布局已经很清楚了：  </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg" width="300" height="200" alt="pic2" align="center">  </p>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/8.jpeg" width="300" height="200" alt="pic2" align="center">  </p>
 <h4 id="page-alloc"><a href="#page-alloc" class="headerlink" title="page_alloc"></a>page_alloc</h4><blockquote>
 <p><code>page_alloc</code>函数实现物理内存的页式分配————分配一页空闲的物理内存。根据上面的思路:<strong>pages数组就是全部物理内存的映射，而page_free_list是空闲物理内存的映射所以是部分pages元素链成的。</strong>所以我们实际上可以通过<code>page_free_list</code>指针来确定具体的物理地址:<strong>(page_free_list-pages)*4K</strong>。<br>实现很简单，当中需要注意的细节初始化函数<code></code>memset(void *v, int c, size_t n)<code>中需要的地址是虚拟地址。这里先参考一下</code>kern_pgdir`的实现和初始化。  </p>
 </blockquote>
