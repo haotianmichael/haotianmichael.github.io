@@ -129,7 +129,9 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/5.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg">
-<meta property="og:updated_time" content="2018-12-04T15:25:21.386Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/7.png">
+<meta property="og:updated_time" content="2018-12-05T01:01:53.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;实验通过自行实现内存管理函数来体会操作系统最重要的概念之一————虚拟内存。和理论相比，代码实现需要考虑的细节真是太多。实验过程就是不断回顾理解inc/memlayout.h和kern/pmap.h这两个头文件并逐渐完善自己脑中">
@@ -429,7 +431,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  1.9k
                 </span>
               
 
@@ -445,7 +447,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  5
+                  7
                 </span>
               
             </div>
@@ -484,7 +486,7 @@
 <p>另外还有几个外部变量也需要重点关注一下: </p>
 <ul>
 <li><code>bootstack</code> 内核栈</li>
-<li><code>pages</code> 所有物理内存按照4KB划分的对应链表映射。</li>
+<li><code>pages</code> 所有物理内存按照4KB划分的对应映射数组</li>
 <li><code>npage</code> 数组元素个数</li>
 <li><code>kern_pgdir</code> 页目录<br><strong>注意pages不是空闲链表，仅仅只是一个数组而已。注意pages数组索引就是所有页式物理内存的索引。</strong>所以<code>struct PageInfo *pp</code>和物理内存关系很紧密：<strong>(pp-pages)*4KB就是该数组元素对应的物理页面page的物理地址</strong>，这也是<code>page2pa</code>函数的原型。</li>
 </ul>
@@ -507,11 +509,11 @@
 <p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。<br>从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。而第一部分物理内存就是完成将物理内存映射到空闲链表上。<br>PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。<br>基本上需要实现的代码都在<code>pmap.c</code>中。我们用Taglist统筹一下该文件中所有的函数和宏定义: </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/4.png" width="300" height="200" alt="pic2" align="center">  </p>
-<blockquote>
+<h4 id="boot-alloc"><a href="#boot-alloc" class="headerlink" title="boot_alloc"></a>boot_alloc</h4><blockquote>
 <p>彼时<code>mem_init()</code>函数中还只有一个函数————<code>i386_detect_memory()</code>。用来检测物理内存的硬件状态及其参数，其中有几个比较重要的变量:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npages: 未分配</span><br><span class="line">npages_basemem: 160</span><br><span class="line">kern_pgdir: 未分配</span><br><span class="line">basemem: 640KB</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
-<p>其中<code>basemem=640K</code>是因为在<code>inc/memlayout.h</code>中定义过一个宏:<code>#define IOPHYSMEM 0xA0000</code>。在这个宏定义的地址往上有一部分用于I/O操作内存端口。所以将宏定义以下到<code>0x00000000</code>的内存称为base_mem。而这部分需要被映射到空闲链表中，所以按照页式单位可以映射640K/4K=160个pages。<br>接下来就是实现代码。因为代码太多不打算贴出来，主要是做Lab的思路并分享一些完善内存布局过程中画的草稿。<br>从<code>mem_init()</code>的进度来看，首先需要实现<code>boot_alloc()</code>函数，然后用该函数直接分配物理内存给<code>kern_pgdir</code>和<code>pages</code>两个数据结构。而<code>boot_alloc</code>中值得一提就是<code>extern char end[]</code>和对齐函数<code>ROUNDUP(a, n)</code>。暂且可以理解成物理内存分配最开始的地址。而<code>ROUNDUP(a, n)</code>的功能是向上对齐。<strong>最后函数返回的是已分配内存的首地址。</strong><br>指导书中推荐使用断言<strong>assert</strong>进行调试的方法。不过我一般使用输出调试<strong>cprintf</strong>。当分配好<code>kern_pgdir</code>和<code>pages</code>之后，我们使用输出调试看一下这两个数据结构的虚拟地址:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void boot_alloc() &#123;</span><br><span class="line">	cprintf(&quot;before allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">	/*</span><br><span class="line">	address allocator</span><br><span class="line">	*/</span><br><span class="line">	cprintf(&quot;after allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>basemem=640K</code>是因为在<code>inc/memlayout.h</code>中定义过一个宏:<code>#define IOPHYSMEM 0xA0000</code>。在这个宏定义的地址往上有一部分用于I/O操作内存端口。所以将宏定义以下到<code>0x00000000</code>的内存称为base_mem。而这部分需要被映射到空闲链表中，所以按照页式单位可以映射640K/4K=160个pages。<br>接下来就是实现代码。因为代码太多不打算贴出来，主要是做Lab的思路并分享一些完善内存布局过程中画的草稿。<br>从<code>mem_init()</code>的进度来看，首先需要实现<code>boot_alloc()</code>函数，然后用该函数直接分配物理内存给<code>kern_pgdir</code>和<code>pages</code>两个数据结构。而<code>boot_alloc</code>中值得一提就是<code>extern char end[]</code>和对齐函数<code>ROUNDUP(a, n)</code>。暂且可以理解成物理内存分配最开始的地址。而<code>ROUNDUP(a, n)</code>的功能是向上对齐。<strong>最后函数返回的是已分配内存的虚拟首地址。</strong><br>指导书中推荐使用断言<strong>assert</strong>进行调试的方法。不过我一般使用输出调试<strong>cprintf</strong>。当分配好<code>kern_pgdir</code>和<code>pages</code>之后，我们使用输出调试看一下这两个数据结构的虚拟地址:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void boot_alloc() &#123;</span><br><span class="line">	cprintf(&quot;before allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">	/*</span><br><span class="line">	address allocator</span><br><span class="line">	*/</span><br><span class="line">	cprintf(&quot;after allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
 <p>看一下输出结果: </p>
@@ -525,6 +527,18 @@
 <p>这个功能是由下面简单的几句C语言实现的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Part of the code:</span><br><span class="line"></span><br><span class="line"> for (i = 1; i &lt; npages_basemem; i++) &#123;</span><br><span class="line">                pages[i].pp_ref = 0;</span><br><span class="line">                pages[i].pp_link = page_free_list;</span><br><span class="line">                page_free_list = &amp;pages[i];</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
+<p><code>page_init</code>函数实现了空闲链表。至此内存的布局已经很清楚了：  </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg" width="300" height="200" alt="pic2" align="center">  </p>
+<h4 id="page-alloc"><a href="#page-alloc" class="headerlink" title="page_alloc"></a>page_alloc</h4><blockquote>
+<p><code>page_alloc</code>函数实现物理内存的页式分配————分配一页空闲的物理内存。根据上面的思路:<strong>pages数组就是全部物理内存的映射，而page_free_list是空闲物理内存的映射所以是部分pages元素链成的。</strong>所以我们实际上可以通过<code>page_free_list</code>指针来确定具体的物理地址:<strong>(page_free_list-pages)*4K</strong>。<br>实现很简单，当中需要注意的细节初始化函数<code></code>memset(void *v, int c, size_t n)<code>中需要的地址是虚拟地址。这里先参考一下</code>kern_pgdir`的实现和初始化。  </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/7.png" width="300" height="200" alt="pic2" align="center">  </p>
+<blockquote>
+<p>所以在实现中<strong>需要将page_free_list指向的pages元素映射到具体的物理地址<code>page2pa</code>, 然后将物理地址转化为虚拟地址<code>PADDR</code></strong>。</p>
+</blockquote>
+<h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><blockquote>
+<p>至此物理映射到空闲链表的过程已经实现。<code>boot_alloc</code>和<code>page_alloc</code>最终返回的都是<strong>虚拟地址</strong>。在整个Lab过程中到底对物理地址还是虚拟地址的理解是最核心的一块。<strong>因为这时候mmu已经开启。访问内存的时候必定会又一次转换。所以需要使用虚拟地址很自然的转换为物理地址，而不是直接使用物理地址。</strong></p>
 </blockquote>
 <h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><h3 id="Kernel-Address-Space"><a href="#Kernel-Address-Space" class="headerlink" title="Kernel Address Space"></a>Kernel Address Space</h3>
       
@@ -546,7 +560,7 @@
   <p><span>本文标题:</span><a href="/2018/11/22/Mit6-828-Fall-2018-Lab2/">Mit6.828(Fall 2018) Lab2</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月21日 - 20:11</p>
-  <p><span>最后更新:</span>2018年12月04日 - 23:12</p>
+  <p><span>最后更新:</span>2018年12月05日 - 09:12</p>
   <p><span>原始链接:</span><a href="/2018/11/22/Mit6-828-Fall-2018-Lab2/" title="Mit6.828(Fall 2018) Lab2">http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/"  aria-label="复制成功！"></i></span>
   </p>
@@ -788,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab2"><span class="nav-number">1.</span> <span class="nav-text">Lab2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before-Lab"><span class="nav-number">1.1.</span> <span class="nav-text">Before Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memlayout-h和pmap-h"><span class="nav-number">1.2.</span> <span class="nav-text">memlayout.h和pmap.h</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pmap-h"><span class="nav-number">1.2.1.</span> <span class="nav-text">pmap.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#memlayout-h"><span class="nav-number">1.2.2.</span> <span class="nav-text">memlayout.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Physical-Page-Management"><span class="nav-number">1.3.</span> <span class="nav-text">Physical Page Management</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Memory"><span class="nav-number">1.4.</span> <span class="nav-text">Virtual Memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernel-Address-Space"><span class="nav-number">1.5.</span> <span class="nav-text">Kernel Address Space</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab2"><span class="nav-number">1.</span> <span class="nav-text">Lab2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before-Lab"><span class="nav-number">1.1.</span> <span class="nav-text">Before Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memlayout-h和pmap-h"><span class="nav-number">1.2.</span> <span class="nav-text">memlayout.h和pmap.h</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pmap-h"><span class="nav-number">1.2.1.</span> <span class="nav-text">pmap.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#memlayout-h"><span class="nav-number">1.2.2.</span> <span class="nav-text">memlayout.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Physical-Page-Management"><span class="nav-number">1.3.</span> <span class="nav-text">Physical Page Management</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#boot-alloc"><span class="nav-number">1.3.1.</span> <span class="nav-text">boot_alloc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#page-alloc"><span class="nav-number">1.3.2.</span> <span class="nav-text">page_alloc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#细节"><span class="nav-number">1.3.3.</span> <span class="nav-text">细节</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Memory"><span class="nav-number">1.4.</span> <span class="nav-text">Virtual Memory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernel-Address-Space"><span class="nav-number">1.5.</span> <span class="nav-text">Kernel Address Space</span></a></li></ol></li></ol></div>
             
 
           </div>
