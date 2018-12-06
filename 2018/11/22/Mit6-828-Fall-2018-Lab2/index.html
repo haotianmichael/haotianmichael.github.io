@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MIT 6.828,OS,C,Linux,Assembly," />
+  <meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux," />
 
 
 
@@ -116,7 +116,7 @@
 
 
 <meta name="description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:        Lab1完成时整个JOS内存布局如下图:      切换合并Git分支">
-<meta name="keywords" content="MIT 6.828,OS,C,Linux,Assembly">
+<meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Lab2">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/index.html">
@@ -133,7 +133,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/8.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/7.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/10.png">
-<meta property="og:updated_time" content="2018-12-06T02:44:19.453Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/11.png">
+<meta property="og:updated_time" content="2018-12-06T07:44:11.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:        Lab1完成时整个JOS内存布局如下图:      切换合并Git分支">
@@ -433,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.2k
+                  2.3k
                 </span>
               
 
@@ -506,7 +507,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#define PGSIZE          4096            // bytes mapped by a page</span><br><span class="line">#define KSTKSIZE        (8*PGSIZE)              // size of a kernel stack</span><br><span class="line">#define PTSIZE          (PGSIZE*NPTENTRIES) // bytes mapped by a page directory entry</span><br><span class="line">#define NPTENTRIES      1024            // page table entries per page table</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>其中阴影部分指的是<code>page_init()</code>函数之前已经初始化好的。这是因为在<code>page_init()</code>函数之前分页机制还没有建立好，所以只能用字节分配的方法分配物理内存。这些阴影部分的物理内存都是<code>boot_alloc(uing32_t n)</code>函数分配的；而<code>page_init()</code>函数之后，所有的物理内存分配都是以页</strong>Page**为单位，所以字节分配函数<code>boot_alloc()</code>也被禁用了。</p>
+<p>其中阴影部分指的是<code>page_init()</code>函数之前已经初始化好的。这是因为在<code>page_init()</code>函数之前分页机制还没有建立好，所以只能用字节分配的方法分配物理内存。这些阴影部分的物理内存都是<code>boot_alloc(uing32_t n)</code>函数分配的；而<code>page_init()</code>函数之后，所有的物理内存分配都是以页<strong>Page</strong>为单位，所以字节分配函数<code>boot_alloc()</code>也被禁用了。</p>
 </blockquote>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
 <p>我觉得整个Lab2就是在实现两种映射：<strong>物理内存到空闲链表的映射</strong>和<strong>虚拟内存到物理内存的映射</strong>。而上述的两个头文件基本讲清楚了映射需要实现的步骤和原理，应该反复阅读。初此之外还应该对C语言的<strong>强转</strong>，<strong>指针</strong>，<strong>位运算</strong>有一个很深的了解，最好先看一下TCPL。</p>
@@ -557,8 +558,9 @@
 <p>根据上面的分析，指针<code>value</code>是虚拟地址。而对value进行强转并赋值的只能是虚拟地址了。</p>
 </blockquote>
 <h4 id="pgdir-walk"><a href="#pgdir-walk" class="headerlink" title="pgdir_walk"></a>pgdir_walk</h4><blockquote>
-<p>下面分析页表管理:</p>
+<p>该函数的作用很关键。<strong>给定一个虚拟地址，pgdir_walk函数返回一个指向该地址对应页表项的指针。</strong>JOS的页目录（表）项<strong>PDE&amp;PTE</strong>的格式见下:  </p>
 </blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/11.png" width="300" height="200" alt="pic2" align="center">  </p>
 <h3 id="Kernel-Address-Space"><a href="#Kernel-Address-Space" class="headerlink" title="Kernel Address Space"></a>Kernel Address Space</h3>
       
     </div>
@@ -579,7 +581,7 @@
   <p><span>本文标题:</span><a href="/2018/11/22/Mit6-828-Fall-2018-Lab2/">Mit6.828(Fall 2018) Lab2</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月21日 - 20:11</p>
-  <p><span>最后更新:</span>2018年12月06日 - 10:12</p>
+  <p><span>最后更新:</span>2018年12月06日 - 15:12</p>
   <p><span>原始链接:</span><a href="/2018/11/22/Mit6-828-Fall-2018-Lab2/" title="Mit6.828(Fall 2018) Lab2">http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/"  aria-label="复制成功！"></i></span>
   </p>
@@ -618,11 +620,11 @@
           
             <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
           
+            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
+          
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
           
             <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
-          
-            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
           
         </div>
       
