@@ -134,7 +134,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/7.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/10.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/11.png">
-<meta property="og:updated_time" content="2018-12-06T07:44:11.381Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/12.png">
+<meta property="og:updated_time" content="2018-12-06T07:58:51.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:        Lab1完成时整个JOS内存布局如下图:      切换合并Git分支">
@@ -434,7 +435,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.3k
+                  2.5k
                 </span>
               
 
@@ -450,7 +451,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  8
+                  9
                 </span>
               
             </div>
@@ -558,9 +559,16 @@
 <p>根据上面的分析，指针<code>value</code>是虚拟地址。而对value进行强转并赋值的只能是虚拟地址了。</p>
 </blockquote>
 <h4 id="pgdir-walk"><a href="#pgdir-walk" class="headerlink" title="pgdir_walk"></a>pgdir_walk</h4><blockquote>
-<p>该函数的作用很关键。<strong>给定一个虚拟地址，pgdir_walk函数返回一个指向该地址对应页表项的指针。</strong>JOS的页目录（表）项<strong>PDE&amp;PTE</strong>的格式见下:  </p>
+<p>在实现下面的代码之前，默认熟悉<code>inc/mmu.h</code>中的所有内容。<br>该函数的作用很关键。<strong>给定一个虚拟地址，pgdir_walk函数返回一个指向该地址对应页表项的指针。</strong>JOS的页目录（表）项<strong>PDE&amp;PTE</strong>的格式见下:  </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/11.png" width="300" height="200" alt="pic2" align="center">  </p>
+<blockquote>
+<p>该函数的分析如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">pte_t *</span><br><span class="line">pgdir_walk(pde_t *pgdir, const void *va, int create)</span><br><span class="line">&#123;</span><br><span class="line">        uintptr_t ptIndex = PTX(va);    //PTX取出页表项的偏移量</span><br><span class="line">        struct  PageInfo * newAlloc;     //空闲链表指针</span><br><span class="line">        if(!(pgdir[PDX(va)] &amp; PTE_P)) &#123;   //&amp;位运算是取出PTE_P这一位，看是否为真</span><br><span class="line">                if(create) &#123;</span><br><span class="line">                        if((newAlloc = page_alloc(1)) == NULL)</span><br><span class="line">                                return NULL;</span><br><span class="line">                        newAlloc-&gt;pp_ref++;</span><br><span class="line">                        pgdir[PDX(va)] = page2pa(newAlloc) | PTE_P | PTE_U | PTE_W;              // |位运算是合并位； 【20】+【12】分别为页目录项（注意不是页表项）20位的地址，后12位的标志位 </span><br><span class="line">                &#125;else &#123;</span><br><span class="line">                        return NULL;</span><br><span class="line">                &#125;       </span><br><span class="line">        &#125;</span><br><span class="line">        pte_t * pdPtr = KADDR(PTE_ADDR(pgdir[PDX(va)])); //取出页目录项的前20位</span><br><span class="line">        return pdPtr + ptIndex;   //具体的页表项虚拟地址</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>分页机制原理见下图，而<code>pgdir_walk</code>函数完成的是前两部分的，最后的<code>offset</code>并不在其中:  </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/12.png" width="300" height="200" alt="pic2" align="center">  </p>
 <h3 id="Kernel-Address-Space"><a href="#Kernel-Address-Space" class="headerlink" title="Kernel Address Space"></a>Kernel Address Space</h3>
       
     </div>
