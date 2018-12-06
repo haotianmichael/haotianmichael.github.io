@@ -132,7 +132,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/8.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/7.png">
-<meta property="og:updated_time" content="2018-12-06T00:03:16.196Z">
+<meta property="og:updated_time" content="2018-12-06T00:31:31.526Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:        Lab1完成时整个JOS内存布局如下图:      切换合并Git分支">
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  6
+                  7
                 </span>
               
             </div>
@@ -518,7 +518,7 @@
 <p>彼时<code>mem_init()</code>函数中还只有一个函数————<code>i386_detect_memory()</code>。用来检测物理内存的硬件状态及其参数，其中有几个比较重要的变量:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npages: 未分配</span><br><span class="line">npages_basemem: 160</span><br><span class="line">kern_pgdir: 未分配</span><br><span class="line">basemem: 640KB</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
-<p>其中<code>basemem=640K</code>是因为在<code>inc/memlayout.h</code>中定义过一个宏:<code>#define IOPHYSMEM 0xA0000</code>。在这个宏定义的地址往上有一部分用于I/O操作内存端口。所以将宏定义以下到<code>0x00000000</code>的内存称为base_mem。而这部分需要被映射到空闲链表中，所以按照页式单位可以映射640K/4K=160个pages。<br>接下来就是实现代码。因为代码太多不打算贴出来，主要是做Lab的思路并分享一些完善内存布局过程中画的草稿。<br>从<code>mem_init()</code>的进度来看，首先需要实现<code>boot_alloc()</code>函数，然后用该函数直接分配物理内存给<code>kern_pgdir</code>和<code>pages</code>两个数据结构。而<code>boot_alloc</code>中值得一提就是<code>extern char end[]</code>和对齐函数<code>ROUNDUP(a, n)</code>。暂且可以理解成物理内存分配最开始的地址。而<code>ROUNDUP(a, n)</code>的功能是向上对齐。<strong>最后函数返回的是已分配内存的虚拟首地址。</strong><br>指导书中推荐使用断言<strong>assert</strong>进行调试的方法。不过我一般使用输出调试<strong>cprintf</strong>。当分配好<code>kern_pgdir</code>和<code>pages</code>之后，我们使用输出调试看一下这两个数据结构的虚拟地址:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void boot_alloc() &#123;</span><br><span class="line">	cprintf(&quot;before allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">	/*</span><br><span class="line">	address allocator</span><br><span class="line">	*/</span><br><span class="line">	cprintf(&quot;after allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>basemem=640K</code>是因为在<code>inc/memlayout.h</code>中定义过一个宏:<code>#define IOPHYSMEM 0xA0000</code>。在Lab1的内存布局中有详细的分布，在这个宏定义的地址往上是 实模式下IDT和第一部分bootsector。所以将宏定义以下到<code>0x00000000</code>的内存称为base_mem。而这部分需要被映射到空闲链表中，所以按照页式单位可以映射640K/4K=160个pages。<br>接下来就是实现代码。因为代码太多不打算贴出来，主要是做Lab的思路并分享一些完善内存布局过程中画的草稿。<br>从<code>mem_init()</code>的进度来看，首先需要实现<code>boot_alloc()</code>函数，然后用该函数直接分配物理内存给<code>kern_pgdir</code>和<code>pages</code>两个数据结构。而<code>boot_alloc</code>中值得一提就是<code>extern char end[]</code>和对齐函数<code>ROUNDUP(a, n)</code>。<strong>在Lab1完成之后，我们将内核放到<code>0x10000000</code>这个位置直到<code>end</code>结束，所以<code>end</code>是链接器做链接时内核加载结束的地址。</strong>而<code>ROUNDUP(a, n)</code>的功能是向上对齐。因为我们的操作都是4KB对齐的，所以需要在<code>end</code>后面进行对齐操作。详细见Lab1的内存布局。<strong>最后函数返回的是已分配内存的虚拟首地址。</strong><br>指导书中推荐使用断言<strong>assert</strong>进行调试的方法。不过我一般使用输出调试<strong>cprintf+return</strong>。当分配好<code>kern_pgdir</code>和<code>pages</code>之后，我们使用输出调试看一下这两个数据结构的虚拟地址:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void boot_alloc() &#123;</span><br><span class="line">	cprintf(&quot;before allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">	/*</span><br><span class="line">	address allocator</span><br><span class="line">	*/</span><br><span class="line">	cprintf(&quot;after allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
 <p>看一下输出结果: </p>
