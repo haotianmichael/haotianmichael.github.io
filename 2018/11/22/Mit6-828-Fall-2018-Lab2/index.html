@@ -132,7 +132,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/6.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/8.jpeg">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/7.png">
-<meta property="og:updated_time" content="2018-12-06T00:31:31.526Z">
+<meta property="og:updated_time" content="2018-12-06T01:08:06.590Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
 <meta name="twitter:description" content="Lab2Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:        Lab1完成时整个JOS内存布局如下图:      切换合并Git分支">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.9k
+                  2k
                 </span>
               
 
@@ -511,7 +511,7 @@
 <p>我觉得整个Lab2就是在实现两种映射：<strong>物理内存到空闲链表的映射</strong>和<strong>虚拟内存到物理内存的映射</strong>。而上述的两个头文件基本讲清楚了映射需要实现的步骤和原理，应该反复阅读。初此之外还应该对C语言的<strong>强转</strong>，<strong>指针</strong>，<strong>位运算</strong>有一个很深的了解，最好先看一下TCPL。</p>
 </blockquote>
 <h3 id="Physical-Page-Management"><a href="#Physical-Page-Management" class="headerlink" title="Physical Page Management"></a>Physical Page Management</h3><blockquote>
-<p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。<br>从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。而第一部分物理内存就是完成将物理内存映射到空闲链表上。<br>PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。<br>基本上需要实现的代码都在<code>pmap.c</code>中。我们用Taglist统筹一下该文件中所有的函数和宏定义: </p>
+<p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。页面管理分析如下:<br>从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。而第一部分物理内存就是完成将物理内存映射到空闲链表上。<br>PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。<br>基本上需要实现的代码都在<code>pmap.c</code>中。我们用Taglist统筹一下该文件中所有的函数和宏定义: </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/4.png" width="300" height="200" alt="pic2" align="center">  </p>
 <h4 id="boot-alloc"><a href="#boot-alloc" class="headerlink" title="boot_alloc"></a>boot_alloc</h4><blockquote>
@@ -536,16 +536,18 @@
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/8.jpeg" width="300" height="200" alt="pic2" align="center">  </p>
 <h4 id="page-alloc"><a href="#page-alloc" class="headerlink" title="page_alloc"></a>page_alloc</h4><blockquote>
-<p><code>page_alloc</code>函数实现物理内存的页式分配————分配一页空闲的物理内存。根据上面的思路:<strong>pages数组就是全部物理内存的映射，而page_free_list是空闲物理内存的映射所以是部分pages元素链成的。</strong>所以我们实际上可以通过<code>page_free_list</code>指针来确定具体的物理地址:<strong>(page_free_list-pages)*4K</strong>。<br>实现很简单，当中需要注意的细节初始化函数<code></code>memset(void *v, int c, size_t n)<code>中需要的地址是虚拟地址。这里先参考一下</code>kern_pgdir`的实现和初始化。  </p>
+<p><code>page_alloc</code>函数实现物理内存的页式分配————分配一页空闲的物理内存。根据上面的思路:<strong>pages数组就是全部物理内存的映射，而page_free_list是空闲物理内存的映射所以是部分pages元素链成的。</strong>所以我们实际上可以通过<code>page_free_list</code>指针来确定具体的物理地址:<strong>(page_free_list-pages)*4K</strong>。<br>实现很简单，当中需要注意的细节初始化函数<code>memset(void *v, int c, size_t n)</code>中需要的地址是虚拟地址。这里先参考一下<code>kern_pgdir</code>的实现和初始化。  </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828Lab2/7.png" width="300" height="200" alt="pic2" align="center">  </p>
 <blockquote>
-<p>所以在实现中<strong>需要将page_free_list指向的pages元素映射到具体的物理地址<code>page2pa</code>, 然后将物理地址转化为虚拟地址<code>PADDR</code></strong>。</p>
+<p>所以在实现中<strong>需要将page_free_list指向的pages元素映射到具体的物理地址<code>page2pa</code>, 然后将物理地址转化为虚拟地址<code>PADDR</code></strong>并返回。</p>
 </blockquote>
 <h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><blockquote>
-<p>至此物理映射到空闲链表的过程已经实现。<code>boot_alloc</code>和<code>page_alloc</code>最终返回的都是<strong>虚拟地址</strong>。在整个Lab过程中到底对物理地址还是虚拟地址的理解是最核心的一块。<strong>因为这时候mmu已经开启。访问内存的时候必定会又一次转换。所以需要使用虚拟地址很自然的转换为物理地址，而不是直接使用物理地址。</strong></p>
+<p>至此物理映射到空闲链表的过程已经实现。<code>boot_alloc</code>和<code>page_alloc</code>最终返回的都是<strong>虚拟地址</strong>。还有一些宏定义和函数比如<code>PGNUM(la)</code>，<code>memset(void *v, int c, size_t n)</code>的参数也是虚拟地址。在Lab2中一个核心问题就是区分<strong>物理地址</strong>还是<strong>虚拟地址</strong>。<br>因为mmu的缘故，访问内存的时候会进行一次线性地址到物理地址的转换。所不能直接使用物理地址。<strong>我们索性所有自定义用到地址的地方都使用虚拟地址，如果需要物理地址再使用<code>PADDR(la)</code>转化。</strong></p>
 </blockquote>
-<h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><h3 id="Kernel-Address-Space"><a href="#Kernel-Address-Space" class="headerlink" title="Kernel Address Space"></a>Kernel Address Space</h3>
+<h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><blockquote>
+</blockquote>
+<h3 id="Kernel-Address-Space"><a href="#Kernel-Address-Space" class="headerlink" title="Kernel Address Space"></a>Kernel Address Space</h3>
       
     </div>
     
@@ -565,7 +567,7 @@
   <p><span>本文标题:</span><a href="/2018/11/22/Mit6-828-Fall-2018-Lab2/">Mit6.828(Fall 2018) Lab2</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月21日 - 20:11</p>
-  <p><span>最后更新:</span>2018年12月06日 - 08:12</p>
+  <p><span>最后更新:</span>2018年12月06日 - 09:12</p>
   <p><span>原始链接:</span><a href="/2018/11/22/Mit6-828-Fall-2018-Lab2/" title="Mit6.828(Fall 2018) Lab2">http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/"  aria-label="复制成功！"></i></span>
   </p>
