@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2018-12-07T08:02:52.200Z</updated>
+  <updated>2018-12-08T00:23:02.261Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -15,6 +15,69 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mit6.828(Fall 2018) Xv6 CPU Alarm</title>
+    <link href="http://haotianmcihael.github.io/2018/12/08/Mit6-828-Fall-2018-Xv6-CPU-Alarm/"/>
+    <id>http://haotianmcihael.github.io/2018/12/08/Mit6-828-Fall-2018-Xv6-CPU-Alarm/</id>
+    <published>2018-12-08T08:19:21.000Z</published>
+    <updated>2018-12-08T00:23:02.261Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
+    
+    
+      <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mit6.828(Fall 2018) Lazy Page Allocation</title>
+    <link href="http://haotianmcihael.github.io/2018/12/08/Mit6-828-Fall-2018-Lazy-Page-Allocation/"/>
+    <id>http://haotianmcihael.github.io/2018/12/08/Mit6-828-Fall-2018-Lazy-Page-Allocation/</id>
+    <published>2018-12-08T08:19:20.000Z</published>
+    <updated>2018-12-08T00:23:10.880Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="HW-Lazy-Page-Allocation"><a href="#HW-Lazy-Page-Allocation" class="headerlink" title="HW:Lazy Page Allocation"></a>HW:Lazy Page Allocation</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;HW-Lazy-Page-Allocation&quot;&gt;&lt;a href=&quot;#HW-Lazy-Page-Allocation&quot; class=&quot;headerlink&quot; title=&quot;HW:Lazy Page Allocation&quot;&gt;&lt;/a&gt;HW:Lazy Page Allo
+      
+    
+    </summary>
+    
+      <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
+    
+    
+      <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
+    
+      <category term="OS - Shell" scheme="http://haotianmcihael.github.io/tags/OS-Shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mit6.828(Fall 2018) System Calls</title>
+    <link href="http://haotianmcihael.github.io/2018/12/08/Mit6-828-Fall-2018-System-Calls/"/>
+    <id>http://haotianmcihael.github.io/2018/12/08/Mit6-828-Fall-2018-System-Calls/</id>
+    <published>2018-12-08T08:19:19.000Z</published>
+    <updated>2018-12-08T00:23:34.465Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
+    
+    
+      <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
+    
+  </entry>
   
   <entry>
     <title>Mit6.828(Fall 2018) Lab2</title>
