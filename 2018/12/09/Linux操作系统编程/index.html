@@ -134,7 +134,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/9.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/10.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/11.png">
-<meta property="og:updated_time" content="2018-12-16T06:59:41.242Z">
+<meta property="og:updated_time" content="2018-12-16T07:10:55.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux操作系统编程">
 <meta name="twitter:description" content="Abstract 线程/进程是操作系统中最重要的概念之一。而多线程编程也是每一位程序员的基础课。为了6.828的Lab3能够更好的进行下去，花了两天时间总结一下和Linux多线程编程相关的知识点。主要分为:基础知识，文件与目录操作，线程和进程以及线程同步和进程间通信机制四个大部分。下面是操作系统程序员眼中Linux的基本编程架构:">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  10.7k
+                  10.9k
                 </span>
               
 
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  39
+                  40
                 </span>
               
             </div>
@@ -685,10 +685,30 @@
 <h5 id="seekdir"><a href="#seekdir" class="headerlink" title="seekdir"></a>seekdir</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;dirent.h&gt;</span><br><span class="line"></span><br><span class="line">void seekdir(DIR *dir, off_t offset);</span><br><span class="line">函数说明</span><br><span class="line">	设置参数dir指向的目录流目前的读取位置为offset，在调用readdir()时便从此新位置开始读取，参数offset代表距离目录文件开头的偏移量</span><br><span class="line">返回值</span><br><span class="line">	无返回值，函数执行失败后会将错误记录到全局变量errno中</span><br><span class="line">错误信息</span><br><span class="line">EBADF 表示dir指向的目录流无效</span><br></pre></td></tr></table></figure>
 <h5 id="telldir"><a href="#telldir" class="headerlink" title="telldir"></a>telldir</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;dirent.h&gt;</span><br><span class="line">off_t telldit(DIR *dir);</span><br><span class="line"></span><br><span class="line">函数说明</span><br><span class="line">	取得目录流dir读取位置</span><br><span class="line">返回值</span><br><span class="line">	返回参数目录流目前的读取位置，此返回值代表距离目录文件开头的偏移量，有错误发生时返回-1</span><br><span class="line">错误参数</span><br><span class="line">	EBADF 表示dir指向的目录流无效</span><br></pre></td></tr></table></figure>
 <h5 id="scanfdir"><a href="#scanfdir" class="headerlink" title="scanfdir"></a>scanfdir</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">	#include&lt;dirent.h&gt;</span><br><span class="line">	int scanfdir(const char *dir, struct dirent **namelist, nt(*select)(const struct dirent*), nt(*compar)(const struct dirent**, const struct dirent**));</span><br><span class="line">	函数说明</span><br><span class="line">	会扫描参数dir指定的目录文件，经由select指定的函数来挑选目录结构之参数namelist数组中，最后在调用函数compar指定的函数来排序namelist数组中的目录数据。每次从目录文件中读取一个目录结构后便将此结构传给参数select所指的函数，select函数若不想将此目录结构复制到namelist数组就返回零，若select为空指针则代表选择所有的目录结构。scanfdir会调用qsort来排序数据，参数compar则为qsort的参数</span><br><span class="line">	返回值</span><br><span class="line">	成功返回复制到namelist数组中的数据结构数组，错误返回-1	</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### Linux文件属性管理</span><br><span class="line">##### 设置文件属性</span><br><span class="line">&gt; Linux系统中常见的文件类型由: </span><br><span class="line">* 普通文件： 包含了某种形式的数据</span><br><span class="line">* 目录文件： 包含了其他文件的名字以及指向与这些文件有关信息的指针</span><br><span class="line">* 字符特殊文件： 提供对设备不带缓冲的访问</span><br><span class="line">* 块特殊文件： 提供对设备带缓冲的访问</span><br><span class="line">* FIFO文件： 用于进程间的通信，命名管道</span><br><span class="line">* 套接字文件： 用于网络通信</span><br><span class="line">* 符号链接: 是文件指向另一个文件</span><br><span class="line"></span><br><span class="line">&gt;下面是描述Linux文件系统属性的重要数据结构:</span><br></pre></td></tr></table></figure>
-<p>struct stat{<br>    mode_t st_mode; //文件类型和访问权限<br>    /<em><br>    S_ISREG() 普通文件<br>    S_ISDIR() 目录文件<br>    S_ISCHR() 字符特殊文件<br>    S_ISBLK() 块特殊文件<br>    S_ISFIFO()  管道或FIFO<br>    S_ISLINK()  符号链接<br>    S_ISSOCK()     套接字
-    </em>/<br>    ino_t st_ino; //i节点号<br>    dev_t st_dev; //文件的主，次设备号信息<br>    dev_t st_rdev; //设备文件的设备号<br>    nlink_t st_nlink;  //文件的硬链接数<br>    uid_t st_uid;   //文件所有者用户ID<br>    gid_t st_gid;    //文件所有组ID<br>    off_t st_size;   //文件大小（以字节为单位）<br>    time_t st_atime   //最后一次访问该文件的时间<br>    time_t st_mtime; //最后一次修改该文件时间<br>    time_t st_ctime;   //最后一次改变该文件状态的时间<br>    blksize_t st_blksize; //包含该文件的磁盘快的大小<br>    blkcnt_t st_blocks;    //该文件所占的磁盘块数<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; 其中最重要的一个数据结构是`st_mode`，一个无符号整数。只是用其低16位。从低到高分别为:`其他用户权限`，`组权限欲`，`所有者权限`,`文件特殊属性`和`文件类型`。见下图:  </span><br><span class="line"></span><br><span class="line"> &lt;img src=&quot;https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/12.png&quot; width = &quot;300&quot; height = &quot;200&quot; alt=&quot;pic2&quot; align=center /&gt;</span><br><span class="line"></span><br><span class="line">&gt; 其中第9，10，11位分别为**黏着位**,**设置组ID**和**设置用户ID**位。若**设置用户ID位**被设置，**表示执行该文件时候进程的有效用户ID变成文件的所有者。**设置组ID类似。  </span><br><span class="line">&gt; 可以通过命令行设置用户ID为:</span><br></pre></td></tr></table></figure></p>
+<p>struct stat{<br>    mode_t st_mode; //文件类型和访问权限</p>
+<pre><code>S_ISREG() 普通文件
+S_ISDIR() 目录文件
+S_ISCHR() 字符特殊文件
+S_ISBLK() 块特殊文件
+S_ISFIFO()  管道或FIFO
+S_ISLINK()  符号链接
+S_ISSOCK()     套接字
+
+ino_t st_ino; //i节点号
+dev_t st_dev; //文件的主，次设备号信息
+dev_t st_rdev; //设备文件的设备号
+nlink_t st_nlink;  //文件的硬链接数
+uid_t st_uid;   //文件所有者用户ID
+gid_t st_gid;    //文件所有组ID
+off_t st_size;   //文件大小（以字节为单位）
+time_t st_atime   //最后一次访问该文件的时间
+time_t st_mtime; //最后一次修改该文件时间
+time_t st_ctime;   //最后一次改变该文件状态的时间
+blksize_t st_blksize; //包含该文件的磁盘快的大小
+blkcnt_t st_blocks;    //该文件所占的磁盘块数
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; 其中最重要的一个数据结构是`st_mode`，一个无符号整数。只是用其低16位。从低到高分别为:`其他用户权限`，`组权限欲`，`所有者权限`,`文件特殊属性`和`文件类型`。见下图:  </span><br><span class="line"></span><br><span class="line"> &lt;img src=&quot;https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/12.png&quot; width = &quot;300&quot; height = &quot;200&quot; alt=&quot;pic2&quot; align=center /&gt;</span><br><span class="line"></span><br><span class="line">&gt; 其中第9，10，11位分别为**黏着位**,**设置组ID**和**设置用户ID**位。若**设置用户ID位**被设置，**表示执行该文件时候进程的有效用户ID变成文件的所有者。**设置组ID类似。  </span><br><span class="line">&gt; 可以通过命令行设置用户ID为:</span><br></pre></td></tr></table></figure></p>
 <p>chmod u+s filename; chmod u-s filename;<br>chmod g+s filename; chmod u-s filename;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; 若文件所有者是超级用户，且设置了设置用户ID位，则执行此文件的进程拥有了超级用户权限。  </span><br><span class="line">&gt; Passwd（1）允许任一用户改变其口令，该程序是一个设置用户ID程序。分别用常量`S_ISUID`和`S_ISGID`测试。  </span><br><span class="line">&gt; 黏着位</span><br><span class="line">##### 读取文件属性</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; 若文件所有者是超级用户，且设置了设置用户ID位，则执行此文件的进程拥有了超级用户权限。  </span><br><span class="line">&gt; Passwd（1）允许任一用户改变其口令，该程序是一个设置用户ID程序。分别用常量`S_ISUID`和`S_ISGID`测试。  </span><br><span class="line">&gt; 如果一个目录设置了黏着位，那只有对该目录具有写许可权限的用户并且满足下列条件之一，才能删除或更名该目录下的文件:</span><br><span class="line">* 拥有此文件</span><br><span class="line">* 是超级用户</span><br><span class="line">##### 读取文件属性</span><br></pre></td></tr></table></figure>
 <p>int stat(const char <em>path, struct stat </em>buf);<br>int lstat(const char <em>path, struct stat </em>buf);<br>int fstat(int fileds, struct stat <em>buf);<br>int fstatat(int fd, const char </em>restrict pathname, struct stat *restrict buf, int flags);</p>
 <pre><code>函数说明
 stat和lstat参数相同，功能类似；读取path参数指定文件的文件属性并将其填充到buf参数所指向的结构体重； 对于符号链接文件, lstat返回符号链接的文件属性，stat返回符号链接引用文件的文件属性；
@@ -696,8 +716,28 @@ fstat与前两个函数功能类似，指定文件的方式改为通过文件描
 fstatat函数为一个相对于当前打开目录（由fd参数指向）的路径名返回文件统计信息。flag参数控制着是否跟随着一个符号链接，返回符号链接本身的信息或者符号链接所指向的实际文件信息
 如果fd参数的值是AT_FDCWD，并且pathname参数是一个相对路径名，fstatat会计算相对于当前目录的pathname参数，如果pathname是一个绝对路径，fd参数就会被忽略。这两种情况下，根据flag的取值（fstatat的作用就跟前两个函数一样）
 四个函数中的buf都是指向stat结构体的指针，是与文件属性相关的重要结构体
+
+
+struct passwd *getpwuid(uid_t uid);
+函数说明
+输入用户ID，返回用户属性信息（passwd结构）
+struct passwd {
+    char *pw_name;  //用户名
+    char *pw_passwd;  //密码
+    _uid_t pw_uid;  //用户ID
+    _gid_t pw_gid;   //组ID
+    char *pw_gecos;   //真实名
+    char *pw_dir;   //主目录
+    char *pw_shell;  //使用的shell    
+}
+
+struct passwd *getgrgid(gid_t gid);
+输入用户ID， 返回用户组属性信息
 </code></pre><p><code>`</code></p>
-<h4 id="Linux文件权限管理"><a href="#Linux文件权限管理" class="headerlink" title="Linux文件权限管理"></a>Linux文件权限管理</h4><h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><h3 id="线程同步和进程间通信"><a href="#线程同步和进程间通信" class="headerlink" title="线程同步和进程间通信"></a>线程同步和进程间通信</h3><h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3>
+<h4 id="Linux文件权限管理"><a href="#Linux文件权限管理" class="headerlink" title="Linux文件权限管理"></a>Linux文件权限管理</h4><blockquote>
+<p>Linux系统是通过进程的<strong>有效用户ID*8和</strong>有效用户组ID<strong>来决定进程对系统资源的访问权限。<br>一个进程的用户ID有</strong>实际用户ID<strong>和</strong>有效用户ID**两种，其中有效用户ID用于权限检查。通常情况下，有效用户ID等于实际用户ID。</p>
+</blockquote>
+<h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><h3 id="线程同步和进程间通信"><a href="#线程同步和进程间通信" class="headerlink" title="线程同步和进程间通信"></a>线程同步和进程间通信</h3><h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3>
       
     </div>
     
@@ -717,7 +757,7 @@ fstatat函数为一个相对于当前打开目录（由fd参数指向）的路�
   <p><span>本文标题:</span><a href="/2018/12/09/Linux操作系统编程/">Linux操作系统编程</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年12月09日 - 10:12</p>
-  <p><span>最后更新:</span>2018年12月16日 - 14:12</p>
+  <p><span>最后更新:</span>2018年12月16日 - 15:12</p>
   <p><span>原始链接:</span><a href="/2018/12/09/Linux操作系统编程/" title="Linux操作系统编程">http://haotianmcihael.github.io/2018/12/09/Linux操作系统编程/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/12/09/Linux操作系统编程/"  aria-label="复制成功！"></i></span>
   </p>
