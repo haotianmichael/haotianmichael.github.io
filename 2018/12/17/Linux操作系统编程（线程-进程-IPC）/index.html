@@ -127,7 +127,9 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/15.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/16.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/17.png">
-<meta property="og:updated_time" content="2018-12-17T07:17:41.158Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/18.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/19.png">
+<meta property="og:updated_time" content="2018-12-17T08:06:30.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux操作系统编程（线程&#x2F;进程&#x2F;IPC）">
 <meta name="twitter:description" content="Abstract 总结性质。进程在操作系统中通过进程控制块PCB的形式存在，而具体实现是一个叫task_struct的数据结构。      进程在内核中的物理存在形式是以PCB队列的形式。而在逻辑上Linux系统进程都是有父子关系的树形数据结构抽象构成的。">
@@ -427,7 +429,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  1.6k
                 </span>
               
 
@@ -443,7 +445,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  4
+                  6
                 </span>
               
             </div>
@@ -487,7 +489,10 @@
 </ul>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/16.png" width="300" height="200" alt="pic2" align="center"></p>
-<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><h4 id="进程用户属性"><a href="#进程用户属性" class="headerlink" title="进程用户属性"></a>进程用户属性</h4><blockquote>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><blockquote>
+<p>进程有两个特点:资源（代码和数据空间，文件等）和调度/执行。</p>
+</blockquote>
+<h4 id="进程用户属性"><a href="#进程用户属性" class="headerlink" title="进程用户属性"></a>进程用户属性</h4><blockquote>
 <p>与进程相关联的用户ID包括: <code>进程真实用户</code>，<code>进程真实用户组</code>，<code>进程有效用户</code>和<code>进程有效用户组</code>。其中“有效……”用于文件访问权限检查。  </p>
 <ul>
 <li>真实用户: 执行程序或者创建进程的用户</li>
@@ -496,17 +501,49 @@
 </ul>
 </blockquote>
 <h4 id="进程生命周期"><a href="#进程生命周期" class="headerlink" title="进程生命周期"></a>进程生命周期</h4><blockquote>
-<p><code>进程创建</code>————&gt;<code>状态切换</code>————&gt;<code>进程终止</code>；<br>正常终止:</p>
-<ul>
-<li>从main函数中返回</li>
-<li>在任意代码中调用exit函数或_exit函数</li>
-<li>最后一个线程从其启动例程中返回</li>
-<li>最后一个线程调用pthread_exit函数<br>异常终止:</li>
-<li>在任意代码中调用abort函数</li>
-<li>接受到终止信号<br>生命周期如下图所示: </li>
-</ul>
+<p><code>进程创建</code>————&gt;<code>状态切换</code>————&gt;<code>进程终止</code>；<br>生命周期如下图所示: </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/17.png" width="300" height="200" alt="pic2" align="center"></p>
+<h5 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h5><blockquote>
+<p>正常终止:</p>
+<ul>
+<li>从main函数中返回</li>
+<li>在任意代码中调用exit函数或_exit函数/return;</li>
+<li>最后一个线程从其启动例程中返回</li>
+<li>最后一个线程调用pthread_exit函数  </li>
+</ul>
+</blockquote>
+<blockquote>
+<p>异常终止:</p>
+<ul>
+<li>在任意代码中调用abort函数</li>
+<li>接受到终止信号<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">进程注册终止函数</span><br><span class="line">void exit(int status);</span><br><span class="line">void on_exit(int status);</span><br><span class="line">int atexit(void (*func)(void));</span><br><span class="line">int on_exit(void (*func)(int, void), void* arg);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h5 id="创建进程"><a href="#创建进程" class="headerlink" title="创建进程"></a>创建进程</h5><ul>
+<li>shell中执行命令或可执行文件(shell进程调用fork创建子进程)</li>
+<li>在函数中调用fork创建子进程<blockquote>
+<p>关于fork，wait,exec函数之前有过讲解。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="进程环境"><a href="#进程环境" class="headerlink" title="进程环境"></a>进程环境</h4><blockquote>
+<p>每个进程都有自己的环境变量表，通过全局的环境指针<code>extern char **environ</code>直接访问环境变量表(字符串数组);形式为“name = value”;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">----直接通过environ变量访问环境表</span><br><span class="line">	使用getenv函数</span><br><span class="line">	#include&lt;stdlib.h&gt;</span><br><span class="line">	char * getenv(const char *name);</span><br><span class="line">	指定环境变量名称，返回环境变量字符串指针，若未找到返回空指针；</span><br><span class="line">	</span><br><span class="line">----设置环境变量</span><br><span class="line">	#include&lt;stdlib.h&gt;</span><br><span class="line">	int putenv(char *str);</span><br><span class="line">	int setenv(const char*name , const char * value, int rewrite);</span><br><span class="line">	int unsetenv(const char *name);</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h3><blockquote>
+<p>线程是进程内的独立执行代码的实体和调度单元。一个进程内的所有线程共享进程的很多资源（线程同步由此而生）。线程不能脱离进程存在。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/18.png" width="300" height="200" alt="pic2" align="center"></p>
+<blockquote>
+<p>线程和进程最本质的区别就是有无地址空间，以下是线程拥有的少量资源:</p>
+<ul>
+<li>PC指针: 标识当前线程执行的位置</li>
+<li>寄存器: 当前线程执行的上下文环境</li>
+<li>栈: 用于实现函数调用，局部变量（局部变量是私有的）</li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/19.png" width="300" height="200" alt="pic2" align="center"></p>
 <h3 id="线程同步和进程间通信机制"><a href="#线程同步和进程间通信机制" class="headerlink" title="线程同步和进程间通信机制"></a>线程同步和进程间通信机制</h3>
       
     </div>
@@ -527,7 +564,7 @@
   <p><span>本文标题:</span><a href="/2018/12/17/Linux操作系统编程（线程-进程-IPC）/">Linux操作系统编程（线程/进程/IPC）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年12月16日 - 21:12</p>
-  <p><span>最后更新:</span>2018年12月17日 - 15:12</p>
+  <p><span>最后更新:</span>2018年12月17日 - 16:12</p>
   <p><span>原始链接:</span><a href="/2018/12/17/Linux操作系统编程（线程-进程-IPC）/" title="Linux操作系统编程（线程/进程/IPC）">http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程（线程-进程-IPC）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程（线程-进程-IPC）/"  aria-label="复制成功！"></i></span>
   </p>
@@ -765,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">2.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程用户属性"><span class="nav-number">2.1.</span> <span class="nav-text">进程用户属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程生命周期"><span class="nav-number">2.2.</span> <span class="nav-text">进程生命周期</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程同步和进程间通信机制"><span class="nav-number">3.</span> <span class="nav-text">线程同步和进程间通信机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">2.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程用户属性"><span class="nav-number">2.1.</span> <span class="nav-text">进程用户属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程生命周期"><span class="nav-number">2.2.</span> <span class="nav-text">进程生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#终止进程"><span class="nav-number">2.2.1.</span> <span class="nav-text">终止进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建进程"><span class="nav-number">2.2.2.</span> <span class="nav-text">创建进程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程环境"><span class="nav-number">2.3.</span> <span class="nav-text">进程环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程控制"><span class="nav-number">3.</span> <span class="nav-text">线程控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程同步和进程间通信机制"><span class="nav-number">4.</span> <span class="nav-text">线程同步和进程间通信机制</span></a></li></ol></div>
             
 
           </div>
