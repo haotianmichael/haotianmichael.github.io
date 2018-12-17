@@ -129,7 +129,8 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/17.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/18.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/19.png">
-<meta property="og:updated_time" content="2018-12-17T08:08:46.004Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/20.png">
+<meta property="og:updated_time" content="2018-12-17T13:16:36.021Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux操作系统编程（线程&#x2F;进程&#x2F;IPC）">
 <meta name="twitter:description" content="Abstract 总结性质。进程在操作系统中通过进程控制块PCB的形式存在，而具体实现是一个叫task_struct的数据结构。      进程在内核中的物理存在形式是以PCB队列的形式。而在逻辑上Linux系统进程都是有父子关系的树形数据结构抽象构成的。">
@@ -429,7 +430,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  2.7k
                 </span>
               
 
@@ -445,7 +446,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  6
+                  9
                 </span>
               
             </div>
@@ -544,7 +545,40 @@
 </ul>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/19.png" width="300" height="200" alt="pic2" align="center"></p>
-<h3 id="线程同步和进程间通信机制"><a href="#线程同步和进程间通信机制" class="headerlink" title="线程同步和进程间通信机制"></a>线程同步和进程间通信机制</h3>
+<h3 id="线程同步和进程间通信机制"><a href="#线程同步和进程间通信机制" class="headerlink" title="线程同步和进程间通信机制"></a>线程同步和进程间通信机制</h3><h4 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h4><blockquote>
+<p>Linux系统中多任务（进程/线程）之间的关系有:</p>
+<ul>
+<li>独立: 仅竞争CPU资源</li>
+<li>互斥: 竞争除CPU外的其他资源</li>
+<li>同步: 协调彼此运行的步调，保证协同运行的各个任务具有正确的执行次序</li>
+<li>通信: 数据共享，彼此间传递数据或者信息，以协同完成某项工作<br>线程间共享的数据和资源:进程代码段，进程中的全局变量，<strong>进程打开的文件</strong>……；<br>而每个线程私有的数据和资源:线程ID，线程上下文（一组寄存器的集合），线程局部变量（存储在栈中）。  </li>
+</ul>
+</blockquote>
+<h5 id="临界资源"><a href="#临界资源" class="headerlink" title="临界资源"></a>临界资源</h5><blockquote>
+<p><strong>在一段时间内只允许一个任务（线程或进程）访问的资源。诸多任务间采取互斥方式，实现对资源的共享。访问临界资源的代码被称为临界区。</strong></p>
+</blockquote>
+<h5 id="互斥量mutex"><a href="#互斥量mutex" class="headerlink" title="互斥量mutex"></a>互斥量mutex</h5><blockquote>
+<p>任务互斥————资源共享关系（间接相互制约关系）。两个任务不能同时发生。<br>在访问临界资源前，对互斥量进行加锁；在访问完成后对互斥量解锁；对互斥量加锁后，任何试图对互斥量加锁的线程会被阻塞，直到互斥量被解锁为止。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;pthread.h&gt;</span><br><span class="line">	</span><br><span class="line">	/*定义互斥量*/</span><br><span class="line">	pthread_mutex_t mutex; </span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	/*初始化*/</span><br><span class="line">	int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr);  //动态初始化</span><br><span class="line">	pthread_mutex_t mlock = PTHREAD_MUTEX_INITIALIZER;  //静态初始化</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	/*销毁*/</span><br><span class="line">	int pthread_mutex_destory(pthread_mutex_t *mutex);</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	/*解锁加锁*/</span><br><span class="line">	int pthread_mutex_lock(pthread_mutex_t *mutex);  //在调用该函数时如果互斥量已被加锁，则调用线程将被阻塞知道可以完成加锁操作为止</span><br><span class="line">	int pthread_mutex_unlock(pthread_mutex_t *mutex); </span><br><span class="line">	int pthread_mutex_trylock(pthread_mutex_t *mutex);//调用时如果互斥量被加锁，直接返回错误码，线程不必阻塞</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h5><blockquote>
+<p>任务同步————相互合作关系（直接相互制约关系）。一个任务的执行必须依赖另一个任务的执行情况。<br>而程序设计中，<strong>多个线程同时存在互斥关系和同步关系。</strong>Linux提供了条件变量和互斥量一起使用，<strong>允许线程以互斥的方式阻塞等待特定条件的发生（同步）。</strong><br>（其中XX操作和触发条件变量之间并未有直接关系）条件变量的使用:</p>
+<ul>
+<li>互斥量加锁–&gt;XX操作–&gt;触发条件变量–&gt;互斥量解锁</li>
+<li>互斥量加锁–&gt;等待条件变量–&gt;XX操作–&gt;互斥量解锁<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;pthread.h&gt;</span><br><span class="line"></span><br><span class="line">//初始化</span><br><span class="line">pthread_cond_t cond = PTHREAD_COND_INITIALIZER; </span><br><span class="line">int pthread_cond_t_init(pthread_cond_t *cond, pthread_condattr *attr);</span><br><span class="line">//销毁</span><br><span class="line">int pthread_cond_destory(pthread_cond_t &amp;cond);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//加锁互斥量</span><br><span class="line">int pthread_mutex_lock(pthread_mutex *mutex);</span><br><span class="line">//等待条件变量触发  使调用线程进入阻塞状态，直到条件变量触发</span><br><span class="line">int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);</span><br><span class="line">//解锁互斥量</span><br><span class="line">int pthread_mutex_unlock(pthread_mutex *mutex);			</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*触发条件变量并唤醒等待条件变量的线程*/</span><br><span class="line">int pthread_cond_signal(pthread_cond_t *cond);    //唤醒某一个线程</span><br><span class="line">int pthread_cond_broadcast(pthread_cond_t *cond);   //唤醒所有线程</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h5 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h5><blockquote>
+<p>期望对临界资源的访问控制粒度更精细，任意时刻允许多个线程对临界资源进行读操作，但只允许一个线程对临界资源进行写操作。<br>互斥关系有:<code>读——写</code>，<code>写——写</code>,<code>读——读</code>；同步关系有:缓冲区不满才允许写操作，缓冲区不空才允许读操作。<br>读写锁是保证互斥的基础之上，对临界资源访问控制进行更精细的控制:</p>
+<ul>
+<li>如果有线程对互斥资源进行读操作，则允许其他线程执行读操作，但不允许任何线程进行写操作</li>
+<li>如果有线程对互斥资源进行写操作，则不允许任何线程进行读操作或者写操作</li>
+<li>如果有线程对读写锁加读锁，其他线程可以继续对该读写锁加读锁，但是不能加写锁（加写锁的线程被阻塞）</li>
+<li>如果线程对读写锁加写锁，则其他线程不能对该读写锁加任何锁<br>操作和互斥量很相似:  </li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/20.png" width="300" height="200" alt="pic2" align="center"></p>
+<h4 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h4>
       
     </div>
     
@@ -564,7 +598,7 @@
   <p><span>本文标题:</span><a href="/2018/12/17/Linux操作系统编程（线程-进程-IPC）/">Linux操作系统编程（线程/进程/IPC）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年12月16日 - 21:12</p>
-  <p><span>最后更新:</span>2018年12月17日 - 16:12</p>
+  <p><span>最后更新:</span>2018年12月17日 - 21:12</p>
   <p><span>原始链接:</span><a href="/2018/12/17/Linux操作系统编程（线程-进程-IPC）/" title="Linux操作系统编程（线程/进程/IPC）">http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程（线程-进程-IPC）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程（线程-进程-IPC）/"  aria-label="复制成功！"></i></span>
   </p>
@@ -802,7 +836,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">2.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程用户属性"><span class="nav-number">2.1.</span> <span class="nav-text">进程用户属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程生命周期"><span class="nav-number">2.2.</span> <span class="nav-text">进程生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#终止进程"><span class="nav-number">2.2.1.</span> <span class="nav-text">终止进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建进程"><span class="nav-number">2.2.2.</span> <span class="nav-text">创建进程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程环境"><span class="nav-number">2.3.</span> <span class="nav-text">进程环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">3.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程同步和进程间通信机制"><span class="nav-number">4.</span> <span class="nav-text">线程同步和进程间通信机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">2.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程用户属性"><span class="nav-number">2.1.</span> <span class="nav-text">进程用户属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程生命周期"><span class="nav-number">2.2.</span> <span class="nav-text">进程生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#终止进程"><span class="nav-number">2.2.1.</span> <span class="nav-text">终止进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建进程"><span class="nav-number">2.2.2.</span> <span class="nav-text">创建进程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程环境"><span class="nav-number">2.3.</span> <span class="nav-text">进程环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">3.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程同步和进程间通信机制"><span class="nav-number">4.</span> <span class="nav-text">线程同步和进程间通信机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程同步"><span class="nav-number">4.1.</span> <span class="nav-text">线程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#临界资源"><span class="nav-number">4.1.1.</span> <span class="nav-text">临界资源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#互斥量mutex"><span class="nav-number">4.1.2.</span> <span class="nav-text">互斥量mutex</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#条件变量"><span class="nav-number">4.1.3.</span> <span class="nav-text">条件变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#读写锁"><span class="nav-number">4.1.4.</span> <span class="nav-text">读写锁</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程间通信"><span class="nav-number">4.2.</span> <span class="nav-text">进程间通信</span></a></li></ol></li></ol></div>
             
 
           </div>
