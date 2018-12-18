@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,C,OS," />
+  <meta name="keywords" content="OS,C,Linux," />
 
 
 
@@ -116,7 +116,7 @@
 
 
 <meta name="description" content="Abstract 总结性质。进程在操作系统中通过进程控制块PCB的形式存在，而具体实现是一个叫task_struct的数据结构。      进程在内核中的物理存在形式是以PCB队列的形式。而在逻辑上Linux系统进程都是有父子关系的树形数据结构抽象构成的。">
-<meta name="keywords" content="Linux,C,OS">
+<meta name="keywords" content="OS,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux操作系统编程（线程&#x2F;进程&#x2F;IPC）">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程（线程-进程-IPC）/index.html">
@@ -130,7 +130,9 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/18.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/19.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/20.png">
-<meta property="og:updated_time" content="2018-12-17T13:16:36.021Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/21.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/22.png">
+<meta property="og:updated_time" content="2018-12-18T03:04:02.711Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux操作系统编程（线程&#x2F;进程&#x2F;IPC）">
 <meta name="twitter:description" content="Abstract 总结性质。进程在操作系统中通过进程控制块PCB的形式存在，而具体实现是一个叫task_struct的数据结构。      进程在内核中的物理存在形式是以PCB队列的形式。而在逻辑上Linux系统进程都是有父子关系的树形数据结构抽象构成的。">
@@ -430,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.7k
+                  3.6k
                 </span>
               
 
@@ -446,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  9
+                  13
                 </span>
               
             </div>
@@ -578,7 +580,25 @@
 </ul>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/20.png" width="300" height="200" alt="pic2" align="center"></p>
-<h4 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h4>
+<h4 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h4><blockquote>
+<p>进程拥有不同的地址空间,由此带来不同的IPC策略:</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/21.png" width="300" height="200" alt="pic2" align="center"></p>
+<blockquote>
+<p>传统的UNIX通信机制主要有<strong>管道</strong>，<strong>命名管道</strong>和<strong>信号</strong>。</p>
+</blockquote>
+<h5 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h5><blockquote>
+<p>进程之间传递数据的一种简单方式，<strong>将每个消息看做一个具有特定格式的记录，消息队列就是消息的链表。</strong>根据不同的权限可以从消息队列中读或者添加消息。  </p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/22.png" width="300" height="200" alt="pic2" align="center"></p>
+<h6 id="创建消息队列"><a href="#创建消息队列" class="headerlink" title="创建消息队列"></a>创建消息队列</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;sys/types.h&gt;</span><br><span class="line">#include&lt;sys/ipc.h&gt;</span><br><span class="line">#include&lt;sys/msg.h&gt;</span><br><span class="line"></span><br><span class="line">int msgget(key_t key, int oflag);</span><br><span class="line">提前约定或通过ftok函数创建key值</span><br><span class="line">Oflag:</span><br><span class="line">	#define IPC_R 000400  读权限</span><br><span class="line">	#define IPC_W 000200  写和修改权限</span><br><span class="line">	#define IPC_M 010000  改变控制方式权限</span><br><span class="line">	</span><br><span class="line">还可以与下列参数值按位或</span><br><span class="line">	IPC_CREAT: 如果消息队列对象不存在就创建，否则打开已经存在的消息队列对象</span><br><span class="line">	IPC_EXCL: 只有消息队列对象不存在的时候，才能创建新的消息队列对象，否则就产生错误</span><br><span class="line">	IPC_NOWAIT: 如果操作需要等待，则直接返回错误</span><br></pre></td></tr></table></figure>
+<h6 id="发送消息到消息队列"><a href="#发送消息到消息队列" class="headerlink" title="发送消息到消息队列"></a>发送消息到消息队列</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;sys/types.h&gt;</span><br><span class="line">#include&lt;sys/ipc.h&gt;</span><br><span class="line">#include&lt;sys/msg.h&gt;</span><br><span class="line"></span><br><span class="line">int msgsnd(int msgid, const void *ptr, size_t length, int flag);</span><br><span class="line">msgid: 消息队列 ID</span><br><span class="line">ptr: 指向msgbuf的结构体指针（其中消息类型mtype必须大于零，小于零的消息队列有特殊的暗示作用）</span><br><span class="line">struct msgbuf&#123;</span><br><span class="line">	long mtype;</span><br><span class="line">	chr mtext[];</span><br><span class="line">&#125;	</span><br><span class="line">length: 以字节为单位指定待发送消息的长度(msgbuf结构体中消息类型mtype之后的用户自定义数据的长度)，该长度可以为0</span><br><span class="line">flag: 可以是零，也可以是IPC_NOWAIT(该标志可以使函数工作在非阻塞模式)</span><br><span class="line">出现以下情况时:</span><br><span class="line">	· 指定的消息队列容量已满</span><br><span class="line">	· 在系统范围存在太多的消息</span><br><span class="line">若设置了IPC_NOWAIT,则msgsnd立即返回（返回EAGAIN错误）</span><br><span class="line">若未指定该标志，则Msgsnd导致调用进程阻塞，直到可以发送成功为止</span><br></pre></td></tr></table></figure>
+<h6 id="从消息队列接收消息"><a href="#从消息队列接收消息" class="headerlink" title="从消息队列接收消息"></a>从消息队列接收消息</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;sys/types.h&gt;</span><br><span class="line">#include&lt;sys/ipc.h&gt;</span><br><span class="line">#include&lt;sys/msg.h&gt;</span><br><span class="line"></span><br><span class="line">ssize_t msgrcv(int msgid, void *ptr, size_t length, long type, int flag);</span><br><span class="line">msgid: 消息队列</span><br><span class="line">ptr: 消息缓冲区指针，指向msgbuf的结构体指针</span><br><span class="line">length: 消息缓冲区中数据部分的大小（msgbuf结构体中消息类型mtype之后的用户自定义数据的长度）</span><br><span class="line">type: 指定期望从消息队列中接受什么样的消息</span><br><span class="line">	type = 0; 返回队列中的第一个消息（消息队列是一个FIFO链表，所以返回的是队列中最早的消息）</span><br><span class="line">	type &gt; 0; 返回消息队列中的类型为type的第一个消息</span><br><span class="line">	type &lt; 0; 返回消息队列中类型值小于或等于type绝对值中最小的第一消息</span><br><span class="line"></span><br><span class="line">flag: 当消息队列中没有期望接收的消息时回如何操作</span><br><span class="line">	设置了IPC_NOWAIT: 函数立即返回ENOMSG错误</span><br><span class="line">	未设置IPC_NOWAIT: msgrcv导致调用进程阻塞直到:</span><br><span class="line">		有其他进城向消息队列中发送了所期望接收的消息</span><br><span class="line">		该消息队列被删除，此时返回EIDRM错误</span><br><span class="line">		进程被某个进程中断，此时返回EINTER错误</span><br></pre></td></tr></table></figure>
+<h6 id="消息队列控制操作"><a href="#消息队列控制操作" class="headerlink" title="消息队列控制操作"></a>消息队列控制操作</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int msgctl(int msgid, int cmd, struct msgid_ds *buf);</span><br></pre></td></tr></table></figure>
+<h5 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h5><blockquote>
+<p>在一段时间内只允许访问一个任务访问的资源称为临界资源。诸多任务间应采取互斥方式，实现对资源的共享。<br>允许多个任务同时访问同一种资源的多个实例。  </p>
+</blockquote>
+<h5 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h5>
       
     </div>
     
@@ -598,7 +618,7 @@
   <p><span>本文标题:</span><a href="/2018/12/17/Linux操作系统编程（线程-进程-IPC）/">Linux操作系统编程（线程/进程/IPC）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年12月16日 - 21:12</p>
-  <p><span>最后更新:</span>2018年12月17日 - 21:12</p>
+  <p><span>最后更新:</span>2018年12月18日 - 11:12</p>
   <p><span>原始链接:</span><a href="/2018/12/17/Linux操作系统编程（线程-进程-IPC）/" title="Linux操作系统编程（线程/进程/IPC）">http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程（线程-进程-IPC）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程（线程-进程-IPC）/"  aria-label="复制成功！"></i></span>
   </p>
@@ -633,11 +653,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+            <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
           
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
           
-            <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
           
         </div>
       
@@ -836,7 +856,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">2.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程用户属性"><span class="nav-number">2.1.</span> <span class="nav-text">进程用户属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程生命周期"><span class="nav-number">2.2.</span> <span class="nav-text">进程生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#终止进程"><span class="nav-number">2.2.1.</span> <span class="nav-text">终止进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建进程"><span class="nav-number">2.2.2.</span> <span class="nav-text">创建进程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程环境"><span class="nav-number">2.3.</span> <span class="nav-text">进程环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">3.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程同步和进程间通信机制"><span class="nav-number">4.</span> <span class="nav-text">线程同步和进程间通信机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程同步"><span class="nav-number">4.1.</span> <span class="nav-text">线程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#临界资源"><span class="nav-number">4.1.1.</span> <span class="nav-text">临界资源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#互斥量mutex"><span class="nav-number">4.1.2.</span> <span class="nav-text">互斥量mutex</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#条件变量"><span class="nav-number">4.1.3.</span> <span class="nav-text">条件变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#读写锁"><span class="nav-number">4.1.4.</span> <span class="nav-text">读写锁</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程间通信"><span class="nav-number">4.2.</span> <span class="nav-text">进程间通信</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">2.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程用户属性"><span class="nav-number">2.1.</span> <span class="nav-text">进程用户属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程生命周期"><span class="nav-number">2.2.</span> <span class="nav-text">进程生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#终止进程"><span class="nav-number">2.2.1.</span> <span class="nav-text">终止进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建进程"><span class="nav-number">2.2.2.</span> <span class="nav-text">创建进程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程环境"><span class="nav-number">2.3.</span> <span class="nav-text">进程环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">3.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程同步和进程间通信机制"><span class="nav-number">4.</span> <span class="nav-text">线程同步和进程间通信机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程同步"><span class="nav-number">4.1.</span> <span class="nav-text">线程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#临界资源"><span class="nav-number">4.1.1.</span> <span class="nav-text">临界资源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#互斥量mutex"><span class="nav-number">4.1.2.</span> <span class="nav-text">互斥量mutex</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#条件变量"><span class="nav-number">4.1.3.</span> <span class="nav-text">条件变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#读写锁"><span class="nav-number">4.1.4.</span> <span class="nav-text">读写锁</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程间通信"><span class="nav-number">4.2.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#消息队列"><span class="nav-number">4.2.1.</span> <span class="nav-text">消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#创建消息队列"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">创建消息队列</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#发送消息到消息队列"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">发送消息到消息队列</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#从消息队列接收消息"><span class="nav-number">4.2.1.3.</span> <span class="nav-text">从消息队列接收消息</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#消息队列控制操作"><span class="nav-number">4.2.1.4.</span> <span class="nav-text">消息队列控制操作</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#信号量"><span class="nav-number">4.2.2.</span> <span class="nav-text">信号量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#共享内存"><span class="nav-number">4.2.3.</span> <span class="nav-text">共享内存</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
