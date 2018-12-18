@@ -3,14 +3,14 @@
   <entry>
     <title><![CDATA[Linux操作系统编程（线程/进程/IPC）]]></title>
     <url>%2F2018%2F12%2F17%2FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%EF%BC%88%E7%BA%BF%E7%A8%8B-%E8%BF%9B%E7%A8%8B-IPC%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Abstract 总结性质。进程在操作系统中通过进程控制块PCB的形式存在，而具体实现是一个叫task_struct的数据结构。 进程在内核中的物理存在形式是以PCB队列的形式。而在逻辑上Linux系统进程都是有父子关系的树形数据结构抽象构成的。12345678910111213141516171819202122232425262728293031323334353637383940struct task_struct&#123; long state; /*任务的运行状态（-1 不可运行，0 可运行(就绪)，&gt;0 已停止）*/ long counter;/*运行时间片计数器(递减)*/ long priority;/*优先级*/ long signal;/*信号*/ struct sigaction sigaction[32];/*信号执行属性结构，对应信号将要执行的操作和标志信息*/ long blocked; /* bitmap of masked signals */ /* various fields */ int exit_code;/*任务执行停止的退出码*/ unsigned long start_code,end_code,end_data,brk,start_stack;/*代码段地址 代码长度（字节数） 代码长度 + 数据长度（字节数）总长度 堆栈段地址*/ long pid,father,pgrp,session,leader;/*进程标识号(进程号) 父进程号 父进程组号 会话号 会话首领*/ unsigned short uid,euid,suid;/*用户标识号（用户id） 有效用户id 保存的用户id*/ unsigned short gid,egid,sgid; /*组标识号（组id） 有效组id 保存的组id*/ long alarm;/*报警定时值*/ long utime,stime,cutime,cstime,start_time;/*用户态运行时间 内核态运行时间 子进程用户态运行时间 子进程内核态运行时间 进程开始运行时刻*/ unsigned short used_math;/*标志：是否使用协处理器*/ /* file system info */ int tty; /* -1 if no tty, so it must be signed */ unsigned short umask;/*文件创建属性屏蔽位*/ struct m_inode * pwd;/*当前工作目录i 节点结构*/ struct m_inode * root;/*根目录i节点结构*/ struct m_inode * executable;/*执行文件i节点结构*/ unsigned long close_on_exec;/*执行时关闭文件句柄位图标志*/ struct file * filp[NR_OPEN];/*进程使用的文件表结构*/ /* ldt for this task 0 - zero 1 - cs 2 - ds&amp;ss */ struct desc_struct ldt[3];/*本任务的局部描述符表。0-空，1-代码段cs，2-数据和堆栈段ds&amp;ss*/ /* tss for this task */ struct tss_struct tss;/*本进程的任务状态段信息结构*/&#125;; 其中主要有进程本身信息（时间等），调度信息，文件系统管理，内存管理，IPC相关信号描述这几个大的块。调度信息中的进程状态volatile long state有以下五种可能取值:12345678#define TASK_RUNNING 0//进程等待某种资源而挂起，根据是否可以响应系统异步信号分为两种//可以响应#define TASK_INTERRUPTIBLE 1 // 不可以响应，主要是初始化过程中，进行硬件操作的时候#define TASK_UNINTERRUPTIBLE 2 #define TASK_ZOMBIE 4 //当进程生命周期终止但是内核资源并未释放#define TASK_STOPPED 8 各个状态的转换图: 在task_struct文件管理中有三张表:fs结构保存进程的根目录和当前目录。而files结构中就有文件描述符表，每一个文件描述符元素指向一个文件表，而每一个文件表中又都有一个指向索引节点表的指针。总的来说:文件描述符表————&gt;文件表————&gt;索引节点表。 文件描述表(files)：描述进程打开的所有文件 文件表：文件每一次被打开形成的一张表，主要包括的内容有状态标志，读写偏移量，引用计数等 索引节点表: 物理文件存储的记录表，包括有文件的存储位置下图个人觉得是最重要的表之一: 进程 进程有两个特点:资源（代码和数据空间，文件等）和调度/执行。 进程用户属性 与进程相关联的用户ID包括: 进程真实用户，进程真实用户组，进程有效用户和进程有效用户组。其中“有效……”用于文件访问权限检查。 真实用户: 执行程序或者创建进程的用户 有效用户: 用于文件访问权限检查通常情况下有效用户和真实用户相同。在文件属性smote_t中的有设置用户ID位(setuid)和设置用户组ID位(setgid)。这类权限属性只针对可执行文件。执行文件的用户有时候并没有权限对其进行读写，设置了用户ID为之后，将用户的有效用户设置为文件的所有者。123456789#include&lt;unistd.h&gt;uid_t getuid(void); 获取进程真实用户IDuid_t getgid(void); 获取进程真实用户组IDuid_t geteuid(void); 获取进程有效用户IDuid_t getegid(void); 获取进程有效用户ID#include&lt;unistd.h&gt;pid_t getpis(void); //获取进程ID 进程生命周期 进程创建————&gt;状态切换————&gt;进程终止；生命周期如下图所示: 终止进程 正常终止: 从main函数中返回 在任意代码中调用exit函数或_exit函数/return; 最后一个线程从其启动例程中返回 最后一个线程调用pthread_exit函数 异常终止: 在任意代码中调用abort函数 接受到终止信号12345进程注册终止函数void exit(int status);void on_exit(int status);int atexit(void (*func)(void));int on_exit(void (*func)(int, void), void* arg); 创建进程 shell中执行命令或可执行文件(shell进程调用fork创建子进程) 在函数中调用fork创建子进程 关于fork，wait,exec函数之前有过讲解。 进程环境 每个进程都有自己的环境变量表，通过全局的环境指针extern char **environ直接访问环境变量表(字符串数组);形式为“name = value”;1234567891011----直接通过environ变量访问环境表 使用getenv函数 #include&lt;stdlib.h&gt; char * getenv(const char *name); 指定环境变量名称，返回环境变量字符串指针，若未找到返回空指针； ----设置环境变量 #include&lt;stdlib.h&gt; int putenv(char *str); int setenv(const char*name , const char * value, int rewrite); int unsetenv(const char *name); 线程 线程是进程内的独立执行代码的实体和调度单元。一个进程内的所有线程共享进程的很多资源（线程同步由此而生）。线程不能脱离进程存在。 线程和进程最本质的区别就是有无地址空间，以下是线程拥有的少量资源: PC指针: 标识当前线程执行的位置 寄存器: 当前线程执行的上下文环境 栈: 用于实现函数调用，局部变量（局部变量是私有的） 线程同步和进程间通信机制线程同步 Linux系统中多任务（进程/线程）之间的关系有: 独立: 仅竞争CPU资源 互斥: 竞争除CPU外的其他资源 同步: 协调彼此运行的步调，保证协同运行的各个任务具有正确的执行次序 通信: 数据共享，彼此间传递数据或者信息，以协同完成某项工作线程间共享的数据和资源:进程代码段，进程中的全局变量，进程打开的文件……；而每个线程私有的数据和资源:线程ID，线程上下文（一组寄存器的集合），线程局部变量（存储在栈中）。 临界资源 在一段时间内只允许一个任务（线程或进程）访问的资源。诸多任务间采取互斥方式，实现对资源的共享。访问临界资源的代码被称为临界区。 互斥量mutex 任务互斥————资源共享关系（间接相互制约关系）。两个任务不能同时发生。在访问临界资源前，对互斥量进行加锁；在访问完成后对互斥量解锁；对互斥量加锁后，任何试图对互斥量加锁的线程会被阻塞，直到互斥量被解锁为止。12345678910111213141516171819#include&lt;pthread.h&gt; /*定义互斥量*/ pthread_mutex_t mutex; /*初始化*/ int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr); //动态初始化 pthread_mutex_t mlock = PTHREAD_MUTEX_INITIALIZER; //静态初始化 /*销毁*/ int pthread_mutex_destory(pthread_mutex_t *mutex); /*解锁加锁*/ int pthread_mutex_lock(pthread_mutex_t *mutex); //在调用该函数时如果互斥量已被加锁，则调用线程将被阻塞知道可以完成加锁操作为止 int pthread_mutex_unlock(pthread_mutex_t *mutex); int pthread_mutex_trylock(pthread_mutex_t *mutex);//调用时如果互斥量被加锁，直接返回错误码，线程不必阻塞 条件变量 任务同步————相互合作关系（直接相互制约关系）。一个任务的执行必须依赖另一个任务的执行情况。而程序设计中，多个线程同时存在互斥关系和同步关系。Linux提供了条件变量和互斥量一起使用，允许线程以互斥的方式阻塞等待特定条件的发生（同步）。（其中XX操作和触发条件变量之间并未有直接关系）条件变量的使用: 互斥量加锁–&gt;XX操作–&gt;触发条件变量–&gt;互斥量解锁 互斥量加锁–&gt;等待条件变量–&gt;XX操作–&gt;互斥量解锁1234567891011121314151617181920#include&lt;pthread.h&gt;//初始化pthread_cond_t cond = PTHREAD_COND_INITIALIZER; int pthread_cond_t_init(pthread_cond_t *cond, pthread_condattr *attr);//销毁int pthread_cond_destory(pthread_cond_t &amp;cond);//加锁互斥量int pthread_mutex_lock(pthread_mutex *mutex);//等待条件变量触发 使调用线程进入阻塞状态，直到条件变量触发int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);//解锁互斥量int pthread_mutex_unlock(pthread_mutex *mutex); /*触发条件变量并唤醒等待条件变量的线程*/int pthread_cond_signal(pthread_cond_t *cond); //唤醒某一个线程int pthread_cond_broadcast(pthread_cond_t *cond); //唤醒所有线程 读写锁 期望对临界资源的访问控制粒度更精细，任意时刻允许多个线程对临界资源进行读操作，但只允许一个线程对临界资源进行写操作。互斥关系有:读——写，写——写,读——读；同步关系有:缓冲区不满才允许写操作，缓冲区不空才允许读操作。读写锁是保证互斥的基础之上，对临界资源访问控制进行更精细的控制: 如果有线程对互斥资源进行读操作，则允许其他线程执行读操作，但不允许任何线程进行写操作 如果有线程对互斥资源进行写操作，则不允许任何线程进行读操作或者写操作 如果有线程对读写锁加读锁，其他线程可以继续对该读写锁加读锁，但是不能加写锁（加写锁的线程被阻塞） 如果线程对读写锁加写锁，则其他线程不能对该读写锁加任何锁操作和互斥量很相似: 进程间通信 进程拥有不同的地址空间,由此带来不同的IPC策略: 传统的UNIX通信机制主要有管道，命名管道和信号。 消息队列 进程之间传递数据的一种简单方式，将每个消息看做一个具有特定格式的记录，消息队列就是消息的链表。根据不同的权限可以从消息队列中读或者添加消息。 创建消息队列123456789101112131415#include&lt;sys/types.h&gt;#include&lt;sys/ipc.h&gt;#include&lt;sys/msg.h&gt;int msgget(key_t key, int oflag);提前约定或通过ftok函数创建key值Oflag: #define IPC_R 000400 读权限 #define IPC_W 000200 写和修改权限 #define IPC_M 010000 改变控制方式权限 还可以与下列参数值按位或 IPC_CREAT: 如果消息队列对象不存在就创建，否则打开已经存在的消息队列对象 IPC_EXCL: 只有消息队列对象不存在的时候，才能创建新的消息队列对象，否则就产生错误 IPC_NOWAIT: 如果操作需要等待，则直接返回错误 发送消息到消息队列123456789101112131415161718#include&lt;sys/types.h&gt;#include&lt;sys/ipc.h&gt;#include&lt;sys/msg.h&gt;int msgsnd(int msgid, const void *ptr, size_t length, int flag);msgid: 消息队列 IDptr: 指向msgbuf的结构体指针（其中消息类型mtype必须大于零，小于零的消息队列有特殊的暗示作用）struct msgbuf&#123; long mtype; chr mtext[];&#125; length: 以字节为单位指定待发送消息的长度(msgbuf结构体中消息类型mtype之后的用户自定义数据的长度)，该长度可以为0flag: 可以是零，也可以是IPC_NOWAIT(该标志可以使函数工作在非阻塞模式)出现以下情况时: · 指定的消息队列容量已满 · 在系统范围存在太多的消息若设置了IPC_NOWAIT,则msgsnd立即返回（返回EAGAIN错误）若未指定该标志，则Msgsnd导致调用进程阻塞，直到可以发送成功为止 从消息队列接收消息12345678910111213141516171819#include&lt;sys/types.h&gt;#include&lt;sys/ipc.h&gt;#include&lt;sys/msg.h&gt;ssize_t msgrcv(int msgid, void *ptr, size_t length, long type, int flag);msgid: 消息队列ptr: 消息缓冲区指针，指向msgbuf的结构体指针length: 消息缓冲区中数据部分的大小（msgbuf结构体中消息类型mtype之后的用户自定义数据的长度）type: 指定期望从消息队列中接受什么样的消息 type = 0; 返回队列中的第一个消息（消息队列是一个FIFO链表，所以返回的是队列中最早的消息） type &gt; 0; 返回消息队列中的类型为type的第一个消息 type &lt; 0; 返回消息队列中类型值小于或等于type绝对值中最小的第一消息flag: 当消息队列中没有期望接收的消息时回如何操作 设置了IPC_NOWAIT: 函数立即返回ENOMSG错误 未设置IPC_NOWAIT: msgrcv导致调用进程阻塞直到: 有其他进城向消息队列中发送了所期望接收的消息 该消息队列被删除，此时返回EIDRM错误 进程被某个进程中断，此时返回EINTER错误 消息队列控制操作1int msgctl(int msgid, int cmd, struct msgid_ds *buf); 信号量 在一段时间内只允许访问一个任务访问的资源称为临界资源。诸多任务间应采取互斥方式，实现对资源的共享。允许多个任务同时访问同一种资源的多个实例。 共享内存]]></content>
+    <content type="text"><![CDATA[Abstract 总结性质。进程在操作系统中通过进程控制块PCB的形式存在，而具体实现是一个叫task_struct的数据结构。 进程在内核中的物理存在形式是以PCB队列的形式。而在逻辑上Linux系统进程都是有父子关系的树形数据结构抽象构成的。12345678910111213141516171819202122232425262728293031323334353637383940struct task_struct&#123; long state; /*任务的运行状态（-1 不可运行，0 可运行(就绪)，&gt;0 已停止）*/ long counter;/*运行时间片计数器(递减)*/ long priority;/*优先级*/ long signal;/*信号*/ struct sigaction sigaction[32];/*信号执行属性结构，对应信号将要执行的操作和标志信息*/ long blocked; /* bitmap of masked signals */ /* various fields */ int exit_code;/*任务执行停止的退出码*/ unsigned long start_code,end_code,end_data,brk,start_stack;/*代码段地址 代码长度（字节数） 代码长度 + 数据长度（字节数）总长度 堆栈段地址*/ long pid,father,pgrp,session,leader;/*进程标识号(进程号) 父进程号 父进程组号 会话号 会话首领*/ unsigned short uid,euid,suid;/*用户标识号（用户id） 有效用户id 保存的用户id*/ unsigned short gid,egid,sgid; /*组标识号（组id） 有效组id 保存的组id*/ long alarm;/*报警定时值*/ long utime,stime,cutime,cstime,start_time;/*用户态运行时间 内核态运行时间 子进程用户态运行时间 子进程内核态运行时间 进程开始运行时刻*/ unsigned short used_math;/*标志：是否使用协处理器*/ /* file system info */ int tty; /* -1 if no tty, so it must be signed */ unsigned short umask;/*文件创建属性屏蔽位*/ struct m_inode * pwd;/*当前工作目录i 节点结构*/ struct m_inode * root;/*根目录i节点结构*/ struct m_inode * executable;/*执行文件i节点结构*/ unsigned long close_on_exec;/*执行时关闭文件句柄位图标志*/ struct file * filp[NR_OPEN];/*进程使用的文件表结构*/ /* ldt for this task 0 - zero 1 - cs 2 - ds&amp;ss */ struct desc_struct ldt[3];/*本任务的局部描述符表。0-空，1-代码段cs，2-数据和堆栈段ds&amp;ss*/ /* tss for this task */ struct tss_struct tss;/*本进程的任务状态段信息结构*/&#125;; 其中主要有进程本身信息（时间等），调度信息，文件系统管理，内存管理，IPC相关信号描述这几个大的块。调度信息中的进程状态volatile long state有以下五种可能取值:12345678#define TASK_RUNNING 0//进程等待某种资源而挂起，根据是否可以响应系统异步信号分为两种//可以响应#define TASK_INTERRUPTIBLE 1 // 不可以响应，主要是初始化过程中，进行硬件操作的时候#define TASK_UNINTERRUPTIBLE 2 #define TASK_ZOMBIE 4 //当进程生命周期终止但是内核资源并未释放#define TASK_STOPPED 8 各个状态的转换图: 在task_struct文件管理中有三张表:fs结构保存进程的根目录和当前目录。而files结构中就有文件描述符表，每一个文件描述符元素指向一个文件表，而每一个文件表中又都有一个指向索引节点表的指针。总的来说:文件描述符表————&gt;文件表————&gt;索引节点表。 文件描述表(files)：描述进程打开的所有文件 文件表：文件每一次被打开形成的一张表，主要包括的内容有状态标志，读写偏移量，引用计数等 索引节点表: 物理文件存储的记录表，包括有文件的存储位置下图个人觉得是最重要的表之一: 进程 进程有两个特点:资源（代码和数据空间，文件等）和调度/执行。 进程用户属性 与进程相关联的用户ID包括: 进程真实用户，进程真实用户组，进程有效用户和进程有效用户组。其中“有效……”用于文件访问权限检查。 真实用户: 执行程序或者创建进程的用户 有效用户: 用于文件访问权限检查通常情况下有效用户和真实用户相同。在文件属性smote_t中的有设置用户ID位(setuid)和设置用户组ID位(setgid)。这类权限属性只针对可执行文件。执行文件的用户有时候并没有权限对其进行读写，设置了用户ID为之后，将用户的有效用户设置为文件的所有者。123456789#include&lt;unistd.h&gt;uid_t getuid(void); 获取进程真实用户IDuid_t getgid(void); 获取进程真实用户组IDuid_t geteuid(void); 获取进程有效用户IDuid_t getegid(void); 获取进程有效用户ID#include&lt;unistd.h&gt;pid_t getpis(void); //获取进程ID 进程生命周期 进程创建————&gt;状态切换————&gt;进程终止；生命周期如下图所示: 终止进程 正常终止: 从main函数中返回 在任意代码中调用exit函数或_exit函数/return; 最后一个线程从其启动例程中返回 最后一个线程调用pthread_exit函数 异常终止: 在任意代码中调用abort函数 接受到终止信号12345进程注册终止函数void exit(int status);void on_exit(int status);int atexit(void (*func)(void));int on_exit(void (*func)(int, void), void* arg); 创建进程 shell中执行命令或可执行文件(shell进程调用fork创建子进程) 在函数中调用fork创建子进程 关于fork，wait,exec函数之前有过讲解。 进程环境 每个进程都有自己的环境变量表，通过全局的环境指针extern char **environ直接访问环境变量表(字符串数组);形式为“name = value”;1234567891011----直接通过environ变量访问环境表 使用getenv函数 #include&lt;stdlib.h&gt; char * getenv(const char *name); 指定环境变量名称，返回环境变量字符串指针，若未找到返回空指针； ----设置环境变量 #include&lt;stdlib.h&gt; int putenv(char *str); int setenv(const char*name , const char * value, int rewrite); int unsetenv(const char *name); 线程 线程是进程内的独立执行代码的实体和调度单元。一个进程内的所有线程共享进程的很多资源（线程同步由此而生）。线程不能脱离进程存在。 线程和进程最本质的区别就是有无地址空间，以下是线程拥有的少量资源: PC指针: 标识当前线程执行的位置 寄存器: 当前线程执行的上下文环境 栈: 用于实现函数调用，局部变量（局部变量是私有的） 线程同步和进程间通信机制线程同步 Linux系统中多任务（进程/线程）之间的关系有: 独立: 仅竞争CPU资源 互斥: 竞争除CPU外的其他资源 同步: 协调彼此运行的步调，保证协同运行的各个任务具有正确的执行次序 通信: 数据共享，彼此间传递数据或者信息，以协同完成某项工作线程间共享的数据和资源:进程代码段，进程中的全局变量，进程打开的文件……；而每个线程私有的数据和资源:线程ID，线程上下文（一组寄存器的集合），线程局部变量（存储在栈中）。 临界资源 在一段时间内只允许一个任务（线程或进程）访问的资源。诸多任务间采取互斥方式，实现对资源的共享。访问临界资源的代码被称为临界区。 互斥量mutex 任务互斥————资源共享关系（间接相互制约关系）。两个任务不能同时发生。在访问临界资源前，对互斥量进行加锁；在访问完成后对互斥量解锁；对互斥量加锁后，任何试图对互斥量加锁的线程会被阻塞，直到互斥量被解锁为止。12345678910111213141516171819#include&lt;pthread.h&gt; /*定义互斥量*/ pthread_mutex_t mutex; /*初始化*/ int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr); //动态初始化 pthread_mutex_t mlock = PTHREAD_MUTEX_INITIALIZER; //静态初始化 /*销毁*/ int pthread_mutex_destory(pthread_mutex_t *mutex); /*解锁加锁*/ int pthread_mutex_lock(pthread_mutex_t *mutex); //在调用该函数时如果互斥量已被加锁，则调用线程将被阻塞知道可以完成加锁操作为止 int pthread_mutex_unlock(pthread_mutex_t *mutex); int pthread_mutex_trylock(pthread_mutex_t *mutex);//调用时如果互斥量被加锁，直接返回错误码，线程不必阻塞 条件变量 任务同步————相互合作关系（直接相互制约关系）。一个任务的执行必须依赖另一个任务的执行情况。而程序设计中，多个线程同时存在互斥关系和同步关系。Linux提供了条件变量和互斥量一起使用，允许线程以互斥的方式阻塞等待特定条件的发生（同步）。（其中XX操作和触发条件变量之间并未有直接关系）条件变量的使用: 互斥量加锁–&gt;XX操作–&gt;触发条件变量–&gt;互斥量解锁 互斥量加锁–&gt;等待条件变量–&gt;XX操作–&gt;互斥量解锁1234567891011121314151617181920#include&lt;pthread.h&gt;//初始化pthread_cond_t cond = PTHREAD_COND_INITIALIZER; int pthread_cond_t_init(pthread_cond_t *cond, pthread_condattr *attr);//销毁int pthread_cond_destory(pthread_cond_t &amp;cond);//加锁互斥量int pthread_mutex_lock(pthread_mutex *mutex);//等待条件变量触发 使调用线程进入阻塞状态，直到条件变量触发int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);//解锁互斥量int pthread_mutex_unlock(pthread_mutex *mutex); /*触发条件变量并唤醒等待条件变量的线程*/int pthread_cond_signal(pthread_cond_t *cond); //唤醒某一个线程int pthread_cond_broadcast(pthread_cond_t *cond); //唤醒所有线程 读写锁 期望对临界资源的访问控制粒度更精细，任意时刻允许多个线程对临界资源进行读操作，但只允许一个线程对临界资源进行写操作。互斥关系有:读——写，写——写,读——读；同步关系有:缓冲区不满才允许写操作，缓冲区不空才允许读操作。读写锁是保证互斥的基础之上，对临界资源访问控制进行更精细的控制: 如果有线程对互斥资源进行读操作，则允许其他线程执行读操作，但不允许任何线程进行写操作 如果有线程对互斥资源进行写操作，则不允许任何线程进行读操作或者写操作 如果有线程对读写锁加读锁，其他线程可以继续对该读写锁加读锁，但是不能加写锁（加写锁的线程被阻塞） 如果线程对读写锁加写锁，则其他线程不能对该读写锁加任何锁操作和互斥量很相似: 进程间通信 进程拥有不同的地址空间,由此带来不同的IPC策略: 传统的UNIX通信机制主要有管道，命名管道和信号。 消息队列 进程之间传递数据的一种简单方式，将每个消息看做一个具有特定格式的记录，消息队列就是消息的链表。根据不同的权限可以从消息队列中读或者添加消息。 创建消息队列123456789101112131415#include&lt;sys/types.h&gt;#include&lt;sys/ipc.h&gt;#include&lt;sys/msg.h&gt;int msgget(key_t key, int oflag);提前约定或通过ftok函数创建key值Oflag: #define IPC_R 000400 读权限 #define IPC_W 000200 写和修改权限 #define IPC_M 010000 改变控制方式权限 还可以与下列参数值按位或 IPC_CREAT: 如果消息队列对象不存在就创建，否则打开已经存在的消息队列对象 IPC_EXCL: 只有消息队列对象不存在的时候，才能创建新的消息队列对象，否则就产生错误 IPC_NOWAIT: 如果操作需要等待，则直接返回错误 发送消息到消息队列123456789101112131415161718#include&lt;sys/types.h&gt;#include&lt;sys/ipc.h&gt;#include&lt;sys/msg.h&gt;int msgsnd(int msgid, const void *ptr, size_t length, int flag);msgid: 消息队列 IDptr: 指向msgbuf的结构体指针（其中消息类型mtype必须大于零，小于零的消息队列有特殊的暗示作用）struct msgbuf&#123; long mtype; chr mtext[];&#125; length: 以字节为单位指定待发送消息的长度(msgbuf结构体中消息类型mtype之后的用户自定义数据的长度)，该长度可以为0flag: 可以是零，也可以是IPC_NOWAIT(该标志可以使函数工作在非阻塞模式)出现以下情况时: · 指定的消息队列容量已满 · 在系统范围存在太多的消息若设置了IPC_NOWAIT,则msgsnd立即返回（返回EAGAIN错误）若未指定该标志，则Msgsnd导致调用进程阻塞，直到可以发送成功为止 从消息队列接收消息12345678910111213141516171819#include&lt;sys/types.h&gt;#include&lt;sys/ipc.h&gt;#include&lt;sys/msg.h&gt;ssize_t msgrcv(int msgid, void *ptr, size_t length, long type, int flag);msgid: 消息队列ptr: 消息缓冲区指针，指向msgbuf的结构体指针length: 消息缓冲区中数据部分的大小（msgbuf结构体中消息类型mtype之后的用户自定义数据的长度）type: 指定期望从消息队列中接受什么样的消息 type = 0; 返回队列中的第一个消息（消息队列是一个FIFO链表，所以返回的是队列中最早的消息） type &gt; 0; 返回消息队列中的类型为type的第一个消息 type &lt; 0; 返回消息队列中类型值小于或等于type绝对值中最小的第一消息flag: 当消息队列中没有期望接收的消息时回如何操作 设置了IPC_NOWAIT: 函数立即返回ENOMSG错误 未设置IPC_NOWAIT: msgrcv导致调用进程阻塞直到: 有其他进城向消息队列中发送了所期望接收的消息 该消息队列被删除，此时返回EIDRM错误 进程被某个进程中断，此时返回EINTER错误 消息队列控制操作1int msgctl(int msgid, int cmd, struct msgid_ds *buf); 信号量 在一段时间内只允许访问一个任务访问的资源称为临界资源。诸多任务间应采取互斥方式，实现对资源的共享。信号量允许多个任务同时访问同一种资源的多个实例。一般分为三种类型: 互斥信号量: 任务之间互斥访问临界资源 计数信号量: 任务之间竞争访问共享资源 二值信号量: 任务之间的同步机制 信号量s一般包含int s.count实现资源计数；s.queue实现任务阻塞队列。对于信号量的操作有初始化，P操作，V操作；其中P操作wait(s)表示申请一个资源，而V操作signal(s)表示释放一个资源。 信号量集 XSI IPC 信号量集结构123456789101112131415struct semid_ds&#123; struct ipc_perm sem_perm; struct sem *sem_base; //指向信号量数组的指针 time_t sem_otime; //最后一次操作的时间 time_t sem_ctime; //最后一次改变此结构的时间 unsigned short sem_nsems; //集合中信号量个数&#125;struct sem&#123; pid_t sempid; //最后操作次信号量的进程ID unsigned short semncnt; //等待对该信号量执行P操作的进程数 unsigned short semzcnt; //等待semval为零的进程数 unsigned short semval; //信号量当前值&#125; semget函数12345678910111213创建或打开信号量对象#include&lt;sys/sem.h&gt;int semget(key_t key, int nsems, int semflg);key: 用来创建或打开信号量集中对象时指定的key值nsems: 信号量集对象中包含的信号量数量semflg: 设置访问权限 #define IPC_R 000400 读权限 #define IPC_W 000200 写和修改权限 #define IPC_M 010000 改变控制方式权限按位或参数值: IPC_CREAT IPC_EXCL IPC_NOWAIT semop函数1234567891011121314信号量操作 int semop(int semid, struct sembuf sops[], size_t nsops);semid: 信号量对象IDsops: 指向sembuf结构数组的指针nsops: 第二个参数中sembuf结构数组的元素个数sembuf结构体 unsigned short sem_num: 信号量序号，指示本次是操作信号量集中的那个信号量（序号从零开始0） short sem_op;信号量操作码 该值为正，信号量V操作，增加信号量的值（为n，则加n） 该值为负，信号量P操作，减少信号量的值（为-n，则减n） 该值为0，对信号量的当前值是否为0的测试 short sem_flg; semop操作控制标志 IPC_MOWAIT SEM_UNDO PV 操作12345678910111213141516171819202122232425//Pint semaphore_p(void) &#123; struct sembuf sem_b; sem_b.sem_num = 0; sem_b.sem_op = -1; sem_b.sem_flg = SEM_UNDO; if(semop(sem_id, &amp;sem_b, 1) == -1) &#123; fprintf(stderr, &quot;semaphore_p failed\n&quot;); return 0; &#125; return 1;&#125;//Vint semaphore_v() &#123; struct sembuf sem_b; sem_b/sem_num = 0; sem_b.sem_op = 1; sem_b.sem_flg = SEM_UNDO; if(semop(sem_id, *sem_b, 1) == -1) &#123; fprintf(stderr, &quot;semaphore failed\n&quot;); return 0; &#125; return 1; &#125; semctl函数1234567891011121314151617181920#include&lt;sys/types.h/ipc.h/sem.h&gt;int semctl(int semid, int semnum, int cmd, union semun arg);semid: 信号量对象的IDsemnum: 信号量中信号量的编号（如果控制是针对整个信号量集，则将该数值置零）cmd:要执行的控制命令 针对整个信号量集: IPC_RMID: IPC_SET: IPC_STAT: IPC_INFO: 针对信号量集中的某一个信号量: SETVAL GETVAL GETPIDarg:与控制命令配合的参数 union semun&#123; int val; struct semid_ds *buf; unsigned short *arry; &#125; 共享内存 共享内存是内核为进程间通信创建的特殊内存段。不同进程可已经同一段共享内存连接到自己的地址空间。是一种最快的进程间通信方式。共享内存机制本身不具有互斥访问机制。123456789101112131415#include&lt;sys/types.h&gt;#include&lt;sys/ipc.h&gt;#ilnclude&lt;sys/shm.h&gt;//打开或者创建共享内存对象int shmget(key_t key, int size, int flag);//将共享内存链接到进程空间void *shmat(int shmid, void *addr, int flag);//断开进程空间和共享内存的连接int shmdt(void *addr);//共享内存控制操作int shmctl(int shmid, int cmd, struct shmid_ds *buf);]]></content>
       <categories>
         <category>C</category>
       </categories>
       <tags>
-        <tag>OS</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
       </tags>
   </entry>
   <entry>
@@ -21,9 +21,9 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>OS</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
       </tags>
   </entry>
   <entry>
@@ -57,10 +57,10 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
         <tag>Shell</tag>
       </tags>
   </entry>
@@ -72,11 +72,11 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>Assembly</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -87,10 +87,10 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
         <tag>Shell</tag>
       </tags>
   </entry>
@@ -102,11 +102,11 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>Assembly</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -117,11 +117,11 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>Assembly</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
