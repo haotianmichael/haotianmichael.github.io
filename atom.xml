@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2018-12-31T00:15:59.170Z</updated>
+  <updated>2018-12-31T00:28:04.009Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -17,11 +17,25 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Mit6.828(Fall 2018) Lab3</title>
+    <link href="http://haotianmcihael.github.io/2018/12/31/Mit6-828-Fall-2018-Lab3/"/>
+    <id>http://haotianmcihael.github.io/2018/12/31/Mit6-828-Fall-2018-Lab3/</id>
+    <published>2018-12-31T08:28:03.000Z</published>
+    <updated>2018-12-31T00:28:04.009Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Linux操作系统编程（实验）</title>
     <link href="http://haotianmcihael.github.io/2018/12/18/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%EF%BC%88%E5%AE%9E%E9%AA%8C%EF%BC%89/"/>
     <id>http://haotianmcihael.github.io/2018/12/18/Linux操作系统编程（实验）/</id>
     <published>2018-12-18T15:53:40.000Z</published>
-    <updated>2018-12-31T00:15:59.170Z</updated>
+    <updated>2018-12-31T00:20:07.753Z</updated>
     
     <content type="html"><![CDATA[<h3 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h3><blockquote><p>学习过程中对新知识的<strong>排斥周期</strong>直接影响了<strong>学习效率</strong>，两者成反比。最近一直在琢磨这事儿。<br>我们从接触到一个新技能到<strong>完全吸收</strong>它是需要一个过程的，理想状态下整个吸收过程就应该是我们的学习过程，中间鲜有停顿和耽搁。<strong>但是很多时候学习过程本身会有一个排斥期</strong>，包括不想学习，大脑一片空白，拖延症，各种借口……，加上这些变量的影响到我们真正接纳这个知识点所花的时间我称之为<strong>排斥周期</strong>。<br>我从开始做6.828到学习多线程编程，发现我的<strong>排斥周期</strong>是两周。一般来说我必须花两周时间才能完全搞懂其中一部分新内容(包括我写博客的时间)。这个时间是很可怕的，我觉得我学习过程中很少有其他的外界干扰因素，<strong>所以这完全就是我大脑不专注的结果。</strong>差距由此而生。<br>以后的学习我会尽量缩短<strong>排斥周期</strong>。</p></blockquote><a id="more"></a><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>实验性质。<br>关于多线程编程的学习一共三部分，这是最后的实验章节。<br>实验源代码都放到了<a href="https://github.com/haotianmichael/Multithread-Labs" target="_blank" rel="noopener">GitHub</a>上。<br>对于系统编程，<a href="https://book.douban.com/subject/1788421/" target="_blank" rel="noopener">UNIX环境高级编程</a>绝对是最经典的著作了。<br>学习操作系统有两个维度:<strong>系统编程</strong>和<strong>内核实现</strong>。系统编程是为了更好的使用操作系统，更深入的理解<strong>多进程/线程</strong>的概念。而内核实现更多的是清楚整个OS的架构和功能。两者都很重要，系统编程的基础学习到此结束，整理一下马上开始Lab3。(话说是有点慢了……</p></blockquote>]]></content>
     
