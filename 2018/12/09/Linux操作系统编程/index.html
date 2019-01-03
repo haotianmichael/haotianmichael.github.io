@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,C,OS," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -115,13 +115,12 @@
 
 
 
-<meta name="description" content="Abstract 总结性质。为了6.828的Lab3能够更好的进行下去，花几天时间总结一下和Linux多线程编程相关的知识点。主要有:基础知识，文件与目录操作，线程和进程以及线程同步和进程间通信机制四个大块。博客总结为文件系统和进程/线程两部分。下图为操作系统程序员眼中Linux的基本编程架构:">
-<meta name="keywords" content="Linux,C,OS">
+<meta name="description" content="Abstract下图为操作系统程序员眼中Linux的基本编程架构:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux操作系统编程(文件系统)">
+<meta property="og:title" content="CodeSaw">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/12/09/Linux操作系统编程/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract 总结性质。为了6.828的Lab3能够更好的进行下去，花几天时间总结一下和Linux多线程编程相关的知识点。主要有:基础知识，文件与目录操作，线程和进程以及线程同步和进程间通信机制四个大块。博客总结为文件系统和进程/线程两部分。下图为操作系统程序员眼中Linux的基本编程架构:">
+<meta property="og:description" content="Abstract下图为操作系统程序员眼中Linux的基本编程架构:">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/2.png">
@@ -136,10 +135,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/11.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/12.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/13.png">
-<meta property="og:updated_time" content="2018-12-17T01:42:23.532Z">
+<meta property="og:updated_time" content="2019-01-03T11:20:25.216Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux操作系统编程(文件系统)">
-<meta name="twitter:description" content="Abstract 总结性质。为了6.828的Lab3能够更好的进行下去，花几天时间总结一下和Linux多线程编程相关的知识点。主要有:基础知识，文件与目录操作，线程和进程以及线程同步和进程间通信机制四个大块。博客总结为文件系统和进程/线程两部分。下图为操作系统程序员眼中Linux的基本编程架构:">
+<meta name="twitter:title" content="CodeSaw">
+<meta name="twitter:description" content="Abstract下图为操作系统程序员眼中Linux的基本编程架构:">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/1.png">
 
 
@@ -176,7 +175,7 @@
 
 
 
-  <title>Linux操作系统编程(文件系统) | CodeSaw</title>
+  <title> | CodeSaw</title>
   
 
 
@@ -380,7 +379,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux操作系统编程(文件系统)</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -392,7 +391,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-09T10:24:29Z">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-09T02:24:29Z">
                 2018-12-09
               </time>
             
@@ -402,28 +401,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -446,7 +423,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  11.5k
+                  10.4k
                 </span>
               
 
@@ -462,7 +439,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  42
+                  38
                 </span>
               
             </div>
@@ -483,9 +460,7 @@
       
 
       
-        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
-<p>总结性质。<br>为了6.828的Lab3能够更好的进行下去，花几天时间总结一下和Linux多线程编程相关的知识点。主要有:<strong>基础知识</strong>，<strong>文件与目录操作</strong>，<strong>线程和进程</strong>以及<strong>线程同步和进程间通信机制</strong>四个大块。博客总结为<strong>文件系统</strong>和<strong>进程/线程</strong>两部分。<br>下图为操作系统程序员眼中Linux的基本编程架构:  </p>
-</blockquote>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>下图为操作系统程序员眼中Linux的基本编程架构:  </p>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/1.png" width="300" height="200" alt="pic2" align="center"><br><a id="more"></a></p>
 <h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><blockquote>
 <p>多句嘴~Linux发展到今天，经历了好几个技术积累的阶段:<br><code>Multics(AT&amp;T,MIT,GE)</code> ————&gt; <code>Unix(The Unix Time Sharing System)</code> ————&gt; <code>C</code> ————&gt; <code>System V(AT&amp;T)</code>, <code>BSD(Berkeley)</code> ————&gt; <code>ANSI C(C语言标准)</code> —————&gt; <code>POSIX（1983-API接口）</code> ————&gt; <code>GNU(RMS)</code> ————&gt; <code>Minix(1984)</code> ————&gt; <code>Linux(1991)</code><br>从OS的功能角度来看Linux的体系结构，主要有<strong>内存管理</strong>,<strong>进程/线程</strong>,<strong>文件管理</strong>,<strong>设备管理</strong>四部分。多线程编程主要是后三部分的内容涉及到和用户的接口部分。</p>
@@ -511,75 +486,7 @@
 <p><code>man 2 syscalls</code>系统调用时内核提供的程序接口，是应用程序和硬件设备之间的中间层。<br>系统调用主要分为:<strong>文件操作类系统调用</strong>，<strong>进程控制类系统调用</strong>，<strong>通信类系统调用</strong>，<strong>设备管理类系统调用</strong>，<strong>信息维护类系统调用</strong>。<br><strong>系统调用是操作系统的最小执行单位，</strong>直接使用Syscalls比较麻烦，应用程序开发一般使用API而不是直接使用系统调用来编程。C库遵循POSIX规范，以库函数的形式实现了很多POSIX API。<strong>系统调用和C库函数之间并不是一一对应的。比如<code>malloc</code>&amp;<code>free</code>和<code>exec</code>函数类。</strong><br>用户可以通过C库函数实现相关功能，Linux软件层次架构更好的解释了<strong>接口</strong>这一概念: </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/2.png" width="300" height="200" alt="pic2" align="center"></p>
-<h4 id="Linux程序编译调试方法"><a href="#Linux程序编译调试方法" class="headerlink" title="Linux程序编译调试方法"></a>Linux程序编译调试方法</h4><blockquote>
-<p>GCC是GNU计划的一个项目，由原来的GNU C Compiler发展到了CUN Compiler Collection。主要包括:<code>cpp(预处理器)</code>，<code>gcc(C编译器)，g++(c++编译器)等编译器</code>,<code>binutils等二进制工具（as汇编器）（ld链接器）</code><br>编译过程:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cpp -o hello.i hello.c 预处理</span><br><span class="line">ccl -o hello.s hello.i 编译</span><br><span class="line">as -o hello.o hello.s 汇编</span><br><span class="line">ld -o hello hello.o 链接</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h5 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h5><h6 id="编译指令"><a href="#编译指令" class="headerlink" title="编译指令"></a>编译指令</h6><ul>
-<li>-O 指定输出文件名</li>
-<li>-E 仅激活预处理</li>
-<li>-S 激活预处理和编译</li>
-<li>-C 编译可重定位目标文件(即.o文件)</li>
-<li><p>-D 宏定义选项 作用于所有的源文件 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define PI 3.14159</span><br><span class="line"></span><br><span class="line">gcc -DPI=3.14159 main.c</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>-I 指定额外头文件的搜索路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc helloworld.c -l /usr/include/ -o helloworld</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>-w 禁止所有警告信息</p>
-</li>
-<li>-Wall 打开所有警告选项，输出警告信息</li>
-</ul>
-<h6 id="调试指令"><a href="#调试指令" class="headerlink" title="调试指令"></a>调试指令</h6><blockquote>
-<p><strong>调试选项的启动会让二进制文件的大小急剧增长。</strong>  </p>
-<ul>
-<li>-g 以操作系统的本地各式（stab, COFF, XCOFF, DWARF）产生调试信息，GDB等调试器可以使用这些调试信息</li>
-<li>ggdb 生成更加丰富的调试信息，不过有可能不能被其他的调试器使用</li>
-</ul>
-</blockquote>
-<h6 id="优化指令"><a href="#优化指令" class="headerlink" title="优化指令"></a>优化指令</h6><blockquote>
-<p><strong>调试的时候不能使用优化选项，否则变量值和源代码无法对应。</strong></p>
-<ul>
-<li>-O/-O1 编译器会试图减少目标吗的大小和执行时间</li>
-<li>-O2 除了设计速度和空间交换的优化选项，执行几乎所有的优化工作，但不进行循环展开和函数内嵌</li>
-<li>-O3 乱序执行，循环展开的优化</li>
-</ul>
-</blockquote>
-<h6 id="库文件相关"><a href="#库文件相关" class="headerlink" title="库文件相关"></a>库文件相关</h6><ul>
-<li><p>-r 将<code>.o</code>归档成静态库<code>.a</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ar -r libincrease.a increase.o</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>静态库和其他源文件链接成为可执行文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc main.c -L -static -o main</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成动态链接库（名称必须以<code>lib</code>开头，<code>.so</code>结束）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-shared 生成共享文件</span><br><span class="line">-fPIC 生成位置独立的代码，此类代码可以在不同进程之间共享</span><br><span class="line">-linc 中-l参数 连接器自动加上lib和.so = libinc.so</span><br><span class="line">-L 用户自定义目录搜索共享库 比如 gcc main.c -o main -linc -L./ 指定./</span><br><span class="line">gcc -shared -fPIC -o libinc.so increase.c</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h5 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h5><blockquote>
-<p>GNU计划开发的程序调试工具。可以随心所欲的调试运行中的程序，并当程序停住的时候检查此时程序中所发生的事情，甚至动态的改变程序的执行环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">启动的方式:</span><br><span class="line">$ gdb</span><br><span class="line">$ file program</span><br><span class="line"></span><br><span class="line">$ gdb &lt;program-可执行文件&gt;</span><br><span class="line"></span><br><span class="line">$ gdb program core</span><br><span class="line"></span><br><span class="line">调试正在运行的进程</span><br><span class="line">$ gdb program &lt;processid&gt;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>下面是程序调试的具体方式  </p>
-<ul>
-<li>break [LOCATION] [thread THREADNUM] [if CONDITION]<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[LOCATION]:</span><br><span class="line">	`linenum`  b 123</span><br><span class="line">	`function name` b main</span><br><span class="line">	`filename: linenum` b increase:123</span><br><span class="line">	`filename: function` b increase:main  </span><br><span class="line">	`class:function(c++)`</span><br><span class="line">	</span><br><span class="line">[thread THREADNUM]	调试多线程程序的时候，切换到哪个线程或者在那个线程中设置断点</span><br><span class="line">	bread frik.c:13 thread 28</span><br><span class="line">	</span><br><span class="line">[if CONDITION]  当条件满足时断点才生效，一般称为条件断点</span><br><span class="line">	b 123 if index==2</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li><p>watchpoint 观察点（变量），当观察对象的值发生变化的时候，程序立即停止执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">watch &lt;expr&gt; 一旦值有变化，马上停止程序</span><br><span class="line">  </span><br><span class="line">rwatch &lt;expr&gt;  当观察点被读时停止程序</span><br><span class="line"></span><br><span class="line">awatch &lt;expr&gt; 当观察点的值被读或者写时停止程序</span><br><span class="line"></span><br><span class="line">info  watchpoints 列出当前所有的观察点</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>禁用调试断点和观察点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">clear [linenum] [function name] 清除所有断点，不会清除watchpoints</span><br><span class="line">delete &lt;num&gt; 清除编号为num的断点或者watchoint</span><br><span class="line">disable &lt;num&gt; 禁止某个断点</span><br><span class="line">enable &lt;num&gt; 开启某个断点</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>调试手段</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">step 单步调试</span><br><span class="line">next 单步调试，但是跳过函数调用</span><br><span class="line">finish 单步调试直接从一个函数返回</span><br><span class="line">disassemble 显示汇编代码</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>堆栈相关</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">backtrace/bt 查看程序当前堆栈情况</span><br><span class="line">where 查看当前位置</span><br><span class="line">up/down 向上或者向下移动一个堆栈</span><br><span class="line">frame&lt;num&gt;/f 移动到第num个堆栈</span><br><span class="line">当移动到某个堆栈时，便可以用gdb命令查看那个堆栈中的局部变量</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="文件与目录操作"><a href="#文件与目录操作" class="headerlink" title="文件与目录操作"></a>文件与目录操作</h3><blockquote>
+<h2 id="文件与目录操作"><a href="#文件与目录操作" class="headerlink" title="文件与目录操作"></a>文件与目录操作</h2><blockquote>
 <p><strong>文件系统是以合理有效的层次结构组织的文件和目录集合。主要功能是对文件存储设备的空间进行组织和分配，负责文件的存储并对存入的文件进行保护和检索的系统。</strong><br>在Linux中允许<strong>多个不同的文件系统</strong>存在，通过统一的文件I/O系统调用API即可对系统中的任意文件进行操作而无需考虑具体的文件系统格式。下图是Linux文件系统的架构图:  </p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/3.png" width="300" height="200" alt="pic2" align="center"></p>
@@ -771,35 +678,6 @@
     <div>
       
         
-<div class="my_post_copyright">
-  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-  
-  <!-- JS库 sweetalert 可修改路径 -->
-  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2018/12/09/Linux操作系统编程/">Linux操作系统编程(文件系统)</a></p>
-  <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
-  <p><span>发布时间:</span>2018年12月09日 - 10:12</p>
-  <p><span>最后更新:</span>2018年12月17日 - 09:12</p>
-  <p><span>原始链接:</span><a href="/2018/12/09/Linux操作系统编程/" title="Linux操作系统编程(文件系统)">http://haotianmcihael.github.io/2018/12/09/Linux操作系统编程/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/12/09/Linux操作系统编程/"  aria-label="复制成功！"></i></span>
-  </p>
-  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
-</div>
-<script> 
-    var clipboard = new Clipboard('.fa-clipboard');
-    $(".fa-clipboard").click(function(){
-      clipboard.on('success', function(){
-        swal({   
-          title: "",   
-          text: '复制成功',
-          icon: "success", 
-          showConfirmButton: true
-          });
-    });
-    });  
-</script>
-
 
 
       
@@ -812,16 +690,6 @@
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
-          
-            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
-          
-            <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
-          
-        </div>
       
 
       
@@ -1022,7 +890,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux体系结构"><span class="nav-number">2.1.</span> <span class="nav-text">Linux体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程管理"><span class="nav-number">2.1.1.</span> <span class="nav-text">进程管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件管理"><span class="nav-number">2.1.2.</span> <span class="nav-text">文件管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设备管理"><span class="nav-number">2.1.3.</span> <span class="nav-text">设备管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统调用和库函数"><span class="nav-number">2.2.</span> <span class="nav-text">系统调用和库函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux程序编译调试方法"><span class="nav-number">2.3.</span> <span class="nav-text">Linux程序编译调试方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GCC"><span class="nav-number">2.3.1.</span> <span class="nav-text">GCC</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#编译指令"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">编译指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#调试指令"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">调试指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#优化指令"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">优化指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#库文件相关"><span class="nav-number">2.3.1.4.</span> <span class="nav-text">库文件相关</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GDB"><span class="nav-number">2.3.2.</span> <span class="nav-text">GDB</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件与目录操作"><span class="nav-number">3.</span> <span class="nav-text">文件与目录操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟文件系统VFS"><span class="nav-number">3.1.</span> <span class="nav-text">虚拟文件系统VFS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#VFS-超级块"><span class="nav-number">3.1.1.</span> <span class="nav-text">VFS-超级块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#VFS-索引结点"><span class="nav-number">3.1.2.</span> <span class="nav-text">VFS-索引结点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#VFS-目录项"><span class="nav-number">3.1.3.</span> <span class="nav-text">VFS-目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#VFS-文件对象"><span class="nav-number">3.1.4.</span> <span class="nav-text">VFS-文件对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据结构之间的关系"><span class="nav-number">3.1.5.</span> <span class="nav-text">数据结构之间的关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件系统的注册和注销"><span class="nav-number">3.1.6.</span> <span class="nav-text">文件系统的注册和注销</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件I-O操作"><span class="nav-number">3.2.</span> <span class="nav-text">文件I/O操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#系统调用"><span class="nav-number">3.2.1.</span> <span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件描述符"><span class="nav-number">3.2.2.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux文件I-O"><span class="nav-number">3.2.3.</span> <span class="nav-text">Linux文件I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#open"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">open</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#creat"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">creat</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#close"><span class="nav-number">3.2.3.3.</span> <span class="nav-text">close</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#read"><span class="nav-number">3.2.3.4.</span> <span class="nav-text">read</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#write"><span class="nav-number">3.2.3.5.</span> <span class="nav-text">write</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ioctl-设备驱动程序中毒设备的I-O通道进行管理"><span class="nav-number">3.2.3.6.</span> <span class="nav-text">ioctl(设备驱动程序中毒设备的I/O通道进行管理)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux标准I-O"><span class="nav-number">3.2.4.</span> <span class="nav-text">Linux标准I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#fopen"><span class="nav-number">3.2.4.1.</span> <span class="nav-text">fopen</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#setbuf和setvbuf"><span class="nav-number">3.2.4.2.</span> <span class="nav-text">setbuf和setvbuf</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#fdopen"><span class="nav-number">3.2.4.3.</span> <span class="nav-text">fdopen</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux文件定位"><span class="nav-number">3.2.5.</span> <span class="nav-text">Linux文件定位</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#lseek"><span class="nav-number">3.2.5.1.</span> <span class="nav-text">lseek</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pread"><span class="nav-number">3.2.5.2.</span> <span class="nav-text">pread</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pwrite"><span class="nav-number">3.2.5.3.</span> <span class="nav-text">pwrite</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件共享"><span class="nav-number">3.2.6.</span> <span class="nav-text">文件共享</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#不同进程打开同一文件"><span class="nav-number">3.2.6.1.</span> <span class="nav-text">不同进程打开同一文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#不同进程共享同一文件"><span class="nav-number">3.2.6.2.</span> <span class="nav-text">不同进程共享同一文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#同一进程共享相同文件"><span class="nav-number">3.2.6.3.</span> <span class="nav-text">同一进程共享相同文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#dup和dup2"><span class="nav-number">3.2.6.4.</span> <span class="nav-text">dup和dup2</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程间文件描述符的传递"><span class="nav-number">3.2.7.</span> <span class="nav-text">进程间文件描述符的传递</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#线程共享文件"><span class="nav-number">3.2.7.1.</span> <span class="nav-text">线程共享文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux目录操作"><span class="nav-number">3.3.</span> <span class="nav-text">Linux目录操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#getcwd"><span class="nav-number">3.3.1.</span> <span class="nav-text">getcwd</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#opendir"><span class="nav-number">3.3.2.</span> <span class="nav-text">opendir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#closedir"><span class="nav-number">3.3.3.</span> <span class="nav-text">closedir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#readdir"><span class="nav-number">3.3.4.</span> <span class="nav-text">readdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mkdir"><span class="nav-number">3.3.5.</span> <span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rmdir"><span class="nav-number">3.3.6.</span> <span class="nav-text">rmdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#chdir"><span class="nav-number">3.3.7.</span> <span class="nav-text">chdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rewinddir"><span class="nav-number">3.3.8.</span> <span class="nav-text">rewinddir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#seekdir"><span class="nav-number">3.3.9.</span> <span class="nav-text">seekdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#telldir"><span class="nav-number">3.3.10.</span> <span class="nav-text">telldir</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux文件属性管理"><span class="nav-number">3.4.</span> <span class="nav-text">Linux文件属性管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#设置文件属性"><span class="nav-number">3.4.1.</span> <span class="nav-text">设置文件属性</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#文件权限"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">文件权限</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#文件时间"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">文件时间</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#文件大小"><span class="nav-number">3.4.1.3.</span> <span class="nav-text">文件大小</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#设备特殊文件"><span class="nav-number">3.4.1.4.</span> <span class="nav-text">设备特殊文件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件属性操作相关函数"><span class="nav-number">3.4.2.</span> <span class="nav-text">文件属性操作相关函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux文件权限管理"><span class="nav-number">3.5.</span> <span class="nav-text">Linux文件权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件权限检查及相关函数"><span class="nav-number">3.5.1.</span> <span class="nav-text">文件权限检查及相关函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#access函数"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">access函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#chmod"><span class="nav-number">3.5.1.2.</span> <span class="nav-text">chmod</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#更改文件所有者"><span class="nav-number">3.5.1.3.</span> <span class="nav-text">更改文件所有者</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Link"><span class="nav-number">3.5.1.4.</span> <span class="nav-text">Link</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#unlink和remove"><span class="nav-number">3.5.1.5.</span> <span class="nav-text">unlink和remove</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#rename"><span class="nav-number">3.5.1.6.</span> <span class="nav-text">rename</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux体系结构"><span class="nav-number">2.1.</span> <span class="nav-text">Linux体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程管理"><span class="nav-number">2.1.1.</span> <span class="nav-text">进程管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件管理"><span class="nav-number">2.1.2.</span> <span class="nav-text">文件管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设备管理"><span class="nav-number">2.1.3.</span> <span class="nav-text">设备管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统调用和库函数"><span class="nav-number">2.2.</span> <span class="nav-text">系统调用和库函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件与目录操作"><span class="nav-number"></span> <span class="nav-text">文件与目录操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟文件系统VFS"><span class="nav-number">0.1.</span> <span class="nav-text">虚拟文件系统VFS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#VFS-超级块"><span class="nav-number">0.1.1.</span> <span class="nav-text">VFS-超级块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#VFS-索引结点"><span class="nav-number">0.1.2.</span> <span class="nav-text">VFS-索引结点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#VFS-目录项"><span class="nav-number">0.1.3.</span> <span class="nav-text">VFS-目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#VFS-文件对象"><span class="nav-number">0.1.4.</span> <span class="nav-text">VFS-文件对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据结构之间的关系"><span class="nav-number">0.1.5.</span> <span class="nav-text">数据结构之间的关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件系统的注册和注销"><span class="nav-number">0.1.6.</span> <span class="nav-text">文件系统的注册和注销</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件I-O操作"><span class="nav-number">0.2.</span> <span class="nav-text">文件I/O操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#系统调用"><span class="nav-number">0.2.1.</span> <span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件描述符"><span class="nav-number">0.2.2.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux文件I-O"><span class="nav-number">0.2.3.</span> <span class="nav-text">Linux文件I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#open"><span class="nav-number">0.2.3.1.</span> <span class="nav-text">open</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#creat"><span class="nav-number">0.2.3.2.</span> <span class="nav-text">creat</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#close"><span class="nav-number">0.2.3.3.</span> <span class="nav-text">close</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#read"><span class="nav-number">0.2.3.4.</span> <span class="nav-text">read</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#write"><span class="nav-number">0.2.3.5.</span> <span class="nav-text">write</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ioctl-设备驱动程序中毒设备的I-O通道进行管理"><span class="nav-number">0.2.3.6.</span> <span class="nav-text">ioctl(设备驱动程序中毒设备的I/O通道进行管理)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux标准I-O"><span class="nav-number">0.2.4.</span> <span class="nav-text">Linux标准I/O</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#fopen"><span class="nav-number">0.2.4.1.</span> <span class="nav-text">fopen</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#setbuf和setvbuf"><span class="nav-number">0.2.4.2.</span> <span class="nav-text">setbuf和setvbuf</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#fdopen"><span class="nav-number">0.2.4.3.</span> <span class="nav-text">fdopen</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux文件定位"><span class="nav-number">0.2.5.</span> <span class="nav-text">Linux文件定位</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#lseek"><span class="nav-number">0.2.5.1.</span> <span class="nav-text">lseek</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pread"><span class="nav-number">0.2.5.2.</span> <span class="nav-text">pread</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pwrite"><span class="nav-number">0.2.5.3.</span> <span class="nav-text">pwrite</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件共享"><span class="nav-number">0.2.6.</span> <span class="nav-text">文件共享</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#不同进程打开同一文件"><span class="nav-number">0.2.6.1.</span> <span class="nav-text">不同进程打开同一文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#不同进程共享同一文件"><span class="nav-number">0.2.6.2.</span> <span class="nav-text">不同进程共享同一文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#同一进程共享相同文件"><span class="nav-number">0.2.6.3.</span> <span class="nav-text">同一进程共享相同文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#dup和dup2"><span class="nav-number">0.2.6.4.</span> <span class="nav-text">dup和dup2</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程间文件描述符的传递"><span class="nav-number">0.2.7.</span> <span class="nav-text">进程间文件描述符的传递</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#线程共享文件"><span class="nav-number">0.2.7.1.</span> <span class="nav-text">线程共享文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux目录操作"><span class="nav-number">0.3.</span> <span class="nav-text">Linux目录操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#getcwd"><span class="nav-number">0.3.1.</span> <span class="nav-text">getcwd</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#opendir"><span class="nav-number">0.3.2.</span> <span class="nav-text">opendir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#closedir"><span class="nav-number">0.3.3.</span> <span class="nav-text">closedir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#readdir"><span class="nav-number">0.3.4.</span> <span class="nav-text">readdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mkdir"><span class="nav-number">0.3.5.</span> <span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rmdir"><span class="nav-number">0.3.6.</span> <span class="nav-text">rmdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#chdir"><span class="nav-number">0.3.7.</span> <span class="nav-text">chdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rewinddir"><span class="nav-number">0.3.8.</span> <span class="nav-text">rewinddir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#seekdir"><span class="nav-number">0.3.9.</span> <span class="nav-text">seekdir</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#telldir"><span class="nav-number">0.3.10.</span> <span class="nav-text">telldir</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux文件属性管理"><span class="nav-number">0.4.</span> <span class="nav-text">Linux文件属性管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#设置文件属性"><span class="nav-number">0.4.1.</span> <span class="nav-text">设置文件属性</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#文件权限"><span class="nav-number">0.4.1.1.</span> <span class="nav-text">文件权限</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#文件时间"><span class="nav-number">0.4.1.2.</span> <span class="nav-text">文件时间</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#文件大小"><span class="nav-number">0.4.1.3.</span> <span class="nav-text">文件大小</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#设备特殊文件"><span class="nav-number">0.4.1.4.</span> <span class="nav-text">设备特殊文件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件属性操作相关函数"><span class="nav-number">0.4.2.</span> <span class="nav-text">文件属性操作相关函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux文件权限管理"><span class="nav-number">0.5.</span> <span class="nav-text">Linux文件权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件权限检查及相关函数"><span class="nav-number">0.5.1.</span> <span class="nav-text">文件权限检查及相关函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#access函数"><span class="nav-number">0.5.1.1.</span> <span class="nav-text">access函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#chmod"><span class="nav-number">0.5.1.2.</span> <span class="nav-text">chmod</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#更改文件所有者"><span class="nav-number">0.5.1.3.</span> <span class="nav-text">更改文件所有者</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Link"><span class="nav-number">0.5.1.4.</span> <span class="nav-text">Link</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#unlink和remove"><span class="nav-number">0.5.1.5.</span> <span class="nav-text">unlink和remove</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#rename"><span class="nav-number">0.5.1.6.</span> <span class="nav-text">rename</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
