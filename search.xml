@@ -13,9 +13,9 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>OS</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
       </tags>
   </entry>
   <entry>
@@ -26,9 +26,9 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>OS</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
       </tags>
   </entry>
   <entry>
@@ -67,10 +67,10 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
         <tag>Shell</tag>
       </tags>
   </entry>
@@ -82,11 +82,11 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>Assembly</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -97,10 +97,10 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
         <tag>Shell</tag>
       </tags>
   </entry>
@@ -112,11 +112,11 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>Assembly</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
@@ -127,11 +127,11 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
-        <tag>OS</tag>
-        <tag>Assembly</tag>
-        <tag>C</tag>
         <tag>Linux</tag>
+        <tag>C</tag>
+        <tag>OS</tag>
+        <tag>MIT 6.828</tag>
+        <tag>Assembly</tag>
       </tags>
   </entry>
   <entry>
