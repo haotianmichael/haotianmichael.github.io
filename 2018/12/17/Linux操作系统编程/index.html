@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux,C,OS," />
 
 
 
@@ -116,9 +116,10 @@
 
 
 <meta name="description" content="Abstract下图为操作系统程序员眼中Linux的基本编程架构:">
+<meta name="keywords" content="Linux,C,OS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CodeSaw">
-<meta property="og:url" content="http://haotianmcihael.github.io/2018/12/09/Linux操作系统编程/index.html">
+<meta property="og:title" content="Linux操作系统编程（文件系统）">
+<meta property="og:url" content="http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract下图为操作系统程序员眼中Linux的基本编程架构:">
 <meta property="og:locale" content="en">
@@ -135,9 +136,9 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/11.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/12.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/13.png">
-<meta property="og:updated_time" content="2019-01-03T11:20:25.216Z">
+<meta property="og:updated_time" content="2019-01-16T23:30:29.369Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CodeSaw">
+<meta name="twitter:title" content="Linux操作系统编程（文件系统）">
 <meta name="twitter:description" content="Abstract下图为操作系统程序员眼中Linux的基本编程架构:">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/多线程编程/1.png">
 
@@ -168,14 +169,14 @@
 
 
 
-  <link rel="canonical" href="http://haotianmcihael.github.io/2018/12/09/Linux操作系统编程/"/>
+  <link rel="canonical" href="http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程/"/>
 
 
 
 
 
 
-  <title> | CodeSaw</title>
+  <title>Linux操作系统编程（文件系统） | CodeSaw</title>
   
 
 
@@ -362,7 +363,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2018/12/09/Linux操作系统编程/">
+    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HaotianMichael">
@@ -379,7 +380,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Linux操作系统编程（文件系统）</h1>
         
 
         <div class="post-meta">
@@ -391,8 +392,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-09T02:24:29Z">
-                2018-12-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-16T19:50:20Z">
+                2018-12-16
               </time>
             
 
@@ -401,6 +402,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -678,6 +701,35 @@
     <div>
       
         
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/17/Linux操作系统编程/">Linux操作系统编程（文件系统）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
+  <p><span>发布时间:</span>2018年12月16日 - 19:12</p>
+  <p><span>最后更新:</span>2019年01月17日 - 07:01</p>
+  <p><span>原始链接:</span><a href="/2018/12/17/Linux操作系统编程/" title="Linux操作系统编程（文件系统）">http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/12/17/Linux操作系统编程/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
 
 
       
@@ -691,6 +743,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
+          
+            <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
+          
+        </div>
+      
 
       
       
@@ -700,8 +762,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/08/Mit6-828-Fall-2018-Xv6-CPU-Alarm/" rel="next" title="Mit6.828(Fall 2018) Xv6 CPU Alarm">
-                <i class="fa fa-chevron-left"></i> Mit6.828(Fall 2018) Xv6 CPU Alarm
+              <a href="/2018/11/22/Mit6-828-Fall-2018-Lab2/" rel="next" title="Mit6.828(Fall 2018) Lab2">
+                <i class="fa fa-chevron-left"></i> Mit6.828(Fall 2018) Lab2
               </a>
             
           </div>
@@ -791,7 +853,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -813,7 +875,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
