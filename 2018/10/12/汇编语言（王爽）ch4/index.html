@@ -123,22 +123,22 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="第四部分:中断IAbstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/14.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/15.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/16.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/17.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/18.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/19.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/20.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/21.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/22.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/23.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/24.png">
-<meta property="og:updated_time" content="2018-10-15T08:01:05.000Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/14.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/15.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/16.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/17.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/18.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/19.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/20.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/21.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/22.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/23.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/24.png">
+<meta property="og:updated_time" content="2020-02-15T20:42:58.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch4">
 <meta name="twitter:description" content="第四部分:中断IAbstract 在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是CS:IP的跳转唯一取决于汇编程序员的代码。CSAPP将这个过程称为程序控制流。而中断则是将这种流程打断，建立更复杂的异常控制流。中断分为内中断和外中断两种。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/14.png">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/14.png">
 
 
 
@@ -497,7 +497,10 @@
 <p>CPU获得<strong>中断类型码</strong>之后，需要跳转到该<strong>中断类型码</strong>对应的<strong>中断处理程序</strong>中进行处理。如何跳转呢？使用<strong>中断向量表</strong>。而跳转通常意味着改变CPU的状态，所以需要使用栈来保存现场。所以<strong>识别</strong>，<strong>保存</strong>和<strong>跳转</strong>就是中断过程主要干的事儿————其中识别由硬件完成！<br><strong>中断向量表</strong>保存在内存<code>0000:0000</code>到<code>0000:03FF</code>的这1KB单元里。一个表项存放一个<strong>中断向量</strong>————也就是中断处理程序的地址入口。占4个字节，高地址放段地址，低地址放偏移地址。</p>
 </blockquote>
 <h5 id="识别"><a href="#识别" class="headerlink" title="识别"></a>识别</h5><blockquote>
-<p>下图是一张8086的内存分布图:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/14.png" alt="pic14"><br>从内存0开始，所以存储<code>N号中断源对应的中断向量的偏移地址</code>的内存地址为:<code>0000:4N</code>，存储<code>N号中断源对应的中断向量的段地址</code>的内存地址为:<code>0000：4N+2</code>。看下图:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/15.png" alt="pic15">  </p>
+<p>下图是一张8086的内存分布图:<br><img src="14.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+<blockquote>
+<p>从内存0开始，所以存储<code>N号中断源对应的中断向量的偏移地址</code>的内存地址为:<code>0000:4N</code>，存储<code>N号中断源对应的中断向量的段地址</code>的内存地址为:<code>0000：4N+2</code>。看下图:<br><img src="15.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <h5 id="跳转和保存"><a href="#跳转和保存" class="headerlink" title="跳转和保存"></a>跳转和保存</h5><ul>
 <li>获得中断类型码</li>
@@ -532,10 +535,10 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0</span><br><span class="line">mov es,ax</span><br><span class="line">mov word ptr es:[0*4],200h</span><br><span class="line">mov word ptr es:[0*4+2], 0</span><br></pre></td></tr></table></figure>
 <h5 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h5><blockquote>
-<p>注意，在跳转到中断处理程序之前，所有的CPU现场已经入栈保存好了，而跳转过程本身也是硬件过程，所以我们所做的仅仅只是设置好<strong>跳转的地址</strong>和<strong>该地址相应的处理代码</strong>。<br><strong>经过实验发现DOSBox的和传统的DOS还是有一些区别的，这里用一个小实验验证中断:</strong>首先我们直接在debug下面将<code>0号中断向量号改写成为0000:0200处</code>，然后在另一块内存<code>0200:0000</code>中写进了会引发0号中断的代码:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/16.png" alt="pic16"><br>然后修改好了<code>CS:IP</code>地址并开始执行:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/17.png" alt="pic17">  </p>
+<p>注意，在跳转到中断处理程序之前，所有的CPU现场已经入栈保存好了，而跳转过程本身也是硬件过程，所以我们所做的仅仅只是设置好<strong>跳转的地址</strong>和<strong>该地址相应的处理代码</strong>。<br><strong>经过实验发现DOSBox的和传统的DOS还是有一些区别的，这里用一个小实验验证中断:</strong>首先我们直接在debug下面将<code>0号中断向量号改写成为0000:0200处</code>，然后在另一块内存<code>0200:0000</code>中写进了会引发0号中断的代码:<br><img src="16.png" width="50%" height="50%" alt=""><br>然后修改好了<code>CS:IP</code>地址并开始执行:<br><img src="17.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <h6 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h6><blockquote>
-<p><strong>单步执行,可以看到<code>CS:IP</code>的值在执行到<code>div bh</code>的时候，立马从<code>0200:0005</code>变成了<code>0000:0002</code>!,我写的中断处理<code>mov cx,ffff</code>也被执行！然后一直执行到结束退出。</strong><br>实验的整个过程实际上就是做了一个跳转，然后我们仔细对比一下跳转前后寄存器值的差距:<strong>会发现除了<code>CS:IP</code>有变化之外，<code>SS:SP</code>大小也有变化，这是<code>CPU</code>保存现场的缘故————从<code>00F7</code>到<code>00FD</code>共3个字对应<code>CS</code>，<code>IP</code>和<code>TF</code>；而且<code>状态寄存器EI也变为DI</code>,估计也和<code>TF</code>和<code>IF</code>相关;因为我们的中断处理直接退出程序所以栈中的数据没有派上用场，不过如果需要返回源程序做一些操作的时候栈就会起到恢复的作用。</strong>我还尝试过在中断产生的时候查看栈中的内容，但是每次指令刚执行就被强制退出……不知道为什么。<strong>不过这是下一个实验的内容了。</strong>另外，这里可以回过头看一下<strong>ch2</strong>中关于栈的那个猜测，基本上没有毛病。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/18.png" alt="pic18">  </p>
+<p><strong>单步执行,可以看到<code>CS:IP</code>的值在执行到<code>div bh</code>的时候，立马从<code>0200:0005</code>变成了<code>0000:0002</code>!,我写的中断处理<code>mov cx,ffff</code>也被执行！然后一直执行到结束退出。</strong><br>实验的整个过程实际上就是做了一个跳转，然后我们仔细对比一下跳转前后寄存器值的差距:<strong>会发现除了<code>CS:IP</code>有变化之外，<code>SS:SP</code>大小也有变化，这是<code>CPU</code>保存现场的缘故————从<code>00F7</code>到<code>00FD</code>共3个字对应<code>CS</code>，<code>IP</code>和<code>TF</code>；而且<code>状态寄存器EI也变为DI</code>,估计也和<code>TF</code>和<code>IF</code>相关;因为我们的中断处理直接退出程序所以栈中的数据没有派上用场，不过如果需要返回源程序做一些操作的时候栈就会起到恢复的作用。</strong>我还尝试过在中断产生的时候查看栈中的内容，但是每次指令刚执行就被强制退出……不知道为什么。<strong>不过这是下一个实验的内容了。</strong>另外，这里可以回过头看一下<strong>ch2</strong>中关于栈的那个猜测，基本上没有毛病。<br><img src="18.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <h5 id="1号中断"><a href="#1号中断" class="headerlink" title="1号中断"></a>1号中断</h5><blockquote>
 <p>在CPU保存现场的时候，对状态寄存器压栈，并且将其中两个状态位设置为零:TF=0;IF=0;主要是因为当<strong>CPU</strong>每执行完一条指令<strong>的时候，就会去查看状态寄存器的TF位是否为1，如果是则引发1号中断————单步中断</strong>。整个中断的过程和其他的没有什么区别，作者提到<code>debug -t</code>的单步执行功能，实际上就是通过debug调用1号中断对CPU进行控制。这里的控制主要体现在中断处理程序上————比如<code>debug -t</code>就是设置寄存器的值显示在屏幕上。那为什么要在处理之前又将<code>TF</code>设置为零呢？注意前面的<code>每执行完一条指令</code>的意思，CPU在执行中断处理程序的时候是不能响应其他中断的，<code>TF=0</code>是防止在过程中递归的陷入。  </p>
@@ -557,10 +560,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start:mov ax,0b800h   </span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,160*12</span><br><span class="line">	</span><br><span class="line">	mov bx,offset s-offset se</span><br><span class="line">	mov cx,80</span><br><span class="line">s:  mov byte ptr es:[di],&apos;!&apos;	</span><br><span class="line">	add di,2</span><br><span class="line">	/*</span><br><span class="line">	int 7ch例程代码:如果（cx）!=0,跳转到标号s处</span><br><span class="line">	*/</span><br><span class="line">se: nop</span><br><span class="line"></span><br><span class="line">	mov ax,4c00</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>至此，应该已经完全可以看懂这些汇编程序。可是核心的功能呢？如下:<br>跳转到标号s处需要知道s的段地址和偏移地址。先来分析一下在执行<code>int 7ch</code>之后发生了什么？画得不好凑活着看吧:)<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/19.png" width="300" height="200" alt="图片名称" align="center"></p>
-</blockquote>
-<blockquote>
-<p>x86中的栈是一个<strong>满堆栈</strong>。首先标志寄存器入栈，然后对se标号的CS:IP压栈。因为代码只有一个段，所以se的段地址和s的段地址一样。而<code>bx</code>中存储了<code>s-se</code>，所以对于s来说:<code>bx+se</code>就是它自己的偏移量。而se的偏移量就是栈中的<code>IP</code>。所以思路顺下来了。可以写代码了。</p>
+<p>至此，应该已经完全可以看懂这些汇编程序。可是核心的功能呢？如下:<br>跳转到标号s处需要知道s的段地址和偏移地址。先来分析一下在执行<code>int 7ch</code>之后发生了什么？画得不好凑活着看吧:)<br><img src="19.png" width="50%" height="50%" alt=""><br>x86中的栈是一个<strong>满堆栈</strong>。首先标志寄存器入栈，然后对se标号的CS:IP压栈。因为代码只有一个段，所以se的段地址和s的段地址一样。而<code>bx</code>中存储了<code>s-se</code>，所以对于s来说:<code>bx+se</code>就是它自己的偏移量。而se的偏移量就是栈中的<code>IP</code>。所以思路顺下来了。可以写代码了。</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lp: push bp</span><br><span class="line">	mov bp,sp</span><br><span class="line">	dec cx      ;cx--</span><br><span class="line">	jcxz lpret       ;if(cx=0) (cs:ip)=lpret</span><br><span class="line">	add [bp+2],bx   ;重点</span><br><span class="line">lpret: pop bp</span><br><span class="line">	iret</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -574,14 +574,14 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">	code segment</span><br><span class="line">start:</span><br><span class="line">	mov ax,cs</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov si,offset do0</span><br><span class="line">	mov ax,0</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,200h</span><br><span class="line"></span><br><span class="line">	mov cx,offset do0end-offset do0   ;将中断例程写进对应的地址中</span><br><span class="line"></span><br><span class="line">	cld</span><br><span class="line">	rep movsb</span><br><span class="line"></span><br><span class="line">	mov ax,0   ;这4行代码修改中断向量表</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov word ptr es:[7ch*4],200h</span><br><span class="line">	mov word ptr es:[7ch*4+2],0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">do0:    ;这是中断例程</span><br><span class="line">	push bp</span><br><span class="line">	mov bp,sp</span><br><span class="line">	dec cx</span><br><span class="line">	jcxz lpret</span><br><span class="line">	add [bp+2],bx</span><br><span class="line">lpret:	pop bp</span><br><span class="line">	iret</span><br><span class="line">	</span><br><span class="line">do0end:	nop</span><br><span class="line">	</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>我们将上述代码保存为<code>sample.asm</code>然后编译连接。然后执行<code>sample.exe</code>:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/20.png" alt="pic20"><br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/21.png" alt="pic21"><br>上图分别是地址<code>0000:0200</code>处的<strong>中断例程</strong>，和<code>0000:01f0</code>处的<strong>中断向量表</strong>。可以看到成功写入内存。</p>
+<p>我们将上述代码保存为<code>sample.asm</code>然后编译连接。然后执行<code>sample.exe</code>:<br><img src="20.png" width="50%" height="50%" alt=""><br><img src="21.png" width="50%" height="50%" alt=""><br>上图分别是地址<code>0000:0200</code>处的<strong>中断例程</strong>，和<code>0000:01f0</code>处的<strong>中断向量表</strong>。可以看到成功写入内存。</p>
 </blockquote>
 <h6 id="执行例程"><a href="#执行例程" class="headerlink" title="执行例程"></a>执行例程</h6><blockquote>
 <p>执行程序就是调用<code>int 7ch</code>这个例程看是否有效。我们将执行程序保存为<code>demo.asm</code>编译连接。  </p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,0b800h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,160*12 ;确定显存的地址</span><br><span class="line"></span><br><span class="line">	mov bx,offset s-offset se</span><br><span class="line">	mov cx,80</span><br><span class="line">s:	mov byte ptr es:[di],&apos;!&apos;</span><br><span class="line">	add di,2</span><br><span class="line">	int 7ch    ;在这里int指令充当了loop的功能</span><br><span class="line"></span><br><span class="line">se:	nop</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h	</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>然后执行<code>demo.exe</code>,看现象:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/22.png" alt="pic22"></p>
+<p>然后执行<code>demo.exe</code>,看现象:<br><img src="22.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><blockquote>
 <p>这是最简单的一个例程，不过我们可以因此得知<strong>跳转指令</strong>和<strong>栈</strong>的重要性!</p>
@@ -601,14 +601,14 @@
 <p><strong>int 10h</strong>用来设置和字符和光标。见代码:  </p>
 </blockquote>
 <blockquote>
-<p>看现象:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/23.png" alt="pic23">  </p>
+<p>看现象:<br><img src="23.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <blockquote>
 <p>下面是代码:  </p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ah,2  	  ;置光标	</span><br><span class="line">	mov bh,0		;第0页</span><br><span class="line">	mov dh,5		;行号</span><br><span class="line">	mov dl,12		;列号</span><br><span class="line">	int 10h	</span><br><span class="line"></span><br><span class="line">	mov ah,9   ;在光标位置显示字符</span><br><span class="line">	mov al, &apos;a&apos;  ;字符</span><br><span class="line">	mov bl,11001010b   ;颜色属性</span><br><span class="line">	mov bh,0    ;第0页</span><br><span class="line">	mov cx,5   ;字符重复个数</span><br><span class="line">	int 10h</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h </span><br><span class="line"></span><br><span class="line">code ends </span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 <h5 id="DOS中断例程"><a href="#DOS中断例程" class="headerlink" title="DOS中断例程"></a>DOS中断例程</h5><blockquote>
-<p>DOS中断<strong>int 21h</strong>，之前一直使用<strong>4ch00</strong>参数即程序返回功能。<br>参数<strong>ah=9</strong>表示调用第21h号中断例程的9号子程序:在光标位置上显示字符串.看现象:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/24.png" alt="pic24"><br>下面是代码:</p>
+<p>DOS中断<strong>int 21h</strong>，之前一直使用<strong>4ch00</strong>参数即程序返回功能。<br>参数<strong>ah=9</strong>表示调用第21h号中断例程的9号子程序:在光标位置上显示字符串.看现象:<br><img src="24.png" width="50%" height="50%" alt=""><br>下面是代码:</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">data segment</span><br><span class="line">	db &apos;Dos is shit!&apos;,&apos;$&apos;</span><br><span class="line">	data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:	mov ah,2</span><br><span class="line">	mov bh,0</span><br><span class="line">	mov dl,12</span><br><span class="line">	int 10h  		;BIOS 中断例程</span><br><span class="line"></span><br><span class="line">	mov ax,data</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov dx,0</span><br><span class="line">	mov ah,9</span><br><span class="line">	int 21h   	;DOS中断例程</span><br><span class="line"></span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
 
@@ -631,7 +631,7 @@
   <p><span>本文标题:</span><a href="/2018/10/12/汇编语言（王爽）ch4/">汇编语言（王爽）ch4</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年10月11日 - 21:10</p>
-  <p><span>最后更新:</span>2018年10月15日 - 16:10</p>
+  <p><span>最后更新:</span>2020年02月16日 - 04:02</p>
   <p><span>原始链接:</span><a href="/2018/10/12/汇编语言（王爽）ch4/" title="汇编语言（王爽）ch4">http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/12/汇编语言（王爽）ch4/"  aria-label="复制成功！"></i></span>
   </p>

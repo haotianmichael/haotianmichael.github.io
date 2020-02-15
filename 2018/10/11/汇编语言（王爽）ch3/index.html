@@ -123,14 +123,14 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="第三部分:指令核心Abstract内存寻址 内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，注意这里的内存指的是内存地址空间。CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/%2013.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/7.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/13.png">
-<meta property="og:updated_time" content="2018-10-13T02:06:40.000Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/11/汇编语言（王爽）ch3/113.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/11/汇编语言（王爽）ch3/7.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/11/汇编语言（王爽）ch3/13.png">
+<meta property="og:updated_time" content="2020-02-15T20:38:10.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch3">
 <meta name="twitter:description" content="第三部分:指令核心Abstract内存寻址 内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，注意这里的内存指的是内存地址空间。CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/%2013.png">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/11/汇编语言（王爽）ch3/113.png">
 
 
 
@@ -474,7 +474,7 @@
 
       
         <h2 id="第三部分-指令核心"><a href="#第三部分-指令核心" class="headerlink" title="第三部分:指令核心"></a>第三部分:指令核心</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><h4 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h4><blockquote>
-<p>内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，<strong>注意这里的内存指的是内存地址空间</strong>。<br>CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。<br><a id="more"></a><br>寻址的方式有很多种类 ，不过归结到底都是<code>段地址+偏移地址</code>。段地址存储在段寄存器中，而偏移地址的方式就有很多种。见下图:<br>    <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/%2013.png" alt="pic13">  </p>
+<p>内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，<strong>注意这里的内存指的是内存地址空间</strong>。<br>CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。<br><a id="more"></a><br>寻址的方式有很多种类 ，不过归结到底都是<code>段地址+偏移地址</code>。段地址存储在段寄存器中，而偏移地址的方式就有很多种。见下图:<br>    <img src="113.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <blockquote>
 <p>需要注意的是:</p>
@@ -569,7 +569,7 @@
 <p>溢出标志位，在进行<strong>有符号</strong>数运算的时候，记录了是否发生溢出。</p>
 </blockquote>
 <h5 id="标志寄存器在Debug中的使用"><a href="#标志寄存器在Debug中的使用" class="headerlink" title="标志寄存器在Debug中的使用"></a>标志寄存器在Debug中的使用</h5><blockquote>
-<p>标志寄存器是按照有意义的各个标志位单独表示的。如下。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/7.png" alt="pic7"><br>下图是已知的标志位的表示:<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/13.png" alt="pic13"></p>
+<p>标志寄存器是按照有意义的各个标志位单独表示的。如下。<br><img src="7.png" width="50%" height="50%" alt=""><br>下图是已知的标志位的表示:<br><img src="13.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <h4 id="其他指令（总结性质）"><a href="#其他指令（总结性质）" class="headerlink" title="其他指令（总结性质）"></a>其他指令（总结性质）</h4><blockquote>
 <p>还有很多的指令比如<code>MOV</code>,<code>CMP</code>，<code>abc</code>等。但这里并不打算详细讲解每一条指令，就像书中所说:<strong>汇编语言只是载体，目的在于理解机器运行的原理和方式。</strong><br>至此，我们已经学习了<code>寄存器</code>，<code>内存</code>,<code>汇编指令</code>，并且掌握了一个<strong>正常的程序控制流</strong>在机器层面的运行过程。接下来的内容，就属于操作系统的层面，引入<strong>异常控制流</strong>，也就是在正常的执行过程中有外界干扰的情况，这是理解整个OS的重点，也是我写这几篇技术博客的主要学习目的。(<code>mit6.828</code>中的汇编大同小异，只是指令集换成了AT&amp;T的格式)。</p>
@@ -594,7 +594,7 @@
   <p><span>本文标题:</span><a href="/2018/10/11/汇编语言（王爽）ch3/">汇编语言（王爽）ch3</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年10月10日 - 21:10</p>
-  <p><span>最后更新:</span>2018年10月13日 - 10:10</p>
+  <p><span>最后更新:</span>2020年02月16日 - 04:02</p>
   <p><span>原始链接:</span><a href="/2018/10/11/汇编语言（王爽）ch3/" title="汇编语言（王爽）ch3">http://haotianmcihael.github.io/2018/10/11/汇编语言（王爽）ch3/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/11/汇编语言（王爽）ch3/"  aria-label="复制成功！"></i></span>
   </p>

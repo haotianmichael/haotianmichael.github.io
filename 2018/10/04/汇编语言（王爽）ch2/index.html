@@ -123,20 +123,20 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="第二部分:汇编结构Abstract汇编语言的结构寄存器和内存之间 汇编语言是由不同的段构成的，这些段的功能各异不过主要分为指令和数据两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/4.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/5.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/6.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/7.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/8.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/9.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/10.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/11.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/12.png">
-<meta property="og:updated_time" content="2018-10-15T07:59:54.000Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/4.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/5.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/6.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/7.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/8.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/9.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/10.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/11.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/12.png">
+<meta property="og:updated_time" content="2020-02-15T20:32:11.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch2">
 <meta name="twitter:description" content="第二部分:汇编结构Abstract汇编语言的结构寄存器和内存之间 汇编语言是由不同的段构成的，这些段的功能各异不过主要分为指令和数据两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/4.png">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/4.png">
 
 
 
@@ -496,12 +496,12 @@
 <p>   <strong>栈是一种先进后出的数据结构</strong>，这是最基本的栈的概念。这里讲到的栈指的是内存区域。从操作系统的角度讲一个线程需要分配一个栈(stack)。相对应的一个进程需要分配一个堆(heap)。栈的大小在分配的时候就已经确定好了，其作用主要是存放一些局部和确定的变量和数据。<br>   关于栈也有两个寄存器:<code>SS:SP</code>。换句话讲CPU如何知道一段内存区域是不是栈？栈顶的段地址放在<code>SS</code>中，而偏移地址放在<code>SP</code>中。<strong>任意时刻，SS:SP指向栈顶元素</strong>。这是规定。<br>   另外，上微机原理课的时候，老师讲到栈的分类:  </p>
 <ul>
 <li>向高地址生长的称为递增堆栈。</li>
-<li>向地地址生长的称为递减堆栈。<br> 地址延伸主要的影响就是内存中的大端寻址和小端寻址。<br>  <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/4.png" alt="pic4">  </li>
+<li>向地地址生长的称为递减堆栈。<br> 地址延伸主要的影响就是内存中的大端寻址和小端寻址。<br>  <img src="4.png" width="50%" height="50%" alt=""></li>
 </ul>
 </blockquote>
 <ul>
 <li>堆栈指针指向最后压入堆栈的有效数据项，叫做满堆栈。</li>
-<li>堆栈指针指向下一个待压入数据的空位置，叫做空堆栈。<br>  <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/5.png" alt="pic5"></li>
+<li>堆栈指针指向下一个待压入数据的空位置，叫做空堆栈。<br>  <img src="5.png" width="50%" height="50%" alt=""></li>
 </ul>
 <h5 id="栈指令"><a href="#栈指令" class="headerlink" title="栈指令"></a>栈指令</h5><blockquote>
 <p>   在i386的指令集中，栈操作都是以字为单位的。</p>
@@ -531,7 +531,7 @@
 <h5 id="编译、链接、执行"><a href="#编译、链接、执行" class="headerlink" title="编译、链接、执行"></a>编译、链接、执行</h5><blockquote>
 <p>源程序经过编译成为可重定位文件，然后经过链接成为可执行文件。可执行文件是可以直接在操作系统中执行的。上述两种文件都属于ELF格式的文件，ELF是Linux下面的一种文件格式，具体的细节在后面的操作系统中会谈到，这里只是了解。<br>    <code>编程</code>（edit）————&gt;<code>1.asm</code>————&gt;<code>编译</code>(masm)————&gt;<code>1.obj</code>————&gt;<code>链接</code>(link)————&gt;<code>1.exe</code>————&gt;<code>加载</code>(shell)————&gt;<code>内存中的程序</code>————&gt;<code>运行</code>(CPU)</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/6.png" alt="pic6"></p>
+<p><img src="6.png" width="50%" height="50%" alt=""></p>
 <h3 id="工具进阶"><a href="#工具进阶" class="headerlink" title="工具进阶"></a>工具进阶</h3><h4 id="debug-d"><a href="#debug-d" class="headerlink" title="debug -d"></a>debug -d</h4><blockquote>
 <p>第一个实验中使用的debug工具，通过各种参数来对寄存器和内存进行读写。比如<code>d 段地址:偏移地址</code>指令会列出指定内存单元中的内容。但是debug也是一个程序，而能定位内存地址的方式在8086中只有段寄存器可以做到,实际上debug就是通过将地址写入段寄存器中的方式来进行内存寻址。这个原理适用于所有的参数。<br>而使用的这个段寄存器正是<code>DS</code>寄存器。<br>根据这个原理，就可以通过修改寄存器来进阶使用这些命令，比如:<code>-r ds</code>,<code>:1000</code>,<code>-d ds:0</code>这段代码就表示查看从1000：0开始的内存空间中的内容。这里主要是认识到段寄存器DS的寻址功能，为之后的寻址方式打基础。  </p>
 </blockquote>
@@ -546,27 +546,28 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2000</span><br><span class="line">mov ss,ax</span><br><span class="line">mov sp,10</span><br><span class="line">mov ax,3123</span><br><span class="line">push ax</span><br><span class="line">mov ax,3366</span><br><span class="line">push ax</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>会发现在单步调试的时候，在<code>mov ss,ax</code>之后的下一条指令竟然不是<code>mov sp,10</code>。但是查看寄存器的时候发现实际上这条执行已经被执行结束了。这是第一个现象。</p>
+<p>会发现在单步调试的时候，在<code>mov ss,ax</code>之后的下一条指令竟然不是<code>mov sp,10</code>。但是查看寄存器的时候发现实际上这条执行已经被执行结束了。这是第一个现象。<br>    <img src="7.png" width="50%" height="50%" alt=""></p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/7.png" alt="pic7"></p>
 <h4 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h4><blockquote>
-<p>对上面的代码继续调试，如下：<br>会发现最开始对栈初始化之后，到执行到<code>mov ss,ax</code>指令的时候，查看原来的栈段内容竟然不再是零，且这些数字还都是和段寄存器相关的。  </p>
+<p>对上面的代码继续调试，如下：<br>会发现最开始对栈初始化之后，到执行到<code>mov ss,ax</code>指令的时候，查看原来的栈段内容竟然不再是零，且这些数字还都是和段寄存器相关的。<br>    <img src="8.png" width="50%" height="50%" alt=""></p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/8.png" alt="pic8"></p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
-<p>下图是接下来的每一步后栈段中的内存变化。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/9.png" alt="pic9"><br>可以看到的现象是:开始的时候栈中是没有数据的，栈桢SP指向<code>2000:0010</code>的位置。<br>在<code>mov ss,ax</code>和<code>mov sp,10</code>这两步执行结束之后，发现栈中已经有数据了，这里称为初始化。初始化的一共有6字节的数据:4个字节为<code>CS:IP</code>，还有两字节在栈底确定为<code>01A3H</code>。<br>之后的每一条栈操作的指令执行结束之后栈中的<code>CS:IP</code>值也会跟着变化，这说明每一次指令都有可能产生一次中断。<br>但是在栈底的<code>01A3H</code>一直没有变化估计应该是中断相关。在正式压栈操作的过程中发现最开始初始化过的那些数据并没有被压到栈底，<strong>这就意味着堆栈指针SP应该还在栈底，然后真正有数据项压栈的时候才会SP-=2操作。</strong></p>
+<p>下图是接下来的每一步后栈段中的内存变化。<br>    <img src="9.png" width="50%" height="50%" alt=""><br>可以看到的现象是:开始的时候栈中是没有数据的，栈桢SP指向<code>2000:0010</code>的位置。<br>在<code>mov ss,ax</code>和<code>mov sp,10</code>这两步执行结束之后，发现栈中已经有数据了，这里称为初始化。初始化的一共有6字节的数据:4个字节为<code>CS:IP</code>，还有两字节在栈底确定为<code>01A3H</code>。<br>之后的每一条栈操作的指令执行结束之后栈中的<code>CS:IP</code>值也会跟着变化，这说明每一次指令都有可能产生一次中断。<br>但是在栈底的<code>01A3H</code>一直没有变化估计应该是中断相关。在正式压栈操作的过程中发现最开始初始化过的那些数据并没有被压到栈底，<strong>这就意味着堆栈指针SP应该还在栈底，然后真正有数据项压栈的时候才会SP-=2操作。</strong></p>
 </blockquote>
 <h5 id="小实验"><a href="#小实验" class="headerlink" title="小实验"></a>小实验</h5><blockquote>
-<p>就上面的三个现象，我在想仅仅是初始化的过程就已经占据了一大半栈空间，那如果将栈大小调整成为8字节的。那会出现什么情况？<br>   我将<code>mov sp,10</code>改成<code>mov sp,08</code>；然后准备了8字节数据，所以栈会被压满。这时候我想看看现象。<br>这是一张初始化的图:<br>    <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/10.png" alt="pic10"></p>
+<p>就上面的三个现象，我在想仅仅是初始化的过程就已经占据了一大半栈空间，那如果将栈大小调整成为8字节的。那会出现什么情况？<br>   我将<code>mov sp,10</code>改成<code>mov sp,08</code>；然后准备了8字节数据，所以栈会被压满。这时候我想看看现象。<br>这是一张初始化的图:<br>    <img src="10.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <blockquote>
-<p>这是末尾压栈满了的图:<br>    <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/11.png" alt="pic11"><br>因为书上关于中断的详细讲解在第四部分，所以这里只是一个猜测。<strong>现象中随着栈不断被压满，之前初始化的那些数据都被挤出去了，具体去哪了不知道。那6个字节的数据到底有什么用也不知道。</strong>  </p>
+<p>这是末尾压栈满了的图:<br>    <img src="11.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+<blockquote>
+<p>因为书上关于中断的详细讲解在第四部分，所以这里只是一个猜测。<strong>现象中随着栈不断被压满，之前初始化的那些数据都被挤出去了，具体去哪了不知道。那6个字节的数据到底有什么用也不知道。</strong>  </p>
 </blockquote>
 <h5 id="猜测"><a href="#猜测" class="headerlink" title="猜测"></a>猜测</h5><blockquote>
 <p>不过可以知道的是初始化栈帧的时候会有参数压到栈里，参数有<code>CS:IP</code>和中断向量号，其中<code>CS:IP</code>还在<strong>不断变化</strong>。而随着栈中的数据越来越多，栈中的这6个字节的参数被慢慢挤出。难道这6个字节不重要吗，或者说只是在初始化的时候用了一下？但是过程中这些参数一直也在变化，所以不可能不重要.不过这些数据之所以放到栈中的原因一定不是为了存储，否则就不会被随便挤出。<br>结合第一部分实验，<code>mov sp,10</code>是紧跟着前一条指令执行的，所以我能想到的唯一一个合理的解释就是:这些参数是在指令执行过程中直接使用的，而执行过程对shell屏蔽不可见，所以在栈中数据越来越多的时候这些参数还可以随意的移动位置并且被抛弃，这些参数是过程中使用的参数，而这个过程就是中断！至于中断到底是什么，到第4章再详细学习吧。</p>
 </blockquote>
 <h3 id="实验3-用编程、编译、连接、跟踪"><a href="#实验3-用编程、编译、连接、跟踪" class="headerlink" title="实验3 用编程、编译、连接、跟踪"></a>实验3 用编程、编译、连接、跟踪</h3><blockquote>
-<p>最后一个实验查看PSP（就是加载开始前256字节）的内容。<br>使用<code>u</code>来查看汇编好像又和中断有关系。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/12.png" alt="pic12"></p>
+<p>最后一个实验查看PSP（就是加载开始前256字节）的内容。<br>使用<code>u</code>来查看汇编好像又和中断有关系。<br><img src="12.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 
       
@@ -588,7 +589,7 @@
   <p><span>本文标题:</span><a href="/2018/10/04/汇编语言（王爽）ch2/">汇编语言（王爽）ch2</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年10月03日 - 20:10</p>
-  <p><span>最后更新:</span>2018年10月15日 - 15:10</p>
+  <p><span>最后更新:</span>2020年02月16日 - 04:02</p>
   <p><span>原始链接:</span><a href="/2018/10/04/汇编语言（王爽）ch2/" title="汇编语言（王爽）ch2">http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/"  aria-label="复制成功！"></i></span>
   </p>

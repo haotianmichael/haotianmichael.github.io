@@ -123,13 +123,13 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="第一部分:硬件模型Abstract硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/2.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/3.png">
-<meta property="og:updated_time" content="2018-10-13T02:06:21.000Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/2.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/3.png">
+<meta property="og:updated_time" content="2020-02-15T20:28:27.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch1">
 <meta name="twitter:description" content="第一部分:硬件模型Abstract硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/2.png">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/2.png">
 
 
 
@@ -552,13 +552,13 @@
 <p>   一共有4个实验。写出来的都是我觉得很有意思且值得讨论的实验。  </p>
 </blockquote>
 <h5 id="第二个实验"><a href="#第二个实验" class="headerlink" title="第二个实验"></a>第二个实验</h5><blockquote>
-<p>   给出起始地址为<code>2000:0000</code>的三条指令，使用这三条指令计算2的8次方。<br>    <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/2.png" width="300" height="200" alt="图片名称" align="center"></p>
+<p>   给出起始地址为<code>2000:0000</code>的三条指令，使用这三条指令计算2的8次方。<br>    <img src="2.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <blockquote>
 <p>   有意思的是这个算法，a += a；如果这里的a是2的话，实际上<code>a+a</code>等于<code>ax2</code>所以可以2的8次方可以通过8次这样的加法完成，但是如果a是其他的值就不行了。</p>
 </blockquote>
 <h5 id="最后两个实验"><a href="#最后两个实验" class="headerlink" title="最后两个实验"></a>最后两个实验</h5><blockquote>
-<p>使用<code>e</code>参数对特定的内存单元进行读写。<br>    <img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/i386/3.png" width="300" height="200" alt="图片名称" align="center"></p>
+<p>使用<code>e</code>参数对特定的内存单元进行读写。<br>    <img src="3.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <blockquote>
 <p>   这两个实验间接地证明了<strong>内存地址空间</strong>的存在。<br>   我在向内存<code>B810:0000</code>中写数据的时候，发现显示器上会出现有颜色的字符和表情包，猜想这个地址应该是显存的物理地址。这也说明这里的内存不仅仅指的是主存储器，还有其他的和CPU直接相连的RAM。</p>
@@ -583,7 +583,7 @@
   <p><span>本文标题:</span><a href="/2018/10/02/汇编语言（王爽）ch1/">汇编语言（王爽）ch1</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年10月02日 - 09:10</p>
-  <p><span>最后更新:</span>2018年10月13日 - 10:10</p>
+  <p><span>最后更新:</span>2020年02月16日 - 04:02</p>
   <p><span>原始链接:</span><a href="/2018/10/02/汇编语言（王爽）ch1/" title="汇编语言（王爽）ch1">http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/"  aria-label="复制成功！"></i></span>
   </p>
