@@ -118,16 +118,16 @@
 <meta name="description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
 <meta name="keywords" content="RISCV,Assembly,Complier">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gcc-RISCV交叉编译工具链">
+<meta property="og:title" content="GCC-RISCV交叉编译工具链">
 <meta property="og:url" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/2.png">
-<meta property="og:updated_time" content="2020-02-15T19:48:25.552Z">
+<meta property="og:updated_time" content="2020-02-15T23:04:26.455Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gcc-RISCV交叉编译工具链">
+<meta name="twitter:title" content="GCC-RISCV交叉编译工具链">
 <meta name="twitter:description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/1.png">
 
@@ -165,7 +165,7 @@
 
 
 
-  <title>Gcc-RISCV交叉编译工具链 | CodeSaw</title>
+  <title>GCC-RISCV交叉编译工具链 | CodeSaw</title>
   
 
 
@@ -369,7 +369,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Gcc-RISCV交叉编译工具链</h1>
+          <h1 class="post-title" itemprop="name headline">GCC-RISCV交叉编译工具链</h1>
         
 
         <div class="post-meta">
@@ -413,7 +413,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  550
+                  669
                 </span>
               
 
@@ -525,7 +525,9 @@
 <p><strong>只有<code>-march=</code>支持浮点扩展，(-mabi=)才允许加上<code>f/d</code>后缀以支持浮点运算。</strong></p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
 <h3 id="RISCV汇编语言简介"><a href="#RISCV汇编语言简介" class="headerlink" title="RISCV汇编语言简介"></a>RISCV汇编语言简介</h3><p><img src="2.png" width="50%" height="50%" alt=""></p>
-
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><pre><code>目前交叉编译平台主要有两部分:  `riscv32-unknown-elf-gcc`平台编译生成$RISCV$可执行文件，而`qemu-riscv32`平台运行$RISCV$可执行文件。
+`qemu`是一款很强大的虚拟机，分为系统模式和用户模式，用户模式运行可执行文件，而系统模式模拟特定指令集从而运行操作系统镜像文件。这一部分后面用到的时候再深入了解吧。
+</code></pre>
       
     </div>
     
@@ -542,11 +544,11 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2020/02/16/Gcc-RISCV交叉编译工具链/">Gcc-RISCV交叉编译工具链</a></p>
+  <p><span>本文标题:</span><a href="/2020/02/16/Gcc-RISCV交叉编译工具链/">GCC-RISCV交叉编译工具链</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年02月15日 - 18:02</p>
-  <p><span>最后更新:</span>2020年02月16日 - 03:02</p>
-  <p><span>原始链接:</span><a href="/2020/02/16/Gcc-RISCV交叉编译工具链/" title="Gcc-RISCV交叉编译工具链">http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/</a>
+  <p><span>最后更新:</span>2020年02月16日 - 07:02</p>
+  <p><span>原始链接:</span><a href="/2020/02/16/Gcc-RISCV交叉编译工具链/" title="GCC-RISCV交叉编译工具链">http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -781,7 +783,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Absrtact"><span class="nav-number">1.</span> <span class="nav-text">Absrtact</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同版本的工具链"><span class="nav-number">2.</span> <span class="nav-text">不同版本的工具链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉编译选项"><span class="nav-number">3.</span> <span class="nav-text">交叉编译选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#march"><span class="nav-number">3.1.</span> <span class="nav-text">-march=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mabi"><span class="nav-number">3.2.</span> <span class="nav-text">-mabi=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后缀"><span class="nav-number">3.3.</span> <span class="nav-text">后缀</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RISCV汇编语言简介"><span class="nav-number">4.</span> <span class="nav-text">RISCV汇编语言简介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Absrtact"><span class="nav-number">1.</span> <span class="nav-text">Absrtact</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同版本的工具链"><span class="nav-number">2.</span> <span class="nav-text">不同版本的工具链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉编译选项"><span class="nav-number">3.</span> <span class="nav-text">交叉编译选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#march"><span class="nav-number">3.1.</span> <span class="nav-text">-march=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mabi"><span class="nav-number">3.2.</span> <span class="nav-text">-mabi=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后缀"><span class="nav-number">3.3.</span> <span class="nav-text">后缀</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RISCV汇编语言简介"><span class="nav-number">4.</span> <span class="nav-text">RISCV汇编语言简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
