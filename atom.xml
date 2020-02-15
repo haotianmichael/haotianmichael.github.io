@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2020-02-15T10:18:48.578Z</updated>
+  <updated>2020-02-15T10:58:53.169Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,9 +21,27 @@
     <link href="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BE/"/>
     <id>http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/</id>
     <published>2020-02-15T18:16:45.000Z</published>
-    <updated>2020-02-15T10:18:48.578Z</updated>
+    <updated>2020-02-15T10:58:53.169Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Absrtact"><a href="#Absrtact" class="headerlink" title="Absrtact"></a>Absrtact</h3><blockquote><p>旨在x86平台上编译RISCV架构的可执行文件。  </p><p>RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在<a href="https://github.com/riscv/riscv-gnu-toolchain" target="_blank" rel="noopener">这里</a>下载。      </p><p>交叉编译工具链包括:</p><ul><li><code>GCC</code>编译器</li><li>C运行库<ul><li><code>Glibc</code> :    <code>gnu</code>旗下的库，作为<code>linux</code>的标准库和内核打交道</li><li><code>Newlib</code>：  在嵌入式中使用广泛</li></ul></li><li><code>Buntils</code>二进制套件</li><li><code>GDB</code>调试器</li></ul></blockquote><a id="more"></a><h3 id="不同版本的工具链"><a href="#不同版本的工具链" class="headerlink" title="不同版本的工具链"></a>不同版本的工具链</h3><h3 id="交叉编译选项"><a href="#交叉编译选项" class="headerlink" title="交叉编译选项"></a>交叉编译选项</h3><h3 id="RISCV汇编语言简介"><a href="#RISCV汇编语言简介" class="headerlink" title="RISCV汇编语言简介"></a>RISCV汇编语言简介</h3>]]></content>
     
     <summary type="html">
+    
+      &lt;h3 id=&quot;Absrtact&quot;&gt;&lt;a href=&quot;#Absrtact&quot; class=&quot;headerlink&quot; title=&quot;Absrtact&quot;&gt;&lt;/a&gt;Absrtact&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;旨在x86平台上编译RISCV架构的可执行文件。  &lt;/p&gt;
+&lt;p&gt;RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在&lt;a href=&quot;https://github.com/riscv/riscv-gnu-toolchain&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;这里&lt;/a&gt;下载。      &lt;/p&gt;
+&lt;p&gt;交叉编译工具链包括:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GCC&lt;/code&gt;编译器&lt;/li&gt;
+&lt;li&gt;C运行库&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Glibc&lt;/code&gt; :    &lt;code&gt;gnu&lt;/code&gt;旗下的库，作为&lt;code&gt;linux&lt;/code&gt;的标准库和内核打交道&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Newlib&lt;/code&gt;：  在嵌入式中使用广泛&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Buntils&lt;/code&gt;二进制套件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GDB&lt;/code&gt;调试器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
     
     </summary>
     

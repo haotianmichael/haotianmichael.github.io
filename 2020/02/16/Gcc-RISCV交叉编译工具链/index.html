@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Talk is cheap, show me the Code.">
+<meta name="description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
 <meta name="keywords" content="RISCV,Assembly,Complier">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gcc-RISCV交叉编译工具链">
 <meta property="og:url" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Talk is cheap, show me the Code.">
+<meta property="og:description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-15T10:18:48.578Z">
+<meta property="og:updated_time" content="2020-02-15T10:58:53.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gcc-RISCV交叉编译工具链">
-<meta name="twitter:description" content="Talk is cheap, show me the Code.">
+<meta name="twitter:description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
 
 
 
@@ -410,7 +410,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  0
+                  132
                 </span>
               
 
@@ -447,7 +447,23 @@
       
 
       
-        
+        <h3 id="Absrtact"><a href="#Absrtact" class="headerlink" title="Absrtact"></a>Absrtact</h3><blockquote>
+<p>旨在x86平台上编译RISCV架构的可执行文件。  </p>
+<p>RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在<a href="https://github.com/riscv/riscv-gnu-toolchain" target="_blank" rel="noopener">这里</a>下载。      </p>
+<p>交叉编译工具链包括:</p>
+<ul>
+<li><code>GCC</code>编译器</li>
+<li>C运行库<ul>
+<li><code>Glibc</code> :    <code>gnu</code>旗下的库，作为<code>linux</code>的标准库和内核打交道</li>
+<li><code>Newlib</code>：  在嵌入式中使用广泛</li>
+</ul>
+</li>
+<li><code>Buntils</code>二进制套件</li>
+<li><code>GDB</code>调试器</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h3 id="不同版本的工具链"><a href="#不同版本的工具链" class="headerlink" title="不同版本的工具链"></a>不同版本的工具链</h3><h3 id="交叉编译选项"><a href="#交叉编译选项" class="headerlink" title="交叉编译选项"></a>交叉编译选项</h3><h3 id="RISCV汇编语言简介"><a href="#RISCV汇编语言简介" class="headerlink" title="RISCV汇编语言简介"></a>RISCV汇编语言简介</h3>
       
     </div>
     
@@ -579,8 +595,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -684,6 +709,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Absrtact"><span class="nav-number">1.</span> <span class="nav-text">Absrtact</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同版本的工具链"><span class="nav-number">2.</span> <span class="nav-text">不同版本的工具链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉编译选项"><span class="nav-number">3.</span> <span class="nav-text">交叉编译选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RISCV汇编语言简介"><span class="nav-number">4.</span> <span class="nav-text">RISCV汇编语言简介</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
