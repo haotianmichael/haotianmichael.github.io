@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux," />
+  <meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux," />
 
 
 
@@ -116,23 +116,23 @@
 
 
 <meta name="description" content="Lab0Abstract 从8086汇编实验之后，前后两周的时间勉强通过Lab1。最大的感触是基础太差:对C语言的理解，对程序编译链接本质的理解，对GDB等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。但是这次触动中却又多了一丝见山不是山，见山又是山的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如printf函数的实现就涉及C语言中变参的特性。有理由相">
-<meta name="keywords" content="MIT 6.828,OS,Assembly,C,Linux">
+<meta name="keywords" content="Assembly,MIT 6.828,OS,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Lab0">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Lab0Abstract 从8086汇编实验之后，前后两周的时间勉强通过Lab1。最大的感触是基础太差:对C语言的理解，对程序编译链接本质的理解，对GDB等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。但是这次触动中却又多了一丝见山不是山，见山又是山的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如printf函数的实现就涉及C语言中变参的特性。有理由相">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/3.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/4.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/5.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/2.png">
-<meta property="og:updated_time" content="2020-02-15T10:18:51.308Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/3.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/4.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/5.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/1.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/2.png">
+<meta property="og:updated_time" content="2020-02-15T20:51:54.764Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab0">
 <meta name="twitter:description" content="Lab0Abstract 从8086汇编实验之后，前后两周的时间勉强通过Lab1。最大的感触是基础太差:对C语言的理解，对程序编译链接本质的理解，对GDB等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。但是这次触动中却又多了一丝见山不是山，见山又是山的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如printf函数的实现就涉及C语言中变参的特性。有理由相">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/3.png">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/3.png">
 
 
 
@@ -510,7 +510,7 @@
 <h4 id="编译驱动程序"><a href="#编译驱动程序" class="headerlink" title="编译驱动程序"></a>编译驱动程序</h4><blockquote>
 <p><code>Compiler driver</code>指的是从C文件变成二进制文件的机器操作过程。我们从两个角度理解这个过程:<strong>机器运行的角度和C文件类型变化的角度</strong>。编译器和汇编器将多个<code>C</code>文件编译成相应的多个<strong>可重定位目标文件</strong>，也就是平时的<code>.o</code>文件，这种文件由不同的代码节和数据节构成，<strong>节</strong>在原文中是<code>section</code>。而链接器将多个<code>.o</code>文件链接成为一个<strong>可执行目标文件</strong>也就是平时的二进制文件。见下图:  </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/3.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="3.png" width="50%" height="50%" alt=""></p>
 <blockquote>
 <p>熟悉一个程序的第一步是关注其输入输出。一句话总结链接器的功能:<strong>以一组可重定位目标文件和命令行参数作为输入，生成一个完全链接的可以加载和运行的可执行目标文件作为输出。</strong><br>站在机器的角度，编译器和汇编器将ASCII格式的C文件编译成为字节块<strong>section</strong>的集合，而链接器做的就是将<strong>不同</strong>可重定位目标文件中的各种<code>sections</code>做归类，<strong>确定被链接块的运行时的内存位置</strong>。这是重点，目标文件纯粹是字节块的集合，而链接器本身对程序也所知甚少，她做的仅仅是对<strong>字节文件</strong>做处理，将多个文件的字节块放到了一个文件中。</p>
 </blockquote>
@@ -521,11 +521,11 @@
 <li>重定位: 编译器和汇编器生成的文件地址都是从0开始的，并没有和内存挂上关系。而链接器将这些不同的<code>section</code>定位到内存中的一个地址。也就是其加载地址。<br>重点关注第二步重定位，本质上就是将多个可重定位文件中同类型的<code>.section</code>合并为一个大的聚合节。但是注意这时候还没有<code>segment</code>的概念,聚合节还是叫做<code>.section</code>。我查阅了<code>CSAPP</code>的英文版，全书第一次提到<code>segment</code> 是在链接器部分的最末尾，也就是讲重定位的时候。下面是原文:  </li>
 </ul>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/4.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="4.png" width="50%" height="50%" alt=""></p>
 <blockquote>
 <p>明显看到<code>segment</code>还是内存的概念而非可执行文件中的部分。所以从头到尾链接过程都没有生成过<code>segment</code>这样一种东西，其只是多个<code>sections</code>对应于内存中的<strong>映射</strong>。全书对链接部分的讲解也很少提及<code>segment</code>，<strong>所以我们对链接的理解最小单位应该是<code>section</code>，链接过程就是对<code>section</code>进行操作;而最后重定位的时候将多个大的<code>section</code>映射到一段内存中，映射的单位才是<code>segment</code></strong>。现在看下图就很清楚了:  </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/5.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="5.png" width="50%" height="50%" alt=""></p>
 <blockquote>
 <p>从文件类型的角度来看: 目前我们谈到的ELF文件有可重定位目标文件和可执行目标文件。可以使用二进制工具ELF文件进行分析。关于链接更本质的过程还是很复杂的，Lab1后面会有一部分和<strong>符号表</strong>相关的实验，建议先详细看看<code>CSAPP</code>和下面提供的资料。</p>
 <ul>
@@ -560,7 +560,7 @@
 <p>这个实际上没怎么用，功能是在VIM中打开目录树，便于程序员操作。可以先留下来，进一步观察。</p>
 </blockquote>
 <h4 id="Tmux"><a href="#Tmux" class="headerlink" title="Tmux"></a>Tmux</h4><blockquote>
-<p>这又是一个神器，终端分屏功能强大，有<code>window</code>,<code>pannel</code>等概念。和<code>on-my-zsh</code>配合使用简直了。不愿意折腾的话也可以在<code>bash</code>下直接使用。我们在<code>GDB</code>调试OS的时候使用她作为分屏工具，需要在家目录下加入配置文件<code>~/.tmux.conf</code>。<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/1.png" width="300" height="200" alt="pic1" align="center"></p>
+<p>这又是一个神器，终端分屏功能强大，有<code>window</code>,<code>pannel</code>等概念。和<code>on-my-zsh</code>配合使用简直了。不愿意折腾的话也可以在<code>bash</code>下直接使用。我们在<code>GDB</code>调试OS的时候使用她作为分屏工具，需要在家目录下加入配置文件<code>~/.tmux.conf</code>。<br><img src="1.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <h4 id="VimGrep"><a href="#VimGrep" class="headerlink" title="VimGrep"></a>VimGrep</h4><blockquote>
 <p>用于在指定目录下进行全局搜索并在另一个窗口打开;关键字<code>sample</code>;在vim命令模式下执行命令；</p>
@@ -569,7 +569,7 @@
 <li>:<code>vim/sample/* | copen</code>  当前目录搜索</li>
 <li>:<code>vim/sample/ ../** | copen</code> 从上一级目录开始递归搜索</li>
 <li>:<code>vim/sample path1/**  path2/** | copen</code> 多路径搜索</li>
-<li>: <code>cclose</code> 关闭当前搜索<br><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/2.png" width="300" height="200" alt="pic2" align="center"></li>
+<li>: <code>cclose</code> 关闭当前搜索<br><img src="2.png" width="50%" height="50%" alt=""></li>
 </ul>
 </blockquote>
 
@@ -592,7 +592,7 @@
   <p><span>本文标题:</span><a href="/2018/11/05/Mit6-828-Fall-2018-Lab0/">Mit6.828(Fall 2018) Lab0</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月04日 - 16:11</p>
-  <p><span>最后更新:</span>2020年02月15日 - 18:02</p>
+  <p><span>最后更新:</span>2020年02月16日 - 04:02</p>
   <p><span>原始链接:</span><a href="/2018/11/05/Mit6-828-Fall-2018-Lab0/" title="Mit6.828(Fall 2018) Lab0">http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/05/Mit6-828-Fall-2018-Lab0/"  aria-label="复制成功！"></i></span>
   </p>
@@ -627,11 +627,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
+          
             <a href="/tags/MIT-6-828/" rel="tag"><i class="fa fa-tag"></i> MIT 6.828</a>
           
             <a href="/tags/OS/" rel="tag"><i class="fa fa-tag"></i> OS</a>
-          
-            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
           
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
           

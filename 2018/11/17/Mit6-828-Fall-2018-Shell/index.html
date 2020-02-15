@@ -123,19 +123,19 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/27.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/28.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/29.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/30.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/31.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/32.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/33.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/34.png">
-<meta property="og:updated_time" content="2018-12-09T11:38:22.000Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/27.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/28.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/29.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/30.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/31.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/32.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/33.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/34.png">
+<meta property="og:updated_time" content="2020-02-15T20:59:49.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Shell">
 <meta name="twitter:description" content="HW:ShellAbstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/27.png">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/27.png">
 
 
 
@@ -489,7 +489,7 @@
 <blockquote>
 <p>学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————<a href="http://vim-taglist.sourceforge.net/manual.html#taglist-using" target="_blank" rel="noopener">Taglist</a>。  </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/27.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="27.png" width="50%" height="50%" alt=""></p>
 <a id="more"></a>
 <blockquote>
 <p>简单来讲，它以目录树的形式列出当前文件中的symbol:函数名，宏定义和变量。帮助我们从宏观上快速了解源码。本身支持跳转。安装manual中讲的很清楚，就不再赘述了。下面是我的配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nnoremap &lt;silent&gt; &lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt;   &quot;按f8开启Taglist</span><br><span class="line">let Tlist_Show_One_File=0                    </span><br><span class="line">let Tlist_Exit_OnlyWindow=1                  </span><br><span class="line">let Tlist_Use_Left_Window=1                 </span><br><span class="line">let Tlist_File_Fold_Auto_Close=1             </span><br><span class="line"></span><br><span class="line">     add the above Configs to your ~/.vimrc</span><br></pre></td></tr></table></figure></p>
@@ -503,14 +503,14 @@
 <blockquote>
 <p><strong>其中<code>wait()</code>系统调用返回一个退出的子进程。</strong>上面这段代码其实就是整个Shell执行指令的原理:<strong>Shell提示符由父进程提供，然后创建一个子进程执行真正的命令，而父进程则<code>wait()</code>直到子进程返回,然后父进程等待下一条命令。</strong><br>执行效果如下:  </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/28.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="28.png" width="50%" height="50%" alt=""></p>
 <blockquote>
 <p>回到Shell中来，我们需要修改子进程中的代码，能够正确执行简单的命令。涉及到<code>exec()</code>函数族。</p>
 </blockquote>
 <h4 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h4><blockquote>
 <p>exec提供了在一个进程中执行另一个进程的方法: 根据参数提供的文件路径和名称找到可执行文件，并执行。执行结束之后原调用进程的内容除进程号之外其他的全部被替换。<strong>通常和fork一起联合实现进程中执行程序。</strong><code>exec</code>函数族是由6个以exec开头的函数构成的，这6个函数的用法根据名称的不同会有些微的区别:  </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/29.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="29.png" width="50%" height="50%" alt=""></p>
 <h5 id="查找可执行文件的方式"><a href="#查找可执行文件的方式" class="headerlink" title="查找可执行文件的方式"></a>查找可执行文件的方式</h5><blockquote>
 <p>其中<code>execlp</code>，<code>execvp</code>在查找可执行文件的时候不用写文件的<strong>绝对路径</strong>，系统会自动根据环境变量“$PATH”查找。<code>env</code>命令可以列出系统中当前的$PATH。</p>
 </blockquote>
@@ -523,7 +523,7 @@
 <blockquote>
 <p>总结见下图: </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/30.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="30.png" width="50%" height="50%" alt=""></p>
 <h5 id="exec函数族使用注意事项"><a href="#exec函数族使用注意事项" class="headerlink" title="exec函数族使用注意事项"></a>exec函数族使用注意事项</h5><ul>
 <li>因为exec函数经常调用失败，所以需要加上判断语句</li>
 <li>最后参数一定用<code>NULL</code>结尾<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int exec() &#123;</span><br><span class="line">	int ret;</span><br><span class="line">	if( fork() == 0 )&#123;</span><br><span class="line">		if((ret = execlp(&quot;ls&quot;, &quot;ls&quot;, &quot;-al&quot;, NULL)) &lt; 0)  //参数以NULL结束</span><br><span class="line">			fprintf(stderror, &quot;execlp error!\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -536,7 +536,7 @@
 <blockquote>
 <p>注意因为是多线程编程，所以调试的时候会出现很多不可思议的现象。<strong>可以先将fork()部分注释掉，进入执行函数看一下现象，然后输出调试。</strong>执行效果如下:  </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/31.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="31.png" width="50%" height="50%" alt=""></p>
 <h3 id="I-O-Redirection"><a href="#I-O-Redirection" class="headerlink" title="I/O Redirection"></a>I/O Redirection</h3><h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><blockquote>
 <p>文件描述符是很重要的概念，它使得重定向成为可能。<code>File Descriptor</code>是一个整数，常常把其指向的对象称为文件。本实验中需要了解<code>open</code>，<code>creat</code>，<code>close</code>，<code>dup2</code>等系统调用返回值就是一个文件描述符。<strong>我们需要做的就是将Shell本身的文件描述符指向其他的文件描述符，从而实现重定向。</strong>Shell保证在任何时候都有3个打开的文件描述符————<code>0-标准输入</code>,<code>1-标准输出</code>,<code>2-错误输出</code>。<br>下面是会用到的几个系统调用: </p>
 <ul>
@@ -558,21 +558,21 @@
 <blockquote>
 <p>执行效果如下: </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/32.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="32.png" width="50%" height="50%" alt=""></p>
 <h3 id="Implement-pipes"><a href="#Implement-pipes" class="headerlink" title="Implement pipes"></a>Implement pipes</h3><blockquote>
 <p>管道是一个小小的内和缓冲区，它以<strong>文件描述符对</strong>的形式提供给进程，从管道的一端写数据可以从管道的另一端读取。系统调用<code>pipe</code>将数组<code>int p[2]</code>初始化为管道的文件描述符。接下来做的无非就是重定向了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> case &apos;|&apos;:</span><br><span class="line">pcmd = (struct pipecmd*)cmd;</span><br><span class="line">int p[2];</span><br><span class="line">pipe(p);    //管道初始化</span><br><span class="line">if(fork() == 0) &#123;    </span><br><span class="line">	dup2(p[0], 0);   //将标准输入重定向到管道的输入p[0]上</span><br><span class="line">	close(p[0]);</span><br><span class="line">	close(p[1]);</span><br><span class="line">	runcmd(pcmd-&gt;right);</span><br><span class="line">&#125;else &#123;</span><br><span class="line">	dup2(p[1], 1);  //讲标注输出重定向奥管道额输出p[1]上</span><br><span class="line">	runcmd(pcmd-&gt;left);  </span><br><span class="line">	close(p[0]);</span><br><span class="line">	close(p[1]);</span><br><span class="line">&#125;</span><br><span class="line">break;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
 <p>执行效果如下:   </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/33.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="33.png" width="50%" height="50%" alt=""></p>
 <h3 id="Make-grade"><a href="#Make-grade" class="headerlink" title="Make grade"></a>Make grade</h3><blockquote>
 <p>6.828对于HW的测试是直接在主机上测试的，编译Shell文件:<code>gcc Shell</code>得到<code>a.out</code>。已知该文件t.sh:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ls &gt; y</span><br><span class="line">cat &lt; y | sort | uniq | wc &gt; y1</span><br><span class="line">cat y1</span><br><span class="line">rm y1</span><br><span class="line">ls |  sort | uniq | wc</span><br><span class="line">rm y</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
 <p>在主机上，执行<code>./a.out &lt; t.sh</code>与在主机Shell上执行<code>source t.sh</code>对比结果，如下: </p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/haotianmichael/markdownPhotos/master/MIT6.828/34.png" width="300" height="200" alt="pic2" align="center"></p>
+<p><img src="34.png" width="50%" height="50%" alt=""></p>
 <blockquote>
 <p>本次实验的源代码在<a href="https://github.com/haotianmichael/JOS/tree/master/Shell" target="_blank" rel="noopener">Github</a>上。<br>第一次接触Linux系统编程，很多零碎的知识和细节学起来很是吃力。不过在独立搞懂Shell的机制之后又觉得很爽，还是很期待之后的挑战:)</p>
 </blockquote>
@@ -596,7 +596,7 @@
   <p><span>本文标题:</span><a href="/2018/11/17/Mit6-828-Fall-2018-Shell/">Mit6.828(Fall 2018) Shell</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年11月17日 - 07:11</p>
-  <p><span>最后更新:</span>2018年12月09日 - 19:12</p>
+  <p><span>最后更新:</span>2020年02月16日 - 04:02</p>
   <p><span>原始链接:</span><a href="/2018/11/17/Mit6-828-Fall-2018-Shell/" title="Mit6.828(Fall 2018) Shell">http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/"  aria-label="复制成功！"></i></span>
   </p>

@@ -5,8 +5,8 @@
     <url>%2F2020%2F02%2F16%2FGcc-RISCV%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BE%2F</url>
     <content type="text"><![CDATA[Absrtact 旨在x86平台上编译RISCV架构的可执行文件。 RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。 交叉编译工具链包括: GCC编译器 C运行库 Glibc : gnu旗下的库，作为linux的标准库和内核打交道 Newlib： 在嵌入式中使用广泛 Buntils二进制套件 GDB调试器 不同版本的工具链 Version Note Riscv-unknown-linux-gnu-gcc 132位架构的2Linux版本 Riscv-unknown-elf-gcc 32位架构的非Linux版本 每个版本都有32位架构和64位架构，这里的位数和运行本机的字长无关，指的是没有通过-march=和-mabi=选项指定RISCV架构的位宽 Linux版本指的是该工具链使用Linux系统中运行的Glibc作为C运行库——另外的个版本则使用Newlibc库 交叉编译选项-march=​ 由于$RISCV$为模块化指令，该选项支持不同的模块化指令集组合,关于$RISCV$模块见后面的介绍: rv32i[m][a][f[d]][c] rv32g[c] rv64i[m][a][f[d]][c] rv64g[c] -mabi=​ 该选项选定了目标平台所支持的ABI函数调用: ilp32，ilp32f，ilp32d 32位架构(int-32位 long-32位 long long-64位) lp64，lp64f，lp64d 64位架构(int-32位 long-64位) 后缀 suffix Note – 使用浮点类型操作直接使用RISCV浮点指令进行支持，但是当浮点数作为函数参数进行传递时，无论是单精度还是双精度均需要存储器中的堆栈进行传递 -f 使用浮点类型操作直接使用RISCV浮点指令进行支持，但是当浮点数作为函数参数进行传递时，单精度通过寄存拿起传递，双精度通过内存堆栈传递 -d 使用浮点类型操作直接使用RISCV浮点指令进行支持，但是当浮点数作为函数参数进行传递时，单/双精度均可通过寄存器传递 只有-march=支持浮点扩展，(-mabi=)才允许加上f/d后缀以支持浮点运算。 RISCV汇编语言简介]]></content>
       <tags>
-        <tag>Assembly</tag>
         <tag>RISCV</tag>
+        <tag>Assembly</tag>
         <tag>Complier</tag>
       </tags>
   </entry>
@@ -18,9 +18,9 @@
         <category>C</category>
       </categories>
       <tags>
+        <tag>Assembly</tag>
         <tag>MIT 6.828</tag>
         <tag>OS</tag>
-        <tag>Assembly</tag>
         <tag>C</tag>
         <tag>Linux</tag>
       </tags>
@@ -48,9 +48,9 @@
         <category>C</category>
       </categories>
       <tags>
+        <tag>Assembly</tag>
         <tag>MIT 6.828</tag>
         <tag>OS</tag>
-        <tag>Assembly</tag>
         <tag>C</tag>
         <tag>Linux</tag>
       </tags>
@@ -63,9 +63,9 @@
         <category>C</category>
       </categories>
       <tags>
+        <tag>Assembly</tag>
         <tag>MIT 6.828</tag>
         <tag>OS</tag>
-        <tag>Assembly</tag>
         <tag>C</tag>
         <tag>Linux</tag>
       </tags>
