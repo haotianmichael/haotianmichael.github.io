@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="RISCV,Assembly,Complier," />
+  <meta name="keywords" content="Assembly,RISCV,Complier," />
 
 
 
@@ -116,14 +116,14 @@
 
 
 <meta name="description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
-<meta name="keywords" content="RISCV,Assembly,Complier">
+<meta name="keywords" content="Assembly,RISCV,Complier">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gcc-RISCV交叉编译工具链">
 <meta property="og:url" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-15T10:58:53.169Z">
+<meta property="og:updated_time" content="2020-02-15T11:22:26.970Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gcc-RISCV交叉编译工具链">
 <meta name="twitter:description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
@@ -410,7 +410,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  132
+                  241
                 </span>
               
 
@@ -463,7 +463,30 @@
 </ul>
 </blockquote>
 <a id="more"></a>
-<h3 id="不同版本的工具链"><a href="#不同版本的工具链" class="headerlink" title="不同版本的工具链"></a>不同版本的工具链</h3><h3 id="交叉编译选项"><a href="#交叉编译选项" class="headerlink" title="交叉编译选项"></a>交叉编译选项</h3><h3 id="RISCV汇编语言简介"><a href="#RISCV汇编语言简介" class="headerlink" title="RISCV汇编语言简介"></a>RISCV汇编语言简介</h3>
+<h3 id="不同版本的工具链"><a href="#不同版本的工具链" class="headerlink" title="不同版本的工具链"></a>不同版本的工具链</h3><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$Riscv-unknown-linux-gnu-gcc$</td>
+<td><sup>1</sup>32位架构的<sup>2</sup><strong>Linux版本</strong></td>
+</tr>
+<tr>
+<td>$Riscv-unknown-elf-gcc$</td>
+<td>32位架构的<strong>非Linux版本</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>每个版本都有32位架构和64位架构，这里的位数和运行本机的字长无关，<strong>指的是没有通过<code>-march=</code>和<code>-mabi=</code>选项指定RISCV架构的位宽</strong></li>
+<li><strong>Linux版本</strong>指的是<strong>该工具链使用Linux系统中运行的<code>Glibc</code>作为C运行库——</strong>另外的个版本则使用<code>Newlibc</code>库</li>
+</ul>
+<h3 id="交叉编译选项"><a href="#交叉编译选项" class="headerlink" title="交叉编译选项"></a>交叉编译选项</h3><p>​    </p>
+<h3 id="RISCV汇编语言简介"><a href="#RISCV汇编语言简介" class="headerlink" title="RISCV汇编语言简介"></a>RISCV汇编语言简介</h3>
       
     </div>
     
@@ -483,7 +506,7 @@
   <p><span>本文标题:</span><a href="/2020/02/16/Gcc-RISCV交叉编译工具链/">Gcc-RISCV交叉编译工具链</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年02月15日 - 18:02</p>
-  <p><span>最后更新:</span>2020年02月15日 - 18:02</p>
+  <p><span>最后更新:</span>2020年02月15日 - 19:02</p>
   <p><span>原始链接:</span><a href="/2020/02/16/Gcc-RISCV交叉编译工具链/" title="Gcc-RISCV交叉编译工具链">http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/"  aria-label="复制成功！"></i></span>
   </p>
@@ -518,9 +541,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/RISCV/" rel="tag"><i class="fa fa-tag"></i> RISCV</a>
-          
             <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
+          
+            <a href="/tags/RISCV/" rel="tag"><i class="fa fa-tag"></i> RISCV</a>
           
             <a href="/tags/Complier/" rel="tag"><i class="fa fa-tag"></i> Complier</a>
           

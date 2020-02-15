@@ -3,10 +3,10 @@
   <entry>
     <title><![CDATA[Gcc-RISCV交叉编译工具链]]></title>
     <url>%2F2020%2F02%2F16%2FGcc-RISCV%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BE%2F</url>
-    <content type="text"><![CDATA[Absrtact 旨在x86平台上编译RISCV架构的可执行文件。 RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。 交叉编译工具链包括: GCC编译器 C运行库 Glibc : gnu旗下的库，作为linux的标准库和内核打交道 Newlib： 在嵌入式中使用广泛 Buntils二进制套件 GDB调试器 不同版本的工具链交叉编译选项RISCV汇编语言简介]]></content>
+    <content type="text"><![CDATA[Absrtact 旨在x86平台上编译RISCV架构的可执行文件。 RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。 交叉编译工具链包括: GCC编译器 C运行库 Glibc : gnu旗下的库，作为linux的标准库和内核打交道 Newlib： 在嵌入式中使用广泛 Buntils二进制套件 GDB调试器 不同版本的工具链 Version Note $Riscv-unknown-linux-gnu-gcc$ 132位架构的2Linux版本 $Riscv-unknown-elf-gcc$ 32位架构的非Linux版本 每个版本都有32位架构和64位架构，这里的位数和运行本机的字长无关，指的是没有通过-march=和-mabi=选项指定RISCV架构的位宽 Linux版本指的是该工具链使用Linux系统中运行的Glibc作为C运行库——另外的个版本则使用Newlibc库 交叉编译选项​ RISCV汇编语言简介]]></content>
       <tags>
-        <tag>RISCV</tag>
         <tag>Assembly</tag>
+        <tag>RISCV</tag>
         <tag>Complier</tag>
       </tags>
   </entry>
@@ -18,9 +18,9 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>MIT 6.828</tag>
         <tag>OS</tag>
+        <tag>Assembly</tag>
         <tag>C</tag>
         <tag>Linux</tag>
       </tags>
@@ -48,9 +48,9 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>MIT 6.828</tag>
         <tag>OS</tag>
+        <tag>Assembly</tag>
         <tag>C</tag>
         <tag>Linux</tag>
       </tags>
@@ -63,9 +63,9 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>Assembly</tag>
         <tag>MIT 6.828</tag>
         <tag>OS</tag>
+        <tag>Assembly</tag>
         <tag>C</tag>
         <tag>Linux</tag>
       </tags>
