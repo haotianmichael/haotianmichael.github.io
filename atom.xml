@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2020-04-01T02:39:19.572Z</updated>
+  <updated>2020-04-01T04:05:58.481Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,23 +21,25 @@
     <link href="http://haotianmcihael.github.io/2020/04/01/RISCV%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
     <id>http://haotianmcihael.github.io/2020/04/01/RISCV体系结构/</id>
     <published>2020-04-01T10:18:46.000Z</published>
-    <updated>2020-04-01T02:39:19.572Z</updated>
+    <updated>2020-04-01T04:05:58.481Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p><strong>体系结构</strong>由指令集(汇编语言)和操作数地址(寄存器和存储器)组成。  </p><p>而寄存器，存储器，ALU和其它模块形成微处理器的特定方式称为<strong>微体系结构</strong>。  </p><p>从编译器的角度看二者一样重要，<strong>预测分支</strong>和<strong>运行栈</strong>一样都可以作为优化的着力点。本文主要针对RISCV体系结构，为编译器设计出合适的中间代码。  </p><a id="more"></a></blockquote>]]></content>
+    <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p><strong>体系结构</strong>由<strong>指令集</strong>(<em>汇编语言</em>)和<strong>操作数地址</strong>(<em>寄存器和存储器</em>)组成。  </p><p>而寄存器，存储器，ALU和其它模块形成微处理器的特定方式称为<strong>微体系结构</strong>。  </p><p>从编译器的角度看二者同等重要，<strong>预测分支</strong>和<strong>运行栈</strong>一样都可以作为优化的方向。本文主要针对RISCV体系结构，为编译器设计出合适的中间代码。  </p><a id="more"></a></blockquote>]]></content>
     
     <summary type="html">
     
       &lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;体系结构&lt;/strong&gt;由指令集(汇编语言)和操作数地址(寄存器和存储器)组成。  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;体系结构&lt;/strong&gt;由&lt;strong&gt;指令集&lt;/strong&gt;(&lt;em&gt;汇编语言&lt;/em&gt;)和&lt;strong&gt;操作数地址&lt;/strong&gt;(&lt;em&gt;寄存器和存储器&lt;/em&gt;)组成。  &lt;/p&gt;
 &lt;p&gt;而寄存器，存储器，ALU和其它模块形成微处理器的特定方式称为&lt;strong&gt;微体系结构&lt;/strong&gt;。  &lt;/p&gt;
-&lt;p&gt;从编译器的角度看二者一样重要，&lt;strong&gt;预测分支&lt;/strong&gt;和&lt;strong&gt;运行栈&lt;/strong&gt;一样都可以作为优化的着力点。本文主要针对RISCV体系结构，为编译器设计出合适的中间代码。  &lt;/p&gt;
+&lt;p&gt;从编译器的角度看二者同等重要，&lt;strong&gt;预测分支&lt;/strong&gt;和&lt;strong&gt;运行栈&lt;/strong&gt;一样都可以作为优化的方向。本文主要针对RISCV体系结构，为编译器设计出合适的中间代码。  &lt;/p&gt;
     
     </summary>
     
     
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
       <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+      <category term="Complier" scheme="http://haotianmcihael.github.io/tags/Complier/"/>
     
   </entry>
   
@@ -71,9 +73,9 @@
     </summary>
     
     
-      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
-    
       <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
     
       <category term="Complier" scheme="http://haotianmcihael.github.io/tags/Complier/"/>
     
@@ -106,11 +108,11 @@
       <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
@@ -179,11 +181,11 @@
       <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
@@ -210,11 +212,11 @@
       <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
-    
       <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
