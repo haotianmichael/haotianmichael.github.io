@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract">
+<meta name="description" content="Abstract 体系结构由指令集(汇编语言)和操作数地址(寄存器和存储器)组成。   而寄存器，存储器，ALU和其它模块形成微处理器的特定方式称为微体系结构。   从编译器的角度看二者一样重要，预测分支和运行栈一样都可以作为优化的着力点。本文主要针对RISCV体系结构，为编译器设计出合适的中间代码。">
 <meta name="keywords" content="RISCV,Assembly">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Riscv汇编">
-<meta property="og:url" content="http://haotianmcihael.github.io/2020/04/01/Riscv汇编/index.html">
+<meta property="og:title" content="RISCV体系结构">
+<meta property="og:url" content="http://haotianmcihael.github.io/2020/04/01/RISCV体系结构/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract">
+<meta property="og:description" content="Abstract 体系结构由指令集(汇编语言)和操作数地址(寄存器和存储器)组成。   而寄存器，存储器，ALU和其它模块形成微处理器的特定方式称为微体系结构。   从编译器的角度看二者一样重要，预测分支和运行栈一样都可以作为优化的着力点。本文主要针对RISCV体系结构，为编译器设计出合适的中间代码。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-04-01T02:21:09.993Z">
+<meta property="og:updated_time" content="2020-04-01T02:39:19.572Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Riscv汇编">
-<meta name="twitter:description" content="Abstract">
+<meta name="twitter:title" content="RISCV体系结构">
+<meta name="twitter:description" content="Abstract 体系结构由指令集(汇编语言)和操作数地址(寄存器和存储器)组成。   而寄存器，存储器，ALU和其它模块形成微处理器的特定方式称为微体系结构。   从编译器的角度看二者一样重要，预测分支和运行栈一样都可以作为优化的着力点。本文主要针对RISCV体系结构，为编译器设计出合适的中间代码。">
 
 
 
@@ -155,14 +155,14 @@
 
 
 
-  <link rel="canonical" href="http://haotianmcihael.github.io/2020/04/01/Riscv汇编/"/>
+  <link rel="canonical" href="http://haotianmcihael.github.io/2020/04/01/RISCV体系结构/"/>
 
 
 
 
 
 
-  <title>Riscv汇编 | CodeSaw</title>
+  <title>RISCV体系结构 | CodeSaw</title>
   
 
 
@@ -349,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2020/04/01/Riscv汇编/">
+    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2020/04/01/RISCV体系结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HaotianMichael">
@@ -366,7 +366,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Riscv汇编</h1>
+          <h1 class="post-title" itemprop="name headline">RISCV体系结构</h1>
         
 
         <div class="post-meta">
@@ -410,7 +410,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1
+                  119
                 </span>
               
 
@@ -447,7 +447,13 @@
       
 
       
-        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p><strong>体系结构</strong>由指令集(汇编语言)和操作数地址(寄存器和存储器)组成。  </p>
+<p>而寄存器，存储器，ALU和其它模块形成微处理器的特定方式称为<strong>微体系结构</strong>。  </p>
+<p>从编译器的角度看二者一样重要，<strong>预测分支</strong>和<strong>运行栈</strong>一样都可以作为优化的着力点。本文主要针对RISCV体系结构，为编译器设计出合适的中间代码。  </p>
+<a id="more"></a>
+</blockquote>
+
       
     </div>
     
@@ -464,12 +470,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2020/04/01/Riscv汇编/">Riscv汇编</a></p>
+  <p><span>本文标题:</span><a href="/2020/04/01/RISCV体系结构/">RISCV体系结构</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年04月01日 - 10:04</p>
   <p><span>最后更新:</span>2020年04月01日 - 10:04</p>
-  <p><span>原始链接:</span><a href="/2020/04/01/Riscv汇编/" title="Riscv汇编">http://haotianmcihael.github.io/2020/04/01/Riscv汇编/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/04/01/Riscv汇编/"  aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2020/04/01/RISCV体系结构/" title="RISCV体系结构">http://haotianmcihael.github.io/2020/04/01/RISCV体系结构/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/04/01/RISCV体系结构/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
