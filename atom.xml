@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2020-03-17T09:53:23.289Z</updated>
+  <updated>2020-04-01T02:21:09.993Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Riscv汇编</title>
+    <link href="http://haotianmcihael.github.io/2020/04/01/Riscv%E6%B1%87%E7%BC%96/"/>
+    <id>http://haotianmcihael.github.io/2020/04/01/Riscv汇编/</id>
+    <published>2020-04-01T10:18:46.000Z</published>
+    <updated>2020-04-01T02:21:09.993Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
+    
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+  </entry>
   
   <entry>
     <title>GCC-RISCV交叉编译工具链</title>
