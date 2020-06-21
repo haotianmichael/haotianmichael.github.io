@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-06-21T15:29:43.909Z">
+<meta property="og:updated_time" content="2020-06-21T15:53:02.582Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（0-编译系统概述）">
 <meta name="twitter:description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  408
+                  613
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  2
                 </span>
               
             </div>
@@ -482,7 +482,13 @@
 <p>本文主要是对系统层面的学习，对系统层面的学习止步于对LLVM编译框架的使用和源代码阅读。</p>
 </blockquote>
 <a id="more"></a>
-
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><blockquote>
+<p>本文主要分为三个部分，编译，ELF以及库文件。  </p>
+<p>首先简单介绍一下编译器的整体框架和编译流程。    </p>
+<p><strong>核心部分是学习*nix操作系统下的ELF文件的格式——普通c/c++高级程序在目标文件中是如何存储的；目标文件是如何被链接器链接在一起，并且形成可执行文件的过程。目标文件在链接时符号处理，重定位和地址分配如何进行。可执行文件如何被装载并且执行，可执行文件与进程的虚拟空间之间如何映射。讲解动态链接。  </strong></p>
+<p>最后讲解一下运行库的原理和操作系统与编译系统交互的部分。  </p>
+</blockquote>
+<h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><h3 id="ELF"><a href="#ELF" class="headerlink" title="ELF"></a>ELF</h3><h3 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h3>
       
     </div>
     
@@ -740,7 +746,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译器"><span class="nav-number">3.</span> <span class="nav-text">编译器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ELF"><span class="nav-number">4.</span> <span class="nav-text">ELF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行库"><span class="nav-number">5.</span> <span class="nav-text">运行库</span></a></li></ol></div>
             
 
           </div>
