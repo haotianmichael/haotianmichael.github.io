@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2020-06-01T12:43:00.999Z</updated>
+  <updated>2020-06-21T15:26:54.138Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,25 +21,33 @@
     <link href="http://haotianmcihael.github.io/2020/06/02/LLVM%E6%BC%AB%E8%B0%88%EF%BC%880-%E7%BC%96%E8%AF%91%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0%EF%BC%89/"/>
     <id>http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/</id>
     <published>2020-06-01T20:36:42.000Z</published>
-    <updated>2020-06-01T12:43:00.999Z</updated>
+    <updated>2020-06-21T15:26:54.138Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3>]]></content>
+    <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>从开始接触编译系统的学习已经快半年了，有些心得总结一下。  </p><p>什么是编译系统？我想从两个角度谈一下：  </p><p>首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括<strong>编译器</strong>， <strong>汇编器</strong>，<strong>静态/动态链接器</strong>，<strong>操作系统装载器</strong>以及<strong>运行库</strong>。</p><ul><li>编译器： 是系统前半部分的核心，负责将源文件<strong>.c</strong>转换成为汇编文件<strong>.s</strong>。</li><li>汇编/链接/装载器：是系统后半部分的核心，主要是将<strong>.s</strong>转换为<strong>二进制ELF文件</strong>并进一步围绕<strong>ELF</strong>处理。</li><li>运行库：是操作系统层面用来支持<strong>高级语言运行环境</strong>比如内存池，标准API等的库文件。</li></ul><p>然后从专业的角度来讲，我觉得可以分为<strong>系统层面</strong>和<strong>算法优化层面</strong>，系统层面主要是整个编译框架比如LLVM，核心是和操作系统交互的部分，这部分内容是编译器工程师的基本功，需要掌握细节。而算法优化层面指的是<strong>编译优化</strong>——编译器工程师的最理想的方向就是做优化，这一部分需要精通，从静态单赋值SSA等传统的静态分析优化到现在主流的深度学习推理引擎比如TVM等。  </p><p>本文主要是对系统层面的学习，对系统层面的学习止步于对LLVM编译框架的使用和源代码阅读。</p></blockquote><a id="more"></a>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;
-      
+      &lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;从开始接触编译系统的学习已经快半年了，有些心得总结一下。  &lt;/p&gt;
+&lt;p&gt;什么是编译系统？我想从两个角度谈一下：  &lt;/p&gt;
+&lt;p&gt;首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括&lt;strong&gt;编译器&lt;/strong&gt;， &lt;strong&gt;汇编器&lt;/strong&gt;，&lt;strong&gt;静态/动态链接器&lt;/strong&gt;，&lt;strong&gt;操作系统装载器&lt;/strong&gt;以及&lt;strong&gt;运行库&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译器： 是系统前半部分的核心，负责将源文件&lt;strong&gt;.c&lt;/strong&gt;转换成为汇编文件&lt;strong&gt;.s&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;汇编/链接/装载器：是系统后半部分的核心，主要是将&lt;strong&gt;.s&lt;/strong&gt;转换为&lt;strong&gt;二进制ELF文件&lt;/strong&gt;并进一步围绕&lt;strong&gt;ELF&lt;/strong&gt;处理。&lt;/li&gt;
+&lt;li&gt;运行库：是操作系统层面用来支持&lt;strong&gt;高级语言运行环境&lt;/strong&gt;比如内存池，标准API等的库文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;然后从专业的角度来讲，我觉得可以分为&lt;strong&gt;系统层面&lt;/strong&gt;和&lt;strong&gt;算法优化层面&lt;/strong&gt;，系统层面主要是整个编译框架比如LLVM，核心是和操作系统交互的部分，这部分内容是编译器工程师的基本功，需要掌握细节。而算法优化层面指的是&lt;strong&gt;编译优化&lt;/strong&gt;——编译器工程师的最理想的方向就是做优化，这一部分需要精通，从静态单赋值SSA等传统的静态分析优化到现在主流的深度学习推理引擎比如TVM等。  &lt;/p&gt;
+&lt;p&gt;本文主要是对系统层面的学习，对系统层面的学习止步于对LLVM编译框架的使用和源代码阅读。&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
       <category term="Linker" scheme="http://haotianmcihael.github.io/tags/Linker/"/>
     
@@ -77,11 +85,11 @@
     </summary>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
     
       <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -157,11 +165,11 @@
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
     
+      <category term="Shell" scheme="http://haotianmcihael.github.io/tags/Shell/"/>
+    
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
       <category term="Linux" scheme="http://haotianmcihael.github.io/tags/Linux/"/>
-    
-      <category term="Shell" scheme="http://haotianmcihael.github.io/tags/Shell/"/>
     
   </entry>
   
