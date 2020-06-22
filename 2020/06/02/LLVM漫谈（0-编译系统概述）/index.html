@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-06-22T08:17:38.780Z">
+<meta property="og:updated_time" content="2020-06-22T09:33:52.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（0-编译系统概述）">
 <meta name="twitter:description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.2k
+                  1.5k
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  3
+                  5
                 </span>
               
             </div>
@@ -516,11 +516,43 @@
 </blockquote>
 <h1 id="ELF"><a href="#ELF" class="headerlink" title="ELF"></a>ELF</h1><blockquote>
 <p>其实从汇编器的实现中就已经用到了ELF的知识。  </p>
-<p>ELF可以说是编译系统工具链中的最重要的文件格式了，离开编译器之后的所有编译步骤几乎都和ELF相关，围绕ELF展开，所以对它的研究非常有意义。  </p>
+<p>ELF可以说是编译系统工具链中的最重要的文件格式了，离开编译器之后的所有编译步骤几乎都和ELF相关或者围绕ELF展开，所以对它的研究非常有意义。  </p>
+<p>最早是由Unix System V Release3提出了COFF的概念以及使用规范。后来Windows基于COFF指定了PE格式标准，而Linux也以ELF作为基本格式。COFF的主要贡献就是提供了“段segment”的概念。根据ELF文件标准，可以分为下面4类：</p>
 </blockquote>
-<h1 id="链接器"><a href="#链接器" class="headerlink" title="链接器"></a>链接器</h1><blockquote>
+<table>
+<thead>
+<tr>
+<th>ELF文件类型</th>
+<th>说明</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可重定位目标文件(Relocatable File)</strong></td>
+<td>由汇编器生成的.o<strong>目标文件</strong>，因为需要连接重定位其文件中的符号地址所以叫Relocatable；另外，<strong>静态链接库.a其实也是使用ar程序将很多.o文件压缩并对其进行索引和编号。所以也算此类型。</strong></td>
+<td>Linux下的.o文件，.a静态库文件；Windows下的.obj，.lib静态库文件</td>
+</tr>
+<tr>
+<td><strong>可执行文件(Executable File)</strong></td>
+<td>是可以直接执行的程序，就是ELF可执行文件。</td>
+<td>/usr/bash文件；Windows下的.exe</td>
+</tr>
+<tr>
+<td><strong>共享目标文件(Shared Object File)</strong></td>
+<td><strong>共享</strong>就是动态链接的本质。其可以被链接器继续链接生成新的目标文件；也可以和可执行文件结合，作为进程映像的一部分来运行。</td>
+<td>Linux下的.so；Windows下的DLL</td>
+</tr>
+<tr>
+<td><strong>核心转储文件(Core Dump File)</strong></td>
+<td>当进程意外终止的时候，系统可以将该进程的地址空间及终止时的一些其他信息转储到核心转储文件中。</td>
+<td>Linux下的core dump</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
 </blockquote>
-<h3 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h3>
+<h1 id="链接器"><a href="#链接器" class="headerlink" title="链接器"></a>链接器</h1><h1 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h1>
       
     </div>
     
@@ -540,7 +572,7 @@
   <p><span>本文标题:</span><a href="/2020/06/02/LLVM漫谈（0-编译系统概述）/">LLVM漫谈（0-编译系统概述）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年06月01日 - 20:06</p>
-  <p><span>最后更新:</span>2020年06月22日 - 16:06</p>
+  <p><span>最后更新:</span>2020年06月22日 - 17:06</p>
   <p><span>原始链接:</span><a href="/2020/06/02/LLVM漫谈（0-编译系统概述）/" title="LLVM漫谈（0-编译系统概述）">http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/"  aria-label="复制成功！"></i></span>
   </p>
@@ -778,7 +810,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器"><span class="nav-number">3.</span> <span class="nav-text">编译器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编器"><span class="nav-number">4.</span> <span class="nav-text">汇编器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ELF"><span class="nav-number">5.</span> <span class="nav-text">ELF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接器"><span class="nav-number">6.</span> <span class="nav-text">链接器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行库"><span class="nav-number">6.0.1.</span> <span class="nav-text">运行库</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器"><span class="nav-number">3.</span> <span class="nav-text">编译器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编器"><span class="nav-number">4.</span> <span class="nav-text">汇编器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ELF"><span class="nav-number">5.</span> <span class="nav-text">ELF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接器"><span class="nav-number">6.</span> <span class="nav-text">链接器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行库"><span class="nav-number">7.</span> <span class="nav-text">运行库</span></a></li></ol></div>
             
 
           </div>
