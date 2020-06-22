@@ -124,7 +124,7 @@
 <meta property="og:description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/1.png">
-<meta property="og:updated_time" content="2020-06-22T15:03:02.499Z">
+<meta property="og:updated_time" content="2020-06-22T18:47:33.844Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（0-编译系统概述）">
 <meta name="twitter:description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.4k
+                  2.7k
                 </span>
               
 
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  8
+                  9
                 </span>
               
             </div>
@@ -596,7 +596,21 @@
 <blockquote>
 <p>整个ELF文件有很多段比如字符串段，调试信息段等。包括在不同的平台标准上ELF格式都不同，这里不展开说了。  </p>
 </blockquote>
-<h1 id="链接器"><a href="#链接器" class="headerlink" title="链接器"></a>链接器</h1><h2 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h2><h2 id="静态链接器"><a href="#静态链接器" class="headerlink" title="静态链接器"></a>静态链接器</h2><h2 id="装载"><a href="#装载" class="headerlink" title="装载"></a>装载</h2><h2 id="动态链接器"><a href="#动态链接器" class="headerlink" title="动态链接器"></a>动态链接器</h2><h1 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h1><h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><table>
+<h1 id="链接器"><a href="#链接器" class="headerlink" title="链接器"></a>链接器</h1><blockquote>
+<p>链接的本质就是要把多个不同的目标文件之间相互“粘”在一起——<strong>实际上就是目标文件之间地址的引用，及对函数和变量的地址的引用。</strong>  </p>
+</blockquote>
+<h2 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h2><blockquote>
+<p><strong>在链接过程中，每一个ELF目标文件都会有一个相应的符号表，这个符号表对应ELF中的一个段<code>.symtab</code>，这个表里记录了目标文件所用到的所有符号，每个定义的符号有一个符号值，对于变量和函数来说该值就是其地址。</strong>      </p>
+<p>ELF的符号可以大致分为：</p>
+<ul>
+<li><strong>定义</strong>在目标文件中的<strong>全局符号</strong></li>
+<li>在目标文件内中<strong>引用</strong>的<strong>全局符号，又称为外部符号</strong></li>
+<li>段名</li>
+<li>局部符号，等等</li>
+</ul>
+<p>其中最重要的就是<strong>全局符号</strong>，因为其他的符号只是在目标文件中可见，而全局符号的作用域是跨文件的。</p>
+</blockquote>
+<h2 id="静态链接器"><a href="#静态链接器" class="headerlink" title="静态链接器"></a>静态链接器</h2><h2 id="装载"><a href="#装载" class="headerlink" title="装载"></a>装载</h2><h2 id="动态链接器"><a href="#动态链接器" class="headerlink" title="动态链接器"></a>动态链接器</h2><h1 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h1><h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -625,7 +639,8 @@
 <td>将所有指令段反汇编    <strong>字节寻址,小端</strong></td>
 </tr>
 <tr>
-<td></td>
+<td><code>llvm-nm</code></td>
+<td>查看ELF文件的符号表</td>
 </tr>
 </tbody>
 </table>
@@ -649,7 +664,7 @@
   <p><span>本文标题:</span><a href="/2020/06/02/LLVM漫谈（0-编译系统概述）/">LLVM漫谈（0-编译系统概述）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年06月01日 - 20:06</p>
-  <p><span>最后更新:</span>2020年06月22日 - 23:06</p>
+  <p><span>最后更新:</span>2020年06月23日 - 02:06</p>
   <p><span>原始链接:</span><a href="/2020/06/02/LLVM漫谈（0-编译系统概述）/" title="LLVM漫谈（0-编译系统概述）">http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/"  aria-label="复制成功！"></i></span>
   </p>
