@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Compiler,LLVM,Linker,Loader," />
+  <meta name="keywords" content="LLVM,Compiler,Linker,Loader," />
 
 
 
@@ -116,7 +116,7 @@
 
 
 <meta name="description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
-<meta name="keywords" content="Compiler,LLVM,Linker,Loader">
+<meta name="keywords" content="LLVM,Compiler,Linker,Loader">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LLVM漫谈（0-编译系统概述）">
 <meta property="og:url" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/index.html">
@@ -126,7 +126,8 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/3.png">
-<meta property="og:updated_time" content="2020-06-23T06:36:34.295Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/4.png">
+<meta property="og:updated_time" content="2020-06-23T08:22:00.709Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（0-编译系统概述）">
 <meta name="twitter:description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
@@ -436,7 +437,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  3.5k
+                  4.3k
                 </span>
               
 
@@ -452,7 +453,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  12
+                  14
                 </span>
               
             </div>
@@ -652,13 +653,38 @@
 <li>外部符号与用户定义的符号之间的命名方式和解析方式</li>
 <li>函数调用方式，比如参数入栈顺序，返回值如何保存等</li>
 <li>堆栈的分布方式，比如参数和局部变量在堆栈中的位置，参数传递方式等</li>
-<li>寄存器使用约定</li>
+<li>寄存器使用约定 </li>
 </ul>
 <h4 id="静态链接库"><a href="#静态链接库" class="headerlink" title="静态链接库"></a>静态链接库</h4><blockquote>
 <p>静态链接库实际上就是一组目标文件的集合。即很多目标文件经过压缩打包之后的一个文件。  </p>
 </blockquote>
 <p><img src="3.png" width="50%" height="50%" alt=""></p>
-<h2 id="装载"><a href="#装载" class="headerlink" title="装载"></a>装载</h2><h2 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h2><h1 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h1><h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><table>
+<h2 id="装载"><a href="#装载" class="headerlink" title="装载"></a>装载</h2><h3 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h3><blockquote>
+<p>首先32位CPU指的是CPU的数据线是32位的，但是其地址线不一定只有32位，PAE地址扩展方式修改了页映射的方式使得可以访问到更多的物理内存。而操作系统提供一个窗口映射的方式，将这些额外的内存映射到进程地址空间中。应用程序可以根据需要来申请和映射，比如Linux中的mmap系统调用。    </p>
+<p>关于现代操作系统的虚拟内存管理机制这里不展开介绍。  </p>
+</blockquote>
+<h3 id="内核装载ELF可执行文件"><a href="#内核装载ELF可执行文件" class="headerlink" title="内核装载ELF可执行文件"></a>内核装载ELF可执行文件</h3><blockquote>
+<p>一共有如下三个步骤：</p>
+</blockquote>
+<h4 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h4><blockquote>
+<p><strong>第一步是创建一个独立的虚拟地址空间。  </strong></p>
+<p>创建虚拟空间实际上并不是创建空间而是创建映射函数所需要的相应的数据结构。在i386的Linux下，<strong>创建虚拟地址空间实际上就是分配一个页目录</strong>就可以了，甚至不设置页映射关系——这些等到后面程序发生缺页中断的时候再进行设置（<strong>当程序发生了页错误，操作系统将从物理内存中分配一个物理页，然后将该“缺页”从磁盘中读取到内存中，在设置缺页和物理页框的映射关系</strong>）。     </p>
+<p><strong>这一步本质上就是完成虚拟空间到物理内存的映射关系。</strong></p>
+</blockquote>
+<h4 id="完成ELF和进程的映射"><a href="#完成ELF和进程的映射" class="headerlink" title="完成ELF和进程的映射"></a>完成ELF和进程的映射</h4><blockquote>
+<p><strong>第二步是读取可执行文件头，并且建立虚拟空间与可执行文件的映射关系。 </strong> </p>
+<p>很明显，这种映射关系是保存在操作系统中的一个数据结构（类似页目录）。<strong>Linux中将进程虚拟空间中的一个段叫做虚拟内存区域（VMA，Virtual Memory Area）。</strong>操作系统在内部保存这种VMA结构，就是因为当程序发生段错误的时候，可以通过查找这样一个数据结构来定位错误页在可执行文件中的位置。</p>
+</blockquote>
+<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><blockquote>
+<p><strong>第三步是将CPU的指令寄存器设置成可执行文件的入口地址，启动运行。</strong>  </p>
+<p>操作系统进行内核堆栈和用户堆栈的切换，CPU运行权限的切换，然后设置CPU的指令寄存器并将控制权交给进程。</p>
+</blockquote>
+<h4 id="缺页中断"><a href="#缺页中断" class="headerlink" title="缺页中断"></a>缺页中断</h4><blockquote>
+<p>在上述步骤都完成之后，其实可执行文件的真正指令和数据都没有被装载进内存中。<strong>操作系统只是通过可执行文件头部的信息建立起来可执行文件和进程虚存之间的映射关系而已。</strong>  </p>
+<p><strong>当发生一次缺页中断的时候，操作系统将查询这个数据结构，然后找到空页面所在的VMA ，计算出相应的页面在可执行文件中的偏移，然后在物理内存中分配一个物理页面，将进程中该虚拟页与物理页之间建立映射关系，完成真正的装载。</strong></p>
+</blockquote>
+<p><img src="4.png" width="50%" height="50%" alt=""></p>
+<h3 id="进程虚拟地址空间分布"><a href="#进程虚拟地址空间分布" class="headerlink" title="进程虚拟地址空间分布"></a>进程虚拟地址空间分布</h3><h2 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h2><h1 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h1><h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -743,7 +769,7 @@
   <p><span>本文标题:</span><a href="/2020/06/02/LLVM漫谈（0-编译系统概述）/">LLVM漫谈（0-编译系统概述）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年06月01日 - 20:06</p>
-  <p><span>最后更新:</span>2020年06月23日 - 14:06</p>
+  <p><span>最后更新:</span>2020年06月23日 - 16:06</p>
   <p><span>原始链接:</span><a href="/2020/06/02/LLVM漫谈（0-编译系统概述）/" title="LLVM漫谈（0-编译系统概述）">http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/"  aria-label="复制成功！"></i></span>
   </p>
@@ -778,9 +804,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Compiler/" rel="tag"><i class="fa fa-tag"></i> Compiler</a>
-          
             <a href="/tags/LLVM/" rel="tag"><i class="fa fa-tag"></i> LLVM</a>
+          
+            <a href="/tags/Compiler/" rel="tag"><i class="fa fa-tag"></i> Compiler</a>
           
             <a href="/tags/Linker/" rel="tag"><i class="fa fa-tag"></i> Linker</a>
           
@@ -981,7 +1007,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器"><span class="nav-number">3.</span> <span class="nav-text">编译器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编器"><span class="nav-number">4.</span> <span class="nav-text">汇编器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ELF"><span class="nav-number">5.</span> <span class="nav-text">ELF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF简介"><span class="nav-number">5.1.</span> <span class="nav-text">ELF简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF类型"><span class="nav-number">5.2.</span> <span class="nav-text">ELF类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF格式"><span class="nav-number">5.3.</span> <span class="nav-text">ELF格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分段"><span class="nav-number">5.3.1.</span> <span class="nav-text">分段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ELF-Header"><span class="nav-number">5.3.2.</span> <span class="nav-text">ELF Header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Section-Header-table"><span class="nav-number">5.3.3.</span> <span class="nav-text">Section Header table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relocation-Table"><span class="nav-number">5.3.4.</span> <span class="nav-text">Relocation Table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sections"><span class="nav-number">5.3.5.</span> <span class="nav-text">Sections</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接器"><span class="nav-number">6.</span> <span class="nav-text">链接器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#符号"><span class="nav-number">6.1.</span> <span class="nav-text">符号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强-弱符号-定义-引用"><span class="nav-number">6.1.1.</span> <span class="nav-text">(强/弱符号)(定义/引用)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态链接"><span class="nav-number">6.2.</span> <span class="nav-text">静态链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#空间与地址分配"><span class="nav-number">6.2.1.</span> <span class="nav-text">空间与地址分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#符号解析与重定位"><span class="nav-number">6.2.2.</span> <span class="nav-text">符号解析与重定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重定位表"><span class="nav-number">6.2.2.1.</span> <span class="nav-text">重定位表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ABI"><span class="nav-number">6.2.2.2.</span> <span class="nav-text">ABI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态链接库"><span class="nav-number">6.2.2.3.</span> <span class="nav-text">静态链接库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装载"><span class="nav-number">6.3.</span> <span class="nav-text">装载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态链接"><span class="nav-number">6.4.</span> <span class="nav-text">动态链接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行库"><span class="nav-number">7.</span> <span class="nav-text">运行库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用二进制工具-基于LLVM"><span class="nav-number">8.</span> <span class="nav-text">常用二进制工具(基于LLVM)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器"><span class="nav-number">3.</span> <span class="nav-text">编译器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编器"><span class="nav-number">4.</span> <span class="nav-text">汇编器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ELF"><span class="nav-number">5.</span> <span class="nav-text">ELF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF简介"><span class="nav-number">5.1.</span> <span class="nav-text">ELF简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF类型"><span class="nav-number">5.2.</span> <span class="nav-text">ELF类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF格式"><span class="nav-number">5.3.</span> <span class="nav-text">ELF格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分段"><span class="nav-number">5.3.1.</span> <span class="nav-text">分段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ELF-Header"><span class="nav-number">5.3.2.</span> <span class="nav-text">ELF Header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Section-Header-table"><span class="nav-number">5.3.3.</span> <span class="nav-text">Section Header table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relocation-Table"><span class="nav-number">5.3.4.</span> <span class="nav-text">Relocation Table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sections"><span class="nav-number">5.3.5.</span> <span class="nav-text">Sections</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接器"><span class="nav-number">6.</span> <span class="nav-text">链接器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#符号"><span class="nav-number">6.1.</span> <span class="nav-text">符号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强-弱符号-定义-引用"><span class="nav-number">6.1.1.</span> <span class="nav-text">(强/弱符号)(定义/引用)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态链接"><span class="nav-number">6.2.</span> <span class="nav-text">静态链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#空间与地址分配"><span class="nav-number">6.2.1.</span> <span class="nav-text">空间与地址分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#符号解析与重定位"><span class="nav-number">6.2.2.</span> <span class="nav-text">符号解析与重定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重定位表"><span class="nav-number">6.2.2.1.</span> <span class="nav-text">重定位表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ABI"><span class="nav-number">6.2.2.2.</span> <span class="nav-text">ABI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态链接库"><span class="nav-number">6.2.2.3.</span> <span class="nav-text">静态链接库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装载"><span class="nav-number">6.3.</span> <span class="nav-text">装载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟地址空间"><span class="nav-number">6.3.1.</span> <span class="nav-text">虚拟地址空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核装载ELF可执行文件"><span class="nav-number">6.3.2.</span> <span class="nav-text">内核装载ELF可执行文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程创建"><span class="nav-number">6.3.2.1.</span> <span class="nav-text">进程创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完成ELF和进程的映射"><span class="nav-number">6.3.2.2.</span> <span class="nav-text">完成ELF和进程的映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行"><span class="nav-number">6.3.2.3.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺页中断"><span class="nav-number">6.3.2.4.</span> <span class="nav-text">缺页中断</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程虚拟地址空间分布"><span class="nav-number">6.3.3.</span> <span class="nav-text">进程虚拟地址空间分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态链接"><span class="nav-number">6.4.</span> <span class="nav-text">动态链接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行库"><span class="nav-number">7.</span> <span class="nav-text">运行库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用二进制工具-基于LLVM"><span class="nav-number">8.</span> <span class="nav-text">常用二进制工具(基于LLVM)</span></a></li></ol></div>
             
 
           </div>
