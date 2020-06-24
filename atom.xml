@@ -30,9 +30,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
   </entry>
   
@@ -65,9 +65,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
       <category term="Linker" scheme="http://haotianmcihael.github.io/tags/Linker/"/>
     
@@ -105,11 +105,25 @@
     </summary>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
     
       <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
-      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从syscall的角度理解操作系统</title>
+    <link href="http://haotianmcihael.github.io/2019/06/25/%E4%BB%8Esyscall%E7%9A%84%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://haotianmcihael.github.io/2019/06/25/从syscall的角度理解操作系统/</id>
+    <published>2019-06-25T06:34:20.000Z</published>
+    <updated>2020-06-24T22:34:47.128Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
     
   </entry>
   
@@ -140,11 +154,11 @@
       <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
       <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
-    
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
@@ -213,11 +227,11 @@
       <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
       <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
-    
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     
@@ -244,11 +258,11 @@
       <category term="C" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
+      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
+    
       <category term="MIT 6.828" scheme="http://haotianmcihael.github.io/tags/MIT-6-828/"/>
     
       <category term="OS" scheme="http://haotianmcihael.github.io/tags/OS/"/>
-    
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/tags/Assembly/"/>
     
       <category term="C" scheme="http://haotianmcihael.github.io/tags/C/"/>
     

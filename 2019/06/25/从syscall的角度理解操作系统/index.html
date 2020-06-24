@@ -116,15 +116,15 @@
 
 
 <meta name="description" content="Talk is cheap, show me the Code.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tags">
-<meta property="og:url" content="http://haotianmcihael.github.io/tags/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从syscall的角度理解操作系统">
+<meta property="og:url" content="http://haotianmcihael.github.io/2019/06/25/从syscall的角度理解操作系统/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Talk is cheap, show me the Code.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-11T02:25:48.000Z">
+<meta property="og:updated_time" content="2020-06-24T22:34:47.128Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tags">
+<meta name="twitter:title" content="从syscall的角度理解操作系统">
 <meta name="twitter:description" content="Talk is cheap, show me the Code.">
 
 
@@ -154,14 +154,14 @@
 
 
 
-  <link rel="canonical" href="http://haotianmcihael.github.io/tags/"/>
+  <link rel="canonical" href="http://haotianmcihael.github.io/2019/06/25/从syscall的角度理解操作系统/"/>
 
 
 
 
 
 
-  <title>Tags | CodeSaw</title>
+  <title>从syscall的角度理解操作系统 | CodeSaw</title>
   
 
 
@@ -336,40 +336,181 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2019/06/25/从syscall的角度理解操作系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HaotianMichael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSaw">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">Tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                12 tags in total
+          <h1 class="post-title" itemprop="name headline">从syscall的角度理解操作系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-25T06:34:20Z">
+                2019-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  0
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
             </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Assembly/" style="font-size: 30px; color: #111">Assembly</a> <a href="/tags/C/" style="font-size: 22.8px; color: #5c5c5c">C</a> <a href="/tags/Compiler/" style="font-size: 19.2px; color: #818181">Compiler</a> <a href="/tags/LLVM/" style="font-size: 15.6px; color: #a7a7a7">LLVM</a> <a href="/tags/Linker/" style="font-size: 12px; color: #ccc">Linker</a> <a href="/tags/Linux/" style="font-size: 22.8px; color: #5c5c5c">Linux</a> <a href="/tags/Loader/" style="font-size: 12px; color: #ccc">Loader</a> <a href="/tags/MIT-6-828/" style="font-size: 22.8px; color: #5c5c5c">MIT 6.828</a> <a href="/tags/OS/" style="font-size: 22.8px; color: #5c5c5c">OS</a> <a href="/tags/RISCV/" style="font-size: 12px; color: #ccc">RISCV</a> <a href="/tags/Shell/" style="font-size: 12px; color: #ccc">Shell</a> <a href="/tags/i386/" style="font-size: 26.4px; color: #363636">i386</a>
-            </div>
-          </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
         
-      </div>
-      
-      
       
     </div>
     
     
     
+    
+
+    <div>
+      
+        
+
+
+      
+   </div>	 
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/22/Mit6-828-Fall-2018-Lab2/" rel="next" title="Mit6.828(Fall 2018) Lab2">
+                <i class="fa fa-chevron-left"></i> Mit6.828(Fall 2018) Lab2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/16/Gcc-RISCV交叉编译工具链/" rel="prev" title="GCC-RISCV交叉编译工具链">
+                GCC-RISCV交叉编译工具链 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -611,10 +752,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
