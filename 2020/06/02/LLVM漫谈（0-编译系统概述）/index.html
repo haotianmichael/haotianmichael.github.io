@@ -131,7 +131,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/6.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/7.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/8.png">
-<meta property="og:updated_time" content="2020-06-24T19:57:00.465Z">
+<meta property="og:updated_time" content="2020-06-24T20:01:11.879Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（0-编译系统概述）">
 <meta name="twitter:description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
@@ -441,7 +441,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  6k
+                  6.2k
                 </span>
               
 
@@ -457,7 +457,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  20
+                  21
                 </span>
               
             </div>
@@ -766,7 +766,15 @@
 <p>这里需要注意，如果一个模块引用了一个定义在共享对象的全局变量的时候。编译器无法判断该global是在同一个模块的其他目标文件中，还是定义在另一个共享对象中。  </p>
 <p>解决办法是所有的全局变量都通过GOT访问。  </p>
 </blockquote>
-<h4 id="数据段地址无关代码"><a href="#数据段地址无关代码" class="headerlink" title="数据段地址无关代码"></a>数据段地址无关代码</h4><h1 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h1><h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><table>
+<h4 id="数据段地址无关代码"><a href="#数据段地址无关代码" class="headerlink" title="数据段地址无关代码"></a>数据段地址无关代码</h4><blockquote>
+<p>数据段中也会出现绝对地址引用的情况：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line">&gt; <span class="keyword">static</span> <span class="keyword">int</span> *p = &amp;a;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>这里的指针p就是一个绝对地址。一般来说，如果发现数据段中有绝对地址引用，编译器和链接器会产生一个重定位表。  </p>
+<p>对于可执行文件来说，默认情况下，如果可执行文件是动态链接的，那么编译器会使用PIC的方法来产生可执行文件的代码段部分，以便于不同的进程能够共享代码段，节省内存。所以一般动态链接的可执行文件中会有<code>.got</code>段。  </p>
+</blockquote>
+<h1 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h1><h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -851,7 +859,7 @@
   <p><span>本文标题:</span><a href="/2020/06/02/LLVM漫谈（0-编译系统概述）/">LLVM漫谈（0-编译系统概述）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年06月01日 - 20:06</p>
-  <p><span>最后更新:</span>2020年06月25日 - 03:06</p>
+  <p><span>最后更新:</span>2020年06月25日 - 04:06</p>
   <p><span>原始链接:</span><a href="/2020/06/02/LLVM漫谈（0-编译系统概述）/" title="LLVM漫谈（0-编译系统概述）">http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/"  aria-label="复制成功！"></i></span>
   </p>
