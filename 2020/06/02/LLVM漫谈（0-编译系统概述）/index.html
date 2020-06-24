@@ -131,7 +131,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/6.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/7.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/02/LLVM漫谈（0-编译系统概述）/8.png">
-<meta property="og:updated_time" content="2020-06-24T20:17:34.742Z">
+<meta property="og:updated_time" content="2020-06-24T20:25:51.484Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（0-编译系统概述）">
 <meta name="twitter:description" content="Abstract 从开始接触编译系统的学习已经快半年了，有些心得总结一下。   什么是编译系统？我想从两个角度谈一下：   首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括编译器， 汇编器，静态/动态链接器，操作系统装载器以及运行库。  编译器： 是系统前半部分的核心，负责将源文件.c转换成为汇编文件.s。 汇编/链接/装载器：是系统后半部分的核心">
@@ -441,7 +441,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  6.6k
+                  6.8k
                 </span>
               
 
@@ -457,7 +457,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  22
+                  23
                 </span>
               
             </div>
@@ -782,7 +782,12 @@
 <h3 id="共享库"><a href="#共享库" class="headerlink" title="共享库"></a>共享库</h3><blockquote>
 <p>因为动态链接的诸多优点，操作系统中一般有很多共享对象——按照合理的组织和使用方式构建起来的共享库。共享库的更新会影响ABI的使用。  </p>
 </blockquote>
-<h1 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h1><h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><table>
+<h1 id="运行库"><a href="#运行库" class="headerlink" title="运行库"></a>运行库</h1><blockquote>
+<p>经过前面的介绍，基本上编译系统的概念都介绍完了。下面的部分涉及操作系统接口，也只是简单的介绍一下。  </p>
+<p>操作系统装载程序之后，首先运行的代码并不是<code>main</code>的第一行，而是某些别的代码，这些代码负责准备好<code>main</code>函数执行所需要的环境，并且负责调用<code>main</code>函数，这时候才可以申请内存，使用系统调用，触发异常，访问I/O。在函数返回之后会记录<code>main</code>的返回值，调用<code>atexit</code>注册的函数，然后结束进程。  </p>
+<p>运行这些代码的函数成为<strong>入口函数</strong>或者<strong>入口点</strong>。这些都是运行库的一部分。个人理解运行库的概念就是操作系统和应用层的接口，区别于系统调用，比如Glibc那样。</p>
+</blockquote>
+<h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -833,17 +838,6 @@
 <tr>
 <td><code>clang -fPIC -shared lib.so  lib.c</code></td>
 <td>编译一个共享对象文件</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
 </tr>
 </tbody>
 </table>
