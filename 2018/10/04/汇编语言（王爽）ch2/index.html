@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Assembly,i386," />
+  <meta name="keywords" content="i386," />
 
 
 
@@ -116,14 +116,13 @@
 
 
 <meta name="description" content="第二部分:汇编结构Abstract汇编语言的结构寄存器和内存之间 汇编语言是由不同的段构成的，这些段的功能各异不过主要分为指令和数据两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
-<meta name="keywords" content="Assembly,i386">
+<meta name="keywords" content="i386">
 <meta property="og:type" content="article">
 <meta property="og:title" content="汇编语言（王爽）ch2">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="第二部分:汇编结构Abstract汇编语言的结构寄存器和内存之间 汇编语言是由不同的段构成的，这些段的功能各异不过主要分为指令和数据两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/4.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/5.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/6.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/7.png">
@@ -132,11 +131,11 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/10.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/11.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/12.png">
-<meta property="og:updated_time" content="2020-02-15T20:32:11.774Z">
+<meta property="og:updated_time" content="2020-06-26T02:30:06.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch2">
 <meta name="twitter:description" content="第二部分:汇编结构Abstract汇编语言的结构寄存器和内存之间 汇编语言是由不同的段构成的，这些段的功能各异不过主要分为指令和数据两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
-<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/4.png">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/5.png">
 
 
 
@@ -496,10 +495,11 @@
 <p>   <strong>栈是一种先进后出的数据结构</strong>，这是最基本的栈的概念。这里讲到的栈指的是内存区域。从操作系统的角度讲一个线程需要分配一个栈(stack)。相对应的一个进程需要分配一个堆(heap)。栈的大小在分配的时候就已经确定好了，其作用主要是存放一些局部和确定的变量和数据。<br>   关于栈也有两个寄存器:<code>SS:SP</code>。换句话讲CPU如何知道一段内存区域是不是栈？栈顶的段地址放在<code>SS</code>中，而偏移地址放在<code>SP</code>中。<strong>任意时刻，SS:SP指向栈顶元素</strong>。这是规定。<br>   另外，上微机原理课的时候，老师讲到栈的分类:  </p>
 <ul>
 <li>向高地址生长的称为递增堆栈。</li>
-<li>向地地址生长的称为递减堆栈。<br> 地址延伸主要的影响就是内存中的大端寻址和小端寻址。<br>  <img src="4.png" width="50%" height="50%" alt=""></li>
+<li>向地地址生长的称为递减堆栈。<br> 地址延伸主要的影响就是内存中的大端寻址和小端寻址。</li>
 </ul>
 </blockquote>
-<ul>
+<pre><code>&lt;img src=&quot;4.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; alt=&quot;&quot;&gt;
+</code></pre><ul>
 <li>堆栈指针指向最后压入堆栈的有效数据项，叫做满堆栈。</li>
 <li>堆栈指针指向下一个待压入数据的空位置，叫做空堆栈。<br>  <img src="5.png" width="50%" height="50%" alt=""></li>
 </ul>
@@ -589,7 +589,7 @@
   <p><span>本文标题:</span><a href="/2018/10/04/汇编语言（王爽）ch2/">汇编语言（王爽）ch2</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年10月03日 - 20:10</p>
-  <p><span>最后更新:</span>2020年02月16日 - 04:02</p>
+  <p><span>最后更新:</span>2020年06月26日 - 10:06</p>
   <p><span>原始链接:</span><a href="/2018/10/04/汇编语言（王爽）ch2/" title="汇编语言（王爽）ch2">http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/"  aria-label="复制成功！"></i></span>
   </p>
@@ -623,8 +623,6 @@
     <footer class="post-footer">
       
         <div class="post-tags">
-          
-            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
           
             <a href="/tags/i386/" rel="tag"><i class="fa fa-tag"></i> i386</a>
           
@@ -750,7 +748,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

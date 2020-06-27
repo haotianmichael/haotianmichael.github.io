@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Assembly,i386," />
+  <meta name="keywords" content="i386," />
 
 
 
@@ -116,20 +116,19 @@
 
 
 <meta name="description" content="第一部分:硬件模型Abstract硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
-<meta name="keywords" content="Assembly,i386">
+<meta name="keywords" content="i386">
 <meta property="og:type" content="article">
 <meta property="og:title" content="汇编语言（王爽）ch1">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="第一部分:硬件模型Abstract硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/3.png">
-<meta property="og:updated_time" content="2020-02-15T20:28:27.851Z">
+<meta property="og:updated_time" content="2020-06-26T02:30:19.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch1">
 <meta name="twitter:description" content="第一部分:硬件模型Abstract硬件基础    全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
-<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/2.png">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/3.png">
 
 
 
@@ -552,9 +551,10 @@
 <p>   一共有4个实验。写出来的都是我觉得很有意思且值得讨论的实验。  </p>
 </blockquote>
 <h5 id="第二个实验"><a href="#第二个实验" class="headerlink" title="第二个实验"></a>第二个实验</h5><blockquote>
-<p>   给出起始地址为<code>2000:0000</code>的三条指令，使用这三条指令计算2的8次方。<br>    <img src="2.png" width="50%" height="50%" alt=""></p>
+<p>   给出起始地址为<code>2000:0000</code>的三条指令，使用这三条指令计算2的8次方。  </p>
 </blockquote>
-<blockquote>
+<pre><code>&lt;img src=&quot;2.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; alt=&quot;&quot;&gt;
+</code></pre><blockquote>
 <p>   有意思的是这个算法，a += a；如果这里的a是2的话，实际上<code>a+a</code>等于<code>ax2</code>所以可以2的8次方可以通过8次这样的加法完成，但是如果a是其他的值就不行了。</p>
 </blockquote>
 <h5 id="最后两个实验"><a href="#最后两个实验" class="headerlink" title="最后两个实验"></a>最后两个实验</h5><blockquote>
@@ -563,6 +563,7 @@
 <blockquote>
 <p>   这两个实验间接地证明了<strong>内存地址空间</strong>的存在。<br>   我在向内存<code>B810:0000</code>中写数据的时候，发现显示器上会出现有颜色的字符和表情包，猜想这个地址应该是显存的物理地址。这也说明这里的内存不仅仅指的是主存储器，还有其他的和CPU直接相连的RAM。</p>
 </blockquote>
+<p>​        </p>
 
       
     </div>
@@ -583,7 +584,7 @@
   <p><span>本文标题:</span><a href="/2018/10/02/汇编语言（王爽）ch1/">汇编语言（王爽）ch1</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2018年10月02日 - 09:10</p>
-  <p><span>最后更新:</span>2020年02月16日 - 04:02</p>
+  <p><span>最后更新:</span>2020年06月26日 - 10:06</p>
   <p><span>原始链接:</span><a href="/2018/10/02/汇编语言（王爽）ch1/" title="汇编语言（王爽）ch1">http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/"  aria-label="复制成功！"></i></span>
   </p>
@@ -617,8 +618,6 @@
     <footer class="post-footer">
       
         <div class="post-tags">
-          
-            <a href="/tags/Assembly/" rel="tag"><i class="fa fa-tag"></i> Assembly</a>
           
             <a href="/tags/i386/" rel="tag"><i class="fa fa-tag"></i> i386</a>
           
@@ -744,7 +743,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
