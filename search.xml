@@ -8,8 +8,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
@@ -20,8 +20,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
         <tag>Linker</tag>
         <tag>Loader</tag>
       </tags>
@@ -34,8 +34,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>RISCV</tag>
         <tag>Compiler</tag>
+        <tag>RISCV</tag>
       </tags>
   </entry>
   <entry>
