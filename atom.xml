@@ -35,9 +35,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -70,9 +70,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
       <category term="Linker" scheme="http://haotianmcihael.github.io/tags/Linker/"/>
     
@@ -112,9 +112,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
     
   </entry>
   
@@ -123,9 +123,9 @@
     <link href="http://haotianmcihael.github.io/2019/06/25/%E4%BB%8Esyscall%E7%9A%84%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     <id>http://haotianmcihael.github.io/2019/06/25/从syscall的角度理解操作系统/</id>
     <published>2019-06-25T06:34:20.000Z</published>
-    <updated>2020-06-30T19:53:36.798Z</updated>
+    <updated>2020-06-30T21:35:21.404Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote><p>操作系统控制硬件资源并完成底层抽象。  </p><p>UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种<strong>标准化工作</strong>对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——<strong>ISO-C，IEEE-POSIX以及Single UNIX Specification</strong>等等。    </p><p><strong>这些标准本质上是应用程序和操作系统接口的子集。</strong>一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。<strong>UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。</strong>  </p><p>个人觉得从<strong>系统编程</strong>的角度去理解<strong>文件系统</strong>，<strong>内存管理</strong>以及<strong>进程/线程</strong>等OS核心概念会比较有趣。  </p></blockquote><a id="more"></a><h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><blockquote><p>文件系统是一种持久性存储的系统抽象。并涉及到<strong>磁盘空间</strong>和<strong>内存空间</strong>的IO操作，比较难理解：</p><ul><li><strong>文件描述符表</strong>，<strong>打开文件表</strong>，<strong>i节点</strong>是文件存储的本质，而<strong>文件长度</strong>，<strong>文件偏移量</strong>，<strong>文件所占磁盘空间</strong>，<strong>文件用户权限</strong>是文件的重要属性。可以从<code>dup</code>，<code>lseek</code>，<code>stat/chmod</code>等函数理解</li><li><strong>理解内核获取文件的过程是最核心的</strong>。这涉及到<strong>内核页高速缓存</strong>，<strong>用户区间缓冲区</strong>，<strong>标准IO缓冲区</strong>等核心概念。可以从<code>read/write</code>，<code>fgets/fputs</code>，<code>sync/flush</code>函数理解</li><li>从<strong>用户时间</strong>和<strong>CPU时间</strong>理解标准IO函数和<code>read/write</code>等系统调用。<strong>系统调用的开销要大于函数调用。</strong>而这一切都取决于双方缓冲区的选择</li></ul></blockquote><h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h1 id="进程-线程"><a href="#进程-线程" class="headerlink" title="进程/线程"></a>进程/线程</h1>]]></content>
+    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote><p>操作系统控制硬件资源并完成底层抽象。  </p><p>UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种<strong>标准化工作</strong>对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——<strong>ISO-C，IEEE-POSIX以及Single UNIX Specification</strong>等等。    </p><p><strong>这些标准本质上是应用程序和操作系统接口的子集。</strong>一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。<strong>UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。</strong>  </p><p>个人觉得从<strong>系统编程和内存</strong>的角度去理解<strong>文件系统</strong>和<strong>进程/线程</strong>等OS核心概念会比较有趣。  </p></blockquote><a id="more"></a><h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><blockquote><p>文件系统是一种持久性存储的系统抽象。并涉及到<strong>磁盘空间</strong>和<strong>内存空间</strong>的IO操作，比较难理解：</p><ul><li><strong>文件描述符表</strong>，<strong>打开文件表</strong>，<strong>i节点</strong>是文件存储的本质，而<strong>文件长度</strong>，<strong>文件偏移量</strong>，<strong>文件所占磁盘空间</strong>，<strong>文件用户权限</strong>是文件的重要属性。可以从<code>dup</code>，<code>lseek</code>，<code>stat/chmod</code>等函数理解</li><li><strong>理解内核获取文件的过程是最核心的</strong>。这涉及到<strong>内核页高速缓存</strong>，<strong>用户区间缓冲区</strong>，<strong>标准IO缓冲区</strong>等核心概念。可以从<code>read/write</code>，<code>fgets/fputs</code>，<code>sync/flush</code>函数理解</li><li>从<strong>用户时间</strong>和<strong>CPU时间</strong>理解标准IO函数和<code>read/write</code>等系统调用。<strong>系统调用的开销要大于函数调用。</strong>而这一切都取决于双方缓冲区的选择</li></ul></blockquote><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><blockquote><p>进程是独立功能的程序在数据集合上的一次动态执行过程。  </p><ul><li>准备</li><li>就绪</li><li>阻塞</li><li>执行</li><li>结束</li></ul><p>内核为每个进程维护一个<strong>进程控制块</strong>，从<code>fork/exit/wait</code>等函数可以理解这些状态。另外<code>fork/exec</code>区分了父子进程在创建前后所共享的资源：</p><ul><li>代码段（<strong>但是子进程获得父进程数据空间，堆栈空间的副本</strong>）</li><li>打开的文件描述符</li><li>实际ID，有效ID，设置ID</li><li>存储映像</li></ul></blockquote><h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1>]]></content>
     
     <summary type="html">
     
@@ -133,7 +133,7 @@
 &lt;p&gt;操作系统控制硬件资源并完成底层抽象。  &lt;/p&gt;
 &lt;p&gt;UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种&lt;strong&gt;标准化工作&lt;/strong&gt;对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——&lt;strong&gt;ISO-C，IEEE-POSIX以及Single UNIX Specification&lt;/strong&gt;等等。    &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;这些标准本质上是应用程序和操作系统接口的子集。&lt;/strong&gt;一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。&lt;strong&gt;UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。&lt;/strong&gt;  &lt;/p&gt;
-&lt;p&gt;个人觉得从&lt;strong&gt;系统编程&lt;/strong&gt;的角度去理解&lt;strong&gt;文件系统&lt;/strong&gt;，&lt;strong&gt;内存管理&lt;/strong&gt;以及&lt;strong&gt;进程/线程&lt;/strong&gt;等OS核心概念会比较有趣。  &lt;/p&gt;
+&lt;p&gt;个人觉得从&lt;strong&gt;系统编程和内存&lt;/strong&gt;的角度去理解&lt;strong&gt;文件系统&lt;/strong&gt;和&lt;strong&gt;进程/线程&lt;/strong&gt;等OS核心概念会比较有趣。  &lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
