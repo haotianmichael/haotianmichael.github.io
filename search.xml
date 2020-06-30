@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[LLVM漫谈（1-LLVM编译框架）]]></title>
     <url>%2F2020%2F06%2F25%2FLLVM%E6%BC%AB%E8%B0%88%EF%BC%881-LLVM%E7%BC%96%E8%AF%91%E6%A1%86%E6%9E%B6%EF%BC%89%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[Abstract]]></content>
       <categories>
         <category>C++</category>
       </categories>
@@ -41,7 +41,7 @@
   <entry>
     <title><![CDATA[从syscall的角度理解操作系统]]></title>
     <url>%2F2019%2F06%2F25%2F%E4%BB%8Esyscall%E7%9A%84%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%2F</url>
-    <content type="text"><![CDATA[Abstract 操作系统控制硬件资源并完成底层抽象。 UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。 这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。 个人觉得从系统编程的角度去理解文件系统，内存管理以及进程/线程等OS核心概念会比较有趣。 文件系统内存管理进程/线程]]></content>
+    <content type="text"><![CDATA[Abstract 操作系统控制硬件资源并完成底层抽象。 UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。 这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。 个人觉得从系统编程的角度去理解文件系统，内存管理以及进程/线程等OS核心概念会比较有趣。 文件系统 文件系统是一种持久性存储的系统抽象。并涉及到磁盘空间和内存空间的IO操作，比较难理解： 文件描述符表，打开文件表，i节点是文件存储的本质，而文件长度，文件偏移量，文件所占磁盘空间，文件用户权限是文件的重要属性。可以从dup，lseek，stat/chmod等函数理解 理解内核获取文件的过程是最核心的。这涉及到内核页高速缓存，用户区间缓冲区，标准IO缓冲区等核心概念。可以从read/write，fgets/fputs，sync/flush函数理解 从用户时间和CPU时间理解标准IO函数和read/write等系统调用。系统调用的开销要大于函数调用。而这一切都取决于双方缓冲区的选择 内存管理进程/线程]]></content>
       <categories>
         <category>C</category>
       </categories>
