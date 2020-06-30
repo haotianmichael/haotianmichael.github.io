@@ -8,8 +8,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
       </tags>
   </entry>
   <entry>
@@ -20,8 +20,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
         <tag>Linker</tag>
         <tag>Loader</tag>
       </tags>
@@ -34,14 +34,14 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>RISCV</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[从syscall的角度理解操作系统]]></title>
     <url>%2F2019%2F06%2F25%2F%E4%BB%8Esyscall%E7%9A%84%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%2F</url>
-    <content type="text"><![CDATA[Abstract 操作系统控制硬件资源并完成底层抽象。 UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。 这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。 个人觉得从系统编程和内存的角度去理解文件系统和进程/线程等OS核心概念会比较有趣。 文件系统 文件系统是一种持久性存储的系统抽象。并涉及到磁盘空间和内存空间的IO操作，比较难理解： 文件描述符表，打开文件表，i节点是文件存储的本质，而文件长度，文件偏移量，文件所占磁盘空间，文件用户权限是文件的重要属性。可以从dup，lseek，stat/chmod等函数理解 理解内核获取文件的过程是最核心的。这涉及到内核页高速缓存，用户区间缓冲区，标准IO缓冲区等核心概念。可以从read/write，fgets/fputs，sync/flush函数理解 从用户时间和CPU时间理解标准IO函数和read/write等系统调用。系统调用的开销要大于函数调用。而这一切都取决于双方缓冲区的选择 进程 进程是独立功能的程序在数据集合上的一次动态执行过程。 准备 就绪 阻塞 执行 结束 内核为每个进程维护一个进程控制块，从fork/exit/wait等函数可以理解这些状态。另外fork/exec区分了父子进程在创建前后所共享的资源： 代码段（但是子进程获得父进程数据空间，堆栈空间的副本） 打开的文件描述符 实际ID，有效ID，设置ID 存储映像 线程 每个线程都包含又表示执行环境所必需的信息，其中包括进程中表示线程的线程ID，一组寄存器值，栈，调度优先级和策略，信号屏蔽字，errno变量以及线程私有数据。一个进程的的所有信息对该进程的所有线程都是共享的，包括可执行程序的代码，程序的全局内存和堆内存，栈以及文件描述符。]]></content>
+    <content type="text"><![CDATA[Abstract 操作系统控制硬件资源并完成底层抽象。 UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。 这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。 个人觉得从系统编程和内存的角度去理解文件系统和进程/线程等OS核心概念会比较有趣。 文件系统 文件系统是一种持久性存储的系统抽象。并涉及到磁盘空间和内存空间的IO操作，比较难理解： 文件描述符表，打开文件表，i节点是文件存储的本质，而文件长度，文件偏移量，文件所占磁盘空间，文件用户权限是文件的重要属性。可以从dup，lseek，stat/chmod等函数理解 理解内核获取文件的过程是最核心的。这涉及到内核页高速缓存，用户区间缓冲区，标准IO缓冲区等核心概念。可以从read/write，fgets/fputs，sync/flush函数理解 从用户时间和CPU时间理解标准IO函数和read/write等系统调用。系统调用的开销要大于函数调用。而这一切都取决于双方缓冲区的选择 进程 进程是独立功能的程序在数据集合上的一次动态执行过程。 准备 就绪 阻塞 执行 结束 内核为每个进程维护一个进程控制块，从fork/exit/wait等函数可以理解这些状态。另外fork/exec区分了父子进程在创建前后所共享的资源： 代码段（但是子进程获得父进程数据空间，堆栈空间的副本） 打开的文件描述符 实际ID，有效ID，设置ID 存储映像 线程 每个线程都包含又表示执行环境所必需的信息，其中包括进程中表示线程的线程ID，一组寄存器值，栈，调度优先级和策略，信号屏蔽字，errno变量以及线程私有数据。一个进程的的所有信息对该进程的所有线程都是共享的，包括可执行程序的代码，程序的全局内存和堆内存，栈以及文件描述符。 进程是资源分配单位 线程是CPU调度单位 多线程切换因为相同那那个的地址空间——页表，因此切换更快。]]></content>
       <categories>
         <category>C</category>
       </categories>
