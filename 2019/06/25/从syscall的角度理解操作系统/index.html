@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 操作系统控制硬件资源并完成底层抽象。   UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。     这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-06-30T21:35:21.404Z">
+<meta property="og:updated_time" content="2020-06-30T21:47:14.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从syscall的角度理解操作系统">
 <meta name="twitter:description" content="Abstract 操作系统控制硬件资源并完成底层抽象。   UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。     这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  572
+                  691
                 </span>
               
 
@@ -501,7 +501,10 @@
 <li>存储映像</li>
 </ul>
 </blockquote>
-<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><blockquote>
+<p>每个线程都包含又表示执行环境所必需的信息，其中包括进程中表示线程的线程ID，一组寄存器值，栈，调度优先级和策略，信号屏蔽字，errno变量以及线程私有数据。<strong>一个进程的的所有信息对该进程的所有线程都是共享的，包括可执行程序的代码，程序的全局内存和堆内存，栈以及文件描述符。</strong></p>
+</blockquote>
+
       
     </div>
     
