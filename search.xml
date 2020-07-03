@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[LLVM漫谈（1-LLVM编译框架）]]></title>
     <url>%2F2020%2F06%2F25%2FLLVM%E6%BC%AB%E8%B0%88%EF%BC%881-LLVM%E7%BC%96%E8%AF%91%E6%A1%86%E6%9E%B6%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Abstract LLVM，这个星球最牛逼的编译器。]]></content>
+    <content type="text"><![CDATA[Abstract LLVM，这个星球最牛逼的编译器。 其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。 LLVM-IR采用SSA静态单赋值形式，它具有不仅是内存中的表示而且还能存储在磁盘上的特性。这导致其不只是在编译时进行优化，还要利用安装时，链接时，运行时和空闲时类似的优化机会——终身程序优化。 在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有众多的库和编译工具。在学术界和工业界同时大放异彩。]]></content>
       <categories>
         <category>C++</category>
       </categories>

@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract LLVM，这个星球最牛逼的编译器。">
+<meta name="description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   LLVM-IR采用SSA静态单赋值形式，它具有不仅是内存中的表示而且还能存储在磁盘上的特性。这导致其不只是在编译时进行优化，还要利用安">
 <meta name="keywords" content="Compiler,LLVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LLVM漫谈（1-LLVM编译框架）">
 <meta property="og:url" content="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract LLVM，这个星球最牛逼的编译器。">
+<meta property="og:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   LLVM-IR采用SSA静态单赋值形式，它具有不仅是内存中的表示而且还能存储在磁盘上的特性。这导致其不只是在编译时进行优化，还要利用安">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-03T14:09:39.137Z">
+<meta property="og:updated_time" content="2020-07-03T15:32:24.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（1-LLVM编译框架）">
-<meta name="twitter:description" content="Abstract LLVM，这个星球最牛逼的编译器。">
+<meta name="twitter:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   LLVM-IR采用SSA静态单赋值形式，它具有不仅是内存中的表示而且还能存储在磁盘上的特性。这导致其不只是在编译时进行优化，还要利用安">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  13
+                  228
                 </span>
               
 
@@ -471,6 +471,9 @@
       
         <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote>
 <p><strong>LLVM</strong>，这个星球最牛逼的编译器。  </p>
+<p>其核心设计理念就是<strong>统一的底层中间表达以及模块化的软件工程化方法。</strong>LLVM采用了<code>前端-优化器-后端</code>的组织形式，<strong>只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。</strong>  </p>
+<p><code>LLVM-IR</code>采用<code>SSA</code>静态单赋值形式，它具有不仅是内存中的表示而且还能存储在磁盘上的特性。<strong>这导致其不只是在编译时进行优化，还要利用安装时，链接时，运行时和空闲时类似的优化机会——终身程序优化。</strong>  </p>
+<p>在<a href="http://nondot.org/sabre/" target="_blank" rel="noopener">Chris Lattner</a>将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有众多的库和编译工具。在学术界和工业界同时大放异彩。</p>
 </blockquote>
 <a id="more"></a>
 
@@ -493,7 +496,7 @@
   <p><span>本文标题:</span><a href="/2020/06/25/LLVM漫谈（1-LLVM编译框架）/">LLVM漫谈（1-LLVM编译框架）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年06月25日 - 04:06</p>
-  <p><span>最后更新:</span>2020年07月03日 - 22:07</p>
+  <p><span>最后更新:</span>2020年07月03日 - 23:07</p>
   <p><span>原始链接:</span><a href="/2020/06/25/LLVM漫谈（1-LLVM编译框架）/" title="LLVM漫谈（1-LLVM编译框架）">http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/"  aria-label="复制成功！"></i></span>
   </p>
