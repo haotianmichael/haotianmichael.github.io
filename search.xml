@@ -3,7 +3,14 @@
   <entry>
     <title><![CDATA[LLVM漫谈（2-Implementing a Language with LLVM）]]></title>
     <url>%2F2020%2F07%2F07%2FLLVM%E6%BC%AB%E8%B0%88%EF%BC%882-Implementing-a-Language-with-LLVM%EF%BC%89%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[Abstract]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>Compiler</tag>
+        <tag>LLVM</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[LLVM漫谈（1-LLVM编译框架）]]></title>
@@ -13,8 +20,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
       </tags>
   </entry>
   <entry>
@@ -25,8 +32,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
         <tag>Linker</tag>
         <tag>Loader</tag>
       </tags>
@@ -39,8 +46,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>RISCV</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
