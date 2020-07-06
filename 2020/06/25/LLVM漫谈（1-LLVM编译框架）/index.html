@@ -125,7 +125,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/2.png">
-<meta property="og:updated_time" content="2020-07-06T12:47:07.334Z">
+<meta property="og:updated_time" content="2020-07-06T13:21:28.062Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（1-LLVM编译框架）">
 <meta name="twitter:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。   我使用的平台是macOS">
@@ -574,7 +574,7 @@
 <li>为了实现汇编器和链接器，<code>LLVM</code>使用第四种中间数据结构<code>MCModule</code>在对象文件的上下文中保存成程序表示</li>
 </ul>
 <blockquote>
-<p>在整个框架中，”库”是一个很核心的概念。很多二进制工具都可以直接调用库来实现。而<strong>Clang作为编译驱动程序则可以通过链接小工具的库来实现其功能——代码重用。</strong>故<code>clang</code>在二进制文件中是最大的，因为它链接并利用了整个<code>LLVM</code>生态系统。  </p>
+<p>在整个框架中，”库”是一个很核心的概念。很多二进制工具都可以直接调用库来实现。而<strong>Clang作为编译驱动程序则可以通过链接小工具的库来实现其功能——代码重用。</strong>故<code>clang</code>在二进制文件中是最大的，因为它链接并利用了整个<code>LLVM</code>生态系统。<strong>而开发者一般都是将LLVM各个组件看出是库。</strong>  </p>
 </blockquote>
 <p><img src="2.png" width="50%" height="50%" alt=""></p>
 <h2 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h2><h3 id="clang"><a href="#clang" class="headerlink" title="clang"></a>clang</h3><blockquote>
@@ -657,7 +657,7 @@
 <blockquote>
 <p>可以看到所有的二进制工具都围绕几个中间形式的表示展开，这些中间表示在编译过程中占很重要的作用。</p>
 </blockquote>
-<h1 id="Front-End"><a href="#Front-End" class="headerlink" title="Front-End"></a>Front-End</h1><h1 id="LLVM-IR"><a href="#LLVM-IR" class="headerlink" title="LLVM IR"></a>LLVM IR</h1><h1 id="Back-End"><a href="#Back-End" class="headerlink" title="Back-End"></a>Back-End</h1><h1 id="JIT"><a href="#JIT" class="headerlink" title="JIT"></a>JIT</h1>
+
       
     </div>
     
@@ -677,7 +677,7 @@
   <p><span>本文标题:</span><a href="/2020/06/25/LLVM漫谈（1-LLVM编译框架）/">LLVM漫谈（1-LLVM编译框架）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年06月25日 - 04:06</p>
-  <p><span>最后更新:</span>2020年07月06日 - 20:07</p>
+  <p><span>最后更新:</span>2020年07月06日 - 21:07</p>
   <p><span>原始链接:</span><a href="/2020/06/25/LLVM漫谈（1-LLVM编译框架）/" title="LLVM漫谈（1-LLVM编译框架）">http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/"  aria-label="复制成功！"></i></span>
   </p>
@@ -911,7 +911,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BUILD"><span class="nav-number">2.</span> <span class="nav-text">BUILD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#llvm"><span class="nav-number">2.1.</span> <span class="nav-text">llvm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libcxx-libcxxabi"><span class="nav-number">2.2.</span> <span class="nav-text">libcxx/libcxxabi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#warning"><span class="nav-number">2.3.</span> <span class="nav-text">warning</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Features"><span class="nav-number">3.</span> <span class="nav-text">Features</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心设计"><span class="nav-number">3.1.</span> <span class="nav-text">核心设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译流程"><span class="nav-number">3.2.</span> <span class="nav-text">编译流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clang"><span class="nav-number">3.2.1.</span> <span class="nav-text">clang</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独立工具"><span class="nav-number">3.2.2.</span> <span class="nav-text">独立工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#emit-llvm"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">-emit-llvm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#llc"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">llc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#llvm-link"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">llvm-link</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Front-End"><span class="nav-number">4.</span> <span class="nav-text">Front-End</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LLVM-IR"><span class="nav-number">5.</span> <span class="nav-text">LLVM IR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Back-End"><span class="nav-number">6.</span> <span class="nav-text">Back-End</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JIT"><span class="nav-number">7.</span> <span class="nav-text">JIT</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BUILD"><span class="nav-number">2.</span> <span class="nav-text">BUILD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#llvm"><span class="nav-number">2.1.</span> <span class="nav-text">llvm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libcxx-libcxxabi"><span class="nav-number">2.2.</span> <span class="nav-text">libcxx/libcxxabi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#warning"><span class="nav-number">2.3.</span> <span class="nav-text">warning</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Features"><span class="nav-number">3.</span> <span class="nav-text">Features</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心设计"><span class="nav-number">3.1.</span> <span class="nav-text">核心设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译流程"><span class="nav-number">3.2.</span> <span class="nav-text">编译流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clang"><span class="nav-number">3.2.1.</span> <span class="nav-text">clang</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独立工具"><span class="nav-number">3.2.2.</span> <span class="nav-text">独立工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#emit-llvm"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">-emit-llvm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#llc"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">llc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#llvm-link"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">llvm-link</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
