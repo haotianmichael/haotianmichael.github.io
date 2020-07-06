@@ -115,19 +115,19 @@
 
 
 
-<meta name="description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   LLVM-IR采用SSA静态单赋值形式，它具有不仅是内存中的表示而且还能存储在磁盘上的特性。这导致其不只是在编译时进行优化，还要利用安">
+<meta name="description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。   我使用的平台是macOS">
 <meta name="keywords" content="Compiler,LLVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LLVM漫谈（1-LLVM编译框架）">
 <meta property="og:url" content="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   LLVM-IR采用SSA静态单赋值形式，它具有不仅是内存中的表示而且还能存储在磁盘上的特性。这导致其不只是在编译时进行优化，还要利用安">
+<meta property="og:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。   我使用的平台是macOS">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/1.png">
-<meta property="og:updated_time" content="2020-07-06T02:04:37.461Z">
+<meta property="og:updated_time" content="2020-07-06T02:08:39.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（1-LLVM编译框架）">
-<meta name="twitter:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   LLVM-IR采用SSA静态单赋值形式，它具有不仅是内存中的表示而且还能存储在磁盘上的特性。这导致其不只是在编译时进行优化，还要利用安">
+<meta name="twitter:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。   我使用的平台是macOS">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/1.png">
 
 
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  391
+                  296
                 </span>
               
 
@@ -474,10 +474,8 @@
         <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote>
 <p><strong>LLVM</strong>，这个星球最牛逼的编译器。  </p>
 <p>其核心设计理念就是<strong>统一的底层中间表达以及模块化的软件工程化方法。</strong>LLVM采用了<code>前端-优化器-后端</code>的组织形式，<strong>只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。</strong>  </p>
-<p><code>LLVM-IR</code>采用<code>SSA</code>静态单赋值形式，它具有不仅是内存中的表示而且还能存储在磁盘上的特性。<strong>这导致其不只是在编译时进行优化，还要利用安装时，链接时，运行时和空闲时类似的优化机会——终身程序优化。</strong>  </p>
-<p>在<a href="http://nondot.org/sabre/" target="_blank" rel="noopener">Chris Lattner</a>将其开源后，<a href="http://llvm.org/" target="_blank" rel="noopener">LLVM</a>逐渐发展成为了成熟的编译框架，具有众多的库和编译工具。在学术界和工业界同时大放异彩。</p>
+<p>在<a href="http://nondot.org/sabre/" target="_blank" rel="noopener">Chris Lattner</a>将其开源后，<a href="http://llvm.org/" target="_blank" rel="noopener">LLVM</a>逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。</p>
 </blockquote>
-<a id="more"></a>
 <blockquote>
 <p>我使用的平台是<code>macOS Mojave 10.14</code>，在编译的时候要注意版本是否兼容。  </p>
 <p><strong>一般系统会通过打印二进制文件名称和无法加载的动态库的名称来发现链接错误。当屏幕上打印动态库名称时要予以注意，这说明系统动态链接器和加载器无法加载该库，因为该程序与当前系统不兼容。</strong>  </p>
@@ -487,6 +485,7 @@
 <blockquote>
 <p>后来发现这个版本的<code>Xcode</code>工具链最高只支持<code>LLVM 9.0.0</code>版本，然后换了版本最后编译成功。</p>
 </blockquote>
+<a id="more"></a>
 <h1 id="LLVM-Umbrella-Projects"><a href="#LLVM-Umbrella-Projects" class="headerlink" title="LLVM Umbrella Projects"></a>LLVM Umbrella Projects</h1>
       
     </div>
