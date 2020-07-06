@@ -124,7 +124,7 @@
 <meta property="og:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。   我使用的平台是macOS">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/1.png">
-<meta property="og:updated_time" content="2020-07-06T02:08:39.325Z">
+<meta property="og:updated_time" content="2020-07-06T04:13:05.962Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（1-LLVM编译框架）">
 <meta name="twitter:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。   我使用的平台是macOS">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  296
+                  420
                 </span>
               
 
@@ -486,7 +486,44 @@
 <p>后来发现这个版本的<code>Xcode</code>工具链最高只支持<code>LLVM 9.0.0</code>版本，然后换了版本最后编译成功。</p>
 </blockquote>
 <a id="more"></a>
-<h1 id="LLVM-Umbrella-Projects"><a href="#LLVM-Umbrella-Projects" class="headerlink" title="LLVM Umbrella Projects"></a>LLVM Umbrella Projects</h1>
+<h1 id="BUILD"><a href="#BUILD" class="headerlink" title="BUILD"></a>BUILD</h1><table>
+<thead>
+<tr>
+<th>Subproject Deployed On My System</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Clang</strong></td>
+<td><strong>“LLVM native” C/C++/Objective-C compiler front-end</strong></td>
+</tr>
+<tr>
+<td><strong>LLDB</strong></td>
+<td><strong>native debugger</strong></td>
+</tr>
+<tr>
+<td><strong>compiler-rt</strong></td>
+<td><strong>highly tuned implementations of the low-level code generator support routines and implementations of run-time libraries</strong></td>
+</tr>
+<tr>
+<td><strong>LLD</strong></td>
+<td><strong>a native linker</strong></td>
+</tr>
+<tr>
+<td><strong>libcxx/libcxxabi</strong></td>
+<td><strong>a standard conformant and high-performance implementation of the C++ Standard Library,</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="llvm-sub"><a href="#llvm-sub" class="headerlink" title="llvm-sub"></a>llvm-sub</h2><blockquote>
+<p>以上的<code>subproject</code>通过以下编译方式完成部署：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//ought to download source of subprojects to local, besides </span><br><span class="line"><span class="meta">$</span> git clone https://github.com/llvm/llvm-project.git  </span><br><span class="line"><span class="meta">$</span> mkdir /LLVM/llvm-install</span><br><span class="line"><span class="meta">$</span> cmake -G Ninja -DLLVM_ENABLE_PROJECTS='lldb;clang;compiler-rt;lld;'  -DCMAKE_INSTALL_PREFIX='/LLVM/llvm-install'   ~/where you put llvm-src</span><br><span class="line"><span class="meta">$</span> ninja &amp;&amp; ninja install</span><br><span class="line"><span class="meta">$</span> echo $?   //check</span><br></pre></td></tr></table></figure>
+<h2 id="libcxx"><a href="#libcxx" class="headerlink" title="libcxx"></a>libcxx</h2><blockquote>
+<p>这里的</p>
+</blockquote>
+
       
     </div>
     
@@ -506,7 +543,7 @@
   <p><span>本文标题:</span><a href="/2020/06/25/LLVM漫谈（1-LLVM编译框架）/">LLVM漫谈（1-LLVM编译框架）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年06月25日 - 04:06</p>
-  <p><span>最后更新:</span>2020年07月06日 - 10:07</p>
+  <p><span>最后更新:</span>2020年07月06日 - 12:07</p>
   <p><span>原始链接:</span><a href="/2020/06/25/LLVM漫谈（1-LLVM编译框架）/" title="LLVM漫谈（1-LLVM编译框架）">http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/"  aria-label="复制成功！"></i></span>
   </p>
@@ -740,7 +777,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LLVM-Umbrella-Projects"><span class="nav-number">2.</span> <span class="nav-text">LLVM Umbrella Projects</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BUILD"><span class="nav-number">2.</span> <span class="nav-text">BUILD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#llvm-sub"><span class="nav-number">2.1.</span> <span class="nav-text">llvm-sub</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libcxx"><span class="nav-number">2.2.</span> <span class="nav-text">libcxx</span></a></li></ol></li></ol></div>
             
 
           </div>
