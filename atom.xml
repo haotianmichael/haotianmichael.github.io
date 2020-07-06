@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2020-07-06T15:07:15.682Z</updated>
+  <updated>2020-07-06T15:36:11.670Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -17,19 +17,21 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>LLVM漫谈（2-Implementing a Language with LLVM）</title>
-    <link href="http://haotianmcihael.github.io/2020/07/07/LLVM%E6%BC%AB%E8%B0%88%EF%BC%882-Implementing-a-Language-with-LLVM%EF%BC%89/"/>
-    <id>http://haotianmcihael.github.io/2020/07/07/LLVM漫谈（2-Implementing-a-Language-with-LLVM）/</id>
+    <title>LLVM漫谈（2-Implementing a Language）</title>
+    <link href="http://haotianmcihael.github.io/2020/07/07/LLVM%E6%BC%AB%E8%B0%88%EF%BC%882-Implementing-a-Language%EF%BC%89/"/>
+    <id>http://haotianmcihael.github.io/2020/07/07/LLVM漫谈（2-Implementing-a-Language）/</id>
     <published>2020-07-06T23:05:29.000Z</published>
-    <updated>2020-07-06T15:07:15.682Z</updated>
+    <updated>2020-07-06T15:36:11.670Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1>]]></content>
+    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote></blockquote>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h1&gt;
+        &lt;h1 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h1&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
+
       
     
     </summary>

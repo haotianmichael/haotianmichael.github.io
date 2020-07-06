@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[LLVM漫谈（2-Implementing a Language with LLVM）]]></title>
-    <url>%2F2020%2F07%2F07%2FLLVM%E6%BC%AB%E8%B0%88%EF%BC%882-Implementing-a-Language-with-LLVM%EF%BC%89%2F</url>
+    <title><![CDATA[LLVM漫谈（2-Implementing a Language）]]></title>
+    <url>%2F2020%2F07%2F07%2FLLVM%E6%BC%AB%E8%B0%88%EF%BC%882-Implementing-a-Language%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Abstract]]></content>
       <categories>
         <category>C++</category>
