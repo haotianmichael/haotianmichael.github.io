@@ -3,13 +3,13 @@
   <entry>
     <title><![CDATA[LLVM漫谈（1-LLVM编译框架）]]></title>
     <url>%2F2020%2F06%2F25%2FLLVM%E6%BC%AB%E8%B0%88%EF%BC%881-LLVM%E7%BC%96%E8%AF%91%E6%A1%86%E6%9E%B6%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Abstract LLVM，这个星球最牛逼的编译器。 其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。 在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。 我使用的平台是macOS Mojave 10.14，在编译的时候要注意版本是否兼容。 一般系统会通过打印二进制文件名称和无法加载的动态库的名称来发现链接错误。当屏幕上打印动态库名称时要予以注意，这说明系统动态链接器和加载器无法加载该库，因为该程序与当前系统不兼容。 我编译LLVM 10.0.0的时候出错如下： 后来发现这个版本的Xcode工具链最高只支持LLVM 9.0.0版本，然后换了版本最后编译成功。 BUILD Subproject Deployed On My System Note llvm-core modern source- and target-independent optimizer, along with code generation support for many popular CPUs Clang “LLVM native” C/C++/Objective-C compiler front-end LLDB native debugger LLD native linker libcxx/libcxxabi standard conformant and high-performance implementation of the C++ Standard Library, compiler-rt highly tuned implementations of the low-level code generator support routines and implementations of run-time libraries llvm 以上的subproject通过以下编译方式完成部署： 12345678//ought to download source of subprojects to local, besides $ git clone https://github.com/llvm/llvm-project.git $ mkdir /LLVM/llvm-build &amp;&amp; cd //LLVM/llvm-build$ cmake -G Ninja -DLLVM_ENABLE_PROJECTS='lldb;clang;compiler-rt;lld;' \ -DCMAKE_INSTALL_PREFIX='/LLVM/llvm-install' \ ~/where you put llvm-src$ ninja &amp;&amp; ninja install$ echo $? //check libcxx/libcxxabi 这里理清楚一个概念： glic是linux最重要的运行库，其实现最底层的API供其他库使用比如malloc/printf等。 libstdc++是一个C++标准库，如果跑在linux则依赖Glibc libcxx是LLVM专门开发的一个代替libstdc++的c++标准库 compiler-rt是LLVM开发来替代libgcc,主要用于为硬件不支持的低级功能提供特定于目标的支持 clang++构建可执行文件的时候使用libcxx或者libclc(OpenCL运行时库)。其中libcxx实现由库本身和一个低级函数层libcxxabi组成，这个函数层用来处理异常和运行时类型信息(RTTI)等功能，这种分离式设计使得libcxxabi更容易移植。 1234567891011$ git clone https://github.com/llvm/llvm-project.git$ cd llvm-project$ mkdir /LLVM/libcxx-build &amp;&amp; cd /LLVM/libcxx-build$ cmake -G Ninja -DCMAKE_C_COMPILER=clang \ -DCMAKE_CXX_COMPILER=clang++ \ -DLLVM_ENABLE_PROJECTS="libcxx;libcxxabi" \ -DCMAKE_INSTALL_PREFIX='/LLVM/llvm-install' \ ~/where you put libcxx-src$ make # Build$ make check-cxx # Test$ make install-cxx install-cxxabi # Install warning 其中llvm和libcxx我是分开编译的，而且编译目录和安装目录都是指定的目录，默认很可能会安装到系统路径下，从而带来错误。 ~/Document/LLVM9.0.0/ llvm //llvm源代码 libcxx //libcxx源代码 /LLVM/ llvm-build //llvm编译路径 llvm-install //llvm安装路径 /LLVM/ libcxx-build //libcxx编译路径 libcxx-install //libcxx安装路径]]></content>
+    <content type="text"><![CDATA[Abstract LLVM，这个星球最牛逼的编译器。 其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。 在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。 我使用的平台是macOS Mojave 10.14，在编译的时候要注意版本是否兼容。 一般系统会通过打印二进制文件名称和无法加载的动态库的名称来发现链接错误。当屏幕上打印动态库名称时要予以注意，这说明系统动态链接器和加载器无法加载该库，因为该程序与当前系统不兼容。 我编译LLVM 10.0.0的时候出错如下： 后来发现这个版本的Xcode工具链最高只支持LLVM 9.0.0版本，然后换了版本最后编译成功。 BUILD Subproject Deployed On My System Note llvm-core modern source- and target-independent optimizer, along with code generation support for many popular CPUs Clang “LLVM native” C/C++/Objective-C compiler front-end LLDB native debugger LLD native linker libcxx/libcxxabi standard conformant and high-performance implementation of the C++ Standard Library, compiler-rt highly tuned implementations of the low-level code generator support routines and implementations of run-time libraries llvm 以上的subproject通过以下编译方式完成部署： 12345678//ought to download source of subprojects to local, besides $ git clone https://github.com/llvm/llvm-project.git $ mkdir /LLVM/llvm-build &amp;&amp; cd //LLVM/llvm-build$ cmake -G Ninja -DLLVM_ENABLE_PROJECTS='lldb;clang;compiler-rt;lld;' \ -DCMAKE_INSTALL_PREFIX='/LLVM/llvm-install' \ ~/where you put llvm-src$ ninja &amp;&amp; ninja install$ echo $? //check libcxx/libcxxabi 这里理清楚一个概念： glic是linux最重要的运行库，其实现最底层的API供其他库使用比如malloc/printf等。 libstdc++是一个C++标准库，如果跑在linux则依赖Glibc libcxx是LLVM专门开发的一个代替libstdc++的c++标准库 compiler-rt是LLVM开发来替代libgcc,主要用于为硬件不支持的低级功能提供特定于目标的支持 clang++构建可执行文件的时候使用libcxx或者libclc(OpenCL运行时库)。其中libcxx实现由库本身和一个低级函数层libcxxabi组成，这个函数层用来处理异常和运行时类型信息(RTTI)等功能，这种分离式设计使得libcxxabi更容易移植。 1234567891011$ git clone https://github.com/llvm/llvm-project.git$ cd llvm-project$ mkdir /LLVM/libcxx-build &amp;&amp; cd /LLVM/libcxx-build$ cmake -G Ninja -DCMAKE_C_COMPILER=clang \ -DCMAKE_CXX_COMPILER=clang++ \ -DLLVM_ENABLE_PROJECTS="libcxx;libcxxabi" \ -DCMAKE_INSTALL_PREFIX='/LLVM/llvm-install' \ ~/where you put libcxx-src$ make # Build$ make check-cxx # Test$ make install-cxx install-cxxabi # Install warning 其中llvm和libcxx我是分开编译的，而且编译目录和安装目录都是指定的目录，默认很可能会安装到系统路径下，从而带来错误。 ~/Document/LLVM9.0.0/ llvm //llvm源代码 libcxx //libcxx源代码 /LLVM/ llvm-build //llvm编译路径 llvm-install //llvm安装路径 /LLVM/ libcxx-build //libcxx编译路径 libcxx-install //libcxx安装路径 Features核心设计 LLVM中最核心的就是LLVM-IR ： SSA表示和允许快速优化的无限寄存器 通过将整个程序存储在磁盘IR表示中，实现便捷的链接时优化 当然LLVM不仅仅只有一种中间表示形式： 将C或C++转换为LLVM-IR的时候，Clang将使用抽象语法树AST结构在内存中表示程序 将LLVM-IR转换为特定于机器的汇编语言的时候，LLVM首先将程序转换为有向无环图(DAG)格式以便进行指令选择，然后将其转换回三地址表示以进行指令调度 为了实现汇编器和链接器，LLVM使用第四种中间数据结构MCModule在对象文件的上下文中保存成程序表示 在整个框架中，”库”是一个很核心的概念。很多二进制工具都可以直接调用库来实现。而Clang作为编译驱动程序则可以通过链接小工具的库来实现其功能——代码重用。故clang在二进制文件中是最大的，因为它链接并利用了整个LLVM生态系统。 编译流程]]></content>
       <categories>
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
@@ -20,8 +20,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
         <tag>Linker</tag>
         <tag>Loader</tag>
       </tags>
@@ -34,8 +34,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>RISCV</tag>
         <tag>Compiler</tag>
+        <tag>RISCV</tag>
       </tags>
   </entry>
   <entry>
