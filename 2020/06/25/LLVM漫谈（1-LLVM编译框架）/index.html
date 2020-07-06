@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Compiler,LLVM," />
+  <meta name="keywords" content="LLVM,Compiler," />
 
 
 
@@ -116,7 +116,7 @@
 
 
 <meta name="description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。   我使用的平台是macOS">
-<meta name="keywords" content="Compiler,LLVM">
+<meta name="keywords" content="LLVM,Compiler">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LLVM漫谈（1-LLVM编译框架）">
 <meta property="og:url" content="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/index.html">
@@ -124,7 +124,7 @@
 <meta property="og:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。   我使用的平台是macOS">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/06/25/LLVM漫谈（1-LLVM编译框架）/1.png">
-<meta property="og:updated_time" content="2020-07-06T04:13:05.962Z">
+<meta property="og:updated_time" content="2020-07-06T04:50:09.479Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（1-LLVM编译框架）">
 <meta name="twitter:description" content="Abstract LLVM，这个星球最牛逼的编译器。   其核心设计理念就是统一的底层中间表达以及模块化的软件工程化方法。LLVM采用了前端-优化器-后端的组织形式，只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。   在Chris Lattner将其开源后，LLVM逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。   我使用的平台是macOS">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  420
+                  715
                 </span>
               
 
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  3
                 </span>
               
             </div>
@@ -508,20 +508,49 @@
 </tr>
 <tr>
 <td><strong>LLD</strong></td>
-<td><strong>a native linker</strong></td>
+<td><strong>native linker</strong></td>
 </tr>
 <tr>
 <td><strong>libcxx/libcxxabi</strong></td>
-<td><strong>a standard conformant and high-performance implementation of the C++ Standard Library,</strong></td>
+<td><strong>standard conformant and high-performance implementation of the C++ Standard Library,</strong></td>
 </tr>
 </tbody>
 </table>
 <h2 id="llvm-sub"><a href="#llvm-sub" class="headerlink" title="llvm-sub"></a>llvm-sub</h2><blockquote>
 <p>以上的<code>subproject</code>通过以下编译方式完成部署：</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//ought to download source of subprojects to local, besides </span><br><span class="line"><span class="meta">$</span> git clone https://github.com/llvm/llvm-project.git  </span><br><span class="line"><span class="meta">$</span> mkdir /LLVM/llvm-install</span><br><span class="line"><span class="meta">$</span> cmake -G Ninja -DLLVM_ENABLE_PROJECTS='lldb;clang;compiler-rt;lld;'  -DCMAKE_INSTALL_PREFIX='/LLVM/llvm-install'   ~/where you put llvm-src</span><br><span class="line"><span class="meta">$</span> ninja &amp;&amp; ninja install</span><br><span class="line"><span class="meta">$</span> echo $?   //check</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//ought to download source of subprojects to local, besides </span><br><span class="line"><span class="meta">$</span> git clone https://github.com/llvm/llvm-project.git  </span><br><span class="line"><span class="meta">$</span> mkdir /LLVM/llvm-build  &amp;&amp; cd //LLVM/llvm-build</span><br><span class="line"><span class="meta">$</span> cmake -G Ninja -DLLVM_ENABLE_PROJECTS='lldb;clang;compiler-rt;lld;' \    </span><br><span class="line">        -DCMAKE_INSTALL_PREFIX='/LLVM/llvm-install'  \</span><br><span class="line">        ~/where you put llvm-src</span><br><span class="line"><span class="meta">$</span> ninja &amp;&amp; ninja install</span><br><span class="line"><span class="meta">$</span> echo $?   //check</span><br></pre></td></tr></table></figure>
 <h2 id="libcxx"><a href="#libcxx" class="headerlink" title="libcxx"></a>libcxx</h2><blockquote>
-<p>这里的</p>
+<p>这里理清楚一个概念：</p>
+<ul>
+<li><code>glic</code>是<code>linux</code>最重要的运行库，其实现最底层的<code>API</code>供其他库使用比如<code>malloc/printf</code>等。</li>
+<li><code>libstdc++</code>是一个<code>C++</code>标准库，如果跑在<code>linux</code>则依赖<code>Glibc</code></li>
+<li><code>libcxx</code>是<code>LLVM</code>专门开发的一个代替<code>libstdc++</code>的<code>c++</code>标准库</li>
+</ul>
+<p><code>clang++</code>构建可执行文件的时候使用<code>libcxx</code>或者<code>libclc</code>(OpenCL运行时库)。其中<code>libcxx</code>实现由<strong>库本身和一个低级函数层<code>libcxxabi</code>组成，这个函数层用来处理异常和运行时类型信息(RTTI)等功能，这种分离式设计使得<code>libcxxabi</code>更容易移植。</strong>  </p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git clone https://github.com/llvm/llvm-project.git</span><br><span class="line"><span class="meta">$</span> cd llvm-project</span><br><span class="line"><span class="meta">$</span> mkdir /LLVM/libcxx-build &amp;&amp; cd /LLVM/libcxx-build</span><br><span class="line"><span class="meta">$</span> cmake -G Ninja -DCMAKE_C_COMPILER=clang \</span><br><span class="line">        -DCMAKE_CXX_COMPILER=clang++ \</span><br><span class="line">        -DLLVM_ENABLE_PROJECTS="libcxx;libcxxabi" \</span><br><span class="line">        -DCMAKE_INSTALL_PREFIX='/LLVM/llvm-install'   \</span><br><span class="line">        ~/where you put libcxx-src</span><br><span class="line"><span class="meta">$</span> make # Build</span><br><span class="line"><span class="meta">$</span> make check-cxx # Test</span><br><span class="line"><span class="meta">$</span> make install-cxx install-cxxabi # Install</span><br></pre></td></tr></table></figure>
+<h2 id="warning"><a href="#warning" class="headerlink" title="warning"></a>warning</h2><blockquote>
+<p>其中<code>llvm</code>和<code>libcxx</code>我是分开编译的，而且<strong>编译目录和安装目录都是指定的目录，默认很可能会安装到系统路径下，从而带来错误。</strong>  </p>
+<ul>
+<li><p><code>~/Document/LLVM9.0.0/</code></p>
+<ul>
+<li><code>llvm</code>   //llvm源代码</li>
+<li><code>libcxx</code>   //libcxx源代码</li>
+</ul>
+</li>
+<li><p><code>/LLVM/</code></p>
+<ul>
+<li><code>llvm-build</code>    //llvm编译路径</li>
+<li><code>llvm-install</code>   //llvm安装路径</li>
+</ul>
+</li>
+<li><code>/LLVM/</code><ul>
+<li><code>libcxx-build</code>   //libcxx编译路径</li>
+<li><code>libcxx-install</code>  //libcxx安装路径</li>
+</ul>
+</li>
+</ul>
 </blockquote>
 
       
@@ -578,9 +607,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Compiler/" rel="tag"><i class="fa fa-tag"></i> Compiler</a>
-          
             <a href="/tags/LLVM/" rel="tag"><i class="fa fa-tag"></i> LLVM</a>
+          
+            <a href="/tags/Compiler/" rel="tag"><i class="fa fa-tag"></i> Compiler</a>
           
         </div>
       
@@ -777,7 +806,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BUILD"><span class="nav-number">2.</span> <span class="nav-text">BUILD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#llvm-sub"><span class="nav-number">2.1.</span> <span class="nav-text">llvm-sub</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libcxx"><span class="nav-number">2.2.</span> <span class="nav-text">libcxx</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BUILD"><span class="nav-number">2.</span> <span class="nav-text">BUILD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#llvm-sub"><span class="nav-number">2.1.</span> <span class="nav-text">llvm-sub</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libcxx"><span class="nav-number">2.2.</span> <span class="nav-text">libcxx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#warning"><span class="nav-number">2.3.</span> <span class="nav-text">warning</span></a></li></ol></li></ol></div>
             
 
           </div>
