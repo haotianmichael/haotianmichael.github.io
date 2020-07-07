@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[LLVM漫谈（2-Implementing a Language）]]></title>
     <url>%2F2020%2F07%2F07%2FLLVM%E6%BC%AB%E8%B0%88%EF%BC%882-Implementing-a-Language%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Abstract]]></content>
+    <content type="text"><![CDATA[Abstract 基于LLVM实现简单的编程语言kaleidoscope，来源于LLVM9.0.0 tutorial。 LLVM的官方文档还是很不错的，阅读完其中的tutorials就能大致上手LLVM了。实现的代码对C++11要求比较高，我放在了Github上。 实现共分为10部分： 实现词法分析器Lexer 使用递归下降和运算符优先级解析实现语法分析器Parser 将AST转化成LLVM-IR 添加JIT即时编译和优化器的支持 扩展——控制流，这一章会引入SSA概念 扩展——用户定义运算符 扩展——自动变量，深入SSA 目标代码生成 扩展——添加调试器 深入——GC，异常等]]></content>
       <categories>
         <category>C++</category>
       </categories>

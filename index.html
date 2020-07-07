@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1
+                  175
                 </span>
               
 
@@ -472,11 +472,30 @@
 
       
         
-          
-            <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote>
+          <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote>
+<p>基于<code>LLVM</code>实现简单的编程语言<code>kaleidoscope</code>，来源于<a href="https://releases.llvm.org/9.0.0/docs/tutorial/LangImpl01.html" target="_blank" rel="noopener">LLVM9.0.0 tutorial</a>。  </p>
+<p><code>LLVM</code>的官方文档还是很不错的，阅读完其中的<strong>tutorials</strong>就能大致上手<code>LLVM</code>了。实现的代码对<code>C++11</code>要求比较高，我放在了<a href="">Github</a>上。  </p>
+<p>实现共分为10部分：</p>
+<ul>
+<li>实现<strong>词法分析器Lexer</strong></li>
+<li>使用<strong>递归下降</strong>和<strong>运算符优先级解析</strong>实现<strong>语法分析器Parser</strong></li>
+<li>将<strong><code>AST</code></strong>转化成<strong><code>LLVM-IR</code></strong></li>
+<li>添加<strong><code>JIT</code>即时编译</strong>和<strong>优化器</strong>的支持</li>
+<li>扩展——<strong>控制流</strong>，这一章会引入<strong><code>SSA</code></strong>概念</li>
+<li>扩展——<strong>用户定义运算符</strong></li>
+<li>扩展——<strong>自动变量</strong>，深入<strong><code>SSA</code></strong></li>
+<li>目标代码生成</li>
+<li>扩展——<strong>添加调试器</strong></li>
+<li>深入——<strong>GC，异常等</strong></li>
+</ul>
 </blockquote>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/07/07/LLVM漫谈（2-Implementing-a-Language）/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

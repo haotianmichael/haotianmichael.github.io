@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2020-07-06T15:36:11.670Z</updated>
+  <updated>2020-07-07T02:30:49.012Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,18 +21,29 @@
     <link href="http://haotianmcihael.github.io/2020/07/07/LLVM%E6%BC%AB%E8%B0%88%EF%BC%882-Implementing-a-Language%EF%BC%89/"/>
     <id>http://haotianmcihael.github.io/2020/07/07/LLVM漫谈（2-Implementing-a-Language）/</id>
     <published>2020-07-06T23:05:29.000Z</published>
-    <updated>2020-07-06T15:36:11.670Z</updated>
+    <updated>2020-07-07T02:30:49.012Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote></blockquote>]]></content>
+    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote><p>基于<code>LLVM</code>实现简单的编程语言<code>kaleidoscope</code>，来源于<a href="https://releases.llvm.org/9.0.0/docs/tutorial/LangImpl01.html" target="_blank" rel="noopener">LLVM9.0.0 tutorial</a>。  </p><p><code>LLVM</code>的官方文档还是很不错的，阅读完其中的<strong>tutorials</strong>就能大致上手<code>LLVM</code>了。实现的代码对<code>C++11</code>要求比较高，我放在了<a href="">Github</a>上。  </p><p>实现共分为10部分：</p><ul><li>实现<strong>词法分析器Lexer</strong></li><li>使用<strong>递归下降</strong>和<strong>运算符优先级解析</strong>实现<strong>语法分析器Parser</strong></li><li>将<strong><code>AST</code></strong>转化成<strong><code>LLVM-IR</code></strong></li><li>添加<strong><code>JIT</code>即时编译</strong>和<strong>优化器</strong>的支持</li><li>扩展——<strong>控制流</strong>，这一章会引入<strong><code>SSA</code></strong>概念</li><li>扩展——<strong>用户定义运算符</strong></li><li>扩展——<strong>自动变量</strong>，深入<strong><code>SSA</code></strong></li><li>目标代码生成</li><li>扩展——<strong>添加调试器</strong></li><li>深入——<strong>GC，异常等</strong></li></ul></blockquote><a id="more"></a>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h1&gt;&lt;blockquote&gt;
+      &lt;h1 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;基于&lt;code&gt;LLVM&lt;/code&gt;实现简单的编程语言&lt;code&gt;kaleidoscope&lt;/code&gt;，来源于&lt;a href=&quot;https://releases.llvm.org/9.0.0/docs/tutorial/LangImpl01.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;LLVM9.0.0 tutorial&lt;/a&gt;。  &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;LLVM&lt;/code&gt;的官方文档还是很不错的，阅读完其中的&lt;strong&gt;tutorials&lt;/strong&gt;就能大致上手&lt;code&gt;LLVM&lt;/code&gt;了。实现的代码对&lt;code&gt;C++11&lt;/code&gt;要求比较高，我放在了&lt;a href=&quot;&quot;&gt;Github&lt;/a&gt;上。  &lt;/p&gt;
+&lt;p&gt;实现共分为10部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实现&lt;strong&gt;词法分析器Lexer&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;使用&lt;strong&gt;递归下降&lt;/strong&gt;和&lt;strong&gt;运算符优先级解析&lt;/strong&gt;实现&lt;strong&gt;语法分析器Parser&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;将&lt;strong&gt;&lt;code&gt;AST&lt;/code&gt;&lt;/strong&gt;转化成&lt;strong&gt;&lt;code&gt;LLVM-IR&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;添加&lt;strong&gt;&lt;code&gt;JIT&lt;/code&gt;即时编译&lt;/strong&gt;和&lt;strong&gt;优化器&lt;/strong&gt;的支持&lt;/li&gt;
+&lt;li&gt;扩展——&lt;strong&gt;控制流&lt;/strong&gt;，这一章会引入&lt;strong&gt;&lt;code&gt;SSA&lt;/code&gt;&lt;/strong&gt;概念&lt;/li&gt;
+&lt;li&gt;扩展——&lt;strong&gt;用户定义运算符&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;扩展——&lt;strong&gt;自动变量&lt;/strong&gt;，深入&lt;strong&gt;&lt;code&gt;SSA&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;目标代码生成&lt;/li&gt;
+&lt;li&gt;扩展——&lt;strong&gt;添加调试器&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;深入——&lt;strong&gt;GC，异常等&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/blockquote&gt;
-
-      
     
     </summary>
     
