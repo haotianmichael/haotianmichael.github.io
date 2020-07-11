@@ -206,17 +206,27 @@
     <link href="http://haotianmcihael.github.io/2019/01/30/Effective-C-%E7%AC%94%E8%AE%B0-const%E6%9D%82%E8%B0%88/"/>
     <id>http://haotianmcihael.github.io/2019/01/30/Effective-C-笔记-const杂谈/</id>
     <published>2019-01-30T10:43:58.000Z</published>
-    <updated>2020-07-11T12:27:33.130Z</updated>
+    <updated>2020-07-11T13:20:25.237Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote><p>记得是大二接触的<strong>C++</strong>。</p><p>这学期学了<a href="https://www.zhihu.com/question/19628851" target="_blank" rel="noopener">系统课程</a>之后，再看<strong>Effective C++</strong>慢慢开始理解其中的奥秘。  </p><p>引用一下<strong>C++ Primer 5th</strong>中</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote><p>记得是大二开始接触的<strong>C++</strong>。这学期学了部分<a href="https://www.zhihu.com/question/19628851" target="_blank" rel="noopener">系统课程</a>之后，再看<strong>Effective C++</strong>慢慢理解了其中的奥秘。我打算结合<strong>C++ Primer 5th</strong>来总结一下看书过程中的心得。  </p><p>正如书中所说，C++作为一个<strong>federation of languages</strong>可以分为：</p><ul><li><strong>C</strong>   属于语言的核心部分</li><li><strong>Object-Oriented C++ </strong>     面向对象编程</li><li><strong>Template C++ </strong>  泛型编程</li><li><strong>STL  </strong>  标准库</li></ul><p>本文总结<strong>C++</strong>作为语言的基础特性，对应：</p><ul><li><strong>Effective C++</strong>中的第一章</li><li><strong>C++ Primer 5th</strong>中的第一部分</li></ul></blockquote><a id="more"></a>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;记得是大二接触的&lt;strong&gt;C++&lt;/strong&gt;。&lt;/p&gt;
-      
+      &lt;h1 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;记得是大二开始接触的&lt;strong&gt;C++&lt;/strong&gt;。这学期学了部分&lt;a href=&quot;https://www.zhihu.com/question/19628851&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;系统课程&lt;/a&gt;之后，再看&lt;strong&gt;Effective C++&lt;/strong&gt;慢慢理解了其中的奥秘。我打算结合&lt;strong&gt;C++ Primer 5th&lt;/strong&gt;来总结一下看书过程中的心得。  &lt;/p&gt;
+&lt;p&gt;正如书中所说，C++作为一个&lt;strong&gt;federation of languages&lt;/strong&gt;可以分为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;C&lt;/strong&gt;   属于语言的核心部分&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Object-Oriented C++ &lt;/strong&gt;     面向对象编程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Template C++ &lt;/strong&gt;  泛型编程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;STL  &lt;/strong&gt;  标准库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本文总结&lt;strong&gt;C++&lt;/strong&gt;作为语言的基础特性，对应：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Effective C++&lt;/strong&gt;中的第一章&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;C++ Primer 5th&lt;/strong&gt;中的第一部分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
