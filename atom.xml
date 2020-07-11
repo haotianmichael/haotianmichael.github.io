@@ -206,15 +206,16 @@
     <link href="http://haotianmcihael.github.io/2019/01/30/Effective-C-%E7%AC%94%E8%AE%B0-const%E6%9D%82%E8%B0%88/"/>
     <id>http://haotianmcihael.github.io/2019/01/30/Effective-C-笔记-const杂谈/</id>
     <published>2019-01-30T10:43:58.000Z</published>
-    <updated>2020-07-11T02:48:20.037Z</updated>
+    <updated>2020-07-11T12:27:33.130Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1>]]></content>
+    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote><p>记得是大二接触的<strong>C++</strong>。</p><p>这学期学了<a href="https://www.zhihu.com/question/19628851" target="_blank" rel="noopener">系统课程</a>之后，再看<strong>Effective C++</strong>慢慢开始理解其中的奥秘。  </p><p>引用一下<strong>C++ Primer 5th</strong>中</p></blockquote>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h1&gt;
+        &lt;h1 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;记得是大二接触的&lt;strong&gt;C++&lt;/strong&gt;。&lt;/p&gt;
       
     
     </summary>

@@ -66,7 +66,7 @@
   <entry>
     <title><![CDATA[Effective C++笔记(const杂谈)]]></title>
     <url>%2F2019%2F01%2F30%2FEffective-C-%E7%AC%94%E8%AE%B0-const%E6%9D%82%E8%B0%88%2F</url>
-    <content type="text"><![CDATA[Abstract]]></content>
+    <content type="text"><![CDATA[Abstract 记得是大二接触的C++。 这学期学了系统课程之后，再看Effective C++慢慢开始理解其中的奥秘。 引用一下C++ Primer 5th中]]></content>
       <categories>
         <category>C++</category>
       </categories>
