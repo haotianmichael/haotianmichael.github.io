@@ -202,13 +202,31 @@
   </entry>
   
   <entry>
+    <title>Effective C++笔记(模板与泛型编程)</title>
+    <link href="http://haotianmcihael.github.io/2019/03/15/Effective-C-%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    <id>http://haotianmcihael.github.io/2019/03/15/Effective-C-笔记-模板与泛型编程/</id>
+    <published>2019-03-14T16:50:40.000Z</published>
+    <updated>2020-07-14T08:52:27.520Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
+    
+    
+      <category term="Generic Programming" scheme="http://haotianmcihael.github.io/tags/Generic-Programming/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Effective C++笔记(const杂谈)</title>
     <link href="http://haotianmcihael.github.io/2019/01/30/Effective-C-%E7%AC%94%E8%AE%B0-const%E6%9D%82%E8%B0%88/"/>
     <id>http://haotianmcihael.github.io/2019/01/30/Effective-C-笔记-const杂谈/</id>
     <published>2019-01-30T10:43:58.000Z</published>
-    <updated>2020-07-11T14:49:39.509Z</updated>
+    <updated>2020-07-14T08:52:29.327Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote><p>记得是大二开始接触的<strong>C++</strong>。这学期学了部分<a href="https://www.zhihu.com/question/19628851" target="_blank" rel="noopener">系统课程</a>之后，再看<strong>Effective C++</strong>慢慢理解了其中的奥秘。我打算结合<strong>C++ Primer 5th</strong>来总结一下看书过程中的心得。  </p><p>正如书中所说，C++作为一个<strong>federation of languages</strong>可以分为：</p><ul><li><strong>C</strong>   属于语言的核心部分</li><li><strong>Object-Oriented C++ </strong>     面向对象编程</li><li><strong>Template C++ </strong>  泛型编程</li><li><strong>STL  </strong>  标准库</li></ul><p>本文总结<strong>C++</strong>作为语言的基础特性，对应：</p><ul><li><strong>Effective C++</strong>中的第一章</li><li><strong>C++ Primer 5th</strong>中的第一部分</li></ul></blockquote><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote><p>记得是大二开始接触的<strong>C++</strong>。这学期学了部分<a href="https://www.zhihu.com/question/19628851" target="_blank" rel="noopener">系统课程</a>之后，再看<strong>Effective C++</strong>慢慢理解了其中的奥秘。我打算结合<strong>C++ Primer 5th</strong>来总结一下看书过程中的心得。  </p><p>正如书中所说，C++作为一个<strong>federation of languages</strong>可以分为：</p><ul><li><strong>C</strong>   属于语言的核心部分</li><li><strong>Object-Oriented C++ </strong>     面向对象编程</li><li><strong>Template C++ </strong>  泛型编程</li><li><strong>STL  </strong>  标准库</li></ul><p>本文总结<strong>C++</strong>作为语言的基础特性，对应：</p><ul><li><strong>Effective C++</strong>中的第一章</li><li><strong>C++ Primer 5th</strong>中的第一部分</li></ul></blockquote><a id="more"></a><h1 id="Const"><a href="#Const" class="headerlink" title="Const"></a>Const</h1><blockquote><p><code>const</code>是在</p></blockquote>]]></content>
     
     <summary type="html">
     
@@ -235,7 +253,7 @@
     
       <category term="const" scheme="http://haotianmcihael.github.io/tags/const/"/>
     
-      <category term="OOP" scheme="http://haotianmcihael.github.io/tags/OOP/"/>
+      <category term="Object-Oriented Programming" scheme="http://haotianmcihael.github.io/tags/Object-Oriented-Programming/"/>
     
   </entry>
   

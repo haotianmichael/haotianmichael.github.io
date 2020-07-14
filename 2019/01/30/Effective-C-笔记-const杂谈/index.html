@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="const,OOP," />
+  <meta name="keywords" content="const,Object-Oriented Programming," />
 
 
 
@@ -116,14 +116,14 @@
 
 
 <meta name="description" content="Abstract 记得是大二开始接触的C++。这学期学了部分系统课程之后，再看Effective C++慢慢理解了其中的奥秘。我打算结合C++ Primer 5th来总结一下看书过程中的心得。   正如书中所说，C++作为一个federation of languages可以分为：  C   属于语言的核心部分 Object-Oriented C++      面向对象编程 Template C+">
-<meta name="keywords" content="const,OOP">
+<meta name="keywords" content="const,Object-Oriented Programming">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Effective C++笔记(const杂谈)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2019/01/30/Effective-C-笔记-const杂谈/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 记得是大二开始接触的C++。这学期学了部分系统课程之后，再看Effective C++慢慢理解了其中的奥秘。我打算结合C++ Primer 5th来总结一下看书过程中的心得。   正如书中所说，C++作为一个federation of languages可以分为：  C   属于语言的核心部分 Object-Oriented C++      面向对象编程 Template C+">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-11T14:49:39.509Z">
+<meta property="og:updated_time" content="2020-07-14T08:52:29.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective C++笔记(const杂谈)">
 <meta name="twitter:description" content="Abstract 记得是大二开始接触的C++。这学期学了部分系统课程之后，再看Effective C++慢慢理解了其中的奥秘。我打算结合C++ Primer 5th来总结一下看书过程中的心得。   正如书中所说，C++作为一个federation of languages可以分为：  C   属于语言的核心部分 Object-Oriented C++      面向对象编程 Template C+">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  139
+                  143
                 </span>
               
 
@@ -485,6 +485,9 @@
 </ul>
 </blockquote>
 <a id="more"></a>
+<h1 id="Const"><a href="#Const" class="headerlink" title="Const"></a>Const</h1><blockquote>
+<p><code>const</code>是在</p>
+</blockquote>
 
       
     </div>
@@ -505,7 +508,7 @@
   <p><span>本文标题:</span><a href="/2019/01/30/Effective-C-笔记-const杂谈/">Effective C++笔记(const杂谈)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2019年01月30日 - 10:01</p>
-  <p><span>最后更新:</span>2020年07月11日 - 22:07</p>
+  <p><span>最后更新:</span>2020年07月14日 - 16:07</p>
   <p><span>原始链接:</span><a href="/2019/01/30/Effective-C-笔记-const杂谈/" title="Effective C++笔记(const杂谈)">http://haotianmcihael.github.io/2019/01/30/Effective-C-笔记-const杂谈/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2019/01/30/Effective-C-笔记-const杂谈/"  aria-label="复制成功！"></i></span>
   </p>
@@ -542,7 +545,7 @@
           
             <a href="/tags/const/" rel="tag"><i class="fa fa-tag"></i> const</a>
           
-            <a href="/tags/OOP/" rel="tag"><i class="fa fa-tag"></i> OOP</a>
+            <a href="/tags/Object-Oriented-Programming/" rel="tag"><i class="fa fa-tag"></i> Object-Oriented Programming</a>
           
         </div>
       
@@ -565,8 +568,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/25/从syscall的角度理解操作系统/" rel="prev" title="从syscall的角度理解操作系统">
-                从syscall的角度理解操作系统 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/15/Effective-C-笔记-模板与泛型编程/" rel="prev" title="Effective C++笔记(模板与泛型编程)">
+                Effective C++笔记(模板与泛型编程) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -644,7 +647,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -666,7 +669,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -743,7 +746,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Const"><span class="nav-number">2.</span> <span class="nav-text">Const</span></a></li></ol></div>
             
 
           </div>
