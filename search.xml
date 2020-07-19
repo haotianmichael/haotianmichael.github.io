@@ -64,17 +64,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Effective C++笔记(模板与泛型编程)]]></title>
-    <url>%2F2019%2F03%2F15%2FEffective-C-%E7%AC%94%E8%AE%B0-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B%2F</url>
-    <content type="text"><![CDATA[Abstract]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>Generic Programming</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Effective C++笔记(const杂谈)]]></title>
     <url>%2F2019%2F01%2F30%2FEffective-C-%E7%AC%94%E8%AE%B0-const%E6%9D%82%E8%B0%88%2F</url>
     <content type="text"><![CDATA[Abstract 记得是大二开始接触的C++。这学期学了部分系统课程之后，再看Effective C++慢慢理解了其中的奥秘。我打算结合C++ Primer 5th来总结一下看书过程中的心得。 正如书中所说，C++作为一个federation of languages可以分为： C 属于语言的核心部分 Object-Oriented C++ 面向对象编程 Template C++ 泛型编程 STL 标准库 本文总结C++作为语言的基础特性，对应： Effective C++中的第一章 C++ Primer 5th中的第一部分 Const const是在]]></content>
@@ -83,7 +72,7 @@
       </categories>
       <tags>
         <tag>const</tag>
-        <tag>Object-Oriented Programming</tag>
+        <tag>OOP</tag>
       </tags>
   </entry>
   <entry>
