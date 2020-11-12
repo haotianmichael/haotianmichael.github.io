@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[WebAssembly和Wabt]]></title>
+    <url>%2F2020%2F11%2F12%2FWebAssembly%E5%92%8CWabt%2F</url>
+    <content type="text"><![CDATA[Abstract 最近参加deeplang的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。 Emscripten 这个项目曾经利用LLVM编译器前端编译C/C++代码，生成LLVM平台特有的跨平台中间语言代码，最终再将IR转换为JavaScript的asm.js子集。这是WebAssembly理念的前身。 AOT编译 JIT编译 JIT的优点在于Profile-Based Optimization，根据运行时信息然后随着时间的推移尽可能的得到最优的代码。 而AOT的优点在于无需runtime运行，直接静态链接至最终的程序中。]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>Compiler</tag>
+        <tag>WebAssembly</tag>
+        <tag>PL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LLVM漫谈（2-Implementing a Language）]]></title>
     <url>%2F2020%2F07%2F07%2FLLVM%E6%BC%AB%E8%B0%88%EF%BC%882-Implementing-a-Language%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Abstract 基于LLVM实现简单的编程语言kaleidoscope，来源于LLVM9.0.0 tutorial。 LLVM的官方文档还是很不错的，阅读完其中的tutorials就能大致上手LLVM了。实现的代码对C++11要求比较高，我放在了Github上。 实现共分为10部分： 实现词法分析器Lexer 使用递归下降和运算符优先级解析实现语法分析器Parser 将AST转化成LLVM-IR 添加JIT即时编译和优化器的支持 扩展——控制流，这一章会引入SSA概念 扩展——用户定义运算符 扩展——自动变量，深入SSA 目标代码生成 扩展——添加调试器 深入——GC，异常等 Parser编译原理C++原理LLVM-IR]]></content>

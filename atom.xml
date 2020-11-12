@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2020-07-10T08:37:02.148Z</updated>
+  <updated>2020-11-12T01:29:13.718Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WebAssembly和Wabt</title>
+    <link href="http://haotianmcihael.github.io/2020/11/12/WebAssembly%E5%92%8CWabt/"/>
+    <id>http://haotianmcihael.github.io/2020/11/12/WebAssembly和Wabt/</id>
+    <published>2020-11-12T09:01:21.000Z</published>
+    <updated>2020-11-12T01:29:13.718Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>最近参加<a href="https://github.com/deeplang-org" target="_blank" rel="noopener"><code>deeplang</code></a>的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。</p></blockquote><a id="more"></a><ul><li><code>Emscripten</code></li></ul><blockquote><p>这个项目曾经利用<code>LLVM</code>编译器前端编译<code>C/C++</code>代码，生成<code>LLVM</code>平台特有的跨平台中间语言代码，最终再将<code>IR</code>转换为<code>JavaScript</code>的<code>asm.js</code>子集。这是<code>WebAssembly</code>理念的前身。</p></blockquote><ul><li><code>AOT编译</code></li><li><code>JIT编译</code></li></ul><blockquote><p><code>JIT</code>的优点在于<code>Profile-Based Optimization</code>，根据运行时信息然后随着时间的推移尽可能的得到最优的代码。</p><p>而<code>AOT</code>的优点在于无需<code>runtime</code>运行，直接静态链接至最终的程序中。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;最近参加&lt;a href=&quot;https://github.com/deeplang-org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;code&gt;deeplang&lt;/code&gt;&lt;/a&gt;的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://haotianmcihael.github.io/categories/JavaScript/"/>
+    
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="WebAssembly" scheme="http://haotianmcihael.github.io/tags/WebAssembly/"/>
+    
+      <category term="PL" scheme="http://haotianmcihael.github.io/tags/PL/"/>
+    
+  </entry>
   
   <entry>
     <title>LLVM漫谈（2-Implementing a Language）</title>
