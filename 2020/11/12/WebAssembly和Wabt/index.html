@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 最近参加deeplang的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-11-15T01:09:16.254Z">
+<meta property="og:updated_time" content="2020-11-15T01:22:38.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WebAssembly和Wabt">
 <meta name="twitter:description" content="Abstract 最近参加deeplang的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  520
+                  837
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  3
                 </span>
               
             </div>
@@ -532,6 +532,7 @@
 <li>将<code>wat</code>或者其他语言编译成<code>.wasm</code>文件</li>
 <li>网页中使用<code>fetch</code>等获取<code>.wasm</code>文件<ul>
 <li><code>emrun --no_browser --port 8080 .</code> 将文件运行在<code>http</code>协议上</li>
+<li>然后打开<code>http://localhost:8080/xxx.html</code></li>
 </ul>
 </li>
 <li>将<code>.wasm</code>编译为模块，编译过程中进行合法性检查</li>
@@ -539,7 +540,32 @@
 <li>执行实例的导出函数，完成操作</li>
 </ul>
 </blockquote>
-<h4 id="虚拟机体系结构"><a href="#虚拟机体系结构" class="headerlink" title="虚拟机体系结构"></a>虚拟机体系结构</h4><h4 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h4>
+<h4 id="虚拟机体系结构"><a href="#虚拟机体系结构" class="headerlink" title="虚拟机体系结构"></a>虚拟机体系结构</h4><blockquote>
+<ul>
+<li>一个全局类型数组(函数签名)</li>
+<li>一个全局函数数组</li>
+<li>一个全局变量数组</li>
+<li>一个全局表格对象(元素引用)</li>
+<li>一个全局内存对象</li>
+<li>一个运行时栈</li>
+</ul>
+</blockquote>
+<h4 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h4><blockquote>
+<p>JavaScript部分<code>hello.html</code></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Show me the answer<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">            var wasmMem = new WebAssembly.Memory(&#123;initial:1&#125;);</span></span><br><span class="line"><span class="undefined">            function printStr(offset, length)&#123;</span></span><br><span class="line"><span class="undefined">                var bytes = new Uint8Array(wasmMem.buffer, offset, length);</span></span><br><span class="line"><span class="undefined">                var string = new TextDecoder('utf-8').decode(bytes);</span></span><br><span class="line"><span class="undefined">                console.log(string);</span></span><br><span class="line"><span class="undefined">                &#125;;</span></span><br><span class="line"><span class="undefined">            var importObj = &#123;js : &#123;print: printStr, mem: wasmMem&#125;&#125;; </span></span><br><span class="line"><span class="undefined">            fetch('hello.wasm').then(response=&gt;</span></span><br><span class="line"><span class="undefined">                        response.arrayBuffer()</span></span><br><span class="line"><span class="undefined">                        ).then(bytes=&gt;</span></span><br><span class="line"><span class="undefined">                          WebAssembly.instantiate(bytes, importObj)</span></span><br><span class="line"><span class="undefined">                        ).then(result =&gt; result.instance.exports.hello()</span></span><br><span class="line"><span class="undefined">                        );</span></span><br><span class="line"><span class="undefined">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>wat部分<code>hello.wat</code></p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> ;; hello.wat</span><br><span class="line"></span><br><span class="line">(<span class="keyword">module</span></span><br><span class="line">      ;; import js::print as js_print(); </span><br><span class="line">      (import "js" "print" (func $js_print (param i32 i32)))</span><br><span class="line">      (import "js" "mem" (memory 1))  ;;import js::mem as memory</span><br><span class="line">      (data (i32.const 0) "你好，wasm")</span><br><span class="line">      (func (export "hello")</span><br><span class="line">           i32.const 0    ;; pass offset 0 to js_print</span><br><span class="line">           i32.const 13   ;; pass offset 13 to js_print</span><br><span class="line">           call $js_print </span><br><span class="line">            )</span><br><span class="line">       )</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>首先将<code>.wat</code>编译成为<code>.wasm</code>,需要用到<a href="https://github.com/WebAssembly/wabt" target="_blank" rel="noopener">wabt工具集</a>。还需要下载<a href="https://github.com/juj/emsdk.git" target="_blank" rel="noopener"> Emscripten工具集</a>。编译好之后配置环境变量。就可以执行了。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> wat2wasm hello.wat -o hello.wasm</span><br><span class="line"><span class="meta">$</span> emrun --no_browser --port 8080 .</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> 然后打开<code>http://localhost:8080/xxx.html</code>，启动<code>Chrome</code>下的开发者模式，看到执行成功。</p>
+</blockquote>
+
       
     </div>
     
