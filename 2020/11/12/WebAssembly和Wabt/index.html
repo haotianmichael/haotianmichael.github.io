@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 最近参加deeplang的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-11-12T01:29:13.718Z">
+<meta property="og:updated_time" content="2020-11-15T01:09:16.254Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WebAssembly和Wabt">
 <meta name="twitter:description" content="Abstract 最近参加deeplang的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  167
+                  520
                 </span>
               
 
@@ -473,11 +473,14 @@
 <p>最近参加<a href="https://github.com/deeplang-org" target="_blank" rel="noopener"><code>deeplang</code></a>的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。</p>
 </blockquote>
 <a id="more"></a>
+<h3 id="Points"><a href="#Points" class="headerlink" title="Points"></a>Points</h3><blockquote>
+<p>过去很多技术尝试将<code>C/C++</code>程序直接运行在浏览器中，比如<code>TypeScript</code> 将<code>C/C++</code>代码转换为<code>JS</code>。</p>
+</blockquote>
 <ul>
 <li><code>Emscripten</code></li>
 </ul>
 <blockquote>
-<p>这个项目曾经利用<code>LLVM</code>编译器前端编译<code>C/C++</code>代码，生成<code>LLVM</code>平台特有的跨平台中间语言代码，最终再将<code>IR</code>转换为<code>JavaScript</code>的<code>asm.js</code>子集。这是<code>WebAssembly</code>理念的前身。</p>
+<p>而这个项目利用<code>LLVM</code>编译器前端编译<code>C/C++</code>代码，生成<code>LLVM</code>平台特有的跨平台中间语言代码，最终再将<code>IR</code>转换为<code>JavaScript</code>的<strong><code>asm.js</code>子集</strong>——这是<code>WebAssembly</code>的基础。</p>
 </blockquote>
 <ul>
 <li><code>AOT编译</code></li>
@@ -487,7 +490,56 @@
 <p><code>JIT</code>的优点在于<code>Profile-Based Optimization</code>，根据运行时信息然后随着时间的推移尽可能的得到最优的代码。</p>
 <p>而<code>AOT</code>的优点在于无需<code>runtime</code>运行，直接静态链接至最终的程序中。</p>
 </blockquote>
-
+<ul>
+<li><code>WebAssembly</code></li>
+</ul>
+<blockquote>
+<p><code>JavaScript</code>运行在其虚拟机上，而<code>WebAssembly</code>也运行在其虚拟机上。而现在<code>Node.js 8.0</code>之后的版本也可以运行<code>WebAssembly</code>——也就是说<code>WebAssembly</code>虚拟机可以脱离<code>JS</code>的环境支持，不仅仅运行在浏览器中。</p>
+</blockquote>
+<h3 id="WebAssembly"><a href="#WebAssembly" class="headerlink" title="WebAssembly"></a>WebAssembly</h3><blockquote>
+<p>和<code>LLVM IR</code>很像，有两种汇编表示——<code>.wat</code>文本表示和<code>.wasm</code>机器表示。</p>
+</blockquote>
+<h4 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h4><ul>
+<li>模块 </li>
+</ul>
+<blockquote>
+<p>由<code>.wasm</code>编译而来的可执行机器码的二进制对象。</p>
+</blockquote>
+<ul>
+<li>内存</li>
+</ul>
+<blockquote>
+<p>网页环境下，<code>wasm</code>的内存由<code>JavaScript</code>中的<code>ArrayBuffer</code>对象实现的。</p>
+</blockquote>
+<ul>
+<li>表格</li>
+</ul>
+<blockquote>
+<p>引入表格对象用于存储函数引用来模拟<code>C/C++</code>指针。</p>
+</blockquote>
+<ul>
+<li>实例<ul>
+<li>导入对象  调用JS函数</li>
+<li>导出对象   提供接口</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>指一个模块及其运行时的所有状态，包括内存，表格以及导入对象等。模块只有被实例化之后才可以调用。  </p>
+</blockquote>
+<h4 id="程序生命周期"><a href="#程序生命周期" class="headerlink" title="程序生命周期"></a>程序生命周期</h4><blockquote>
+<ul>
+<li>将<code>wat</code>或者其他语言编译成<code>.wasm</code>文件</li>
+<li>网页中使用<code>fetch</code>等获取<code>.wasm</code>文件<ul>
+<li><code>emrun --no_browser --port 8080 .</code> 将文件运行在<code>http</code>协议上</li>
+</ul>
+</li>
+<li>将<code>.wasm</code>编译为模块，编译过程中进行合法性检查</li>
+<li>实例化，初始化导入对象，创建模块实例</li>
+<li>执行实例的导出函数，完成操作</li>
+</ul>
+</blockquote>
+<h4 id="虚拟机体系结构"><a href="#虚拟机体系结构" class="headerlink" title="虚拟机体系结构"></a>虚拟机体系结构</h4><h4 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h4>
       
     </div>
     
@@ -507,7 +559,7 @@
   <p><span>本文标题:</span><a href="/2020/11/12/WebAssembly和Wabt/">WebAssembly和Wabt</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年11月12日 - 09:11</p>
-  <p><span>最后更新:</span>2020年11月12日 - 09:11</p>
+  <p><span>最后更新:</span>2020年11月15日 - 09:11</p>
   <p><span>原始链接:</span><a href="/2020/11/12/WebAssembly和Wabt/" title="WebAssembly和Wabt">http://haotianmcihael.github.io/2020/11/12/WebAssembly和Wabt/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/11/12/WebAssembly和Wabt/"  aria-label="复制成功！"></i></span>
   </p>
@@ -743,7 +795,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Points"><span class="nav-number">2.</span> <span class="nav-text">Points</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebAssembly"><span class="nav-number">3.</span> <span class="nav-text">WebAssembly</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关键概念"><span class="nav-number">3.1.</span> <span class="nav-text">关键概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序生命周期"><span class="nav-number">3.2.</span> <span class="nav-text">程序生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机体系结构"><span class="nav-number">3.3.</span> <span class="nav-text">虚拟机体系结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hello-World"><span class="nav-number">3.4.</span> <span class="nav-text">Hello World</span></a></li></ol></li></ol></div>
             
 
           </div>
