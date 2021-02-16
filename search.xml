@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Lisp语言和Emacs]]></title>
+    <url>%2F2021%2F02%2F16%2FLisp%E8%AF%AD%E8%A8%80%E5%92%8CEmacs%2F</url>
+    <content type="text"><![CDATA[Abstract ​ 第一次接触EMACS是大二的时候，当时只顾着新奇的界面和强大的功能却忽视了其背后真正的理论。后来我写代码也一直不喜欢IDE这种东西，但现在回过头来看，这貌似也只是一种浮于表面而无关原理的执拗。 ​ 这次重新回归到Emacs，我希望仔细从Lisp的角度理解这款编辑器，不管是其插件特性还是语言本身。]]></content>
+      <categories>
+        <category>Lisp</category>
+      </categories>
+      <tags>
+        <tag>EMACS</tag>
+        <tag>PL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[WebAssembly和Wabt]]></title>
     <url>%2F2020%2F11%2F12%2FWebAssembly%E5%92%8CWabt%2F</url>
     <content type="text"><![CDATA[Abstract 最近参加deeplang的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。参考资料是WebAssembly标准入门。 Points 过去很多技术尝试将C/C++程序直接运行在浏览器中，比如TypeScript 将C/C++代码转换为JS。 Emscripten 而这个项目利用LLVM编译器前端编译C/C++代码，生成LLVM平台特有的跨平台中间语言代码，最终再将IR转换为JavaScript的asm.js子集——这是WebAssembly的基础。 AOT编译 JIT编译 JIT的优点在于Profile-Based Optimization，根据运行时信息然后随着时间的推移尽可能的得到最优的代码。 而AOT的优点在于无需runtime运行，直接静态链接至最终的程序中。 WebAssembly JavaScript运行在其虚拟机上，而WebAssembly也运行在其虚拟机上。而现在Node.js 8.0之后的版本也可以运行WebAssembly——也就是说WebAssembly虚拟机可以脱离JS的环境支持，不仅仅运行在浏览器中。 WebAssembly概述 和LLVM IR很像，有两种汇编表示——.wat文本表示和.wasm机器表示。 关键概念 模块 由.wasm编译而来的可执行机器码的二进制对象。 内存 网页环境下，wasm的内存由JavaScript中的ArrayBuffer对象实现的。 表格 引入表格对象用于存储函数引用来模拟C/C++指针。 实例 导入对象 调用JS函数 导出对象 提供接口 指一个模块及其运行时的所有状态，包括内存，表格以及导入对象等。模块只有被实例化之后才可以调用。 程序生命周期 将wat或者其他语言编译成.wasm文件 网页中使用fetch等获取.wasm文件 emrun --no_browser --port 8080 . 将文件运行在http协议上 然后打开http://localhost:8080/xxx.html 将.wasm编译为模块，编译过程中进行合法性检查 实例化，初始化导入对象，创建模块实例 执行实例的导出函数，完成操作 虚拟机体系结构 一个全局类型数组(函数签名) 一个全局函数数组 一个全局变量数组 一个全局表格对象(元素引用) 一个全局内存对象 一个运行时栈 Hello World JavaScript部分hello.html 12345678910111213141516171819202122232425&lt;!doctype html&gt;&lt;html&gt; &lt;head&gt; &lt;meta charset="utf-8"&gt; &lt;title&gt;Show me the answer&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;script&gt; var wasmMem = new WebAssembly.Memory(&#123;initial:1&#125;); function printStr(offset, length)&#123; var bytes = new Uint8Array(wasmMem.buffer, offset, length); var string = new TextDecoder('utf-8').decode(bytes); console.log(string); &#125;; var importObj = &#123;js : &#123;print: printStr, mem: wasmMem&#125;&#125;; fetch('hello.wasm').then(response=&gt; response.arrayBuffer() ).then(bytes=&gt; WebAssembly.instantiate(bytes, importObj) ).then(result =&gt; result.instance.exports.hello() ); &lt;/script&gt; &lt;/body&gt;&lt;/html&gt; wat部分hello.wat 12345678910111213 ;; hello.wat(module ;; import js::print as js_print(); (import "js" "print" (func $js_print (param i32 i32))) (import "js" "mem" (memory 1)) ;;import js::mem as memory (data (i32.const 0) "你好，wasm") (func (export "hello") i32.const 0 ;; pass offset 0 to js_print i32.const 13 ;; pass offset 13 to js_print call $js_print ) ) 首先将.wat编译成为.wasm,需要用到wabt工具集。还需要下载 Emscripten工具集。编译好之后配置环境变量。就可以执行了。 12$ wat2wasm hello.wat -o hello.wasm$ emrun --no_browser --port 8080 . 然后打开http://localhost:8080/xxx.html，启动Chrome下的开发者模式，看到执行成功。 WebAssembly核心在JS环境中 浏览器中的wasm运行在JS虚拟机上，页面可以通过一组JS对象进行wasm模块的编译，载入，配置，调用等操作。 在wasm中的几个关键概念都有与之对应的对象： 模块——WebAssembly.Module 内存——WebAssembly.Memory 表格——WebAssembly.Table 实例——WebAssembly.Instance WebAssembly汇编语言]]></content>
@@ -9,8 +21,8 @@
       </categories>
       <tags>
         <tag>Compiler</tag>
-        <tag>WebAssembly</tag>
         <tag>PL</tag>
+        <tag>WebAssembly</tag>
       </tags>
   </entry>
   <entry>
@@ -21,8 +33,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
@@ -33,8 +45,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
@@ -45,8 +57,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
         <tag>Linker</tag>
         <tag>Loader</tag>
       </tags>
@@ -59,8 +71,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>RISCV</tag>
         <tag>Compiler</tag>
+        <tag>RISCV</tag>
       </tags>
   </entry>
   <entry>

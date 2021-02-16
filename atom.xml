@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2020-11-15T02:36:45.063Z</updated>
+  <updated>2021-02-16T06:20:08.386Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Lisp语言和Emacs</title>
+    <link href="http://haotianmcihael.github.io/2021/02/16/Lisp%E8%AF%AD%E8%A8%80%E5%92%8CEmacs/"/>
+    <id>http://haotianmcihael.github.io/2021/02/16/Lisp语言和Emacs/</id>
+    <published>2021-02-16T13:58:30.000Z</published>
+    <updated>2021-02-16T06:20:08.386Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>​    第一次接触<code>EMACS</code>是大二的时候，当时只顾着新奇的界面和强大的功能却忽视了其背后真正的理论。后来我写代码也一直不喜欢IDE这种东西，但现在回过头来看，这貌似也只是一种浮于表面而无关原理的执拗。 </p><p>​    这次重新回归到<code>Emacs</code>，我希望仔细从<code>Lisp</code>的角度理解这款编辑器，不管是其插件特性还是语言本身。</p></blockquote><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;​    第一次接触&lt;code&gt;EMACS&lt;/code&gt;是大二的时候，当时只顾着新奇的界面和强大的功能却忽视了其背后真正的理论。后来我写代码也一直不喜欢IDE这种东西，但现在回过头来看，这貌似也只是一种浮于表面而无关原理的执拗。 &lt;/p&gt;
+&lt;p&gt;​    这次重新回归到&lt;code&gt;Emacs&lt;/code&gt;，我希望仔细从&lt;code&gt;Lisp&lt;/code&gt;的角度理解这款编辑器，不管是其插件特性还是语言本身。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Lisp" scheme="http://haotianmcihael.github.io/categories/Lisp/"/>
+    
+    
+      <category term="EMACS" scheme="http://haotianmcihael.github.io/tags/EMACS/"/>
+    
+      <category term="PL" scheme="http://haotianmcihael.github.io/tags/PL/"/>
+    
+  </entry>
   
   <entry>
     <title>WebAssembly和Wabt</title>
@@ -38,9 +65,9 @@
     
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
-      <category term="WebAssembly" scheme="http://haotianmcihael.github.io/tags/WebAssembly/"/>
-    
       <category term="PL" scheme="http://haotianmcihael.github.io/tags/PL/"/>
+    
+      <category term="WebAssembly" scheme="http://haotianmcihael.github.io/tags/WebAssembly/"/>
     
   </entry>
   
@@ -78,9 +105,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -115,9 +142,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -150,9 +177,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
       <category term="Linker" scheme="http://haotianmcihael.github.io/tags/Linker/"/>
     
@@ -192,9 +219,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
     
   </entry>
   
