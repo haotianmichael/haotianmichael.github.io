@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2021-04-18T01:48:24.895Z</updated>
+  <updated>2021-04-18T02:11:21.463Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,12 +21,24 @@
     <link href="http://haotianmcihael.github.io/2021/04/18/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%88Ocaml%EF%BC%89ch0/"/>
     <id>http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/</id>
     <published>2021-04-18T09:48:24.000Z</published>
-    <updated>2021-04-18T01:48:24.895Z</updated>
+    <updated>2021-04-18T02:11:21.463Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>​    最近在实验室实习的过程中学到了很多有意思的东西，对<code>Programming Languages</code>也有了更深的了解，<code>Ocaml</code>是一门支持多范式的函数式编程语言。<strong>程序描述计算，但是又不仅仅是计算</strong>——函数式则很好的解释了这句话。<code>Ocaml</code>的学习带给我的不仅仅是语言本身，还有包括<code>Formal Semantics</code>，<code>Type System</code>，<code>Program Analysis</code>等新的知识边界。这个系列记录了其中的部分心得。</p></blockquote><a id="more"></a>]]></content>
     
     <summary type="html">
     
+      &lt;h3 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;​    最近在实验室实习的过程中学到了很多有意思的东西，对&lt;code&gt;Programming Languages&lt;/code&gt;也有了更深的了解，&lt;code&gt;Ocaml&lt;/code&gt;是一门支持多范式的函数式编程语言。&lt;strong&gt;程序描述计算，但是又不仅仅是计算&lt;/strong&gt;——函数式则很好的解释了这句话。&lt;code&gt;Ocaml&lt;/code&gt;的学习带给我的不仅仅是语言本身，还有包括&lt;code&gt;Formal Semantics&lt;/code&gt;，&lt;code&gt;Type System&lt;/code&gt;，&lt;code&gt;Program Analysis&lt;/code&gt;等新的知识边界。这个系列记录了其中的部分心得。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
     </summary>
     
+      <category term="Ocaml" scheme="http://haotianmcihael.github.io/categories/Ocaml/"/>
+    
+    
+      <category term="PL" scheme="http://haotianmcihael.github.io/tags/PL/"/>
+    
+      <category term="FP" scheme="http://haotianmcihael.github.io/tags/FP/"/>
     
   </entry>
   
@@ -35,7 +47,7 @@
     <link href="http://haotianmcihael.github.io/2021/02/16/Lisp%E8%AF%AD%E8%A8%80%E5%92%8CEmacs/"/>
     <id>http://haotianmcihael.github.io/2021/02/16/Lisp语言和Emacs/</id>
     <published>2021-02-16T13:58:30.000Z</published>
-    <updated>2021-02-17T11:15:22.479Z</updated>
+    <updated>2021-04-18T02:11:10.046Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>​    第一次接触<code>EMACS</code>是大二的时候，当时只顾着新奇的界面和强大的功能却忽视了其背后真正的理论。后来我写代码也一直不喜欢IDE这种东西，但现在回过头来看，这貌似也只是一种浮于表面而无关原理的执拗。 </p><p>​    这次重新回归到<code>Emacs</code>，我希望仔细从<code>Lisp</code>的角度理解这款编辑器，不管是其插件特性还是语言本身。</p></blockquote><a id="more"></a>]]></content>
     

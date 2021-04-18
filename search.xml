@@ -3,7 +3,14 @@
   <entry>
     <title><![CDATA[函数式编程（Ocaml）ch0]]></title>
     <url>%2F2021%2F04%2F18%2F%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%88Ocaml%EF%BC%89ch0%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[Abstract ​ 最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算——函数式则很好的解释了这句话。Ocaml的学习带给我的不仅仅是语言本身，还有包括Formal Semantics，Type System，Program Analysis等新的知识边界。这个系列记录了其中的部分心得。]]></content>
+      <categories>
+        <category>Ocaml</category>
+      </categories>
+      <tags>
+        <tag>PL</tag>
+        <tag>FP</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Lisp语言和Emacs]]></title>

@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="PL,FP," />
 
 
 
@@ -115,17 +115,18 @@
 
 
 
-<meta name="description" content="Under The Hood">
+<meta name="description" content="Abstract ​    最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算——函数式则很好的解释了这句话。Ocaml的学习带给我的不仅仅是语言本身，还有包括Formal Semantics，Type System，Program Analysis等新的知识边界">
+<meta name="keywords" content="PL,FP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="函数式编程（Ocaml）ch0">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Under The Hood">
+<meta property="og:description" content="Abstract ​    最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算——函数式则很好的解释了这句话。Ocaml的学习带给我的不仅仅是语言本身，还有包括Formal Semantics，Type System，Program Analysis等新的知识边界">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-18T01:48:24.895Z">
+<meta property="og:updated_time" content="2021-04-18T02:11:21.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程（Ocaml）ch0">
-<meta name="twitter:description" content="Under The Hood">
+<meta name="twitter:description" content="Abstract ​    最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算——函数式则很好的解释了这句话。Ocaml的学习带给我的不仅仅是语言本身，还有包括Formal Semantics，Type System，Program Analysis等新的知识边界">
 
 
 
@@ -388,6 +389,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ocaml/" itemprop="url" rel="index">
+                    <span itemprop="name">Ocaml</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -409,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  0
+                  127
                 </span>
               
 
@@ -446,7 +469,11 @@
       
 
       
-        
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>​    最近在实验室实习的过程中学到了很多有意思的东西，对<code>Programming Languages</code>也有了更深的了解，<code>Ocaml</code>是一门支持多范式的函数式编程语言。<strong>程序描述计算，但是又不仅仅是计算</strong>——函数式则很好的解释了这句话。<code>Ocaml</code>的学习带给我的不仅仅是语言本身，还有包括<code>Formal Semantics</code>，<code>Type System</code>，<code>Program Analysis</code>等新的知识边界。这个系列记录了其中的部分心得。</p>
+</blockquote>
+<a id="more"></a>
+
       
     </div>
     
@@ -457,6 +484,35 @@
     <div>
       
         
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2021/04/18/函数式编程（Ocaml）ch0/">函数式编程（Ocaml）ch0</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
+  <p><span>发布时间:</span>2021年04月18日 - 09:04</p>
+  <p><span>最后更新:</span>2021年04月18日 - 10:04</p>
+  <p><span>原始链接:</span><a href="/2021/04/18/函数式编程（Ocaml）ch0/" title="函数式编程（Ocaml）ch0">http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
 
 
       
@@ -469,6 +525,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PL/" rel="tag"><i class="fa fa-tag"></i> PL</a>
+          
+            <a href="/tags/FP/" rel="tag"><i class="fa fa-tag"></i> FP</a>
+          
+        </div>
       
 
       
@@ -539,8 +603,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -566,7 +639,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -577,7 +650,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -644,6 +717,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
