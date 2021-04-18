@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2021-02-16T06:20:08.386Z</updated>
+  <updated>2021-04-18T01:48:24.895Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -17,11 +17,25 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>函数式编程（Ocaml）ch0</title>
+    <link href="http://haotianmcihael.github.io/2021/04/18/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%88Ocaml%EF%BC%89ch0/"/>
+    <id>http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/</id>
+    <published>2021-04-18T09:48:24.000Z</published>
+    <updated>2021-04-18T01:48:24.895Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Lisp语言和Emacs</title>
     <link href="http://haotianmcihael.github.io/2021/02/16/Lisp%E8%AF%AD%E8%A8%80%E5%92%8CEmacs/"/>
     <id>http://haotianmcihael.github.io/2021/02/16/Lisp语言和Emacs/</id>
     <published>2021-02-16T13:58:30.000Z</published>
-    <updated>2021-02-16T06:20:08.386Z</updated>
+    <updated>2021-02-17T11:15:22.479Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote><p>​    第一次接触<code>EMACS</code>是大二的时候，当时只顾着新奇的界面和强大的功能却忽视了其背后真正的理论。后来我写代码也一直不喜欢IDE这种东西，但现在回过头来看，这貌似也只是一种浮于表面而无关原理的执拗。 </p><p>​    这次重新回归到<code>Emacs</code>，我希望仔细从<code>Lisp</code>的角度理解这款编辑器，不管是其插件特性还是语言本身。</p></blockquote><a id="more"></a>]]></content>
     
@@ -105,9 +119,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
   </entry>
   
@@ -142,9 +156,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
   </entry>
   
@@ -177,9 +191,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
       <category term="Linker" scheme="http://haotianmcihael.github.io/tags/Linker/"/>
     
@@ -219,9 +233,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   

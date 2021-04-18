@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[函数式编程（Ocaml）ch0]]></title>
+    <url>%2F2021%2F04%2F18%2F%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%88Ocaml%EF%BC%89ch0%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[Lisp语言和Emacs]]></title>
     <url>%2F2021%2F02%2F16%2FLisp%E8%AF%AD%E8%A8%80%E5%92%8CEmacs%2F</url>
     <content type="text"><![CDATA[Abstract ​ 第一次接触EMACS是大二的时候，当时只顾着新奇的界面和强大的功能却忽视了其背后真正的理论。后来我写代码也一直不喜欢IDE这种东西，但现在回过头来看，这貌似也只是一种浮于表面而无关原理的执拗。 ​ 这次重新回归到Emacs，我希望仔细从Lisp的角度理解这款编辑器，不管是其插件特性还是语言本身。]]></content>
@@ -33,8 +38,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
       </tags>
   </entry>
   <entry>
@@ -45,8 +50,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
       </tags>
   </entry>
   <entry>
@@ -57,8 +62,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
         <tag>Linker</tag>
         <tag>Loader</tag>
       </tags>
@@ -71,8 +76,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>RISCV</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
