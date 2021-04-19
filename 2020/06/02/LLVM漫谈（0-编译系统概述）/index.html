@@ -531,6 +531,7 @@
 <h2 id="ELF类型"><a href="#ELF类型" class="headerlink" title="ELF类型"></a>ELF类型</h2><blockquote>
 <p>根据ELF文件标准，可以分为下面4类：</p>
 </blockquote>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -562,6 +563,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="ELF格式"><a href="#ELF格式" class="headerlink" title="ELF格式"></a>ELF格式</h2><h3 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h3><blockquote>
 <p>以目标文件<strong>.o</strong>为例介绍，目标文件中的内容至少含有编译后的机器指令<strong>代码和数据</strong>。按照COFF的历史规定，ELF格式也是按照<strong>段-segment</strong>来管理的。下面是ELF文件的基本格式：</p>
 </blockquote>
@@ -741,6 +743,7 @@
 <blockquote>
 <p>链接器在装载模块的时候会查找每个变量所在的地址，然后填充GOT中的各个项，以确保每个指针所指向的地址正确。GOT在数据段所以可被修改。总结一下：</p>
 </blockquote>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -762,6 +765,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h5 id="共享模块的全局变量问题"><a href="#共享模块的全局变量问题" class="headerlink" title="共享模块的全局变量问题"></a>共享模块的全局变量问题</h5><blockquote>
 <p>这里需要注意，如果一个模块引用了一个定义在共享对象的全局变量的时候。编译器无法判断该global是在同一个模块的其他目标文件中，还是定义在另一个共享对象中。  </p>
 <p>解决办法是所有的全局变量都通过GOT访问。  </p>
@@ -770,6 +774,7 @@
 <p>数据段中也会出现绝对地址引用的情况：  </p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line">&gt; <span class="keyword">static</span> <span class="keyword">int</span> *p = &amp;a;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
 <p>这里的指针p就是一个绝对地址。一般来说，如果发现数据段中有绝对地址引用，编译器和链接器会产生一个重定位表。  </p>
 <p>对于可执行文件来说，默认情况下，如果可执行文件是动态链接的，那么编译器会使用PIC的方法来产生可执行文件的代码段部分，以便于不同的进程能够共享代码段，节省内存。所以一般动态链接的可执行文件中会有<code>.got</code>段。  </p>
@@ -787,7 +792,8 @@
 <p>操作系统装载程序之后，首先运行的代码并不是<code>main</code>的第一行，而是某些别的代码，这些代码负责准备好<code>main</code>函数执行所需要的环境，并且负责调用<code>main</code>函数，这时候才可以申请内存，使用系统调用，触发异常，访问I/O。在函数返回之后会记录<code>main</code>的返回值，调用<code>atexit</code>注册的函数，然后结束进程。  </p>
 <p>运行这些代码的函数成为<strong>入口函数</strong>或者<strong>入口点</strong>。这些都是运行库的一部分。个人理解运行库的概念就是操作系统和应用层的接口，区别于系统调用，比如Glibc那样。</p>
 </blockquote>
-<h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><table>
+<h1 id="常用二进制工具-基于LLVM"><a href="#常用二进制工具-基于LLVM" class="headerlink" title="常用二进制工具(基于LLVM)"></a>常用二进制工具(基于LLVM)</h1><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>命令</th>
@@ -841,6 +847,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 
       
     </div>

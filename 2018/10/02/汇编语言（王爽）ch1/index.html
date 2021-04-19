@@ -481,8 +481,6 @@
 </ul>
 <blockquote>
 <p> 答案是总线，地址总线决定了CPU的寻址能力；数据总线决定了CPU一次能够处理多少数据；控制总线决定了CPU对外部器件的控制能力。这里的外部器件指的是除内存外的其他存储单元比如VGA等。所以在模型内部实际上还有一层抽象————那就是由系统中所有的存储单元组成的统一的逻辑存储器。实际上CPU面向的就是这个逻辑存储器，书中叫它<code>内存地址空间</code>。  </p>
-</blockquote>
-<blockquote>
 <p> 以上就是整个书中抽象出来最简单的编程模型，王爽老师在一开始就定下这本书的基调————不是讲CPU和外设的物理结构<code>《微机原理和接口》</code>，也不是讲整个计算机系统的结构和功能<code>《组成原理》</code>。学习汇编语言是利用固有的硬件体系和特有的指令集进行编程从而对硬件系统进行控制。<br> 固有的硬件体系指的是这套<code>CPU+RAM</code>的计算机模型是图灵，冯诺依曼这些先驱们总结出来的一套最适合的结构。而特有的指令集则是说<strong>不同的CPU有不同的汇编语言</strong>，用x86的汇编语言的原因主要是因为这套指令集只有14个寄存器和1MB(20位地址总线)寻址空间，比较容易掌握。</p>
 </blockquote>
 <h4 id="指令和数据"><a href="#指令和数据" class="headerlink" title="指令和数据"></a>指令和数据</h4><blockquote>
@@ -490,13 +488,13 @@
 </blockquote>
 <h4 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h4><blockquote>
 <p>   8086CPU有14个寄存器，都是16位的。但是这16位的寄存器也可以独立作为两个8位的寄存器使用。<br>   寄存器和内存是汇编程序猿眼中最直观的计算机样子。</p>
-</blockquote>
 <h5 id="汇编层面的CPU"><a href="#汇编层面的CPU" class="headerlink" title="汇编层面的CPU"></a>汇编层面的CPU</h5><ul>
 <li>运算器进行信息处理</li>
 <li>寄存器进行信息存储</li>
 <li>控制器控制各种器件进行工作</li>
 <li>内部总线连接各种器件，在它们之间进行数据的传送  </li>
 </ul>
+</blockquote>
 <h5 id="8086架构（16位机）"><a href="#8086架构（16位机）" class="headerlink" title="8086架构（16位机）"></a>8086架构（16位机）</h5><p>具体深究到物理实现就是《组成原理》知识了。  </p>
 <ul>
 <li>运算器一次最多可以处理16位数据  </li>
@@ -511,12 +509,12 @@
 </blockquote>
 <h5 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h5><blockquote>
 <p>   <strong>在8086机中，任意时刻CPU将CS:IP指向的内容当做指令执行。</strong>汇编中使用<code>jmp 段地址:偏移地址</code>对CS:IP进行修改。或者使用<code>jmp 寄存器</code>来修改IP的值。  </p>
-</blockquote>
 <h6 id="8086的工作过程"><a href="#8086的工作过程" class="headerlink" title="8086的工作过程"></a>8086的工作过程</h6><ul>
 <li>从CS:IP指向的内存单元中读取指令，读取的指令进入指令缓存器。</li>
 <li>IP指向下一条指令。</li>
 <li>执行指令,从CS:IP中取指令，重复上面的过程。  </li>
 </ul>
+</blockquote>
 <h3 id="书中划线"><a href="#书中划线" class="headerlink" title="书中划线"></a>书中划线</h3><ul>
 <li>汇编语言和机器语言的差别在于指令的表示方法上。</li>
 <li>微机存储器的容量是以<strong>字节</strong>为最小单位的来计算的。</li>
@@ -526,11 +524,11 @@
 </ul>
 <h3 id="实验1-查看CPU和内存，用机器指令和汇编指令编程"><a href="#实验1-查看CPU和内存，用机器指令和汇编指令编程" class="headerlink" title="实验1 查看CPU和内存，用机器指令和汇编指令编程"></a>实验1 查看CPU和内存，用机器指令和汇编指令编程</h3><h4 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h4><blockquote>
 <p>   debug是DOS,Windows都提供的实模式（8086方式）程序的调试工具。下面是本次实验将会用到的参数:  </p>
-</blockquote>
 <h5 id="r-读写寄存器"><a href="#r-读写寄存器" class="headerlink" title="r (读写寄存器)"></a>r (读写寄存器)</h5><ul>
 <li><code>r</code>查看所有的寄存器的值</li>
 <li><code>r 寄存器名称</code>修改制定寄存器的值</li>
 </ul>
+</blockquote>
 <h5 id="d-（读写内存）"><a href="#d-（读写内存）" class="headerlink" title="d （读写内存）"></a>d （读写内存）</h5><ul>
 <li><code>d 段地址:偏移地址</code> 列出从指定内存单元开始的128个内存单元的内容</li>
 <li><code>d 段地址:起始偏移地址 结尾偏移地址</code>列出在偏移地址范围之内的内存单元的内容</li>
@@ -559,8 +557,6 @@
 </blockquote>
 <h5 id="最后两个实验"><a href="#最后两个实验" class="headerlink" title="最后两个实验"></a>最后两个实验</h5><blockquote>
 <p>使用<code>e</code>参数对特定的内存单元进行读写。<br>    <img src="3.png" width="50%" height="50%" alt=""></p>
-</blockquote>
-<blockquote>
 <p>   这两个实验间接地证明了<strong>内存地址空间</strong>的存在。<br>   我在向内存<code>B810:0000</code>中写数据的时候，发现显示器上会出现有颜色的字符和表情包，猜想这个地址应该是显存的物理地址。这也说明这里的内存不仅仅指的是主存储器，还有其他的和CPU直接相连的RAM。</p>
 </blockquote>
 <p>​        </p>

@@ -493,16 +493,16 @@
 <p>在之前的汇编实验中，我们学习了16位的<code>Intel-8086</code>汇编。而在32位机器上需要使用32位的<code>80386</code>汇编语言。虽然对于<code>Linux</code>来说，<code>8086</code>和<code>80386</code>的机器是有很大的差别的，主要体现在实模式和保护模式上。但是就语言本身而言，更多的是递进的关系而语法差别并不大。目前还没有遇到保护模式相关的障碍。<br><code>x86</code>的汇编主要有两种格式:<code>Intel</code>和<code>AT&amp;T</code>。<code>6.828</code>使用的是<code>AT&amp;T</code>,而实际上Linux中的汇编也是后者居多。<strong>汇编语言本身主要有指令集<code>Instruction Set</code>和伪指令<code>Directives</code>两大部分内容</strong>。当然最全的文献是Intel自家的Documents，不过我觉得有些太杂和多了。下面的的资料在实验过程中帮了我很多。值得细看。</p>
 </blockquote>
 <ul>
-<li>MIT—-<a href="https://pdos.lcs.mit.edu/6.828/2018/readings/pcasm-book.pdf" target="_blank" rel="noopener">pcasm-book</a>。</li>
-<li>Wikipedia—-<a href="https://en.wikipedia.org/wiki/X86_instruction_listings#Added_with_80386" target="_blank" rel="noopener">x86 Instruction Set</a></li>
-<li>Oracle—-<a href="https://docs.oracle.com/cd/E26502_01/html/E28388/eoiyg.html" target="_blank" rel="noopener">x86 Assembler Directives</a></li>
+<li>MIT——<a href="https://pdos.lcs.mit.edu/6.828/2018/readings/pcasm-book.pdf" target="_blank" rel="noopener">pcasm-book</a>。</li>
+<li>Wikipedia——<a href="https://en.wikipedia.org/wiki/X86_instruction_listings#Added_with_80386" target="_blank" rel="noopener">x86 Instruction Set</a></li>
+<li>Oracle——<a href="https://docs.oracle.com/cd/E26502_01/html/E28388/eoiyg.html" target="_blank" rel="noopener">x86 Assembler Directives</a></li>
 </ul>
 <h4 id="内联汇编"><a href="#内联汇编" class="headerlink" title="内联汇编"></a>内联汇编</h4><blockquote>
 <p>因为操作系统本身就是和硬件打交道最频繁的系统软件，有些地方需要使用到汇编来简单粗暴的完成工作。<strong>内联汇编</strong>就是嵌入在C语言中的汇编语言，格式和原来的有很大的不同。不过IBM的那份资料可以解决一大半问题，也是难得的中文文档……  </p>
 </blockquote>
 <ul>
-<li>MIT—-<a href="http://www.delorie.com/djgpp/doc/brennan/brennan_att_inline_djgpp.html" target="_blank" rel="noopener">Brennan’s Guide to Inline Assembly</a></li>
-<li>IBM—-<a href="https://www.ibm.com/developerworks/cn/linux/l-assembly/index.html" target="_blank" rel="noopener">汇编语言开发指南</a></li>
+<li>MIT——<a href="http://www.delorie.com/djgpp/doc/brennan/brennan_att_inline_djgpp.html" target="_blank" rel="noopener">Brennan’s Guide to Inline Assembly</a></li>
+<li>IBM——<a href="https://www.ibm.com/developerworks/cn/linux/l-assembly/index.html" target="_blank" rel="noopener">汇编语言开发指南</a></li>
 </ul>
 <h3 id="ELF文件"><a href="#ELF文件" class="headerlink" title="ELF文件"></a>ELF文件</h3><blockquote>
 <p>实名Diss网上各种对ELF的讲解，故意弄混<code>section</code>和<code>segment</code>的概念。加上对二进制工具使用的不熟练，让我一度以为链接的难度系数是整个实验过程中最高的……直到我看到<code>CSAPP</code>中关于链接部分的讲解。</p>
@@ -529,13 +529,10 @@
 <blockquote>
 <p>从文件类型的角度来看: 目前我们谈到的ELF文件有可重定位目标文件和可执行目标文件。可以使用二进制工具ELF文件进行分析。关于链接更本质的过程还是很复杂的，Lab1后面会有一部分和<strong>符号表</strong>相关的实验，建议先详细看看<code>CSAPP</code>和下面提供的资料。</p>
 <ul>
-<li>MIT—-<a href="https://pdos.csail.mit.edu/6.828/2018/readings/elf.pdf" target="_blank" rel="noopener">The definitive standard for the ELF format</a></li>
-<li>Wikipedia—-<a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format" target="_blank" rel="noopener">Executable and Linkable Format</a></li>
-<li>ELF中文文档—-<a href="https://paper.seebug.org/papers/Archive/refs/elf/Understanding_ELF.pdf" target="_blank" rel="noopener">ELF.Ch</a></li>
+<li>MIT——<a href="https://pdos.csail.mit.edu/6.828/2018/readings/elf.pdf" target="_blank" rel="noopener">The definitive standard for the ELF format</a></li>
+<li>Wikipedia——<a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format" target="_blank" rel="noopener">Executable and Linkable Format</a></li>
+<li>ELF中文文档——<a href="https://paper.seebug.org/papers/Archive/refs/elf/Understanding_ELF.pdf" target="_blank" rel="noopener">ELF.Ch</a><h3 id="二进制分析工具"><a href="#二进制分析工具" class="headerlink" title="二进制分析工具"></a>二进制分析工具</h3>6.828中主要使用<code>objdump</code>，基本工具可以通过<code>man</code>来查看用法，这里列出几个最常见的参数。</li>
 </ul>
-</blockquote>
-<h3 id="二进制分析工具"><a href="#二进制分析工具" class="headerlink" title="二进制分析工具"></a>二进制分析工具</h3><blockquote>
-<p>6.828中主要使用<code>objdump</code>，基本工具可以通过<code>man</code>来查看用法，这里列出几个最常见的参数。</p>
 </blockquote>
 <h4 id="Objdump"><a href="#Objdump" class="headerlink" title="Objdump"></a>Objdump</h4><blockquote>
 <p>对目标文件进行分析，在Linux平台上有三种<code>object file</code>:<code>Relocatable object File</code>,<code>Executable object File</code>,<code>Shared object File</code>，一直没搞懂为啥都叫<code>object File</code>。不过因为这三种目标文件对应于链接的不同阶段，所以对于链接过程本质的理解直接影响这里使用这个二进制分析工具。</p>
