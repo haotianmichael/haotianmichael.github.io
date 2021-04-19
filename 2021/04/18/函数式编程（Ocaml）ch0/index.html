@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract ​    最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算。Ocaml的学习带给我的不仅仅是语言本身，这个系列记录了其中的部分心得:  关于scripting/imperative/object-oriented/functional PL的基">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-19T00:44:41.019Z">
+<meta property="og:updated_time" content="2021-04-19T01:51:15.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程（Ocaml）ch0">
 <meta name="twitter:description" content="Abstract ​    最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算。Ocaml的学习带给我的不仅仅是语言本身，这个系列记录了其中的部分心得:  关于scripting/imperative/object-oriented/functional PL的基">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  905
+                  1.2k
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  3
+                  5
                 </span>
               
             </div>
@@ -508,7 +508,7 @@
 <figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; # <span class="number">3</span> / <span class="number">0</span>;;</span><br><span class="line">&gt; <span class="type">Exception</span>: <span class="type">Division_by_zero</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h4 id="Variables-Bindings-and-Functions"><a href="#Variables-Bindings-and-Functions" class="headerlink" title="Variables, Bindings and Functions"></a>Variables, Bindings and Functions</h4><blockquote>
-<p><code>Ocaml</code>是一个<code>call-by-value</code>的语言——<code>it binds values to variable names not expressions</code>。这里有一个<code>binding</code>的概念，区分于<code>assignment</code>。我们只是在<code>values</code>和<code>name</code>之间建立了“链接”——并没有新的<code>state</code>被创建。当然这种“链接”也是可以更新的。在<code>Ocaml</code>中用<code>let</code>表达式来建立一个绑定。</p>
+<p><code>Ocaml</code>是一个<code>call-by-value</code>的语言——<code>it binds values to variable names not expressions</code>。这里有一个<code>binding</code>的概念，区分于<code>assignment</code>。我们只是在<code>values</code>和<code>name</code>之间建立了“链接”——并没有新的<code>state</code>被创建——我理解和<code>imperative PL.</code>不同的应该是内存模型比如<code>C</code>中对局部变量是放在栈上的但是确实创建了内存。当然这种“链接”也是可以更新的。在<code>Ocaml</code>中用<code>let</code>表达式来建立一个绑定。</p>
 <figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; # <span class="keyword">let</span> x = <span class="number">3</span> * <span class="number">3</span>;;</span><br><span class="line">&gt; <span class="keyword">val</span> x : <span class="built_in">int</span> = <span class="number">9</span></span><br><span class="line">&gt; # <span class="keyword">let</span> x = <span class="number">42</span>;;</span><br><span class="line">&gt; <span class="keyword">val</span> x : <span class="built_in">int</span> = <span class="number">42</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
@@ -518,11 +518,21 @@
 <blockquote>
 <p>这里有一个新的<code>let &lt;name&gt; = &lt;expression 1&gt; in &lt;expression 2&gt;</code>结构——将<code>expression1</code>的<code>value</code>绑定到<code>name</code>上，然后继续使用这个新的绑定对<code>expression 2</code>进行<code>evalutions</code>。  </p>
 <p>在函数式中<code>let</code>不仅可以绑定基本类型，还可以绑定函数。</p>
-<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">let</span> area : <span class="built_in">float</span> -&gt; <span class="built_in">float</span> = <span class="keyword">function</span> r -&gt; pi *. r *. r;;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">let</span> area : <span class="built_in">float</span> -&gt; <span class="built_in">float</span> = <span class="keyword">function</span> r -&gt; pi *. r *. r;;</span><br><span class="line">&gt; <span class="keyword">let</span> area : <span class="built_in">float</span> -&gt; <span class="built_in">float</span> = <span class="keyword">fun</span> r -&gt; <span class="number">3.14</span> *. r *. r;;</span><br><span class="line">&gt; <span class="keyword">let</span> area (r:<span class="built_in">float</span>) = pi *. r *. r;;</span><br><span class="line">&gt; <span class="keyword">let</span> a1 = area(<span class="number">2.0</span>);;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
+<p>上面的三种写法是等价的，都得到函数类型<code>val area : float -&gt; float = &lt;fun&gt;</code>。<strong>有意思的是函数作为一种绑定，也是在<code>binding stack</code>中的，所以它只能看到过去的绑定：</strong></p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; # <span class="keyword">let</span> (pi*<span class="built_in">float</span>) = <span class="number">3.0</span></span><br><span class="line">&gt; <span class="keyword">val</span> pi : <span class="built_in">float</span> = <span class="number">3.14</span></span><br><span class="line">&gt; # <span class="keyword">let</span> area (r:<span class="built_in">float</span>) = pi *. r *.r;;</span><br><span class="line">&gt; <span class="keyword">val</span> area : <span class="built_in">float</span> -&gt; <span class="built_in">float</span> = &lt;<span class="keyword">fun</span>&gt;</span><br><span class="line">&gt; # <span class="keyword">let</span> a1 = area(<span class="number">2.0</span>);;</span><br><span class="line">&gt; <span class="keyword">val</span> a1 : <span class="built_in">float</span> = <span class="number">12.0</span></span><br><span class="line">&gt; # <span class="keyword">let</span> (pi*<span class="built_in">float</span>) = <span class="number">4.0</span></span><br><span class="line">&gt; <span class="keyword">val</span> pi : <span class="built_in">float</span> = <span class="number">4.0</span></span><br><span class="line">&gt; # <span class="keyword">let</span> a2 = area(<span class="number">2.0</span>);;</span><br><span class="line">&gt; <span class="keyword">val</span> a2 : <span class="built_in">float</span> = <span class="number">12.0</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-
+<blockquote>
+<p>最后介绍一下递归函数。在<code>Ocaml</code>中递归函数使用<code>let rec</code>来声明。比如定义<code>factorial</code>:</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">exception</span> <span class="type">Domain</span>;;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="keyword">let</span> <span class="keyword">rec</span> fact n = </span><br><span class="line">&gt; 	<span class="keyword">if</span> n &lt; <span class="number">0</span> <span class="keyword">then</span> raise <span class="type">Domain</span></span><br><span class="line">&gt; 	<span class="keyword">else</span> <span class="keyword">if</span> n = <span class="number">0</span> <span class="keyword">then</span> <span class="number">1</span></span><br><span class="line">&gt; 	<span class="keyword">else</span> n * fact(n - <span class="number">1</span>);;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>在函数式中所有的函数都可以被写成尾递归的形式然后进一步优化——这是因为尾递归函数的栈帧可以被优化掉。比如:</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">let</span> fact_tr n = </span><br><span class="line">&gt; 	<span class="keyword">let</span> <span class="keyword">rec</span> f n acc = </span><br><span class="line">&gt; 		<span class="keyword">if</span> n = <span class="number">0</span> <span class="keyword">then</span> acc <span class="keyword">else</span> f (n - <span class="number">1</span>) (n * acc)</span><br><span class="line">&gt; 	<span class="keyword">in</span></span><br><span class="line">&gt; 		f n <span class="number">1</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="Data-Types-and-Pattern-Matching"><a href="#Data-Types-and-Pattern-Matching" class="headerlink" title="Data Types and Pattern Matching"></a>Data Types and Pattern Matching</h4>
       
     </div>
     
@@ -542,7 +552,7 @@
   <p><span>本文标题:</span><a href="/2021/04/18/函数式编程（Ocaml）ch0/">函数式编程（Ocaml）ch0</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年04月18日 - 09:04</p>
-  <p><span>最后更新:</span>2021年04月19日 - 08:04</p>
+  <p><span>最后更新:</span>2021年04月19日 - 09:04</p>
   <p><span>原始链接:</span><a href="/2021/04/18/函数式编程（Ocaml）ch0/" title="函数式编程（Ocaml）ch0">http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/"  aria-label="复制成功！"></i></span>
   </p>
@@ -776,7 +786,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Expressions-Names-Values-and-Types"><span class="nav-number">2.1.</span> <span class="nav-text">Expressions, Names, Values and Types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Variables-Bindings-and-Functions"><span class="nav-number">2.2.</span> <span class="nav-text">Variables, Bindings and Functions</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Expressions-Names-Values-and-Types"><span class="nav-number">2.1.</span> <span class="nav-text">Expressions, Names, Values and Types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Variables-Bindings-and-Functions"><span class="nav-number">2.2.</span> <span class="nav-text">Variables, Bindings and Functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Types-and-Pattern-Matching"><span class="nav-number">2.3.</span> <span class="nav-text">Data Types and Pattern Matching</span></a></li></ol></li></ol></div>
             
 
           </div>
