@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract ​    最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算。Ocaml的学习带给我的不仅仅是语言本身，这个系列记录了其中的部分心得:  关于scripting/imperative/object-oriented/functional PL的基">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-19T09:34:26.901Z">
+<meta property="og:updated_time" content="2021-04-19T10:31:48.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程（Ocaml）ch0">
 <meta name="twitter:description" content="Abstract ​    最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算。Ocaml的学习带给我的不仅仅是语言本身，这个系列记录了其中的部分心得:  关于scripting/imperative/object-oriented/functional PL的基">
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  9
+                  8
                 </span>
               
             </div>
@@ -534,9 +534,9 @@
 </blockquote>
 <h4 id="Data-Types-and-Pattern-Matching"><a href="#Data-Types-and-Pattern-Matching" class="headerlink" title="Data Types and Pattern Matching"></a>Data Types and Pattern Matching</h4><blockquote>
 <p>这一节可以在<code>Ocaml</code>中定义自己的递归/非递归的数据类型。</p>
-</blockquote>
-<h5 id="No-Recursive-Recursive-Data-Types"><a href="#No-Recursive-Recursive-Data-Types" class="headerlink" title="No-Recursive/Recursive Data Types"></a>No-Recursive/Recursive Data Types</h5><blockquote>
 <p><code>Ocaml</code>使用<code>type</code>来定义<strong>有限无序的非递归集合</strong>，这里举一个扑克牌的例子:</p>
+</blockquote>
+<blockquote>
 <figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; # <span class="keyword">type</span> suit = <span class="type">Clubs</span> | <span class="type">Spades</span> | <span class="type">Hearts</span> | <span class="type">Diamonds</span>;;</span><br><span class="line">&gt; <span class="keyword">type</span> suit = <span class="type">Clubs</span> | <span class="type">Spades</span> | <span class="type">Hearts</span> | <span class="type">Diamonds</span></span><br><span class="line">&gt; # <span class="keyword">type</span> rank = <span class="type">Two</span> | <span class="type">Three</span> | <span class="type">Four</span> | <span class="type">Five</span> | <span class="type">Six</span> | <span class="type">Seven</span> | <span class="type">Eight</span> | <span class="type">Nine</span> | <span class="type">Ten</span> | <span class="type">Jack</span> | <span class="type">Queen</span> | <span class="type">King</span> | <span class="type">Ace</span>;;</span><br><span class="line">&gt; # <span class="keyword">type</span> card = rank * suit;;</span><br><span class="line">&gt; <span class="keyword">type</span> card = rank * suit</span><br><span class="line">&gt; # <span class="keyword">type</span> hand = <span class="type">Empty</span> | <span class="type">Hand</span> <span class="keyword">of</span> card * hand;;</span><br><span class="line">&gt; <span class="keyword">type</span> hand = <span class="type">Empty</span> | <span class="type">Hand</span> <span class="keyword">of</span> card * hand</span><br><span class="line">&gt; # <span class="keyword">let</span> <span class="keyword">rec</span> dom (s1, s2) = <span class="keyword">match</span> (s1, s2) <span class="keyword">with</span> </span><br><span class="line">&gt; | (<span class="type">Spades</span>, _) -&gt; <span class="literal">true</span></span><br><span class="line">&gt; | (<span class="type">Hearts</span>, <span class="type">Diamonds</span>)  -&gt; <span class="literal">true</span></span><br><span class="line">&gt; | (s1, s2) -&gt; s1 = s2</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
@@ -562,7 +562,7 @@
 <blockquote>
 <p>其中<code>option type</code>表示由<code>Some</code>构造器实现的类型为<code></code>a`的元素集合，是符合多态的任意类型。</p>
 </blockquote>
-<h5 id="Recursive-Data-Types-Lists"><a href="#Recursive-Data-Types-Lists" class="headerlink" title="Recursive Data Types: Lists"></a>Recursive Data Types: Lists</h5><h5 id="Recursive-Data-Types-Binary-Trees"><a href="#Recursive-Data-Types-Binary-Trees" class="headerlink" title="Recursive Data Types: Binary Trees"></a>Recursive Data Types: Binary Trees</h5>
+
       
     </div>
     
@@ -582,7 +582,7 @@
   <p><span>本文标题:</span><a href="/2021/04/18/函数式编程（Ocaml）ch0/">函数式编程（Ocaml）ch0</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年04月18日 - 09:04</p>
-  <p><span>最后更新:</span>2021年04月19日 - 17:04</p>
+  <p><span>最后更新:</span>2021年04月19日 - 18:04</p>
   <p><span>原始链接:</span><a href="/2021/04/18/函数式编程（Ocaml）ch0/" title="函数式编程（Ocaml）ch0">http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/"  aria-label="复制成功！"></i></span>
   </p>
@@ -641,6 +641,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/20/函数式编程（Ocaml）ch1/" rel="prev" title="函数式编程（Ocaml）ch1">
+                函数式编程（Ocaml）ch1 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -717,7 +721,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -739,7 +743,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -816,7 +820,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FP’s-Basic-Concepts"><span class="nav-number">2.</span> <span class="nav-text">FP’s Basic Concepts</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Expressions-Names-Values-and-Types"><span class="nav-number">2.1.</span> <span class="nav-text">Expressions, Names, Values and Types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Variables-Bindings-and-Functions"><span class="nav-number">2.2.</span> <span class="nav-text">Variables, Bindings and Functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Types-and-Pattern-Matching"><span class="nav-number">2.3.</span> <span class="nav-text">Data Types and Pattern Matching</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#No-Recursive-Recursive-Data-Types"><span class="nav-number">2.3.1.</span> <span class="nav-text">No-Recursive/Recursive Data Types</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Recursive-Data-Types-Lists"><span class="nav-number">2.3.2.</span> <span class="nav-text">Recursive Data Types: Lists</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Recursive-Data-Types-Binary-Trees"><span class="nav-number">2.3.3.</span> <span class="nav-text">Recursive Data Types: Binary Trees</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FP’s-Basic-Concepts"><span class="nav-number">2.</span> <span class="nav-text">FP’s Basic Concepts</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Expressions-Names-Values-and-Types"><span class="nav-number">2.1.</span> <span class="nav-text">Expressions, Names, Values and Types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Variables-Bindings-and-Functions"><span class="nav-number">2.2.</span> <span class="nav-text">Variables, Bindings and Functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Types-and-Pattern-Matching"><span class="nav-number">2.3.</span> <span class="nav-text">Data Types and Pattern Matching</span></a></li></ol></li></ol></div>
             
 
           </div>
