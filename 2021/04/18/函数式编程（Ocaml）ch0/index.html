@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract ​    最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算。Ocaml的学习带给我的不仅仅是语言本身，这个系列记录了其中的部分心得:  关于scripting/imperative/object-oriented/functional PL的基">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-18T14:48:57.889Z">
+<meta property="og:updated_time" content="2021-04-19T00:13:45.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程（Ocaml）ch0">
 <meta name="twitter:description" content="Abstract ​    最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算。Ocaml的学习带给我的不仅仅是语言本身，这个系列记录了其中的部分心得:  关于scripting/imperative/object-oriented/functional PL的基">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  457
+                  652
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  2
                 </span>
               
             </div>
@@ -497,6 +497,18 @@
 <p>在函数式中还有一个和<code>imperative PL.</code>中不同的概念称为<code>effect-free programming</code>。在命令式语言中，我们通过给<code>variables/fields</code>赋值来修改程序状态并将赋值行为的结果看成是<code>effects</code>。但是比如函数式就不会<code>explicitly</code>的分配内存，甚至没有<code>exception handling</code>来改变控制流状态——<strong>不支持<code>effect</code>被称为<code>pure functiional</code>比如<code>Haskell</code></strong>。<code>Ocaml</code>不是纯函数式语言。所以支持<code>effectful/state-full programming</code>和<code>pure FP</code>。  </p>
 <p>最后一个关键字就是<code>statically typed</code>静态类型。<code>Types statically approximate the runtime behaviour of an expression.</code>意思就是<code>static type checking</code>本身是在程序运行之前进行类型检查——通过<code>syntatic structure of expressions</code>。它可以保证通过静态类型检查的程序在运行时一定不会<code>core dump</code>。这样的<code>statically typed functional PL.</code>比如<code>Ocaml/Java/ML/Haskell/Scala等</code>也被称为是<code>type-safe</code>的。</p>
 </blockquote>
+<h4 id="Expressions-Names-Values-and-Types"><a href="#Expressions-Names-Values-and-Types" class="headerlink" title="Expressions, Names, Values and Types"></a>Expressions, Names, Values and Types</h4><blockquote>
+<p>在函数式中没有语句<code>statements</code>，最基本的<code>expression</code>就是<code>numbers/strings/booleans</code>。</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; # <span class="number">2</span> + <span class="number">3</span>;;</span><br><span class="line">&gt; - : <span class="built_in">int</span> = <span class="number">5</span></span><br><span class="line">&gt; # <span class="number">4.0</span> /. <span class="number">2.0</span>;;</span><br><span class="line">&gt; - : <span class="built_in">float</span> = <span class="number">2.0</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>上面代码中的格式为<code>&lt;name&gt; : &lt;type&gt; = &lt;value&gt;</code> 。我们将<code>;;</code>之前的式子称为<code>expressions</code>，将整个计算过程称为<code>evaluation</code>，而将计算的结果称为<code>values</code>。  </p>
+<p>注意在<code>Ocaml</code>中基础运算符并没有被重载，故浮点运算都是在后面有一个<code>,</code>。这主要是因为<code>Ocaml</code>是静态类型的，不会在运行时去根据运算符参数来推导重载的<code>operators</code>。  </p>
+<p>通过类型检查的程序，其<code>evaluation</code>要么更新到一个新的<code>state</code>要么报一个<code>built-in runtime error</code>。比如:</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; # <span class="number">3</span> / <span class="number">0</span>;;</span><br><span class="line">&gt; <span class="type">Exception</span>: <span class="type">Division_by_zero</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="Variables-Bindings-and-Functions"><a href="#Variables-Bindings-and-Functions" class="headerlink" title="Variables, Bindings and Functions"></a>Variables, Bindings and Functions</h4><blockquote>
+</blockquote>
 
       
     </div>
@@ -517,7 +529,7 @@
   <p><span>本文标题:</span><a href="/2021/04/18/函数式编程（Ocaml）ch0/">函数式编程（Ocaml）ch0</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年04月18日 - 09:04</p>
-  <p><span>最后更新:</span>2021年04月18日 - 22:04</p>
+  <p><span>最后更新:</span>2021年04月19日 - 08:04</p>
   <p><span>原始链接:</span><a href="/2021/04/18/函数式编程（Ocaml）ch0/" title="函数式编程（Ocaml）ch0">http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/04/18/函数式编程（Ocaml）ch0/"  aria-label="复制成功！"></i></span>
   </p>
@@ -751,7 +763,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Expressions-Names-Values-and-Types"><span class="nav-number">2.1.</span> <span class="nav-text">Expressions, Names, Values and Types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Variables-Bindings-and-Functions"><span class="nav-number">2.2.</span> <span class="nav-text">Variables, Bindings and Functions</span></a></li></ol></li></ol></div>
             
 
           </div>
