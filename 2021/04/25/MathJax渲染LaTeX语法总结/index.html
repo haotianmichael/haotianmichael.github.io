@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract  如何更精确的描述一门语言？语法用BNF来表示，而语义和类型系统则需要更加精确的operational semantics来描述。最近还在思考Spec对应的描述方案，框架也差不多搭好了，这里先总结一些常用的Latex语法，MathJax是一款基于Ajax的网页端数学公式渲染方案，用来写博客很方便。">
+<meta name="description" content="Abstract 如何更精确的描述一门语言？语法用BNF来表示，而语义和类型系统则需要更加精确的operational semantics来描述。最近还在思考Spec对应的描述方案，框架也差不多搭好了，这里先总结一些常用的Latex语法，MathJax是一款基于Ajax的网页端数学公式渲染方案，用来写博客很方便。">
 <meta name="keywords" content="MathJax">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MathJax渲染LaTeX语法总结">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/04/25/MathJax渲染LaTeX语法总结/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  如何更精确的描述一门语言？语法用BNF来表示，而语义和类型系统则需要更加精确的operational semantics来描述。最近还在思考Spec对应的描述方案，框架也差不多搭好了，这里先总结一些常用的Latex语法，MathJax是一款基于Ajax的网页端数学公式渲染方案，用来写博客很方便。">
+<meta property="og:description" content="Abstract 如何更精确的描述一门语言？语法用BNF来表示，而语义和类型系统则需要更加精确的operational semantics来描述。最近还在思考Spec对应的描述方案，框架也差不多搭好了，这里先总结一些常用的Latex语法，MathJax是一款基于Ajax的网页端数学公式渲染方案，用来写博客很方便。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-24T12:43:44.551Z">
+<meta property="og:updated_time" content="2021-04-24T12:50:16.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MathJax渲染LaTeX语法总结">
-<meta name="twitter:description" content="Abstract  如何更精确的描述一门语言？语法用BNF来表示，而语义和类型系统则需要更加精确的operational semantics来描述。最近还在思考Spec对应的描述方案，框架也差不多搭好了，这里先总结一些常用的Latex语法，MathJax是一款基于Ajax的网页端数学公式渲染方案，用来写博客很方便。">
+<meta name="twitter:description" content="Abstract 如何更精确的描述一门语言？语法用BNF来表示，而语义和类型系统则需要更加精确的operational semantics来描述。最近还在思考Spec对应的描述方案，框架也差不多搭好了，这里先总结一些常用的Latex语法，MathJax是一款基于Ajax的网页端数学公式渲染方案，用来写博客很方便。">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  626
+                  683
                 </span>
               
 
@@ -469,88 +469,62 @@
       
 
       
-        <h3 id="abstract">Abstract</h3>
-<blockquote>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
 <p>如何更精确的描述一门语言？语法用<code>BNF</code>来表示，而语义和类型系统则需要更加精确的<code>operational semantics</code>来描述。最近还在思考<code>Spec</code>对应的描述方案，框架也差不多搭好了，这里先总结一些常用的<code>Latex</code>语法，<code>MathJax</code>是一款基于<code>Ajax</code>的网页端数学公式渲染方案，用来写博客很方便。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="单行使用">单行使用</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$E = mC^2$</span><br></pre></td></tr></table></figure>
-<p><span class="math inline">\(E = mC^2\)</span>.</p>
-<h3 id="多行使用">多行使用</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\left ( \begin&#123;array&#125;&#123;c&#125;</span><br><span class="line">\left |\begin&#123;array&#125;&#123;cc&#125;</span><br><span class="line">a+b&amp;b+c\\c+d&amp;d+a</span><br><span class="line">\end&#123;array&#125;</span><br><span class="line">\right |\\</span><br><span class="line">y\\z</span><br><span class="line">\end&#123;array&#125;\right )</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
-<p><span class="math display">\[
+<h3 id="单行使用"><a href="#单行使用" class="headerlink" title="单行使用"></a>单行使用</h3><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$E = mC^<span class="number">2</span>$</span><br></pre></td></tr></table></figure>
+<p>$E = mC^2$.</p>
+<h3 id="多行使用"><a href="#多行使用" class="headerlink" title="多行使用"></a>多行使用</h3><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">\left ( \begin&#123;array&#125;&#123;c&#125;</span><br><span class="line">\left |\begin&#123;array&#125;&#123;cc&#125;</span><br><span class="line">a+b&amp;b+c\\c+d&amp;d+a</span><br><span class="line">\end&#123;array&#125;</span><br><span class="line">\right |\\</span><br><span class="line">y\\z</span><br><span class="line">\end&#123;array&#125;\right )</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
 \left (\begin{array}{c}
 \left |\begin{array}{cc}
-a+b&amp;b+c\\c+d&amp;d+a
+a+b&b+c\\c+d&d+a
 \end{array}
 \right |\\
 y\\z
-\end{array}\right )
-\]</span></p>
-<h3 id="latex内部换行">Latex内部换行</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ a b \\\\ c d  $</span><br></pre></td></tr></table></figure>
-<p><span class="math inline">\(a b \\\\ c d\)</span></p>
-<h3 id="latex公式与文本的间隔">LaTeX公式与文本的间隔</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ a \quad b \quad c $</span><br></pre></td></tr></table></figure>
-<p><span class="math inline">\(a \quad b \quad c\)</span></p>
-<h3 id="latex公式编号">LaTeX公式编号</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">I_3=\left|\begin&#123;array&#125; \\</span><br><span class="line">    1 &amp; 0 &amp; 0 \\\\ </span><br><span class="line">		0 &amp; 1 &amp; 0 \\\\ </span><br><span class="line">		0 &amp; 0 &amp; 1 \\\\ </span><br><span class="line">\end&#123;array&#125;\right|</span><br><span class="line">\tag&#123;1.1&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
-<p><span class="math display">\[
+\end{array}\right )</script><h3 id="Latex内部换行"><a href="#Latex内部换行" class="headerlink" title="Latex内部换行"></a>Latex内部换行</h3><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ a b \\\\ c d  $</span><br></pre></td></tr></table></figure>
+<p>$a b \\\ c d$</p>
+<h3 id="LaTeX公式与文本的间隔"><a href="#LaTeX公式与文本的间隔" class="headerlink" title="LaTeX公式与文本的间隔"></a>LaTeX公式与文本的间隔</h3><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ a \quad b \quad c $</span><br></pre></td></tr></table></figure>
+<p> $a \quad b \quad c$</p>
+<h3 id="LaTeX公式编号"><a href="#LaTeX公式编号" class="headerlink" title="LaTeX公式编号"></a>LaTeX公式编号</h3><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$$</span><br><span class="line">I_3=\left|\begin&#123;array&#125; \\</span><br><span class="line">    <span class="number">1</span> &amp; <span class="number">0</span> &amp; <span class="number">0</span> \\\\ </span><br><span class="line">		<span class="number">0</span> &amp; <span class="number">1</span> &amp; <span class="number">0</span> \\\\ </span><br><span class="line">		<span class="number">0</span> &amp; <span class="number">0</span> &amp; <span class="number">1</span> \\\\ </span><br><span class="line">\end&#123;array&#125;\right|</span><br><span class="line">\tag&#123;1.1&#125;</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
 I_3=\left|\begin{array} \\
-    1 &amp; 0 &amp; 0 \\\\ 
-        0 &amp; 1 &amp; 0 \\\\ 
-        0 &amp; 0 &amp; 1 \\\\ 
+    1 & 0 & 0 \\\\ 
+        0 & 1 & 0 \\\\ 
+        0 & 0 & 1 \\\\ 
 \end{array}\right|
-\tag{1.1}
-\]</span></p>
-<h3 id="常用数学符号">常用数学符号</h3>
-<h4 id="上下标">上下标</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ a^2 A_i$</span><br></pre></td></tr></table></figure>
-<p><span class="math inline">\(a^2 \quad A_i\)</span></p>
-<h3 id="方根">方根</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \sqrt&#123;x&#125;   \sqrt[3]&#123;x^3&#125;$</span><br></pre></td></tr></table></figure>
-<p>$   $</p>
-<h4 id="上划线和下划线">上划线和下划线</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \overline&#123;AB&#125;  \underline&#123;m+n&#125;$</span><br></pre></td></tr></table></figure>
-<p>$   $</p>
-<h4 id="向量">向量</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \vec a    \overrightarrow&#123;AB&#125;   \overleftarrow&#123;CD&#125;$</span><br></pre></td></tr></table></figure>
-<p>$ a   $</p>
-<h4 id="分数">分数</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \frac&#123;1&#125;&#123;2&#125; $</span><br></pre></td></tr></table></figure>
-<p>$  $</p>
-<h4 id="积分">积分</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$$ </span><br><span class="line">\sum_&#123;n=1&#125;^\infty \frac&#123;1&#125;&#123;n&#125; \\\\</span><br><span class="line">\int_0^\frac&#123;\pi&#125;&#123;2&#125; sin(\theta) d \theta \\\\</span><br><span class="line">\prod_\epsilon</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
-<p><span class="math display">\[
+\tag{1.1}</script><h3 id="常用数学符号"><a href="#常用数学符号" class="headerlink" title="常用数学符号"></a>常用数学符号</h3><h4 id="上下标"><a href="#上下标" class="headerlink" title="上下标"></a>上下标</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ a^<span class="number">2</span> A_i$</span><br></pre></td></tr></table></figure>
+<p>$a^2  \quad   A_i$</p>
+<h3 id="方根"><a href="#方根" class="headerlink" title="方根"></a>方根</h3><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \sqrt&#123;x&#125;   \sqrt[<span class="number">3</span>]&#123;x^3&#125;$</span><br></pre></td></tr></table></figure>
+<p>$  \sqrt{x} \quad  \sqrt[3]{x^3}  $ </p>
+<h4 id="上划线和下划线"><a href="#上划线和下划线" class="headerlink" title="上划线和下划线"></a>上划线和下划线</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \overline&#123;AB&#125;  \underline&#123;m+n&#125;$</span><br></pre></td></tr></table></figure>
+<p>$  \overline{AB}  \quad  \underline{m+n}  $</p>
+<h4 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \vec a    \overrightarrow&#123;AB&#125;   \overleftarrow&#123;CD&#125;$</span><br></pre></td></tr></table></figure>
+<p>$  \vec a  \quad  \overrightarrow{AB} \quad  \overleftarrow{CD}  $</p>
+<h4 id="分数"><a href="#分数" class="headerlink" title="分数"></a>分数</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \frac&#123;1&#125;&#123;2&#125; $</span><br></pre></td></tr></table></figure>
+<p>$ \frac{1}{2} $</p>
+<h4 id="积分"><a href="#积分" class="headerlink" title="积分"></a>积分</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$$ </span><br><span class="line">\sum_&#123;n=1&#125;^\infty \frac&#123;1&#125;&#123;n&#125; \\\\</span><br><span class="line">\int_0^\frac&#123;\pi&#125;&#123;2&#125; sin(\theta) d \theta \\\\</span><br><span class="line">\prod_\epsilon</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
 \sum_{n=1}^\infty \frac{1}{n} \\\\
 \int_0^\frac{\pi}{2} sin(\theta) d \theta \\\\
-\prod_\epsilon
-\]</span></p>
-<h4 id="极限">极限</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$\lim_&#123;x \to 2&#125;$</span><br></pre></td></tr></table></figure>
-<p><span class="math inline">\(\lim_{x \to 2}\)</span></p>
-<h4 id="数学模式重音符">数学模式重音符</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\hat&#123;a&#125;     \grave&#123;a&#125;       \bar&#123;a&#125;     \check&#123;a&#125; </span><br><span class="line">\dot&#123;a&#125;     \vec&#123;a&#125;         \tilde&#123;a&#125;   \ddot&#123;a&#125; </span><br><span class="line">\widehat&#123;A&#125; \acute&#123;a&#125;       \breve&#123;a&#125;   \widetilde&#123;A&#125;</span><br></pre></td></tr></table></figure>
-<p><span class="math display">\[\hat{a}  \quad   \grave{a}   \quad    \bar{a}  \quad   \check{a} \\\\
+\prod_\epsilon</script><h4 id="极限"><a href="#极限" class="headerlink" title="极限"></a>极限</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$\lim_&#123;x \to 2&#125;$</span><br></pre></td></tr></table></figure>
+<p>$\lim_{x \to 2}$ </p>
+<h4 id="数学模式重音符"><a href="#数学模式重音符" class="headerlink" title="数学模式重音符"></a>数学模式重音符</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\hat&#123;a&#125;     \grave&#123;a&#125;       \bar&#123;a&#125;     \check&#123;a&#125; </span><br><span class="line">\dot&#123;a&#125;     \vec&#123;a&#125;         \tilde&#123;a&#125;   \ddot&#123;a&#125; </span><br><span class="line">\widehat&#123;A&#125; \acute&#123;a&#125;       \breve&#123;a&#125;   \widetilde&#123;A&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\hat{a}  \quad   \grave{a}   \quad    \bar{a}  \quad   \check{a} \\\\
 \dot{a}   \quad  \vec{a}    \quad     \tilde{a} \quad  \ddot{a} \\\\
-\widehat{A} \quad  \acute{a}  \quad    \breve{a}  \quad \widetilde{A}\]</span></p>
-<h4 id="小写希腊字母">小写希腊字母</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">\alpha			\theta		o 				\upsilon \\</span><br><span class="line">\beta 			\vartheta \pi 			\phi \\</span><br><span class="line">\gamma 			\iota 		\varpi 		\varphi \\</span><br><span class="line">\delta 			\kappa 		\rho 			\chi \\</span><br><span class="line">\epsilon 		\lambda 	\varrho 	\psi \\</span><br><span class="line">\varepsilon \mu 			\sigma 		\omega \\</span><br><span class="line">\zeta 			\nu 			\varsigma \\</span><br><span class="line">\eta 				\xi 			\tau</span><br></pre></td></tr></table></figure>
-<p><span class="math display">\[\alpha        \quad   \theta  \quad   o       \quad       \upsilon \\\\
-\beta       \quad   \vartheta \quad \pi         \quad   \phi \\\\
-\gamma      \quad   \iota \quad     \varpi  \quad   \varphi \\\\
-\delta  \quad       \kappa  \quad   \rho        \quad   \chi \\\\
-\epsilon    \quad   \lambda \quad   \varrho \quad   \psi \\\\
-\varepsilon  \quad  \mu     \quad       \sigma  \quad   \omega \\\\
-\zeta       \quad   \nu     \quad       \varsigma \\\\
-\eta        \quad       \xi     \quad       \tau\]</span></p>
-<h4 id="大写希腊字母">大写希腊字母</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\Gamma			\Lambda			\Sigma			\Psi	\\</span><br><span class="line">\Delta			\Xi					\Upsilon		\Omega	\\</span><br><span class="line">\Theta			\Pi</span><br></pre></td></tr></table></figure>
-<p><span class="math display">\[\Gamma    \quad       \Lambda     \quad   \Sigma  \quad       \Psi    \\\\
-\Delta      \quad   \Xi \quad               \Upsilon    \quad   \Omega  \\\\
-\Theta      \quad   \Pi \]</span></p>
-<h4 id="二元关系">二元关系</h4>
+\widehat{A} \quad  \acute{a}  \quad    \breve{a}  \quad \widetilde{A}</script><h4 id="小写希腊字母"><a href="#小写希腊字母" class="headerlink" title="小写希腊字母"></a>小写希腊字母</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">\alpha			\theta		o 				\upsilon \\</span><br><span class="line">\beta 			\vartheta \pi 			\phi \\</span><br><span class="line">\gamma 			\iota 		\varpi 		\varphi \\</span><br><span class="line">\delta 			\kappa 		\rho 			\chi \\</span><br><span class="line">\epsilon 		\lambda 	\varrho 	\psi \\</span><br><span class="line">\varepsilon \mu 			\sigma 		\omega \\</span><br><span class="line">\zeta 			\nu 			\varsigma \\</span><br><span class="line">\eta 				\xi 			\tau</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\alpha        \quad     \theta    \quad     o         \quad        \upsilon \\\\
+\beta         \quad    \vartheta \quad \pi         \quad     \phi \\\\
+\gamma         \quad     \iota \quad        \varpi     \quad    \varphi \\\\
+\delta     \quad        \kappa     \quad    \rho         \quad    \chi \\\\
+\epsilon     \quad    \lambda \quad    \varrho \quad    \psi \\\\
+\varepsilon  \quad  \mu     \quad        \sigma     \quad    \omega \\\\
+\zeta         \quad     \nu     \quad        \varsigma \\\\
+\eta         \quad        \xi     \quad        \tau</script><h4 id="大写希腊字母"><a href="#大写希腊字母" class="headerlink" title="大写希腊字母"></a>大写希腊字母</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\<span class="keyword">Gamma</span>			\Lambda			\Sigma			\Psi	\\</span><br><span class="line">\Delta			\Xi					\Upsilon		\Omega	\\</span><br><span class="line">\Theta			\<span class="keyword">Pi</span></span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">\Gamma    \quad        \Lambda        \quad    \Sigma    \quad        \Psi    \\\\
+\Delta        \quad    \Xi    \quad                \Upsilon    \quad    \Omega    \\\\
+\Theta        \quad    \Pi</script><h4 id="二元关系"><a href="#二元关系" class="headerlink" title="二元关系"></a>二元关系</h4><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;	&gt;	=</span><br><span class="line">\leq or \le	\geq or \ge	\equiv</span><br><span class="line">\ll	\gg	\equiv</span><br><span class="line">\prec	\succ	\sim</span><br><span class="line">\preceq	\succeq	\simeq</span><br><span class="line">\subset	\supset	\approx</span><br><span class="line">\subseteq	\supseteq	\cong</span><br><span class="line">\sqsubset	\sqsupset	\<span class="keyword">Join</span></span><br><span class="line">\sqsubseteq	\sqsubseteq	\bowtie</span><br><span class="line">\in	\ni, \owns	\propto</span><br><span class="line">\vdash	\dashv	\models</span><br><span class="line">\mid	\parallel	\perp</span><br><span class="line">\smile	\frown	\asymp</span><br><span class="line">:	\notin	\neq or \ne</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -803,7 +777,7 @@ I_3=\left|\begin{array} \\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单行使用"><span class="nav-number">2.</span> <span class="nav-text">单行使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多行使用"><span class="nav-number">3.</span> <span class="nav-text">多行使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#latex内部换行"><span class="nav-number">4.</span> <span class="nav-text">Latex内部换行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#latex公式与文本的间隔"><span class="nav-number">5.</span> <span class="nav-text">LaTeX公式与文本的间隔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#latex公式编号"><span class="nav-number">6.</span> <span class="nav-text">LaTeX公式编号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用数学符号"><span class="nav-number">7.</span> <span class="nav-text">常用数学符号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上下标"><span class="nav-number">7.1.</span> <span class="nav-text">上下标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方根"><span class="nav-number">8.</span> <span class="nav-text">方根</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上划线和下划线"><span class="nav-number">8.1.</span> <span class="nav-text">上划线和下划线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量"><span class="nav-number">8.2.</span> <span class="nav-text">向量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分数"><span class="nav-number">8.3.</span> <span class="nav-text">分数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#积分"><span class="nav-number">8.4.</span> <span class="nav-text">积分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#极限"><span class="nav-number">8.5.</span> <span class="nav-text">极限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数学模式重音符"><span class="nav-number">8.6.</span> <span class="nav-text">数学模式重音符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小写希腊字母"><span class="nav-number">8.7.</span> <span class="nav-text">小写希腊字母</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大写希腊字母"><span class="nav-number">8.8.</span> <span class="nav-text">大写希腊字母</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二元关系"><span class="nav-number">8.9.</span> <span class="nav-text">二元关系</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单行使用"><span class="nav-number">2.</span> <span class="nav-text">单行使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多行使用"><span class="nav-number">3.</span> <span class="nav-text">多行使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Latex内部换行"><span class="nav-number">4.</span> <span class="nav-text">Latex内部换行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LaTeX公式与文本的间隔"><span class="nav-number">5.</span> <span class="nav-text">LaTeX公式与文本的间隔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LaTeX公式编号"><span class="nav-number">6.</span> <span class="nav-text">LaTeX公式编号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用数学符号"><span class="nav-number">7.</span> <span class="nav-text">常用数学符号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上下标"><span class="nav-number">7.1.</span> <span class="nav-text">上下标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方根"><span class="nav-number">8.</span> <span class="nav-text">方根</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#上划线和下划线"><span class="nav-number">8.1.</span> <span class="nav-text">上划线和下划线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量"><span class="nav-number">8.2.</span> <span class="nav-text">向量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分数"><span class="nav-number">8.3.</span> <span class="nav-text">分数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#积分"><span class="nav-number">8.4.</span> <span class="nav-text">积分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#极限"><span class="nav-number">8.5.</span> <span class="nav-text">极限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数学模式重音符"><span class="nav-number">8.6.</span> <span class="nav-text">数学模式重音符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小写希腊字母"><span class="nav-number">8.7.</span> <span class="nav-text">小写希腊字母</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大写希腊字母"><span class="nav-number">8.8.</span> <span class="nav-text">大写希腊字母</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二元关系"><span class="nav-number">8.9.</span> <span class="nav-text">二元关系</span></a></li></ol></li></ol></div>
             
 
           </div>
