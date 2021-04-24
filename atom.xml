@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2021-04-24T02:20:09.476Z</updated>
+  <updated>2021-04-24T02:30:34.787Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://haotianmcihael.github.io/2021/04/20/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%88Ocaml%EF%BC%89ch1/"/>
     <id>http://haotianmcihael.github.io/2021/04/20/函数式编程（Ocaml）ch1/</id>
     <published>2021-04-19T18:32:42.000Z</published>
-    <updated>2021-04-24T02:20:09.476Z</updated>
+    <updated>2021-04-24T02:30:34.787Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>介绍完<code>Ocaml</code>的基本概念，这一章来回顾一点高中数学知识——<strong>Proofs By Induction-归纳证明</strong>。<code>PL</code>中的很多理论都会用到归纳法。</p></blockquote><a id="more"></a><h3 id="mathematical-induction">Mathematical Induction</h3><p>a<span class="math inline">\(\Rightarrow\)</span> b</p><h3 id="complete-induction">Complete induction</h3><h3 id="structural-induction">Structural induction</h3>]]></content>
+    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>介绍完<code>Ocaml</code>的基本概念，这一章来回顾一点高中数学知识——<strong>Proofs By Induction-归纳证明</strong>。<code>PL</code>中的很多理论都会用到归纳法。</p></blockquote><a id="more"></a><h3 id="mathematical-induction">Mathematical Induction</h3><p><span class="math inline">\(\Rightarrow\)</span></p><h3 id="complete-induction">Complete induction</h3><h3 id="structural-induction">Structural induction</h3>]]></content>
     
     <summary type="html">
     
