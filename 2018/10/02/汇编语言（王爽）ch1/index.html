@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "5d4a5755"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="i386," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CodeSaw" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="第一部分:硬件模型 Abstract 硬件基础  全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。 CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
+<meta name="keywords" content="i386">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言（王爽）ch1">
+<meta property="og:url" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/index.html">
+<meta property="og:site_name" content="CodeSaw">
+<meta property="og:description" content="第一部分:硬件模型 Abstract 硬件基础  全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。 CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/3.png">
+<meta property="og:updated_time" content="2020-06-26T02:30:19.084Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言（王爽）ch1">
+<meta name="twitter:description" content="第一部分:硬件模型 Abstract 硬件基础  全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。 CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/"/>
+
+
+
+
+
+
+  <title>汇编语言（王爽）ch1 | CodeSaw</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <a href="https://github.com/haotianmichael" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CodeSaw</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-algorithm">
+          <a href="/algorithm/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-desktop"></i> <br />
+            
+            Algorithm
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HaotianMichael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSaw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汇编语言（王爽）ch1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-02T17:03:13+08:00">
+                2018-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Assembly/" itemprop="url" rel="index">
+                    <span itemprop="name">Assembly</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第一部分硬件模型">第一部分:硬件模型</h2>
+<h3 id="abstract">Abstract</h3>
+<h4 id="硬件基础">硬件基础</h4>
+<blockquote>
+<p>全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————<code>冯诺依曼结构</code>。<br>
+CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？<br>
+<a id="more"></a></p>
+</blockquote>
+<ul>
+<li>存储单元的地址（地址）</li>
+<li>读/写操作（控制）</li>
+<li>读/写的具体数据（数据）</li>
+</ul>
+<blockquote>
+<p>答案是总线，地址总线决定了CPU的寻址能力；数据总线决定了CPU一次能够处理多少数据；控制总线决定了CPU对外部器件的控制能力。这里的外部器件指的是除内存外的其他存储单元比如VGA等。所以在模型内部实际上还有一层抽象————那就是由系统中所有的存储单元组成的统一的逻辑存储器。实际上CPU面向的就是这个逻辑存储器，书中叫它<code>内存地址空间</code>。</p>
+</blockquote>
+<blockquote>
+<p>以上就是整个书中抽象出来最简单的编程模型，王爽老师在一开始就定下这本书的基调————不是讲CPU和外设的物理结构<code>《微机原理和接口》</code>，也不是讲整个计算机系统的结构和功能<code>《组成原理》</code>。学习汇编语言是利用固有的硬件体系和特有的指令集进行编程从而对硬件系统进行控制。 固有的硬件体系指的是这套<code>CPU+RAM</code>的计算机模型是图灵，冯诺依曼这些先驱们总结出来的一套最适合的结构。而特有的指令集则是说<strong>不同的CPU有不同的汇编语言</strong>，用x86的汇编语言的原因主要是因为这套指令集只有14个寄存器和1MB(20位地址总线)寻址空间，比较容易掌握。</p>
+</blockquote>
+<h4 id="指令和数据">指令和数据</h4>
+<blockquote>
+<p>学习组成的时候就对这两个概念很模糊，但是做实验的过程中其实发现：其实CPU看到的东西就是一堆01而已，真正将这堆01赋予意义的还是我们。换句话说就是数据和指令只是一个应用上的概念，你将它放到PC中它就是地址，而将它放到另外一个寄存器中它可能就直接被用来运算了。 从原理上看，主要是不同的寄存器对这些数据赋予了不同的功能。CPU的工作用一句话来概括就是<code>从特定的寄存器中取出data1作为地址，然后把内存中这个地址相对应的data2作为指令进行计算</code>。但是如果我把<code>data1</code>和<code>data2</code>互换一下，其实也是可以的。但是需要考虑到的是<code>data2</code>所代表的地址是不是在内存地址空间的范围之内，我的理解是寄存器，总线，内存中存储数据的位数有可能都是不一样的。但是说到底它们只是来存储数据的，写错最坏的情况也就是CPU跑崩了。</p>
+</blockquote>
+<h4 id="寄存器">寄存器</h4>
+<blockquote>
+<p>8086CPU有14个寄存器，都是16位的。但是这16位的寄存器也可以独立作为两个8位的寄存器使用。<br>
+寄存器和内存是汇编程序猿眼中最直观的计算机样子。 ##### 汇编层面的CPU * 运算器进行信息处理 * 寄存器进行信息存储 * 控制器控制各种器件进行工作 * 内部总线连接各种器件，在它们之间进行数据的传送</p>
+</blockquote>
+<h5 id="架构16位机">8086架构（16位机）</h5>
+<p>具体深究到物理实现就是《组成原理》知识了。<br>
+* 运算器一次最多可以处理16位数据<br>
+* 寄存器的最大宽度为16位<br>
+* 寄存器和运算器之间的通路为16位</p>
+<h5 id="汇编层面的内存">汇编层面的内存</h5>
+<blockquote>
+<p>CPU在访问内存单元的时候，需要知道内存单元的地址。所有的内存单元构成的存储空间是一个一维的线性空间，每一个内存空间在这个空间上都有唯一的地址，这个惟一的地址就叫做<code>物理地址</code>。<br>
+CPU首先在内部形成这个物理地址，然后通过地址总线送入存储器。这个地址一定是一个内存单元的物理地址。不同的CPU架构形成地址的方式不一样。</p>
+</blockquote>
+<h5 id="csip">CS:IP</h5>
+<blockquote>
+<p>前面提到了8086CPU内部需要形成物理地址，但是8086是16位机————只能处理和传输16位的地址，但是8086的地址总线有20位，所以需要两个16位来共同形成一个20位的地址。 14个寄存器中，CS是段寄存器，存放基地址。而IP存放偏移量。公式:<code>CSx16+IP</code>。<br>
+首先需要明白的就是，一个内存单元是8位二进制也叫一个字节。而十六进制的一位可以表示成为二进制的4位。完全只是为了方便才写成16进制的。<strong>20位的地址（5位16进制）</strong>可以写成<code>4C780H</code>，后面的H表示16进制。<code>一个X进制的数据左移一位，相当于乘以X</code>。所以为了记起来方便一些可以记成<code>CS寄存器的数据左移一位+IP寄存器的值</code>。但是<strong>两个寄存器只有16位（4位16进制)</strong>，到后面计算的时候需要注意这两个前提，避免溢出。 书中特别强调了对<strong>段</strong>的理解。这里的段并不是指内存被物理上分成一段一段的。而是因为CPU在管理内存的时候，使用<code>CSx16+IP</code>的方式来进行管理。<strong>所以可以将地址连续，起始地址为16的倍数的一组内存单元看成是一个段。</strong>重点在于不是所有的起始地址都可以作为段地址————这是因为<code>CSx16</code>决定的。而且因为<code>IP</code>是16位的所以每一个段的长度最大为<code>64KB</code>。</p>
+</blockquote>
+<h5 id="执行过程">执行过程</h5>
+<blockquote>
+<p><strong>在8086机中，任意时刻CPU将CS:IP指向的内容当做指令执行。</strong>汇编中使用<code>jmp 段地址:偏移地址</code>对CS:IP进行修改。或者使用<code>jmp 寄存器</code>来修改IP的值。<br>
+###### 8086的工作过程 * 从CS:IP指向的内存单元中读取指令，读取的指令进入指令缓存器。 * IP指向下一条指令。 * 执行指令,从CS:IP中取指令，重复上面的过程。</p>
+</blockquote>
+<h3 id="书中划线">书中划线</h3>
+<ul>
+<li>汇编语言和机器语言的差别在于指令的表示方法上。</li>
+<li>微机存储器的容量是以<strong>字节</strong>为最小单位的来计算的。</li>
+<li>在内存和磁盘上，数据和指令没有任何区别。</li>
+<li>在汇编语言这门课中，我们所面对的是<strong>内存地址空间</strong>。CPU向这段地址中读写数据实际上就是向相应的物理存储器中读写数据。</li>
+<li>内存地址空间的大小受到CPU地址总线宽度的限制。</li>
+</ul>
+<h3 id="实验1-查看cpu和内存用机器指令和汇编指令编程">实验1 查看CPU和内存，用机器指令和汇编指令编程</h3>
+<h4 id="工具介绍">工具介绍</h4>
+<blockquote>
+<p>debug是DOS,Windows都提供的实模式（8086方式）程序的调试工具。下面是本次实验将会用到的参数:<br>
+##### r (读写寄存器) * <code>r</code>查看所有的寄存器的值 * <code>r 寄存器名称</code>修改制定寄存器的值</p>
+</blockquote>
+<h5 id="d-读写内存">d （读写内存）</h5>
+<ul>
+<li><code>d 段地址:偏移地址</code> 列出从指定内存单元开始的128个内存单元的内容</li>
+<li><code>d 段地址:起始偏移地址 结尾偏移地址</code>列出在偏移地址范围之内的内存单元的内容</li>
+</ul>
+<h5 id="e-读写内存">e （读写内存）</h5>
+<ul>
+<li><code>e 段地址:偏移地址  data1  data2 data3……</code>从特定单元开始讲数据写入内存</li>
+<li><code>e 段地址:偏移地址 回车</code>表示挨个儿修改内存，空格表示默认不修改，回车表示修改结束</li>
+</ul>
+<h5 id="eut">e+u+t</h5>
+<ul>
+<li>使用<code>e</code>参数向内存中写入机器码</li>
+<li>使用<code>u 段地址:偏移地址</code>可以将内存中机器码翻译成为汇编语言</li>
+<li><code>t</code>参数执行<code>CS:IP</code>指向的内存地址单元的任何指令，注意修改参数</li>
+</ul>
+<h5 id="a">a</h5>
+<ul>
+<li><code>a 段地址:偏移地址</code>可以直接使用汇编的格式写入机器指令</li>
+</ul>
+<h4 id="实验任务">实验任务</h4>
+<blockquote>
+<p>一共有4个实验。写出来的都是我觉得很有意思且值得讨论的实验。</p>
+</blockquote>
+<h5 id="第二个实验">第二个实验</h5>
+<blockquote>
+<p>给出起始地址为<code>2000:0000</code>的三条指令，使用这三条指令计算2的8次方。</p>
+</blockquote>
+<pre><code>&lt;img src=&quot;2.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; alt=&quot;&quot;&gt;</code></pre>
+<blockquote>
+<p>有意思的是这个算法，a += a；如果这里的a是2的话，实际上<code>a+a</code>等于<code>ax2</code>所以可以2的8次方可以通过8次这样的加法完成，但是如果a是其他的值就不行了。</p>
+</blockquote>
+<h5 id="最后两个实验">最后两个实验</h5>
+<blockquote>
+<p>使用<code>e</code>参数对特定的内存单元进行读写。 <img src="3.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+<blockquote>
+<p>这两个实验间接地证明了<strong>内存地址空间</strong>的存在。<br>
+我在向内存<code>B810:0000</code>中写数据的时候，发现显示器上会出现有颜色的字符和表情包，猜想这个地址应该是显存的物理地址。这也说明这里的内存不仅仅指的是主存储器，还有其他的和CPU直接相连的RAM。</p>
+</blockquote>
+<p>​</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/10/02/汇编语言（王爽）ch1/">汇编语言（王爽）ch1</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
+  <p><span>发布时间:</span>2018年10月02日 - 09:10</p>
+  <p><span>最后更新:</span>2020年06月26日 - 10:06</p>
+  <p><span>原始链接:</span><a href="/2018/10/02/汇编语言（王爽）ch1/" title="汇编语言（王爽）ch1">http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+      
+   </div>	 
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/i386/" rel="tag"><i class="fa fa-tag"></i> i386</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/02/汇编语言（王爽）ch0/" rel="next" title="汇编语言（王爽）ch0">
+                <i class="fa fa-chevron-left"></i> 汇编语言（王爽）ch0
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/04/汇编语言（王爽）ch2/" rel="prev" title="汇编语言（王爽）ch2">
+                汇编语言（王爽）ch2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="HaotianMichael" />
+          <p class="site-author-name" itemprop="name">HaotianMichael</p>
+           
+              <p class="site-description motion-element" itemprop="description">Under The Hood</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/haotianmichael" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cnblogs.com/haotianmichael" target="_blank" title="Cnblogs">
+                  
+                    <i class="fa fa-fw fa-address-book"></i>
+                  
+                    
+                      Cnblogs
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/mikehaotian" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-comment"></i>
+                  
+                    
+                      Zhihu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分硬件模型"><span class="nav-number">1.</span> <span class="nav-text">第一部分:硬件模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件基础"><span class="nav-number">1.1.1.</span> <span class="nav-text">硬件基础</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指令和数据"><span class="nav-number">1.1.2.</span> <span class="nav-text">指令和数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寄存器"><span class="nav-number">1.1.3.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#架构16位机"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">8086架构（16位机）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编层面的内存"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">汇编层面的内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#csip"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">CS:IP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行过程"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">执行过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书中划线"><span class="nav-number">1.2.</span> <span class="nav-text">书中划线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验1-查看cpu和内存用机器指令和汇编指令编程"><span class="nav-number">1.3.</span> <span class="nav-text">实验1 查看CPU和内存，用机器指令和汇编指令编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工具介绍"><span class="nav-number">1.3.1.</span> <span class="nav-text">工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#d-读写内存"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">d （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-读写内存"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">e （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#eut"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">e+u+t</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">a</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验任务"><span class="nav-number">1.3.2.</span> <span class="nav-text">实验任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第二个实验"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">第二个实验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最后两个实验"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">最后两个实验</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright" >
+     
+  <span class="author" itemprop="copyrightHolder">HaotianMichael</span>
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+ 
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "5d4a5755"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="i386," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="CodeSaw" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="第二部分:汇编结构 Abstract 汇编语言的结构 寄存器和内存之间  汇编语言是由不同的段构成的，这些段的功能各异不过主要分为指令和数据两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
+<meta name="keywords" content="i386">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言（王爽）ch2">
+<meta property="og:url" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/index.html">
+<meta property="og:site_name" content="CodeSaw">
+<meta property="og:description" content="第二部分:汇编结构 Abstract 汇编语言的结构 寄存器和内存之间  汇编语言是由不同的段构成的，这些段的功能各异不过主要分为指令和数据两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/5.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/6.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/7.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/8.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/9.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/10.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/11.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/12.png">
+<meta property="og:updated_time" content="2020-06-26T02:30:06.641Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言（王爽）ch2">
+<meta name="twitter:description" content="第二部分:汇编结构 Abstract 汇编语言的结构 寄存器和内存之间  汇编语言是由不同的段构成的，这些段的功能各异不过主要分为指令和数据两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/"/>
+
+
+
+
+
+
+  <title>汇编语言（王爽）ch2 | CodeSaw</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <a href="https://github.com/haotianmichael" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CodeSaw</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-algorithm">
+          <a href="/algorithm/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-desktop"></i> <br />
+            
+            Algorithm
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HaotianMichael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSaw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汇编语言（王爽）ch2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T04:26:50+08:00">
+                2018-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Assembly/" itemprop="url" rel="index">
+                    <span itemprop="name">Assembly</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  3.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第二部分汇编结构">第二部分:汇编结构</h2>
+<h3 id="abstract">Abstract</h3>
+<h4 id="汇编语言的结构">汇编语言的结构</h4>
+<h5 id="寄存器和内存之间">寄存器和内存之间</h5>
+<blockquote>
+<p>汇编语言是由不同的段构成的，这些段的功能各异不过主要分为<code>指令</code>和<code>数据</code>两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。<br>
+<a id="more"></a> <strong>字节存储和字存储</strong>就是两种解决办法，在8086中寄存器是16位的(16位为一字)，而存储器的最小存储单元是8位也就是一个字节，所以如果在一些读写中需要用到字存储而不是字节存储的话，就需要两块连续的内存单元才能完成数据的传输，而且是<strong>高地址存放字的高位字节，低地址存放字的低位字节</strong>。<br>
+<strong>要读写一块内存单元的时候，必须先要给出这个内存单元的地址。</strong>在实验1中我们知道了CPU使用<code>段地址+偏移地址</code>的方式来进行寻址。而实现这些功能的就是一些具有特殊功能的寄存器。这里提到的是最简单的也最常使用的两种类型:<br>
+* <code>CS</code>+<code>IP</code>————在任意时刻CPU将CS:IP指向的内容当做指令执行。<br>
+* <code>DS</code>+[idata]————<code>DS</code>通常用来存放需要访问的数据的段地址。<br>
+<strong>这里主要介绍汇编语言的结构，对应到寄存器和内存寻址的方式后面会讲。</strong> ##### 数据段 将一段内存当做数据段，是我们在编程的时候的一种安排，可以在具体操作的时候，<strong>用ds存放数据的段地址，</strong>再根据相关指令访问数据段中的具体单元。</p>
+</blockquote>
+<h5 id="代码段">代码段</h5>
+<blockquote>
+<p>从硬件角度讲，CPU只认被CS:IP指向的内存单元中的内容为指令。要让CPU执行我们放在代码段的指令，必须要将CS:IP指向所定义的代码段中的第一条指令的首地址。</p>
+</blockquote>
+<h5 id="栈段">栈段</h5>
+<blockquote>
+<p><strong>栈是一种先进后出的数据结构</strong>，这是最基本的栈的概念。这里讲到的栈指的是内存区域。从操作系统的角度讲一个线程需要分配一个栈(stack)。相对应的一个进程需要分配一个堆(heap)。栈的大小在分配的时候就已经确定好了，其作用主要是存放一些局部和确定的变量和数据。<br>
+关于栈也有两个寄存器:<code>SS:SP</code>。换句话讲CPU如何知道一段内存区域是不是栈？栈顶的段地址放在<code>SS</code>中，而偏移地址放在<code>SP</code>中。<strong>任意时刻，SS:SP指向栈顶元素</strong>。这是规定。<br>
+另外，上微机原理课的时候，老师讲到栈的分类:<br>
+* 向高地址生长的称为递增堆栈。 * 向地地址生长的称为递减堆栈。<br>
+地址延伸主要的影响就是内存中的大端寻址和小端寻址。</p>
+</blockquote>
+<pre><code>&lt;img src=&quot;4.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; alt=&quot;&quot;&gt;</code></pre>
+<ul>
+<li>堆栈指针指向最后压入堆栈的有效数据项，叫做满堆栈。</li>
+<li>堆栈指针指向下一个待压入数据的空位置，叫做空堆栈。<br>
+<img src="5.png" width="50%" height="50%" alt=""></li>
+</ul>
+<h5 id="栈指令">栈指令</h5>
+<blockquote>
+<p>在i386的指令集中，栈操作都是以字为单位的。 ###### push执行过程 1. SP=SP-2; 2. 向<code>SP:SS</code>指向的内存字单元中送入数据; ###### pop执行过程 1. 从<code>SP:SS</code>指向的内存字单元中读取数据; 2. SP=SP+2;</p>
+</blockquote>
+<h5 id="段的概念">段的概念</h5>
+<blockquote>
+<p>之前讨论过关于<strong>段</strong>这个概念。我认为，还是因为在编程的时候可以通过一个系统化的结构来统一汇编语言的实现逻辑。使得这些指令看上去便于管理和协调合作。至于其物理实现，其实就是CPU的寻址方式决定的。书本中有一段话特别经典，我摘抄如下:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">比如我们将10000H~1001F安排为代码段，并在里面存储如下代码:  </span><br><span class="line"></span><br><span class="line">MOV ax,1000H  </span><br><span class="line">MOV ss,ax</span><br><span class="line">MOV sp,0020H  //初始化栈顶</span><br><span class="line">MOV ax,cs</span><br><span class="line">MOV ds,ax  //设置数据段段地址</span><br><span class="line">MOV ax,[0]</span><br><span class="line">add ax,[2]</span><br><span class="line">add bx,[4]</span><br><span class="line">add bx,[6]</span><br><span class="line">push ax</span><br><span class="line">push bx</span><br><span class="line">pop ax</span><br><span class="line">pop bx  </span><br><span class="line"></span><br><span class="line">设置CS=1000，IP=0.这段代码就会被执行，但是可以看到在这段代码中，我们又将  </span><br><span class="line">10000H~1001FH安排为栈段和数据段。  </span><br><span class="line">可见不管我们如何安排，CPU将内存中的某段内存当做代码，是因CS:IP指向了那里。  </span><br><span class="line">CPU将某段内存当做栈，是因为SS:SP指向了那里。我们一定要清楚，什么是我们的安排，  </span><br><span class="line">以及如何让CPU按我们的安排行事。要非常清楚CPU的工作机理，才能在控制CPU按照我们  </span><br><span class="line">的安排运行的时候做到游刃有余。  </span><br><span class="line">一段内存，可以既是代码的存储空间，又是数据的存储空间，还可以是栈空间，也可以什么都不是。  </span><br><span class="line">关键是在于CPU中寄存器的设置，机CS，IP，SS，SP，DS的指向。</span><br></pre></td></tr></table></figure>
+<h5 id="多个段的统一">多个段的统一</h5>
+<blockquote>
+<p>以前写的汇编都是单个段，并且主要是代码段。如果内存中的一段汇编代码需要包含多个数据段，代码段，栈段。该如何设计才能保证程序正常运行呢？<br>
+<strong>我们应该有一个概念，就是所谓和CPU对应的程序一定是<code>CS:IP</code>指向的内存地址。</strong>所以实际上这个问题是在问保证<code>CS:IP</code>正确指向程序的前提下，如何让数据段，栈段合理的加进来？<br>
+这里有个<code>伪指令</code>的概念，伪指令主要是为汇编器提供一些编译的前提信息比如从哪里开始执行代码，其他的段的起始地址在哪里。所以问题也就解决了。</p>
+<ul>
+<li>如何保证<code>CS:IP</code>指向代码段: <code>end</code>和<code>end start</code></li>
+<li>如何定义一个段: <code>code segment</code>和<code>code ends</code></li>
+<li>如何将段寄存器和段相对应: <code>assume cs:code</code></li>
+</ul>
+</blockquote>
+<h4 id="汇编语言的编译连接过程及其工具的使用">汇编语言的编译、连接过程及其工具的使用</h4>
+<blockquote>
+<p>这部分详细见书上。</p>
+</blockquote>
+<h5 id="源程序组成">源程序组成</h5>
+<blockquote>
+<p>一个汇编程序的源程序由<code>汇编指令</code>和<code>伪指令</code>构成。汇编指令指的是编译成为机器指令最终为CPU所执行的代码。伪指令没有相对应的机器指令，主要是由编译器来执行的指令。</p>
+</blockquote>
+<h5 id="编译链接执行">编译、链接、执行</h5>
+<blockquote>
+<p>源程序经过编译成为可重定位文件，然后经过链接成为可执行文件。可执行文件是可以直接在操作系统中执行的。上述两种文件都属于ELF格式的文件，ELF是Linux下面的一种文件格式，具体的细节在后面的操作系统中会谈到，这里只是了解。<br>
+<code>编程</code>（edit）————&gt;<code>1.asm</code>————&gt;<code>编译</code>(masm)————&gt;<code>1.obj</code>————&gt;<code>链接</code>(link)————&gt;<code>1.exe</code>————&gt;<code>加载</code>(shell)————&gt;<code>内存中的程序</code>————&gt;<code>运行</code>(CPU)</p>
+</blockquote>
+<p><img src="6.png" width="50%" height="50%" alt=""></p>
+<h3 id="工具进阶">工具进阶</h3>
+<h4 id="debug--d">debug -d</h4>
+<blockquote>
+<p>第一个实验中使用的debug工具，通过各种参数来对寄存器和内存进行读写。比如<code>d 段地址:偏移地址</code>指令会列出指定内存单元中的内容。但是debug也是一个程序，而能定位内存地址的方式在8086中只有段寄存器可以做到,实际上debug就是通过将地址写入段寄存器中的方式来进行内存寻址。这个原理适用于所有的参数。<br>
+而使用的这个段寄存器正是<code>DS</code>寄存器。<br>
+根据这个原理，就可以通过修改寄存器来进阶使用这些命令，比如:<code>-r ds</code>,<code>:1000</code>,<code>-d ds:0</code>这段代码就表示查看从1000：0开始的内存空间中的内容。这里主要是认识到段寄存器DS的寻址功能，为之后的寻址方式打基础。</p>
+</blockquote>
+<h4 id="debug--p">debug -p</h4>
+<blockquote>
+<p>在整个实验中，debug工具是经常要使用的。debug有两种用法，一种就是使用<code>a</code>参数直接写入程序然后调试。还有一种就是直接调试<code>exe</code>文件。<br>
+第一种之前一直在用，第二种方式加载的过程有一些不一样，ds段寄存器中存放着该程序的段地址，因为偏移为零所以DS:0就是所加载程序的首地址。而加载进来的程序前256字节存放的是一段通信程序，所以真正的代码是在<code>(DS+10H:0):0</code>开始的。<br>
+每一段汇编指令都需要以<code>mov ax,4c00H</code>，<code>int 21H</code>结尾。在调试到<code>int 21H</code>的时候需要使用<code>P</code>命令执行。出现<code>Program terminated normally</code>程序正常退出。</p>
+</blockquote>
+<h3 id="实验2-用机器指令和汇编指令编程">实验2 用机器指令和汇编指令编程</h3>
+<blockquote>
+<p>这个实验很有意思，一共有两部分: #### 第一部分 使用<code>a</code>将下面的汇编指令写入内存，然后使用<code>T</code>命令调试。如下:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2000</span><br><span class="line">mov ss,ax</span><br><span class="line">mov sp,10</span><br><span class="line">mov ax,3123</span><br><span class="line">push ax</span><br><span class="line">mov ax,3366</span><br><span class="line">push ax</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>会发现在单步调试的时候，在<code>mov ss,ax</code>之后的下一条指令竟然不是<code>mov sp,10</code>。但是查看寄存器的时候发现实际上这条执行已经被执行结束了。这是第一个现象。 <img src="7.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+<h4 id="第二部分">第二部分</h4>
+<blockquote>
+<p>对上面的代码继续调试，如下： 会发现最开始对栈初始化之后，到执行到<code>mov ss,ax</code>指令的时候，查看原来的栈段内容竟然不再是零，且这些数字还都是和段寄存器相关的。<br>
+<img src="8.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+<h4 id="总结">总结</h4>
+<blockquote>
+<p>下图是接下来的每一步后栈段中的内存变化。<br>
+<img src="9.png" width="50%" height="50%" alt=""> 可以看到的现象是:开始的时候栈中是没有数据的，栈桢SP指向<code>2000:0010</code>的位置。<br>
+在<code>mov ss,ax</code>和<code>mov sp,10</code>这两步执行结束之后，发现栈中已经有数据了，这里称为初始化。初始化的一共有6字节的数据:4个字节为<code>CS:IP</code>，还有两字节在栈底确定为<code>01A3H</code>。<br>
+之后的每一条栈操作的指令执行结束之后栈中的<code>CS:IP</code>值也会跟着变化，这说明每一次指令都有可能产生一次中断。<br>
+但是在栈底的<code>01A3H</code>一直没有变化估计应该是中断相关。在正式压栈操作的过程中发现最开始初始化过的那些数据并没有被压到栈底，<strong>这就意味着堆栈指针SP应该还在栈底，然后真正有数据项压栈的时候才会SP-=2操作。</strong> ##### 小实验 就上面的三个现象，我在想仅仅是初始化的过程就已经占据了一大半栈空间，那如果将栈大小调整成为8字节的。那会出现什么情况？ 我将<code>mov sp,10</code>改成<code>mov sp,08</code>；然后准备了8字节数据，所以栈会被压满。这时候我想看看现象。<br>
+这是一张初始化的图: <img src="10.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+<blockquote>
+<p>这是末尾压栈满了的图: <img src="11.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+<blockquote>
+<p>因为书上关于中断的详细讲解在第四部分，所以这里只是一个猜测。<strong>现象中随着栈不断被压满，之前初始化的那些数据都被挤出去了，具体去哪了不知道。那6个字节的数据到底有什么用也不知道。</strong><br>
+##### 猜测 不过可以知道的是初始化栈帧的时候会有参数压到栈里，参数有<code>CS:IP</code>和中断向量号，其中<code>CS:IP</code>还在<strong>不断变化</strong>。而随着栈中的数据越来越多，栈中的这6个字节的参数被慢慢挤出。难道这6个字节不重要吗，或者说只是在初始化的时候用了一下？但是过程中这些参数一直也在变化，所以不可能不重要.不过这些数据之所以放到栈中的原因一定不是为了存储，否则就不会被随便挤出。<br>
+结合第一部分实验，<code>mov sp,10</code>是紧跟着前一条指令执行的，所以我能想到的唯一一个合理的解释就是:这些参数是在指令执行过程中直接使用的，而执行过程对shell屏蔽不可见，所以在栈中数据越来越多的时候这些参数还可以随意的移动位置并且被抛弃，这些参数是过程中使用的参数，而这个过程就是中断！至于中断到底是什么，到第4章再详细学习吧。</p>
+</blockquote>
+<h3 id="实验3-用编程编译连接跟踪">实验3 用编程、编译、连接、跟踪</h3>
+<blockquote>
+<p>最后一个实验查看PSP（就是加载开始前256字节）的内容。<br>
+使用<code>u</code>来查看汇编好像又和中断有关系。 <img src="12.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/10/04/汇编语言（王爽）ch2/">汇编语言（王爽）ch2</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
+  <p><span>发布时间:</span>2018年10月03日 - 20:10</p>
+  <p><span>最后更新:</span>2020年06月26日 - 10:06</p>
+  <p><span>原始链接:</span><a href="/2018/10/04/汇编语言（王爽）ch2/" title="汇编语言（王爽）ch2">http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+      
+   </div>	 
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/i386/" rel="tag"><i class="fa fa-tag"></i> i386</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/02/汇编语言（王爽）ch1/" rel="next" title="汇编语言（王爽）ch1">
+                <i class="fa fa-chevron-left"></i> 汇编语言（王爽）ch1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/11/汇编语言（王爽）ch3/" rel="prev" title="汇编语言（王爽）ch3">
+                汇编语言（王爽）ch3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="HaotianMichael" />
+          <p class="site-author-name" itemprop="name">HaotianMichael</p>
+           
+              <p class="site-description motion-element" itemprop="description">Under The Hood</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/haotianmichael" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cnblogs.com/haotianmichael" target="_blank" title="Cnblogs">
+                  
+                    <i class="fa fa-fw fa-address-book"></i>
+                  
+                    
+                      Cnblogs
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/mikehaotian" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-comment"></i>
+                  
+                    
+                      Zhihu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二部分汇编结构"><span class="nav-number">1.</span> <span class="nav-text">第二部分:汇编结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#汇编语言的结构"><span class="nav-number">1.1.1.</span> <span class="nav-text">汇编语言的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#寄存器和内存之间"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">寄存器和内存之间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码段"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">代码段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#栈段"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">栈段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#栈指令"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">栈指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#段的概念"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">段的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多个段的统一"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">多个段的统一</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#汇编语言的编译连接过程及其工具的使用"><span class="nav-number">1.1.2.</span> <span class="nav-text">汇编语言的编译、连接过程及其工具的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#源程序组成"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">源程序组成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译链接执行"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">编译、链接、执行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具进阶"><span class="nav-number">1.2.</span> <span class="nav-text">工具进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#debug--d"><span class="nav-number">1.2.1.</span> <span class="nav-text">debug -d</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#debug--p"><span class="nav-number">1.2.2.</span> <span class="nav-text">debug -p</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验2-用机器指令和汇编指令编程"><span class="nav-number">1.3.</span> <span class="nav-text">实验2 用机器指令和汇编指令编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第二部分"><span class="nav-number">1.3.1.</span> <span class="nav-text">第二部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.3.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验3-用编程编译连接跟踪"><span class="nav-number">1.4.</span> <span class="nav-text">实验3 用编程、编译、连接、跟踪</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright" >
+     
+  <span class="author" itemprop="copyrightHolder">HaotianMichael</span>
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+ 
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
