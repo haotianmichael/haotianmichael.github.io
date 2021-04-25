@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract  介绍完Ocaml的基本概念，这一章来回顾一点高中数学知识——Proofs By Induction-归纳证明。PL中的很多理论都会用到归纳法。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-25T12:27:59.682Z">
+<meta property="og:updated_time" content="2021-04-25T12:53:56.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程（Ocaml）ch1">
 <meta name="twitter:description" content="Abstract  介绍完Ocaml的基本概念，这一章来回顾一点高中数学知识——Proofs By Induction-归纳证明。PL中的很多理论都会用到归纳法。">
@@ -486,8 +486,9 @@
 </blockquote>
 <blockquote>
 <p>如何使用归纳法证明这段程序确实计算<span class="math inline">\(n^k\)</span>？证明中规定<span class="math inline">\(\overline{n}\)</span>和<span class="math inline">\(n\)</span>分别表示程序中和证明中:</p>
-<p><span class="math display">\[ e \Downarrow v \quad \text{expression e evaluates in multiple steps to the value v.}\\\\             e \Rightarrow e&#39; \quad \text{expression e evaluates in one steps to expression e&#39;.}\\\\           e \Rightarrow^* e&#39; \quad \text{expression e evaluates in multiple steps to expression e&#39;.}\]</span></p>
-<p><strong>Theorem 1.</strong> $power(, )  0 $</p>
+<p><span class="math display">\[                                                         e \Downarrow v \quad \text{expression e evaluates in multiple steps to the value v.}\\\\                                                                                                                 e \Rightarrow e&#39; \quad \text{expression e evaluates in one steps to expression e&#39;.}\\\\                                                                                                             e \Rightarrow^* e&#39; \quad \text{expression e evaluates in multiple steps to expression e&#39;.}\]</span></p>
+<p><strong>Theorem 1.</strong></p>
+<p>$power(, )  0 $</p>
 <p><strong>Base Case : k = 0</strong></p>
 <p><span class="math inline">\(power( \overline{n}, \overline{0})\)</span></p>
 <p><span class="math display">\[ \\ \Rightarrow  \quad \text{if} \quad 0 = 0 \quad \text{then}  \quad 1 \quad \text{else} \quad \overline{n}*power(\overline{n}, 0-1) \quad \text{by program} \\ \Rightarrow \quad \text{if} \quad true \quad \text{then} \quad 1 \quad \text{else} \quad \overline{n}*power(\overline{n}, 0-1) \quad \quad \text{by evaluation rules for equality} \\ \Rightarrow \quad 1=\overline{1} = \overline{n^0}\quad \text{by evaluation rules for if-expressions} \]</span></p>
