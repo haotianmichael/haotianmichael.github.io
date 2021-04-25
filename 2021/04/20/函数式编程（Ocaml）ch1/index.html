@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract  介绍完Ocaml的基本概念，这一章来回顾一点高中数学知识——Proofs By Induction-归纳证明。PL中的很多理论都会用到归纳法。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-24T11:30:34.945Z">
+<meta property="og:updated_time" content="2021-04-25T02:57:42.068Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程（Ocaml）ch1">
 <meta name="twitter:description" content="Abstract  介绍完Ocaml的基本概念，这一章来回顾一点高中数学知识——Proofs By Induction-归纳证明。PL中的很多理论都会用到归纳法。">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  52
+                  168
                 </span>
               
 
@@ -475,7 +475,18 @@
 </blockquote>
 <a id="more"></a>
 <h3 id="mathematical-induction">Mathematical Induction</h3>
-<p><span class="math inline">\(\Uparrow\)</span></p>
+<blockquote>
+<p>如果想证明自然数<span class="math inline">\(n\)</span>的某条性质：</p>
+<ul>
+<li>首先证明<span class="math inline">\(n = 0\)</span>成立-<code>induction basis</code></li>
+<li>其次假设<span class="math inline">\(n\)</span>成立，在此基础上证明<span class="math inline">\(n + 1\)</span>成立-<code>induction step</code></li>
+</ul>
+<p>下面看个例子：</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">(*Invariant: power:int &gt;= 0*)</span></span><br><span class="line">&gt; <span class="keyword">let</span> <span class="keyword">rec</span> power(n, k) = </span><br><span class="line">&gt; 	<span class="keyword">if</span> k=<span class="number">0</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">else</span> n * power(n, k - <span class="number">1</span>)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>如何使用归纳法证明这段程序确实计算<span class="math inline">\(n^k\)</span>？我们规定<span class="math inline">\(\overline{n}\)</span>和<span class="math inline">\(n\)</span>分别表示程序中和证明中的使用。</p>
+</blockquote>
 <h3 id="complete-induction">Complete induction</h3>
 <h3 id="structural-induction">Structural induction</h3>
 
@@ -498,7 +509,7 @@
   <p><span>本文标题:</span><a href="/2021/04/20/函数式编程（Ocaml）ch1/">函数式编程（Ocaml）ch1</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年04月19日 - 18:04</p>
-  <p><span>最后更新:</span>2021年04月24日 - 19:04</p>
+  <p><span>最后更新:</span>2021年04月25日 - 10:04</p>
   <p><span>原始链接:</span><a href="/2021/04/20/函数式编程（Ocaml）ch1/" title="函数式编程（Ocaml）ch1">http://haotianmcihael.github.io/2021/04/20/函数式编程（Ocaml）ch1/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/04/20/函数式编程（Ocaml）ch1/"  aria-label="复制成功！"></i></span>
   </p>
