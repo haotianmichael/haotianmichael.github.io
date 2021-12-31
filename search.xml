@@ -1,34 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[函数式编程(Ocaml)ch2]]></title>
-    <url>%2F2021%2F04%2F26%2F%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-Ocaml-ch2%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>Ocaml</category>
-      </categories>
-      <tags>
-        <tag>PL</tag>
-        <tag>FP</tag>
-        <tag>Higher Order Functions</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[函数式编程（Ocaml）ch1]]></title>
-    <url>%2F2021%2F04%2F20%2F%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%88Ocaml%EF%BC%89ch1%2F</url>
-    <content type="text"><![CDATA[Abstract 介绍完Ocaml的基本概念，这一章来回顾一点高中数学知识——Proofs By Induction-归纳证明。PL中的很多理论都会用到归纳法。 Mathematical Induction 如果想证明自然数\(n\)的某条性质： 首先证明\(n = 0\)成立-induction basis 其次假设\(n\)成立，在此基础上证明\(n + 1\)成立-induction step 下面看个例子： 1234&gt; (*Invariant: power:int &gt;= 0*)&gt; let rec power(n, k) = &gt; if k=0 then 1 else n * power(n, k - 1)&gt; 如何使用归纳法证明这段程序确实计算\(n^k\)？证明中规定\(\overline{n}\)和\(n\)分别表示程序中和证明中: \[ e \Downarrow v \quad \text{expression e evaluates in multiple steps to the value v.}\\\\ e \Rightarrow e&#39; \quad \text{expression e evaluates in one steps to expression e&#39;.}\\\\ e \Rightarrow^* e&#39; \quad \text{expression e evaluates in multiple steps to expression e&#39;.}\] Theorem 1. $power(, ) 0 $ Base Case : k = 0 \(power(\overline{n}, \overline{0})\) \[ \\ \Rightarrow \quad \text{if} \quad 0 = 0 \quad \text{then} \quad 1 \quad \text{else} \quad \overline{n}*power(\overline{n}, 0-1) \quad \text{by program} \\ \Rightarrow \quad \text{if} \quad true \quad \text{then} \quad 1 \quad \text{else} \quad \overline{n}*power(\overline{n}, 0-1) \quad \quad \text{by evaluation rules for equality} \\ \Rightarrow \quad 1=\overline{1} = \overline{n^0}\quad \text{by evaluation rules for if-expressions} \] Step Case: Assume that \(power(\overline{n}, \overline{k}) \Downarrow \overline{n^k}\) . Then show \(power(\overline{n}, \overline{k+1}) \Downarrow \overline{n^{k+1}}\) Complete induction Structural induction]]></content>
-      <categories>
-        <category>Ocaml</category>
-      </categories>
-      <tags>
-        <tag>PL</tag>
-        <tag>FP</tag>
-        <tag>Proofs by Induction</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[函数式编程（Ocaml）ch0]]></title>
-    <url>%2F2021%2F04%2F18%2F%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%88Ocaml%EF%BC%89ch0%2F</url>
+    <title><![CDATA[函数式编程（Ocaml）]]></title>
+    <url>%2F2021%2F04%2F18%2F%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%88Ocaml%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Abstract ​ 最近在实验室实习的过程中学到了很多有意思的东西，对Programming Languages也有了更深的了解，Ocaml是一门支持多范式的函数式编程语言。程序描述计算，但是又不仅仅是计算。Ocaml的学习带给我的不仅仅是语言本身，这个系列记录了其中的部分心得: 关于scripting/imperative/object-oriented/functional PL的基本概念 Higher-order Functions State-Full vs State-Free Computation Modelling Objects and Closures Exceptions/Continuations to Defer Control Polymorphism Partial Evaluation/Lazy Programming/Modules 关于reason about programs的方法 Type Checking Induction Operational Semantics QuickCheck 关于设计一门语言的基本规则 FP's Basic Concepts Ocaml is a statically typed functional programminng language。函数式编程中，function永远是一等公民，程序中只有expression的概念，通过functions递归处理values来完成computations。Ocaml通过pattern matching模式匹配的方式来定义递归数据结构和函数，进而写出更简洁的程序。 在函数式中还有一个和imperative PL.中不同的概念称为effect-free programming。在命令式语言中，我们通过给variables/fields赋值来修改程序状态并将赋值行为的结果看成是effects。但是比如函数式就不会explicitly的分配内存，甚至没有exception handling来改变控制流状态——不支持effect被称为pure functiional比如Haskell。Ocaml不是纯函数式语言。所以支持effectful/state-full programming和pure FP。 最后一个关键字就是statically typed静态类型。Types statically approximate the runtime behaviour of an expression.意思就是static type checking本身是在程序运行之前进行类型检查——通过syntatic structure of expressions。它可以保证通过静态类型检查的程序在运行时一定不会core dump。这样的statically typed PL.比如Ocaml/Java/ML/Haskell/Scala等也被称为是type-safe的。 Expressions, Names, Values and Types 在函数式中没有语句statements，最基本的expression就是numbers/strings/booleans。 12345&gt; # 2 + 3;;&gt; - : int = 5&gt; # 4.0 /. 2.0;;&gt; - : float = 2.0&gt; 上面代码中的格式为&lt;name&gt; : &lt;type&gt; = &lt;value&gt; 。我们将;;之前的式子称为expressions，将整个计算过程称为evaluation，而将计算的结果称为values。 注意在Ocaml中基础运算符并没有被重载，故浮点运算都是在后面有一个,。这主要是因为Ocaml是静态类型的，不会在运行时去根据运算符参数来推导重载的operators。 通过类型检查的程序，其evaluation要么更新到一个新的state要么报一个built-in runtime error。比如: 123&gt; # 3 / 0;;&gt; Exception: Division_by_zero&gt; Variables, Bindings and Functions Ocaml是一个call-by-value的语言——it binds values to variable names not expressions。这里有一个binding的概念，区分于assignment。我们只是在values和name之间建立了“链接”——并没有新的state被创建——我理解和imperative PL.不同的应该是内存模型比如C中对局部变量是放在栈上的但是确实创建了内存。当然这种“链接”也是可以更新的。在Ocaml中用let表达式来建立一个绑定。 12345&gt; # let x = 3 * 3;;&gt; val x : int = 9&gt; # let x = 42;;&gt; val x : int = 42&gt; 变量的作用域是根据binding stack来确定的。局部或者临时创建的binding都会被push进binding stack中，在不需要的时候会被GC清除。 1234567&gt; # let k = 4;;&gt; val k : int = 4&gt; # let k = 3 in k * k ;;&gt; - : int = 9&gt; # k;;&gt; - : int = 4&gt; 这里有一个新的let &lt;name&gt; = &lt;expression 1&gt; in &lt;expression 2&gt;结构——将expression1的value绑定到name上，然后继续使用这个新的绑定对expression 2进行evalutions。 在函数式中let不仅可以绑定基本类型，还可以绑定函数。 12345&gt; let area : float -&gt; float = function r -&gt; pi *. r *. r;;&gt; let area : float -&gt; float = fun r -&gt; 3.14 *. r *. r;;&gt; let area (r:float) = pi *. r *. r;;&gt; let a1 = area(2.0);;&gt; 上面的三种写法是等价的，都得到函数类型val area : float -&gt; float = &lt;fun&gt;。有意思的是函数作为一种绑定，也是在binding stack中的，所以它只能看到过去的绑定： 1234567891011&gt; # let (pi*float) = 3.0&gt; val pi : float = 3.14&gt; # let area (r:float) = pi *. r *.r;;&gt; val area : float -&gt; float = &lt;fun&gt;&gt; # let a1 = area(2.0);;&gt; val a1 : float = 12.0&gt; # let (pi*float) = 4.0&gt; val pi : float = 4.0&gt; # let a2 = area(2.0);;&gt; val a2 : float = 12.0&gt; 最后介绍一下递归函数。在Ocaml中递归函数使用let rec来声明。比如定义factorial: 123456&gt; # exception Domain;;&gt; # let rec fact n = &gt; if n &lt; 0 then raise Domain&gt; else if n = 0 then 1&gt; else n * fact(n - 1);;&gt; 在函数式中所有的函数都可以被写成尾递归的形式然后进一步优化——这是因为尾递归函数的栈帧可以被优化掉。比如: 123456&gt; # let fact_tr n = &gt; let rec f n acc = &gt; if n = 0 then acc else f (n - 1) (n * acc)&gt; in&gt; f n 1&gt; Data Types and Pattern Matching 这一节可以在Ocaml中定义自己的递归/非递归的数据类型。 Ocaml使用type来定义有限无序的非递归集合，这里举一个扑克牌的例子: 123456789101112&gt; # type suit = Clubs | Spades | Hearts | Diamonds;;&gt; type suit = Clubs | Spades | Hearts | Diamonds&gt; # type rank = Two | Three | Four | Five | Six | Seven | Eight | Nine | Ten | Jack | Queen | King | Ace;;&gt; # type card = rank * suit;;&gt; type card = rank * suit&gt; # type hand = Empty | Hand of card * hand;;&gt; type hand = Empty | Hand of card * hand&gt; # let rec dom (s1, s2) = match (s1, s2) with &gt; | (Spades, _) -&gt; true&gt; | (Hearts, Diamonds) -&gt; true&gt; | (s1, s2) -&gt; s1 = s2&gt; Ocaml使用pattern matching模式匹配来操作这些数据结构。这里有两个概念——patterns和constructors。每一个pattern由不同的constructors填充——这里的构造器指的是每一个和类型元素同名的构造器比如Clubs。Ocaml规定构造器首字母必须大写，且匹配是从上到下的顺序。 进一步的，为了简化代码而支持inductively的deep pattern构造形式如下: 12345&gt; # let rec add c1 c2 = match c1 c2 with&gt; | (Hearts, v1), (Hearts, v2) -&gt; v1 + v2&gt; | _, _ -&gt; 0;;&gt; val add : ('a -&gt; (suit * int) * (suit * int)) -&gt; 'a -&gt; int = &lt;fun&gt;&gt; 这里会发现构造了一个比较复杂的类型('a -&gt; (suit*int)*(suit*int)) -&gt; 'a -&gt; int。其中type1 * type2为一个pair，而`a为任意类型。 上述函数的基本类型推导过程为两个任意类型为输入参数，int为输出。其中任意类型为(suit*int)*(suit*int)的。 上面扑克牌的例子中hand定义一组无限递归集合。在hand类型中，Empty和Hand分别为两个constructors。Empty没有输入参数，而Hand以a tuple of a card and another hand的一个tuple为输入参数。看下面的实例化例子: 12345678910&gt; # let hand0: hand = Empty&gt; let hand1: hand = Hand((Ace, Hearts), Empty)&gt; let hand2: hand = Hand((Queen, Diamonds), hand1)&gt; let hand3:hand = &gt; Hand((Ace, Spades),&gt; Hand((Ten, Diamonds), &gt; Hand((Seven, Clubs),&gt; Hand((Queen, Spades),&gt; Hand((Eight, Clubs), Empty)))));;&gt; 这个hand类型实际上就是一棵退化的二叉树（只能靠右生长）——叶子是Empty， 而Hand构造器使用两个参数来建树。 下面我们定义一个函数，这里函数的类型是suit -&gt; hand -&gt; hand，功能是给定一个suit -&gt; hand的输入，然后从hand中找有匹配到suit类型的hand然后返回。 123456&gt; # let rec extract (s:suit) (h:hand) = match h with &gt; | Empty -&gt; Empty&gt; | Hand ((_, s') as c, h') -&gt;&gt; if s = s' then Hand(c, extract s h')&gt; else extract s h'&gt; 上一个函数中的Empty实际上就是一个终结符，意味着如果hand类型都不匹配的话就直接返回Empty。但是如果我要匹配一个card的话，没有匹配上该怎么返回呢？Ocaml引入一个optional data type。比如下面的函数: 12345678&gt; # type 'a option = None | Some of 'a&gt; type 'a option = None | Some of 'a&gt; # let rec find (r, h) = match h with&gt; | Empty -&gt; None&gt; | Hand((r', s'), h') -&gt; if r = r' then Some s'&gt; else find(r, h')&gt; val find: rank * hand -&gt; suit option = &lt;fun&gt;&gt; 其中option type表示由Some构造器实现的类型为`a的元素集合，是符合多态的任意类型。]]></content>
       <categories>
         <category>Ocaml</category>
@@ -71,8 +45,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
@@ -83,8 +57,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
@@ -95,8 +69,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
         <tag>Linker</tag>
         <tag>Loader</tag>
       </tags>
@@ -109,8 +83,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>RISCV</tag>
         <tag>Compiler</tag>
+        <tag>RISCV</tag>
       </tags>
   </entry>
   <entry>
