@@ -124,7 +124,8 @@
 <meta property="og:description" content="Abstract  从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/1.png">
-<meta property="og:updated_time" content="2022-01-02T03:33:50.414Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/2.png">
+<meta property="og:updated_time" content="2022-01-02T04:28:02.335Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(0-Introduction)">
 <meta name="twitter:description" content="Abstract  从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its">
@@ -434,7 +435,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  550
+                  972
                 </span>
               
 
@@ -450,7 +451,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  2
+                  3
                 </span>
               
             </div>
@@ -499,12 +500,36 @@
 <blockquote>
 <p>​ Any non-trivial property of the behavior of programs in a <strong>recursively enumerable</strong> language is undecidable.</p>
 <p>​ 这个定理有点哥德尔不完备定理的感觉——不存在一个完美的分析算能准确预测出程序的各种关键行为，即No Silver Bullet。这也引出了在实践中最重要的一个评判标准Sound和Complete。</p>
+<p>​ 这里的<code>recursively enumerable</code>递归可枚举是<strong>图灵完备</strong>的另一种说法，简写为<code>r.e.</code>。</p>
 </blockquote>
 <h3 id="sound-and-complete">Sound and Complete</h3>
 <blockquote>
 <p>​ 假设一个程序中存在10个<code>unknown error</code>，一套分析框架不可能精确定位到这十个。而是在其值域范围内波动——不仅仅包含这10的集合就是<code>Sound</code>，只包含这10个的子集就是<code>Complete</code>。</p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
 <p>​ 伴随着这一对概念还有一对——<code>false negatives</code>和<code>false positives</code>。</p>
+<ul>
+<li>False negatives</li>
+</ul>
+<p>就是<code>Compromise soundness</code>也就是缩小原来分析的量，这样会更加的<code>complete</code>——便会产生<strong>漏报</strong></p>
+<ul>
+<li>False positives</li>
+</ul>
+<p>就是<code>Compromise completeness</code>也就是增大原来分析的量，这样会更加的<code>sound</code>——便会产生<strong>误报</strong></p>
+<p>其实这里为什么要引入这一对概念我没有太理解……有点往回绕的意思。 这个图得好好理解一下。</p>
+<p><img src="2.png" width="50%" height="50%" alt=""></p>
+<p>在实践中，用的更多的标准是<code>compromising completeness</code>也就是要让结果更加的<code>sound</code>但是损失了精确度。<strong>换句话讲，分析的结果一定要全面，但不一定精确。也就是说宁可误报一些分析行为，也不允许程序在运行时报异常——这样整个系统付出代价会更高。</strong></p>
+<h4 id="例子">例子</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">A</span>&#123;</span>&#125;;</span><br><span class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">Base</span>&#123;</span></span><br><span class="line">&gt;   A fld;</span><br><span class="line">&gt; &#125;;</span><br><span class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span> A&#123;&#125;;</span><br><span class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">C</span> :</span> A&#123;&#125;;</span><br><span class="line">&gt; </span><br><span class="line">&gt; Base a = <span class="keyword">new</span> Base();</span><br><span class="line">&gt; <span class="keyword">if</span>(condition) &#123;</span><br><span class="line">&gt;   B b = <span class="keyword">new</span> B();</span><br><span class="line">&gt; 	a.fld = b;</span><br><span class="line">&gt; &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">&gt;   C c = <span class="keyword">new</span> D();</span><br><span class="line">&gt; 	a.fld = c;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment">// case</span></span><br><span class="line">&gt; B bTmp = (B)a.fld;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>可以看到上例中的case中进行了一次强制转换，如果控制流走的是<code>!condition</code>那么就会报错。如果分析器是<code>sound</code>的这里就应该检测出该程序的控制流错误——从而减少了BUG。</p>
+<h4 id="tradeoff">tradeoff</h4>
+<p>​ 因为<code>sound</code>会分析出比理论更多的结果，所以导致分析的速度会变慢。</p>
+<p>​ Static Analysis ensure soundness, while making good trade-offs between analysis precision and analysis speed——分析过程的本质上也是一种速度和精度之间的权衡。</p>
+</blockquote>
+<h3 id="to-conclude">To Conclude</h3>
+<blockquote>
+
 </blockquote>
 
       
@@ -526,7 +551,7 @@
   <p><span>本文标题:</span><a href="/2022/01/02/NJU静态程序分析-0-Introduction/">NJU静态程序分析(0-Introduction)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2022年01月01日 - 19:01</p>
-  <p><span>最后更新:</span>2022年01月02日 - 11:01</p>
+  <p><span>最后更新:</span>2022年01月02日 - 12:01</p>
   <p><span>原始链接:</span><a href="/2022/01/02/NJU静态程序分析-0-Introduction/" title="NJU静态程序分析(0-Introduction)">http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/"  aria-label="复制成功！"></i></span>
   </p>
@@ -760,7 +785,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-analysis"><span class="nav-number">2.</span> <span class="nav-text">Static-Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rices-theorem"><span class="nav-number">3.</span> <span class="nav-text">Rice‘s Theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sound-and-complete"><span class="nav-number">4.</span> <span class="nav-text">Sound and Complete</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-analysis"><span class="nav-number">2.</span> <span class="nav-text">Static-Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rices-theorem"><span class="nav-number">3.</span> <span class="nav-text">Rice‘s Theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sound-and-complete"><span class="nav-number">4.</span> <span class="nav-text">Sound and Complete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">4.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tradeoff"><span class="nav-number">4.2.</span> <span class="nav-text">tradeoff</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To Conclude</span></a></li></ol></div>
             
 
           </div>
