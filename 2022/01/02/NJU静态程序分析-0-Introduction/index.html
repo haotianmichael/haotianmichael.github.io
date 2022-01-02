@@ -115,20 +115,20 @@
 
 
 
-<meta name="description" content="Abstract  从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its">
+<meta name="description" content="Abstract  编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待计算这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(0-Introduction)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its">
+<meta property="og:description" content="Abstract  编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待计算这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/2.png">
-<meta property="og:updated_time" content="2022-01-02T04:28:02.335Z">
+<meta property="og:updated_time" content="2022-01-02T05:10:58.262Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(0-Introduction)">
-<meta name="twitter:description" content="Abstract  从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its">
+<meta name="twitter:description" content="Abstract  编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待计算这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/1.png">
 
 
@@ -435,7 +435,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  972
+                  1.2k
                 </span>
               
 
@@ -451,7 +451,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  3
+                  4
                 </span>
               
             </div>
@@ -474,14 +474,14 @@
       
         <h3 id="abstract">Abstract</h3>
 <blockquote>
-<p>从<code>编程语言</code>的角度理解<code>计算</code>是一件很有意思的事情。过去的几十年里<code>Programming Language</code>的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。</p>
+<p>编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待<code>计算</code>这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里<code>Programming Language</code>的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。</p>
 <p>​ <strong>Static Analysis analyzes a program P to reasono about its behaviors and determines whether it satisfies some properties before running P.</strong></p>
 <p>​ 主要的学习资源是<a href="https://pascal-group.bitbucket.io/teaching.html" target="_blank" rel="noopener">NJU-PASCAL团队的静态分析课程</a>以及<a href="https://book.douban.com/subject/3774682/" target="_blank" rel="noopener">龙书</a>和<a href="https://book.douban.com/subject/1400374/" target="_blank" rel="noopener">鲸书</a>中的部分章节。</p>
 </blockquote>
 <a id="more"></a>
 <h3 id="static-analysis">Static-Analysis</h3>
 <blockquote>
-<p>​ 做过一段时间编译器之后，发现编译器仅仅是工业界对PL理论的部分实现——和编程语言，运行时一样。讲义中把整个PL的大框架分成三个部分:</p>
+<p>​ PL的大框架大体上可以分成三个部分:</p>
 <ul>
 <li>Theory</li>
 </ul>
@@ -529,8 +529,24 @@
 </blockquote>
 <h3 id="to-conclude">To Conclude</h3>
 <blockquote>
-
+<p>​ 大部分分析方式可以总结为下面的两个部分：</p>
+<ul>
+<li>Abstraction</li>
+</ul>
+<p>就是将具体的程序特征和行为进一步抽象成分析器的元符号，完成一定意义的所谓<strong>形式化</strong></p>
+<ul>
+<li><p>Over-approximation</p>
+<ul>
+<li>transfer functions</li>
+</ul>
+<p>In static analysis, transfer functions define how to evaluate different program statements on abstract values. Its defined according to &quot;analysis problem&quot; and the &quot;semantics&quot; of different program statements.</p>
+<ul>
+<li>control flows</li>
+</ul></li>
+</ul>
+<p>在抽象的基础上，进一步颗粒化程序运行行为。比如<code>transfer functions</code>定义为程序中<code>statements</code>和程序异常行为的语义比如声明语句，除零异常等。而<code>control flows</code>定义了程序的控制流比如一些if-else分支。<strong>这样就能更加细粒度的完成程序行为的建模，然后在模型基础上完成分析器预定的sound的分析结果。</strong></p>
 </blockquote>
+<h3 id="实验环境">实验环境</h3>
 
       
     </div>
@@ -551,7 +567,7 @@
   <p><span>本文标题:</span><a href="/2022/01/02/NJU静态程序分析-0-Introduction/">NJU静态程序分析(0-Introduction)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2022年01月01日 - 19:01</p>
-  <p><span>最后更新:</span>2022年01月02日 - 12:01</p>
+  <p><span>最后更新:</span>2022年01月02日 - 13:01</p>
   <p><span>原始链接:</span><a href="/2022/01/02/NJU静态程序分析-0-Introduction/" title="NJU静态程序分析(0-Introduction)">http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/"  aria-label="复制成功！"></i></span>
   </p>
@@ -785,7 +801,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-analysis"><span class="nav-number">2.</span> <span class="nav-text">Static-Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rices-theorem"><span class="nav-number">3.</span> <span class="nav-text">Rice‘s Theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sound-and-complete"><span class="nav-number">4.</span> <span class="nav-text">Sound and Complete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">4.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tradeoff"><span class="nav-number">4.2.</span> <span class="nav-text">tradeoff</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To Conclude</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-analysis"><span class="nav-number">2.</span> <span class="nav-text">Static-Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rices-theorem"><span class="nav-number">3.</span> <span class="nav-text">Rice‘s Theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sound-and-complete"><span class="nav-number">4.</span> <span class="nav-text">Sound and Complete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">4.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tradeoff"><span class="nav-number">4.2.</span> <span class="nav-text">tradeoff</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To Conclude</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验环境"><span class="nav-number">6.</span> <span class="nav-text">实验环境</span></a></li></ol></div>
             
 
           </div>
