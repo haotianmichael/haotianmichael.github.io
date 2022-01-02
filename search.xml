@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[NJU静态程序分析(0-Introduction)]]></title>
     <url>%2F2022%2F01%2F02%2FNJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-0-Introduction%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <content type="text"><![CDATA[Abstract 从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its behaviors and deteermines whether it satisfies some properties before running P. ​ 主要的学习资源是NJU-PASCAL团队的静态分析课程以及龙书和鲸书中的部分章节。]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -120,8 +120,8 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
         <tag>OS</tag>
+        <tag>MIT 6.828</tag>
         <tag>Linux</tag>
       </tags>
   </entry>
@@ -133,8 +133,8 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
         <tag>OS</tag>
+        <tag>MIT 6.828</tag>
         <tag>Linux</tag>
       </tags>
   </entry>
@@ -146,8 +146,8 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
         <tag>OS</tag>
+        <tag>MIT 6.828</tag>
         <tag>Linux</tag>
       </tags>
   </entry>
@@ -159,8 +159,8 @@
         <category>C</category>
       </categories>
       <tags>
-        <tag>MIT 6.828</tag>
         <tag>OS</tag>
+        <tag>MIT 6.828</tag>
         <tag>Linux</tag>
       </tags>
   </entry>
