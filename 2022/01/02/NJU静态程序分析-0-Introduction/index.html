@@ -125,7 +125,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/2.png">
-<meta property="og:updated_time" content="2022-01-02T05:10:58.262Z">
+<meta property="og:updated_time" content="2022-01-02T06:46:46.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(0-Introduction)">
 <meta name="twitter:description" content="Abstract  编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待计算这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各">
@@ -544,9 +544,8 @@
 <li>control flows</li>
 </ul></li>
 </ul>
-<p>在抽象的基础上，进一步颗粒化程序运行行为。比如<code>transfer functions</code>定义为程序中<code>statements</code>和程序异常行为的语义比如声明语句，除零异常等。而<code>control flows</code>定义了程序的控制流比如一些if-else分支。<strong>这样就能更加细粒度的完成程序行为的建模，然后在模型基础上完成分析器预定的sound的分析结果。</strong></p>
+<p>程序的本质其实就是语句及语句之间的关联，映射到static analysis中就是（语句）<code>transfer functions</code>和（关联）<code>control flows</code>。在抽象的基础上，进一步颗粒化程序运行行为。比如<code>transfer functions</code>定义为程序中<code>statements</code>和程序异常行为的语义比如声明语句，除零异常等。而<code>control flows</code>定义了程序的控制流比如一些if-else分支。<strong>这样就能更加细粒度的完成程序行为的建模，然后在模型基础上完成分析器预定的sound的分析结果。</strong></p>
 </blockquote>
-<h3 id="实验环境">实验环境</h3>
 
       
     </div>
@@ -567,7 +566,7 @@
   <p><span>本文标题:</span><a href="/2022/01/02/NJU静态程序分析-0-Introduction/">NJU静态程序分析(0-Introduction)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2022年01月01日 - 19:01</p>
-  <p><span>最后更新:</span>2022年01月02日 - 13:01</p>
+  <p><span>最后更新:</span>2022年01月02日 - 14:01</p>
   <p><span>原始链接:</span><a href="/2022/01/02/NJU静态程序分析-0-Introduction/" title="NJU静态程序分析(0-Introduction)">http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/"  aria-label="复制成功！"></i></span>
   </p>
@@ -801,7 +800,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-analysis"><span class="nav-number">2.</span> <span class="nav-text">Static-Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rices-theorem"><span class="nav-number">3.</span> <span class="nav-text">Rice‘s Theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sound-and-complete"><span class="nav-number">4.</span> <span class="nav-text">Sound and Complete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">4.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tradeoff"><span class="nav-number">4.2.</span> <span class="nav-text">tradeoff</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To Conclude</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验环境"><span class="nav-number">6.</span> <span class="nav-text">实验环境</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-analysis"><span class="nav-number">2.</span> <span class="nav-text">Static-Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rices-theorem"><span class="nav-number">3.</span> <span class="nav-text">Rice‘s Theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sound-and-complete"><span class="nav-number">4.</span> <span class="nav-text">Sound and Complete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">4.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tradeoff"><span class="nav-number">4.2.</span> <span class="nav-text">tradeoff</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To Conclude</span></a></li></ol></div>
             
 
           </div>
