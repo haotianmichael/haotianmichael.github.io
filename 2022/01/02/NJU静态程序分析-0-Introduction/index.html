@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract  从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-01-02T02:44:19.814Z">
+<meta property="og:updated_time" content="2022-01-02T03:18:31.221Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(0-Introduction)">
 <meta name="twitter:description" content="Abstract  从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  158
+                  471
                 </span>
               
 
@@ -472,10 +472,36 @@
         <h3 id="abstract">Abstract</h3>
 <blockquote>
 <p>从<code>编程语言</code>的角度理解<code>计算</code>是一件很有意思的事情。过去的几十年里<code>Programming Language</code>的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。</p>
-<p>​ <strong>Static Analysis analyzes a program P to reasono about its behaviors and deteermines whether it satisfies some properties before running P.</strong></p>
+<p>​ <strong>Static Analysis analyzes a program P to reasono about its behaviors and determines whether it satisfies some properties before running P.</strong></p>
 <p>​ 主要的学习资源是<a href="https://pascal-group.bitbucket.io/teaching.html" target="_blank" rel="noopener">NJU-PASCAL团队的静态分析课程</a>以及<a href="https://book.douban.com/subject/3774682/" target="_blank" rel="noopener">龙书</a>和<a href="https://book.douban.com/subject/1400374/" target="_blank" rel="noopener">鲸书</a>中的部分章节。</p>
 </blockquote>
 <a id="more"></a>
+<h3 id="static-analysis">Static-Analysis</h3>
+<blockquote>
+<p>​ 做过一段时间编译器之后，发现编译器仅仅是工业界对PL理论的部分实现——和编程语言，运行时一样。讲义中把整个PL的大框架分成三个部分:</p>
+<ul>
+<li>Theory</li>
+</ul>
+<p>包括如何设计一个语言内核，一个类型系统，如何完成语义分析，如何形式化等等不同的理论，更多是作为学术研究的课题</p>
+<ul>
+<li>Environment</li>
+</ul>
+<p>针对特定场景设计的编译器和运行时环境等</p>
+<ul>
+<li>Application</li>
+</ul>
+<p>程序分析，程序合成，程序验证</p>
+<p>​ 而静态程序分析主要关注在程序的<strong>Reliability</strong>比如在程序运行前检测到空指针异常，内存泄漏等问题防止程序在运行过程中报运行时错误；<strong>Security</strong>比如隐私数据泄露，注入攻击<code>injection attack</code>等；<strong>Optimization</strong>编译优化等方面。</p>
+</blockquote>
+<h3 id="rices-theorem">Rice‘s Theorem</h3>
+<blockquote>
+<p>​ Any non-trivial property of the behavior of programs in a <strong>recursively enumerable</strong> language is undecidable.</p>
+<p>​ 这个定理有点哥德尔不完备定理的感觉——不存在一个完美的分析算能准确预测出程序的各种关键行为，即No Silver Bullet。这也引出了在实践中最重要的一个评判标准Sound和complete。</p>
+</blockquote>
+<h3 id="sound-and-complete">Sound and Complete</h3>
+<blockquote>
+
+</blockquote>
 
       
     </div>
@@ -496,7 +522,7 @@
   <p><span>本文标题:</span><a href="/2022/01/02/NJU静态程序分析-0-Introduction/">NJU静态程序分析(0-Introduction)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2022年01月01日 - 19:01</p>
-  <p><span>最后更新:</span>2022年01月02日 - 10:01</p>
+  <p><span>最后更新:</span>2022年01月02日 - 11:01</p>
   <p><span>原始链接:</span><a href="/2022/01/02/NJU静态程序分析-0-Introduction/" title="NJU静态程序分析(0-Introduction)">http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/"  aria-label="复制成功！"></i></span>
   </p>
@@ -730,7 +756,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-analysis"><span class="nav-number">2.</span> <span class="nav-text">Static-Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rices-theorem"><span class="nav-number">3.</span> <span class="nav-text">Rice‘s Theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sound-and-complete"><span class="nav-number">4.</span> <span class="nav-text">Sound and Complete</span></a></li></ol></div>
             
 
           </div>
