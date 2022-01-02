@@ -123,10 +123,12 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract  从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-01-02T03:18:31.221Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/1.png">
+<meta property="og:updated_time" content="2022-01-02T03:33:50.414Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(0-Introduction)">
 <meta name="twitter:description" content="Abstract  从编程语言的角度理解计算是一件很有意思的事情。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。 ​ Static Analysis analyzes a program P to reasono about its">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2022/01/02/NJU静态程序分析-0-Introduction/1.png">
 
 
 
@@ -432,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  471
+                  550
                 </span>
               
 
@@ -448,7 +450,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  2
                 </span>
               
             </div>
@@ -496,11 +498,13 @@
 <h3 id="rices-theorem">Rice‘s Theorem</h3>
 <blockquote>
 <p>​ Any non-trivial property of the behavior of programs in a <strong>recursively enumerable</strong> language is undecidable.</p>
-<p>​ 这个定理有点哥德尔不完备定理的感觉——不存在一个完美的分析算能准确预测出程序的各种关键行为，即No Silver Bullet。这也引出了在实践中最重要的一个评判标准Sound和complete。</p>
+<p>​ 这个定理有点哥德尔不完备定理的感觉——不存在一个完美的分析算能准确预测出程序的各种关键行为，即No Silver Bullet。这也引出了在实践中最重要的一个评判标准Sound和Complete。</p>
 </blockquote>
 <h3 id="sound-and-complete">Sound and Complete</h3>
 <blockquote>
-
+<p>​ 假设一个程序中存在10个<code>unknown error</code>，一套分析框架不可能精确定位到这十个。而是在其值域范围内波动——不仅仅包含这10的集合就是<code>Sound</code>，只包含这10个的子集就是<code>Complete</code>。</p>
+<p><img src="1.png" width="50%" height="50%" alt=""></p>
+<p>​ 伴随着这一对概念还有一对——<code>false negatives</code>和<code>false positives</code>。</p>
 </blockquote>
 
       
