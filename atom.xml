@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2022-01-02T06:46:46.195Z</updated>
+  <updated>2022-01-03T06:35:58.831Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MIT6.824(Spring 2021)-MapReduce</title>
+    <link href="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/"/>
+    <id>http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/</id>
+    <published>2022-01-03T14:29:59.000Z</published>
+    <updated>2022-01-03T06:35:58.831Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;abstract&quot;&gt;Abstract&lt;/h3&gt;
+
+      
+    
+    </summary>
+    
+      <category term="Golang" scheme="http://haotianmcihael.github.io/categories/Golang/"/>
+    
+    
+      <category term="Distributed System" scheme="http://haotianmcihael.github.io/tags/Distributed-System/"/>
+    
+      <category term="MapReduce" scheme="http://haotianmcihael.github.io/tags/MapReduce/"/>
+    
+      <category term="MIT6.824" scheme="http://haotianmcihael.github.io/tags/MIT6-824/"/>
+    
+  </entry>
   
   <entry>
     <title>NJU静态程序分析(0-Introduction)</title>
