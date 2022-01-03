@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="PL,Software-Analysis," />
 
 
 
@@ -115,16 +115,21 @@
 
 
 
-<meta name="description" content="Under The Hood">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CodeSaw">
-<meta property="og:url" content="http://haotianmcihael.github.io/archives/2022/index.html">
+<meta name="description" content="Abstract  编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待计算这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各">
+<meta name="keywords" content="PL,Software-Analysis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NJU静态程序分析(0-Introduction)">
+<meta property="og:url" content="http://haotianmcihael.github.io/2021/05/02/NJU静态程序分析-0-Introduction/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Under The Hood">
+<meta property="og:description" content="Abstract  编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待计算这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/02/NJU静态程序分析-0-Introduction/1.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/02/NJU静态程序分析-0-Introduction/2.png">
+<meta property="og:updated_time" content="2022-01-03T07:25:59.274Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CodeSaw">
-<meta name="twitter:description" content="Under The Hood">
+<meta name="twitter:title" content="NJU静态程序分析(0-Introduction)">
+<meta name="twitter:description" content="Abstract  编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待计算这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里Programming Language的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2021/05/02/NJU静态程序分析-0-Introduction/1.png">
 
 
 
@@ -153,14 +158,14 @@
 
 
 
-  <link rel="canonical" href="http://haotianmcihael.github.io/archives/2022/"/>
+  <link rel="canonical" href="http://haotianmcihael.github.io/2021/05/02/NJU静态程序分析-0-Introduction/"/>
 
 
 
 
 
 
-  <title>Archive | CodeSaw</title>
+  <title>NJU静态程序分析(0-Introduction) | CodeSaw</title>
   
 
 
@@ -185,7 +190,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
     <a href="https://github.com/haotianmichael" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -333,74 +338,317 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 20 posts in total. Keep on posting.
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2022">2022</h2>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2021/05/02/NJU静态程序分析-0-Introduction/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HaotianMichael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSaw">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/" itemprop="url">
-              
-                <span itemprop="name">MIT6.824(Spring 2021)-MapReduce</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">NJU静态程序分析(0-Introduction)</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-01-03T14:29:59Z"
-              content="2022-01-03" >
-          01-03
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-05-01T19:00:36Z">
+                2021-05-01
+              </time>
+            
 
-    </header>
-  </article>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="abstract">Abstract</h3>
+<blockquote>
+<p>编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待<code>计算</code>这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里<code>Programming Language</code>的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。</p>
+<p>​ <strong>Static Analysis analyzes a program P to reasono about its behaviors and determines whether it satisfies some properties before running P.</strong></p>
+<p>​ 主要的学习资源是<a href="https://pascal-group.bitbucket.io/teaching.html" target="_blank" rel="noopener">NJU-PASCAL团队的静态分析课程</a>以及<a href="https://book.douban.com/subject/3774682/" target="_blank" rel="noopener">龙书</a>和<a href="https://book.douban.com/subject/1400374/" target="_blank" rel="noopener">鲸书</a>中的部分章节。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="static-analysis">Static-Analysis</h3>
+<blockquote>
+<p>​ PL的大框架大体上可以分成三个部分:</p>
+<ul>
+<li>Theory</li>
+</ul>
+<p>包括如何设计一个语言内核，一个类型系统，如何完成语义分析，如何形式化等等不同的理论，更多是作为学术研究的课题</p>
+<ul>
+<li>Environment</li>
+</ul>
+<p>针对特定场景设计的编译器和运行时环境等</p>
+<ul>
+<li>Application</li>
+</ul>
+<p>程序分析，程序合成，程序验证</p>
+<p>​ 而静态程序分析主要关注在程序的<strong>Reliability</strong>比如在程序运行前检测到空指针异常，内存泄漏等问题防止程序在运行过程中报运行时错误；<strong>Security</strong>比如隐私数据泄露，注入攻击<code>injection attack</code>等；<strong>Optimization</strong>编译优化等方面。</p>
+</blockquote>
+<h3 id="rices-theorem">Rice‘s Theorem</h3>
+<blockquote>
+<p>​ Any non-trivial property of the behavior of programs in a <strong>recursively enumerable</strong> language is undecidable.</p>
+<p>​ 这个定理有点哥德尔不完备定理的感觉——不存在一个完美的分析算能准确预测出程序的各种关键行为，即No Silver Bullet。这也引出了在实践中最重要的一个评判标准Sound和Complete。</p>
+<p>​ 这里的<code>recursively enumerable</code>递归可枚举是<strong>图灵完备</strong>的另一种说法，简写为<code>r.e.</code>。</p>
+</blockquote>
+<h3 id="sound-and-complete">Sound and Complete</h3>
+<blockquote>
+<p>​ 假设一个程序中存在10个<code>unknown error</code>，一套分析框架不可能精确定位到这十个。而是在其值域范围内波动——不仅仅包含这10的集合就是<code>Sound</code>，只包含这10个的子集就是<code>Complete</code>。</p>
+<p><img src="1.png" width="50%" height="50%" alt=""></p>
+<p>​ 伴随着这一对概念还有一对——<code>false negatives</code>和<code>false positives</code>。</p>
+<ul>
+<li>False negatives</li>
+</ul>
+<p>就是<code>Compromise soundness</code>也就是缩小原来分析的量，这样会更加的<code>complete</code>——便会产生<strong>漏报</strong></p>
+<ul>
+<li>False positives</li>
+</ul>
+<p>就是<code>Compromise completeness</code>也就是增大原来分析的量，这样会更加的<code>sound</code>——便会产生<strong>误报</strong></p>
+<p>其实这里为什么要引入这一对概念我没有太理解……有点往回绕的意思。 这个图得好好理解一下。</p>
+<p><img src="2.png" width="50%" height="50%" alt=""></p>
+<p>在实践中，用的更多的标准是<code>compromising completeness</code>也就是要让结果更加的<code>sound</code>但是损失了精确度。<strong>换句话讲，分析的结果一定要全面，但不一定精确。也就是说宁可误报一些分析行为，也不允许程序在运行时报异常——这样整个系统付出代价会更高。</strong></p>
+<h4 id="例子">例子</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">A</span>&#123;</span>&#125;;</span><br><span class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">Base</span>&#123;</span></span><br><span class="line">&gt;   A fld;</span><br><span class="line">&gt; &#125;;</span><br><span class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span> A&#123;&#125;;</span><br><span class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">C</span> :</span> A&#123;&#125;;</span><br><span class="line">&gt; </span><br><span class="line">&gt; Base a = <span class="keyword">new</span> Base();</span><br><span class="line">&gt; <span class="keyword">if</span>(condition) &#123;</span><br><span class="line">&gt;   B b = <span class="keyword">new</span> B();</span><br><span class="line">&gt; 	a.fld = b;</span><br><span class="line">&gt; &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">&gt;   C c = <span class="keyword">new</span> D();</span><br><span class="line">&gt; 	a.fld = c;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment">// case</span></span><br><span class="line">&gt; B bTmp = (B)a.fld;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>可以看到上例中的case中进行了一次强制转换，如果控制流走的是<code>!condition</code>那么就会报错。如果分析器是<code>sound</code>的这里就应该检测出该程序的控制流错误——从而减少了BUG。</p>
+<h4 id="tradeoff">tradeoff</h4>
+<p>​ 因为<code>sound</code>会分析出比理论更多的结果，所以导致分析的速度会变慢。</p>
+<p>​ Static Analysis ensure soundness, while making good trade-offs between analysis precision and analysis speed——分析过程的本质上也是一种速度和精度之间的权衡。</p>
+</blockquote>
+<h3 id="to-conclude">To Conclude</h3>
+<blockquote>
+<p>​ 大部分分析方式可以总结为下面的两个部分：</p>
+<ul>
+<li>Abstraction</li>
+</ul>
+<p>就是将具体的程序特征和行为进一步抽象成分析器的元符号，完成一定意义的所谓<strong>形式化</strong></p>
+<ul>
+<li><p>Over-approximation</p>
+<ul>
+<li>transfer functions</li>
+</ul>
+<p>In static analysis, transfer functions define how to evaluate different program statements on abstract values. Its defined according to &quot;analysis problem&quot; and the &quot;semantics&quot; of different program statements.</p>
+<ul>
+<li>control flows</li>
+</ul></li>
+</ul>
+<p>程序的本质其实就是语句及语句之间的关联，映射到static analysis中就是（语句）<code>transfer functions</code>和（关联）<code>control flows</code>。在抽象的基础上，进一步颗粒化程序运行行为。比如<code>transfer functions</code>定义为程序中<code>statements</code>和程序异常行为的语义比如声明语句，除零异常等。而<code>control flows</code>定义了程序的控制流比如一些if-else分支。<strong>这样就能更加细粒度的完成程序行为的建模，然后在模型基础上完成分析器预定的sound的分析结果。</strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2021/05/02/NJU静态程序分析-0-Introduction/">NJU静态程序分析(0-Introduction)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
+  <p><span>发布时间:</span>2021年05月01日 - 19:05</p>
+  <p><span>最后更新:</span>2022年01月03日 - 15:01</p>
+  <p><span>原始链接:</span><a href="/2021/05/02/NJU静态程序分析-0-Introduction/" title="NJU静态程序分析(0-Introduction)">http://haotianmcihael.github.io/2021/05/02/NJU静态程序分析-0-Introduction/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/02/NJU静态程序分析-0-Introduction/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
 
 
 
       
+   </div>	 
 
-    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PL/" rel="tag"><i class="fa fa-tag"></i> PL</a>
+          
+            <a href="/tags/Software-Analysis/" rel="tag"><i class="fa fa-tag"></i> Software-Analysis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/18/函数式编程（Ocaml）/" rel="next" title="函数式编程（Ocaml）">
+                <i class="fa fa-chevron-left"></i> 函数式编程（Ocaml）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/" rel="prev" title="MIT6.824(Spring 2021)-MapReduce">
+                MIT6.824(Spring 2021)-MapReduce <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -408,6 +656,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -428,8 +680,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -534,6 +795,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-analysis"><span class="nav-number">2.</span> <span class="nav-text">Static-Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rices-theorem"><span class="nav-number">3.</span> <span class="nav-text">Rice‘s Theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sound-and-complete"><span class="nav-number">4.</span> <span class="nav-text">Sound and Complete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">4.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tradeoff"><span class="nav-number">4.2.</span> <span class="nav-text">tradeoff</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To Conclude</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -636,11 +913,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
 
 
   
@@ -1007,26 +1282,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
