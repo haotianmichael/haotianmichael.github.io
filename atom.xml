@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2022-01-03T07:26:06.821Z</updated>
+  <updated>2022-01-03T08:14:57.794Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>NJU静态程序分析(1-Data Flow Analysis)</title>
+    <link href="http://haotianmcihael.github.io/2022/05/04/NJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-1-Data-FLow-Analysis/"/>
+    <id>http://haotianmcihael.github.io/2022/05/04/NJU静态程序分析-1-Data-FLow-Analysis/</id>
+    <published>2022-05-03T16:12:53.000Z</published>
+    <updated>2022-01-03T08:14:57.794Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;abstract&quot;&gt;Abstract&lt;/h3&gt;
+
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="http://haotianmcihael.github.io/categories/Java/"/>
+    
+    
+      <category term="PL" scheme="http://haotianmcihael.github.io/tags/PL/"/>
+    
+      <category term="Software-Analysis" scheme="http://haotianmcihael.github.io/tags/Software-Analysis/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MIT6.824(Spring 2021)-MapReduce</title>
     <link href="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/"/>
     <id>http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/</id>
     <published>2022-01-03T14:29:59.000Z</published>
-    <updated>2022-01-03T07:26:06.821Z</updated>
+    <updated>2022-01-03T07:28:00.252Z</updated>
     
     <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3>]]></content>
     
@@ -627,31 +655,6 @@ CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存�
 &lt;blockquote&gt;
 &lt;p&gt;全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————&lt;code&gt;冯诺依曼结构&lt;/code&gt;。&lt;br&gt;
 CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
-    
-    
-      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>汇编语言（王爽）ch0</title>
-    <link href="http://haotianmcihael.github.io/2018/10/02/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%88%E7%8E%8B%E7%88%BD%EF%BC%89ch0/"/>
-    <id>http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch0/</id>
-    <published>2018-10-02T08:25:22.000Z</published>
-    <updated>2020-06-26T02:30:31.493Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="abstract">Abstract</h4><blockquote><p>王爽老师的《汇编语言》是国内的经典教材。 学习汇编是为了获得底层编程的体验和理解机器运行程序的机理。所以经典的做法往往不是只针对于某一种指令集，而是以一种指令集为手段来深入理解机器工作的原理，体会一个没有操作系统的编程开发环境。正如书中所讲:编程的平台是硬件而不是操作系统。或许这也是汇编语言真正的价值所在吧。</p></blockquote><a id="more"></a><h4 id="实验环境">实验环境</h4><blockquote><p>全书的实验都是在8086CPU的体系结构下展开的，这也是Intel第一块16位的处理器。 我们有两种办法在自己的计算机上模拟8086:一种是使用WindowsXP系统。一种是采用DOSBox模拟器，第二种比较方便。<a href="https://pan.baidu.com/s/1-Da6IPYym54QbokzFMiNvA" target="_blank" rel="noopener">这里是链接</a>。 本书有17个实验，2个课程设计，5个研究试验。我主要是以其中一些实验为章节展开学习。</p></blockquote><h4 id="全书架构">全书架构</h4><blockquote><p>在我看来，全书应该可以分为这么几个部分: * 硬件模型Chapter.(1、2)————告诉你汇编编程就是程序员以<code>指令</code>为手段在<code>CPU的寄存器</code>和<code>内存地址空间</code>之间进行数据读写的的过程。 * 汇编结构Chapter.(3、4)————介绍了完整的汇编程序的组成部分:<code>数据段</code>，<code>代码段</code>、<code>栈段</code>。第4章介绍了汇编程序编译的全过程和基本工具的使用。 * 指令核心Chapter.(5<sub>11)————从第5章作者开始引进一些新的指令，并且展开来讲汇编程序设计的核心部分。介绍了重点的指令比如<code>操作指令</code>,<code>跳转指令</code>，<code>比较指令</code>等及其用法等，并深入介绍了内存寻址的各种花式用法。 * 操作系统层面的应用Chapter.(12</sub>17)和操作系统相关的概念比如中断等。</p></blockquote><blockquote><p>整个学习过程中，<strong>寄存器和内存地址空间的读写是贯穿全书的核心</strong>，因为所有的操作最终都是产生了对内存或者某一个寄存器的读写。<strong>而完成这一切读写功能的就是汇编指令。</strong>这也是机器硬件的真正工作原理。<br>虽然这些部分都可以拆开来了解，但是实际上每一部分还有很多的细节和承上启下的概念，我也是站在我理解的角度对这些内容进行了划分，需要注意的是:全书还有很多的细节比如不同的存储单元和数据处理方式，这些都不是单独某一个章节可以完成的而是贯穿全书实验的前提。所以还是需要通读一遍全书来顺这些概念。</p></blockquote><h4 id="搭建实验条件">搭建实验条件</h4><ul><li>将下载好的环境包放在<code>~/x86</code>，作为我们的工作目录。</li><li>打开DOSBox模拟器。</li><li>挂载C盘:<code>mount C ~/x86</code>。</li><li>进入C盘:<code>C:</code>。</li><li>开始实验:<code>debug</code>。</li><li>退出程序<code>quit</code>，退出模拟器<code>exit</code>。</li></ul><h4 id="安装成功展示">安装成功展示</h4><p><img src="1.png" width="50%" height="50%" alt=""></p><p>​</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;abstract&quot;&gt;Abstract&lt;/h4&gt;
-&lt;blockquote&gt;
-&lt;p&gt;王爽老师的《汇编语言》是国内的经典教材。 学习汇编是为了获得底层编程的体验和理解机器运行程序的机理。所以经典的做法往往不是只针对于某一种指令集，而是以一种指令集为手段来深入理解机器工作的原理，体会一个没有操作系统的编程开发环境。正如书中所讲:编程的平台是硬件而不是操作系统。或许这也是汇编语言真正的价值所在吧。&lt;/p&gt;
-&lt;/blockquote&gt;
     
     </summary>
     
