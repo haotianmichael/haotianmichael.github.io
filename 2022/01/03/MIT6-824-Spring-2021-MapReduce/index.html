@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教分布式系统，有20个Lectures和4个labs。和6.828一样重视实践——看论文，查资料，做lab~简单粗暴。所以学习过程基本上就按照如下推进：  提前看Lecture要求的论文 听对应的Lectures 查找lab相关的学习资料 做lab  之前做6.828的时候就发现我在做这种学习过程很长，思考内容又很深的课程训">
+<meta name="description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System——多台物理隔离的计算机通过网络来协调，共同完成一致性任务。分布式除了是一种极其重要的计算架构，还有很多其他的应用比如Bitcon等。 课程共有20个Lectures和4个labs。和6.828一样重视实践——看论文，查资料，做lab~简单粗暴。所以学习过程基本上就按照如下推进：  提前">
 <meta name="keywords" content="Distributed System,MapReduce,MIT6.824">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MIT6.824(Spring 2021)-MapReduce">
 <meta property="og:url" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教分布式系统，有20个Lectures和4个labs。和6.828一样重视实践——看论文，查资料，做lab~简单粗暴。所以学习过程基本上就按照如下推进：  提前看Lecture要求的论文 听对应的Lectures 查找lab相关的学习资料 做lab  之前做6.828的时候就发现我在做这种学习过程很长，思考内容又很深的课程训">
+<meta property="og:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System——多台物理隔离的计算机通过网络来协调，共同完成一致性任务。分布式除了是一种极其重要的计算架构，还有很多其他的应用比如Bitcon等。 课程共有20个Lectures和4个labs。和6.828一样重视实践——看论文，查资料，做lab~简单粗暴。所以学习过程基本上就按照如下推进：  提前">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-01-03T13:50:11.374Z">
+<meta property="og:updated_time" content="2022-01-04T08:16:12.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT6.824(Spring 2021)-MapReduce">
-<meta name="twitter:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教分布式系统，有20个Lectures和4个labs。和6.828一样重视实践——看论文，查资料，做lab~简单粗暴。所以学习过程基本上就按照如下推进：  提前看Lecture要求的论文 听对应的Lectures 查找lab相关的学习资料 做lab  之前做6.828的时候就发现我在做这种学习过程很长，思考内容又很深的课程训">
+<meta name="twitter:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System——多台物理隔离的计算机通过网络来协调，共同完成一致性任务。分布式除了是一种极其重要的计算架构，还有很多其他的应用比如Bitcon等。 课程共有20个Lectures和4个labs。和6.828一样重视实践——看论文，查资料，做lab~简单粗暴。所以学习过程基本上就按照如下推进：  提前">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  173
+                  263
                 </span>
               
 
@@ -472,9 +472,10 @@
         <h3 id="abstract">Abstract</h3>
 <blockquote>
 <p>最近终于有时间研究一下MIT的<a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener">神课</a><code>6.824</code>。</p>
-<p>这门课教<strong>分布式系统</strong>，有20个<code>Lectures</code>和4个<code>labs</code>。和<code>6.828</code>一样重视实践——<strong>看论文，查资料，做<code>lab</code></strong>~简单粗暴。所以学习过程基本上就按照如下推进：</p>
+<p>这门课教<code>Distributed System</code>——多台物理隔离的计算机通过网络来协调，共同完成一致性任务。<strong>分布式</strong>除了是一种极其重要的计算架构，还有很多其他的应用比如<code>Bitcon</code>等。</p>
+<p>课程共有20个<code>Lectures</code>和4个<code>labs</code>。和<code>6.828</code>一样重视实践——<strong>看论文，查资料，做<code>lab</code></strong>~简单粗暴。所以学习过程基本上就按照如下推进：</p>
 <ul>
-<li>提前看<code>Lecture</code>要求的论文</li>
+<li>提前看<code>Lecture</code>要求的<code>papers</code></li>
 <li>听<a href="https://www.bilibili.com/video/BV1R7411t71W?spm_id_from=333.999.0.0" target="_blank" rel="noopener">对应</a>的<code>Lectures</code></li>
 <li>查找<code>lab</code>相关的学习资料</li>
 <li>做<code>lab</code></li>
@@ -482,6 +483,13 @@
 <p>之前做<code>6.828</code>的时候就发现我在做这种<strong>学习过程很长，思考内容又很深</strong>的课程训练时很容易钻牛角尖而让自己乱了节奏，思维如若不能放松下来效果肯定不会太好——希望这次能尽量调整过来。</p>
 </blockquote>
 <a id="more"></a>
+<h3 id="paper">Paper</h3>
+<blockquote>
+<p>论文<a href="https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf" target="_blank" rel="noopener">MapReduce:Simplified Data Processing on Large Clusters</a>是关于Google已经淘汰掉的<strong>大规模数据集处理编程架构<code>MapReduce</code></strong>。</p>
+</blockquote>
+<h3 id="lecture12">Lecture1~2</h3>
+<h3 id="lab1">Lab1</h3>
+<h3 id="to-conclude">To conclude</h3>
 
       
     </div>
@@ -502,7 +510,7 @@
   <p><span>本文标题:</span><a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/">MIT6.824(Spring 2021)-MapReduce</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2022年01月03日 - 14:01</p>
-  <p><span>最后更新:</span>2022年01月03日 - 21:01</p>
+  <p><span>最后更新:</span>2022年01月04日 - 16:01</p>
   <p><span>原始链接:</span><a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/" title="MIT6.824(Spring 2021)-MapReduce">http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/"  aria-label="复制成功！"></i></span>
   </p>
@@ -738,7 +746,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
             
 
           </div>
