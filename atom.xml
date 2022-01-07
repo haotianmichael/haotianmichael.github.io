@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2022-01-04T09:51:15.305Z</updated>
+  <updated>2022-01-07T10:27:47.899Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/"/>
     <id>http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/</id>
     <published>2022-01-03T14:29:59.000Z</published>
-    <updated>2022-01-04T09:51:15.305Z</updated>
+    <updated>2022-01-07T10:27:47.899Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>最近终于有时间研究一下MIT的<a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener">神课</a><code>6.824</code>。</p><p>这门课教<code>Distributed System</code>，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。</p><p><strong>分布式系统</strong>和单机相比，除了有很多高并发的<code>Partial Failures</code>，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——<strong><code>Performance</code>性能和<code>Fault Tolerance</code>容错</strong>是这门课的核心。</p><p>课程共有20个<code>Lectures</code>和4个<code>labs</code>。和<code>6.828</code>一样重视实践——<strong>看论文，查资料，做<code>lab</code></strong>~简单粗暴。所以学习过程基本上就按照如下推进：</p><ul><li>提前看<code>Lecture</code>要求的<code>papers</code></li><li>听<a href="https://www.bilibili.com/video/BV1R7411t71W?spm_id_from=333.999.0.0" target="_blank" rel="noopener">对应</a>的<code>Lectures</code></li><li>查找<code>lab</code>相关的学习资料</li><li>做<code>lab</code></li></ul><p>之前做<code>6.828</code>的时候就发现我在做这种<strong>学习过程很长，思考内容又很深</strong>的课程训练时很容易钻牛角尖而让自己乱了节奏，思维如若不能放松下来效果肯定不会太好——希望这次能尽量调整过来。</p></blockquote><a id="more"></a><h3 id="paper">Paper</h3><blockquote><p>论文<a href="https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf" target="_blank" rel="noopener">MapReduce:Simplified Data Processing on Large Clusters</a>是关于Google已经淘汰掉的<strong>大规模数据集处理编程架构<code>MapReduce</code></strong>。</p></blockquote><h3 id="lecture12">Lecture1~2</h3><h3 id="lab1">Lab1</h3><h3 id="to-conclude">To conclude</h3>]]></content>
+    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>最近终于有时间研究一下MIT的<a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener">神课</a><code>6.824</code>。</p><p>这门课教<code>Distributed System</code>，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。</p><p><strong>分布式系统</strong>和单机相比，除了有很多高并发的<code>Partial Failures</code>，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——<strong><code>Performance</code>性能和<code>Fault Tolerance</code>容错</strong>是这门课的核心。</p><p>课程共有20个<code>Lectures</code>和4个<code>labs</code>。和<code>6.828</code>一样重视实践——<strong>看论文，查资料，做<code>lab</code></strong>~简单粗暴。所以学习过程基本上就按照如下推进：</p><ul><li>提前看<code>Lecture</code>要求的<code>papers</code></li><li>听<a href="https://www.bilibili.com/video/BV1R7411t71W?spm_id_from=333.999.0.0" target="_blank" rel="noopener">对应</a>的<code>Lectures</code></li><li>查找<code>lab</code>相关的学习资料</li><li>做<code>lab</code></li></ul><p>之前做<code>6.828</code>的时候就发现我在做这种<strong>学习过程很长，思考内容又很深</strong>的课程训练时很容易钻牛角尖而让自己乱了节奏，思维如若不能放松下来效果肯定不会太好——希望这次能尽量调整过来。</p></blockquote><a id="more"></a><h3 id="paper">Paper</h3><blockquote><p>论文<a href="https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf" target="_blank" rel="noopener">MapReduce:Simplified Data Processing on Large Clusters</a>是关于Google已经淘汰掉的<strong>大规模数据集处理编程架构<code>MapReduce</code></strong>。</p><p>大体上来说，<code>MapReduce</code></p></blockquote><h3 id="lecture12">Lecture1~2</h3><h3 id="lab1">Lab1</h3><h3 id="to-conclude">To conclude</h3>]]></content>
     
     <summary type="html">
     
