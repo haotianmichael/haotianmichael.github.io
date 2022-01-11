@@ -126,7 +126,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/3.png">
-<meta property="og:updated_time" content="2022-01-11T09:49:06.479Z">
+<meta property="og:updated_time" content="2022-01-11T09:56:09.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT6.824(Spring 2021)-MapReduce">
 <meta name="twitter:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。 分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performanc">
@@ -436,7 +436,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  1.7k
                 </span>
               
 
@@ -452,7 +452,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  5
+                  6
                 </span>
               
             </div>
@@ -502,7 +502,7 @@
 <p>这里两个函数模型的类型分别是:</p>
 <ul>
 <li>map: (k1, v1) —&gt; list(k2, v2)</li>
-<li>reduce: (k2, list(v2)) —&gt; list(v2)</li>
+<li>reduce: (k2, list(v)) —&gt; list(v2)</li>
 </ul>
 <p>对于一个<code>map</code>操作，将<code>key</code>文档中的内容按照一定方式读取，并统计其中的<code>w</code>项的频率<code>value</code>并输出到一个中间文件上。而<code>reduce</code>从中间文件中读取并迭代其<code>lists</code>，将对应的<code>key</code>项统计。</p>
 </blockquote>
@@ -555,7 +555,11 @@
 <li>map结束后，3个reduce工作节点通过RPC分别获取矩阵的每一列文件数据</li>
 </ul>
 <p>比如R0调用<code>0-0.txt、1-0.txt、2-0.txt、3-0.txt、4-0.txt</code>。因为同一列中类型相同，所以只需要内部排序。</p>
-<p>所谓<code>shuffle</code>就是map/reduce对中间文件的行列操作。</p>
+<p>所谓<code>shuffle</code>就是map/reduce对中间文件的行列操作，其结果是将中间文件进一步处理成为<code>&lt;value, list&lt;key&gt;&gt;</code>作为用户定义reduce函数的输入进行计数统计。</p>
+</blockquote>
+<h5 id="最终输出">最终输出</h5>
+<blockquote>
+<p>reduce工节点处理完计数后，将结果输出到磁盘上作为下一次<code>MapReduce</code>的输入。</p>
 </blockquote>
 <h4 id="工业级处理">工业级处理</h4>
 <h5 id="容错">容错</h5>
@@ -821,7 +825,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#输入预处理"><span class="nav-number">2.2.1.</span> <span class="nav-text">输入预处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map工作节点区分工作节点和用户函数"><span class="nav-number">2.2.2.</span> <span class="nav-text">map工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce工作节点区分工作节点和用户函数"><span class="nav-number">2.2.3.</span> <span class="nav-text">reduce工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shuffle过程核心过程"><span class="nav-number">2.2.4.</span> <span class="nav-text">shuffle过程（核心过程）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级处理"><span class="nav-number">2.3.</span> <span class="nav-text">工业级处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.3.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.3.2.</span> <span class="nav-text">加速</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#负载均衡"><span class="nav-number">2.3.3.</span> <span class="nav-text">负载均衡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#输入预处理"><span class="nav-number">2.2.1.</span> <span class="nav-text">输入预处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map工作节点区分工作节点和用户函数"><span class="nav-number">2.2.2.</span> <span class="nav-text">map工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce工作节点区分工作节点和用户函数"><span class="nav-number">2.2.3.</span> <span class="nav-text">reduce工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shuffle过程核心过程"><span class="nav-number">2.2.4.</span> <span class="nav-text">shuffle过程（核心过程）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最终输出"><span class="nav-number">2.2.5.</span> <span class="nav-text">最终输出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级处理"><span class="nav-number">2.3.</span> <span class="nav-text">工业级处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.3.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.3.2.</span> <span class="nav-text">加速</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#负载均衡"><span class="nav-number">2.3.3.</span> <span class="nav-text">负载均衡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
             
 
           </div>
