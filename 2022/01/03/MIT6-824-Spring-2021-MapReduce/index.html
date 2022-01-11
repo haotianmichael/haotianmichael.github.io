@@ -126,7 +126,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/3.png">
-<meta property="og:updated_time" content="2022-01-11T09:15:31.436Z">
+<meta property="og:updated_time" content="2022-01-11T09:49:06.479Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT6.824(Spring 2021)-MapReduce">
 <meta name="twitter:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。 分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performanc">
@@ -436,7 +436,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.4k
+                  1.6k
                 </span>
               
 
@@ -540,14 +540,22 @@
 </blockquote>
 <h5 id="shuffle过程核心过程">shuffle过程（核心过程）</h5>
 <blockquote>
-<p>整个map和reduce之间的数据shuffle是系统分布式的核心，其连接就是map生成的中间文件——其命名。</p>
+<p>整个map和reduce之间的数据shuffle是系统分布式的核心，关键就是map生成的中间文件及其命名。</p>
 </blockquote>
 <p><img src="3.png" width="50%" height="50%" alt=""></p>
 <blockquote>
-<p>假设有5个map工作节点和3个reduce工作节点，也就是说这里只有三种</p>
+<p>如上图，假设有5个map工作节点和3个reduce工作节点。</p>
 <ul>
-<li>每一个map工作节点讲输入分为3部分，</li>
+<li>map工作节点的输出分为3类，分别由<code>R0</code>，<code>R1</code>和<code>R2</code>处理，<strong>当map的解析函数一致时，相同的key一定被分到了同一个中间文件中。</strong>即<code>0-0.txt</code>、<code>1-0.txt</code>和<code>0-2.txt</code>三个文件中<code>key</code>类型的交集是空集。</li>
+<li><code>md5(key)%R</code>计算map最终输出落入到哪个中间文件</li>
+<li>中间文件命名：map任务编号-reduce任务编号</li>
 </ul>
+<p>因此5个map操作结束后会生成5*3的中间文件矩阵。</p>
+<ul>
+<li>map结束后，3个reduce工作节点通过RPC分别获取矩阵的每一列文件数据</li>
+</ul>
+<p>比如R0调用<code>0-0.txt、1-0.txt、2-0.txt、3-0.txt、4-0.txt</code>。因为同一列中类型相同，所以只需要内部排序。</p>
+<p>所谓<code>shuffle</code>就是map/reduce对中间文件的行列操作。</p>
 </blockquote>
 <h4 id="工业级处理">工业级处理</h4>
 <h5 id="容错">容错</h5>
