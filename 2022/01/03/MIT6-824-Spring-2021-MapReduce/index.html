@@ -124,7 +124,8 @@
 <meta property="og:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。 分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performanc">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/1.png">
-<meta property="og:updated_time" content="2022-01-11T07:34:10.235Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/2.png">
+<meta property="og:updated_time" content="2022-01-11T07:55:10.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT6.824(Spring 2021)-MapReduce">
 <meta name="twitter:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。 分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performanc">
@@ -434,7 +435,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  827
+                  901
                 </span>
               
 
@@ -509,10 +510,23 @@
 <p>这一模型可以很好的处理并行化操作——<strong>因为<code>map</code>的过程可以在多台机器上并行完成而没有依赖。<code>reduce</code>过程也是。但是整体<code>reduce</code>和<code>map</code>之间存在着顺序依赖关系即必须是相应的<code>map</code>操作结束才可以唤醒<code>reduce</code>操作。</strong></p>
 <p>这样的话所有的依赖和协调过程都被隐藏在<code>map</code>和<code>reduce</code>函数的<strong>数据分发</strong>之间，而开发者可以完全不用考虑分布式细节而单独编写这两个函数以达到自己的目的。</p>
 </blockquote>
-<h4 id="工业级实现">工业级实现</h4>
+<h4 id="实现">实现</h4>
+<blockquote>
+<p>从实现角度看系统的很多行为是由<code>MapReduce</code>内置的库完成的。这里有几个概念：</p>
+<ul>
+<li><code>Master</code>: 主节点或者主线程，用来将<code>task</code>分配给相应的<code>worker</code></li>
+<li><code>worker</code>: 工作节点，用来完成相应的<code>task</code></li>
+<li><code>task</code>：任务，即<code>map</code>和<code>reduce</code>函数本体。</li>
+</ul>
+</blockquote>
+<p><img src="2.png" width="50%" height="50%" alt=""></p>
+<blockquote>
+
+</blockquote>
+<h4 id="工业级处理">工业级处理</h4>
 <h5 id="容错">容错</h5>
 <h5 id="加速">加速</h5>
-<p>负载均衡</p>
+<h5 id="负载均衡">负载均衡</h5>
 <h3 id="lecture12">Lecture1~2</h3>
 <h3 id="lab1">Lab1</h3>
 <h3 id="to-conclude">To conclude</h3>
@@ -772,7 +786,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级实现"><span class="nav-number">2.2.</span> <span class="nav-text">工业级实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.2.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.2.2.</span> <span class="nav-text">加速</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级处理"><span class="nav-number">2.3.</span> <span class="nav-text">工业级处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.3.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.3.2.</span> <span class="nav-text">加速</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#负载均衡"><span class="nav-number">2.3.3.</span> <span class="nav-text">负载均衡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
             
 
           </div>
