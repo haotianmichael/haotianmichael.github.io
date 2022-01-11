@@ -125,7 +125,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/2.png">
-<meta property="og:updated_time" content="2022-01-11T07:55:10.071Z">
+<meta property="og:updated_time" content="2022-01-11T08:17:53.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT6.824(Spring 2021)-MapReduce">
 <meta name="twitter:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。 分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performanc">
@@ -435,7 +435,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  901
+                  1.1k
                 </span>
               
 
@@ -451,7 +451,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  3
+                  4
                 </span>
               
             </div>
@@ -514,19 +514,26 @@
 <blockquote>
 <p>从实现角度看系统的很多行为是由<code>MapReduce</code>内置的库完成的。这里有几个概念：</p>
 <ul>
-<li><code>Master</code>: 主节点或者主线程，用来将<code>task</code>分配给相应的<code>worker</code></li>
-<li><code>worker</code>: 工作节点，用来完成相应的<code>task</code></li>
-<li><code>task</code>：任务，即<code>map</code>和<code>reduce</code>函数本体。</li>
+<li><p><code>user program</code>：用户程序，会被多次<code>fork</code>成为<code>master</code>和<code>worker</code></p></li>
+<li><code>master</code>: 主节点只有一个，用来将<code>task</code>分配给相应的<code>worker</code></li>
+<li><code>task</code>：<code>map</code>任务或者<code>reduce</code>任务，由相应的<code>worker</code>完成</li>
+<li><code>worker</code>: 多个工作节点，用来完成相应的<code>task</code></li>
+<li><p><code>user-defined map/reduce</code>: 开发者自定义的<code>map/reduce</code>函数</p></li>
 </ul>
 </blockquote>
 <p><img src="2.png" width="50%" height="50%" alt=""></p>
 <blockquote>
-
+<p>首先库函数会将输入文件切分成<code>M</code>份，并在一个集群的若干台机器上启动程序的多个副本。副本中除了有一个作为主节点，其他都是工作节点。</p>
+<p>主节点将<code>M</code>个map任务和<code>R</code>个reduce任务分配给空闲的工作节点。</p>
+<p>每一个被分配<code>map</code>的工作节点需要读取相应的文件内容并解析出<code>key/value</code>对，将这些作为参数提供给用户自定义的<code>map</code>函数，而该函数输出的中间结果缓存在内存中。</p>
+<p>缓存的数据会被划分为<code>R块</code>并写入</p>
 </blockquote>
+<h5 id="shuffle过程">shuffle过程</h5>
 <h4 id="工业级处理">工业级处理</h4>
 <h5 id="容错">容错</h5>
 <h5 id="加速">加速</h5>
 <h5 id="负载均衡">负载均衡</h5>
+<p>任务和节点的数量关系</p>
 <h3 id="lecture12">Lecture1~2</h3>
 <h3 id="lab1">Lab1</h3>
 <h3 id="to-conclude">To conclude</h3>
@@ -550,7 +557,7 @@
   <p><span>本文标题:</span><a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/">MIT6.824(Spring 2021)-MapReduce</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2022年01月03日 - 14:01</p>
-  <p><span>最后更新:</span>2022年01月11日 - 15:01</p>
+  <p><span>最后更新:</span>2022年01月11日 - 16:01</p>
   <p><span>原始链接:</span><a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/" title="MIT6.824(Spring 2021)-MapReduce">http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/"  aria-label="复制成功！"></i></span>
   </p>
@@ -786,7 +793,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级处理"><span class="nav-number">2.3.</span> <span class="nav-text">工业级处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.3.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.3.2.</span> <span class="nav-text">加速</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#负载均衡"><span class="nav-number">2.3.3.</span> <span class="nav-text">负载均衡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#shuffle过程"><span class="nav-number">2.2.1.</span> <span class="nav-text">shuffle过程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级处理"><span class="nav-number">2.3.</span> <span class="nav-text">工业级处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.3.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.3.2.</span> <span class="nav-text">加速</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#负载均衡"><span class="nav-number">2.3.3.</span> <span class="nav-text">负载均衡</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
             
 
           </div>
