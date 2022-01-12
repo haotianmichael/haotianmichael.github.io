@@ -126,7 +126,8 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/3.png">
-<meta property="og:updated_time" content="2022-01-12T02:33:32.628Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/4.png">
+<meta property="og:updated_time" content="2022-01-12T08:51:40.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT6.824(Spring 2021)-MapReduce">
 <meta name="twitter:description" content="Abstract  最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。 分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performanc">
@@ -436,7 +437,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.1k
+                  2.7k
                 </span>
               
 
@@ -452,7 +453,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  7
+                  9
                 </span>
               
             </div>
@@ -587,6 +588,48 @@
 </ul>
 </blockquote>
 <h3 id="lecture12">Lecture1~2</h3>
+<h4 id="go语言环境配置">go语言环境配置</h4>
+<blockquote>
+<p>作为一个<code>VIM</code>重度用户我已经不用IDE很多年了。就自行配置了<code>Vim-Go</code>开发环境。</p>
+</blockquote>
+<h5 id="go安装配置">Go安装配置</h5>
+<blockquote>
+<p>我用<code>MacOs Catalina</code>环境，下载安装就不说了。主要关注<code>Go</code>环境变量，需要写入相应的<code>SHELL</code>配置文件中，我的在<code>.zshrc</code>中：</p>
+<ul>
+<li><code>GOROOT</code>: Go语言的安装目录，一般是<code>/usr/local/go</code></li>
+<li><code>GOPATH</code>: 工作区即写代码的目录，一般分为三个子目录：
+<ul>
+<li><code>src</code><br>
+</li>
+<li><code>bin</code></li>
+<li><code>pkg</code></li>
+</ul></li>
+<li><code>GOBIN</code>: 存放GO语言可执行文件的目录（这里的可执行文件主要指通过<code>go get</code>下载并编译好的库，供直接调用的）</li>
+<li><code>PATH</code>: 需要将当前的可执行文件目录放到PATH下面</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> # 注意""的使用</span><br><span class="line"><span class="meta">&gt;</span> export GOROOT=/usr/local/go</span><br><span class="line"><span class="meta">&gt;</span> export GOPATH=~/go/golib:~/go/goproject    #这里设置了两个工作区</span><br><span class="line"><span class="meta">&gt;</span> export GOBIN=~/go/gobin</span><br><span class="line"><span class="meta">&gt;</span> export PATH="$GOROOT/bin:$GOBIN:$PATH"</span><br><span class="line"><span class="meta">&gt;</span> </span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="镜像">镜像</h5>
+<blockquote>
+<p>因为Github和Go官网不太好用，所以使用镜像来下载需要的库比较方便。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> # Mac/Linux环境下</span><br><span class="line"><span class="meta">&gt;</span> export GO111MODULE=on</span><br><span class="line"><span class="meta">&gt;</span> export GOPROXY=https://goproxy.cn</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="二进制工具">二进制工具</h5>
+<blockquote>
+<p><code>vim-go</code>是一个开发<code>go</code>的<code>vim</code>插件。我使用<code>vundle</code>包管理工具来管理<code>vim</code>插件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> # 如何使用vundle自行Google</span><br><span class="line"><span class="meta">&gt;</span> Plugin 'fatih/vim-go'</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>因为这个插件启动还需要一些和二进制工具，具体的列表可打开<code>&quot;~/.vim/bundle/vim-go/plugin/go.vim&quot;</code>如下：</p>
+</blockquote>
+<p><img src="4.png" width="50%" height="50%" alt=""></p>
+<blockquote>
+<p>常规做法是在<code>vim</code>命令行模式下面直接执行<code>:GoInstallBinaries</code>来自动安装。如果没有安装代理的话尽管有镜像还是很容易出错，所以我的做法是一个一个从官网上<code>go get</code>然后<code>go insatll</code>手动安装。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> $ go get github.com/go-delve/delve/cmmd/dlv     #从官网上直接下载二进制工具</span><br><span class="line"><span class="meta">&gt;</span> $ go install github.com/go-delve/delve/cmmd/dlv@laatest   #使用go install手动安装</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>如果按照前面的方式配置好了环境变量，那这些二进制工具就会被安装在<code>~/go/gobin</code>目录下。验证方式就是打开<code>vim</code>之后不会有插件报错信息。</p>
+</blockquote>
 <h3 id="lab1">Lab1</h3>
 <h3 id="to-conclude">To conclude</h3>
 <blockquote>
@@ -613,7 +656,7 @@
   <p><span>本文标题:</span><a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/">MIT6.824(Spring 2021)-MapReduce</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2022年01月03日 - 14:01</p>
-  <p><span>最后更新:</span>2022年01月12日 - 10:01</p>
+  <p><span>最后更新:</span>2022年01月12日 - 16:01</p>
   <p><span>原始链接:</span><a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/" title="MIT6.824(Spring 2021)-MapReduce">http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/"  aria-label="复制成功！"></i></span>
   </p>
@@ -849,7 +892,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#输入预处理"><span class="nav-number">2.2.1.</span> <span class="nav-text">输入预处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map工作节点区分工作节点和用户函数"><span class="nav-number">2.2.2.</span> <span class="nav-text">map工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce工作节点区分工作节点和用户函数"><span class="nav-number">2.2.3.</span> <span class="nav-text">reduce工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shuffle过程核心状态机"><span class="nav-number">2.2.4.</span> <span class="nav-text">shuffle过程（核心状态机）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最终输出"><span class="nav-number">2.2.5.</span> <span class="nav-text">最终输出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级处理"><span class="nav-number">2.3.</span> <span class="nav-text">工业级处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.3.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.3.2.</span> <span class="nav-text">加速</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#输入预处理"><span class="nav-number">2.2.1.</span> <span class="nav-text">输入预处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map工作节点区分工作节点和用户函数"><span class="nav-number">2.2.2.</span> <span class="nav-text">map工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce工作节点区分工作节点和用户函数"><span class="nav-number">2.2.3.</span> <span class="nav-text">reduce工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shuffle过程核心状态机"><span class="nav-number">2.2.4.</span> <span class="nav-text">shuffle过程（核心状态机）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最终输出"><span class="nav-number">2.2.5.</span> <span class="nav-text">最终输出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级处理"><span class="nav-number">2.3.</span> <span class="nav-text">工业级处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.3.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.3.2.</span> <span class="nav-text">加速</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#go语言环境配置"><span class="nav-number">3.1.</span> <span class="nav-text">go语言环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#go安装配置"><span class="nav-number">3.1.1.</span> <span class="nav-text">Go安装配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#镜像"><span class="nav-number">3.1.2.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二进制工具"><span class="nav-number">3.1.3.</span> <span class="nav-text">二进制工具</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
             
 
           </div>
