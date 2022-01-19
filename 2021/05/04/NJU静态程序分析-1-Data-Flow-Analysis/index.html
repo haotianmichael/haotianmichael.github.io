@@ -115,19 +115,19 @@
 
 
 
-<meta name="description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta name="description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta property="og:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/1.png">
-<meta property="og:updated_time" content="2022-01-19T08:09:30.049Z">
+<meta property="og:updated_time" content="2022-01-19T08:21:33.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
-<meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/1.png">
 
 
@@ -473,7 +473,7 @@
       
         <h3 id="abstract">Abstract</h3>
 <blockquote>
-<p>编译器中大部分机器无关的全局优化是基于<code>Data-flow Analysis</code>实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。</p>
+<p>编译器中大部分机器无关的全局优化是基于<code>Data-flow Analysis</code>实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。</p>
 <p><strong>In each data-flow analysis application, we associate with every program point a data-flow value that represents an abstraction of the set of all possible program states that can be observed for that point.</strong></p>
 <p>在工业界的<a href="https://www.zhihu.com/question/41959902" target="_blank" rel="noopener">主流编译器</a>中，<code>C</code>系的<code>LLVM</code>，<code>Java</code>系的<code>HotSpot</code>都是基于<code>SSA</code>做数据流分析而不是传统的<code>lattice</code>。南大这节课中是用<code>Bit Vector</code>来讲解过程内<code>Intra-procedural</code>，无别名<code>no aliases</code>的传统数据流分析框架。</p>
 </blockquote>
