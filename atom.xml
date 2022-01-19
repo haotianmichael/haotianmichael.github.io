@@ -60,7 +60,7 @@
     <link href="http://haotianmcihael.github.io/2021/05/04/NJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-1-Data-Flow-Analysis/"/>
     <id>http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/</id>
     <published>2021-05-03T16:12:53.000Z</published>
-    <updated>2022-01-19T06:53:31.586Z</updated>
+    <updated>2022-01-19T06:57:34.406Z</updated>
     
     <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>编译器中大部分机器无关的全局优化是基于<code>Data-flow Analysis</code>实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。</p><p><strong>In each data-flow analysis application, we associate with every program point a data-flow value that represents an abstraction of the set of all possible program states that can be observed for that point.</strong></p><p>在工业界的主流编译器中，<code>C</code>系的<code>LLVM</code>，<code>Java</code>系的<code>HotSpot</code>都是基于<code>SSA</code>做数据流分析而不是传统的<code>lattice</code>。而南大这门课中是通过<code>Bit Vector</code>来讲解传统数据流分析框架。</p></blockquote><a id="more"></a>]]></content>
     
