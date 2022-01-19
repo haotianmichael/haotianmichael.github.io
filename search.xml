@@ -16,7 +16,7 @@
   <entry>
     <title><![CDATA[NJU静态程序分析(1-Data Flow Analysis)]]></title>
     <url>%2F2021%2F05%2F04%2FNJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-1-Data-Flow-Analysis%2F</url>
-    <content type="text"><![CDATA[Abstract 编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an abstraction of the set of all possible program states that can be observed for that point. 在工业界的主流编译器中，C系的LLVM，Java系的HotSpot都是基于SSA做数据流分析而不是传统的lattice。而南大这门课中是通过Bit Vector来讲解传统数据流分析框架。]]></content>
+    <content type="text"><![CDATA[Abstract 编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an abstraction of the set of all possible program states that can be observed for that point. 在工业界的主流编译器中，C系的LLVM，Java系的HotSpot都是基于SSA做数据流分析而不是传统的lattice。南大这节课中是用Bit Vector来讲解过程内Intra-procedural，无别名no aliases的传统数据流分析框架。 Applications Overview 分析框架都是建立在control-flow-graph上的，这是一种IR——由basic-blocks通过control-flows连接而成，可以分别看成是CFG的nodes和edges。 如何通过源码（单个函数）生成CFG见课件。 数据流分析用来描述所谓数据如何在CFG中流动。这里的data指的是程序语义信息的一种abstraction，CFG中的nodes和edges分别映射transfer-function和control-flow handling。所以整个分析是建立在一套成熟的理论框架之上的。 data(application-specific): 不同的数据流分析应用会有不同的抽象，比如分析变量数值时：+;-;0;UND;UNKNOW; transfer-functions/control-flows:需要深刻cfg中statements，basic-blocks在被映射成这两个概念时的区别， Foundations]]></content>
       <categories>
         <category>Java</category>
       </categories>

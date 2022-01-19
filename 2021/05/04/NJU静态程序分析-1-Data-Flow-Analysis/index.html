@@ -123,10 +123,12 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-01-19T06:57:34.406Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/1.png">
+<meta property="og:updated_time" content="2022-01-19T07:43:10.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/1.png">
 
 
 
@@ -432,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  148
+                  342
                 </span>
               
 
@@ -473,9 +475,21 @@
 <blockquote>
 <p>编译器中大部分机器无关的全局优化是基于<code>Data-flow Analysis</code>实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。</p>
 <p><strong>In each data-flow analysis application, we associate with every program point a data-flow value that represents an abstraction of the set of all possible program states that can be observed for that point.</strong></p>
-<p>在工业界的主流编译器中，<code>C</code>系的<code>LLVM</code>，<code>Java</code>系的<code>HotSpot</code>都是基于<code>SSA</code>做数据流分析而不是传统的<code>lattice</code>。而南大这门课中是通过<code>Bit Vector</code>来讲解传统数据流分析框架。</p>
+<p>在工业界的<a href="https://www.zhihu.com/question/41959902" target="_blank" rel="noopener">主流编译器</a>中，<code>C</code>系的<code>LLVM</code>，<code>Java</code>系的<code>HotSpot</code>都是基于<code>SSA</code>做数据流分析而不是传统的<code>lattice</code>。南大这节课中是用<code>Bit Vector</code>来讲解过程内<code>Intra-procedural</code>，无别名<code>no aliases</code>的传统数据流分析框架。</p>
 </blockquote>
 <a id="more"></a>
+<h3 id="applications">Applications</h3>
+<h4 id="overview">Overview</h4>
+<blockquote>
+<p>分析框架都是建立在<code>control-flow-graph</code>上的，这是一种<code>IR</code>——由<code>basic-blocks</code>通过<code>control-flows</code>连接而成，可以分别看成是<code>CFG</code>的<code>nodes</code>和<code>edges</code>。 如何通过源码（单个函数）生成<code>CFG</code>见课件。</p>
+<p><img src="1.png" width="50%" height="50%" alt=""></p>
+<p>数据流分析用来描述所谓<strong>数据</strong>如何在<strong>CFG</strong>中流动。这里的<code>data</code>指的是程序语义信息的一种<code>abstraction</code>，<code>CFG</code>中的<code>nodes</code>和<code>edges</code>分别映射<code>transfer-function</code>和<code>control-flow handling</code>。所以整个分析是建立在一套成熟的理论框架之上的。</p>
+<ul>
+<li><code>data(application-specific)</code>: 不同的数据流分析应用会有不同的抽象，比如分析变量数值时：<code>+;-;0;UND;UNKNOW;</code></li>
+<li><code>transfer-functions/control-flows</code>:需要深刻<code>cfg</code>中<code>statements</code>，<code>basic-blocks</code>在被映射成这两个概念时的区别，</li>
+</ul>
+</blockquote>
+<h3 id="foundations">Foundations</h3>
 
       
     </div>
@@ -496,7 +510,7 @@
   <p><span>本文标题:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/">NJU静态程序分析(1-Data Flow Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月03日 - 16:05</p>
-  <p><span>最后更新:</span>2022年01月19日 - 14:01</p>
+  <p><span>最后更新:</span>2022年01月19日 - 15:01</p>
   <p><span>原始链接:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/" title="NJU静态程序分析(1-Data Flow Analysis)">http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
@@ -734,7 +748,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#applications"><span class="nav-number">2.</span> <span class="nav-text">Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a></li></ol></div>
             
 
           </div>
