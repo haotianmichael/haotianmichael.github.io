@@ -124,7 +124,7 @@
 <meta property="og:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/1.png">
-<meta property="og:updated_time" content="2022-01-19T07:43:10.036Z">
+<meta property="og:updated_time" content="2022-01-19T07:51:09.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术用以从代码中收集程序相关信息的，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  342
+                  503
                 </span>
               
 
@@ -481,13 +481,23 @@
 <h3 id="applications">Applications</h3>
 <h4 id="overview">Overview</h4>
 <blockquote>
+<h5 id="cfg">CFG</h5>
 <p>分析框架都是建立在<code>control-flow-graph</code>上的，这是一种<code>IR</code>——由<code>basic-blocks</code>通过<code>control-flows</code>连接而成，可以分别看成是<code>CFG</code>的<code>nodes</code>和<code>edges</code>。 如何通过源码（单个函数）生成<code>CFG</code>见课件。</p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
+<h5 id="abstract-1">Abstract</h5>
 <p>数据流分析用来描述所谓<strong>数据</strong>如何在<strong>CFG</strong>中流动。这里的<code>data</code>指的是程序语义信息的一种<code>abstraction</code>，<code>CFG</code>中的<code>nodes</code>和<code>edges</code>分别映射<code>transfer-function</code>和<code>control-flow handling</code>。所以整个分析是建立在一套成熟的理论框架之上的。</p>
 <ul>
 <li><code>data(application-specific)</code>: 不同的数据流分析应用会有不同的抽象，比如分析变量数值时：<code>+;-;0;UND;UNKNOW;</code></li>
-<li><code>transfer-functions/control-flows</code>:需要深刻<code>cfg</code>中<code>statements</code>，<code>basic-blocks</code>在被映射成这两个概念时的区别，</li>
+<li><code>transfer-functions</code>:需要深刻<code>cfg</code>中<code>statements</code>，<code>basic-blocks</code>在被映射成<code>transfer-functions</code>时的区别和联系</li>
+<li><code>control-flows</code>:控制流基本上只有三个——顺序，汇聚以及分流</li>
 </ul>
+<h5 id="safety-analysis">safety analysis</h5>
+<p>大部分的分析框架要求分析结果是<code>Sound</code>的即<code>over-approximation</code>。而实际上并非所有如此——这里正式将所有分析分成两类：<code>may analysis</code>和<code>must analysis</code>。</p>
+<ul>
+<li><code>may analysis</code>: 要求分析结果中必须全部包含所有正确答案，即<code>over</code>的概念</li>
+<li><code>must analysis</code>: 要求分析结果一定是正确的，即不能有误报，即<code>under</code>的概念</li>
+</ul>
+<p>而<code>over</code>和<code>under</code>在不同的应用中都代表了各自最<code>safe</code>的结果，因此所有的静态程序分析可以总结成：<code>abstraction</code>和<code>safe-approximation</code>两个阶段。</p>
 </blockquote>
 <h3 id="foundations">Foundations</h3>
 
@@ -748,7 +758,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#applications"><span class="nav-number">2.</span> <span class="nav-text">Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#applications"><span class="nav-number">2.</span> <span class="nav-text">Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#cfg"><span class="nav-number">2.1.1.</span> <span class="nav-text">CFG</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#abstract-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#safety-analysis"><span class="nav-number">2.1.3.</span> <span class="nav-text">safety analysis</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a></li></ol></div>
             
 
           </div>
