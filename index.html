@@ -629,7 +629,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1
+                  142
                 </span>
               
 
@@ -667,10 +667,19 @@
 
       
         
-          
-            <h3 id="abstract">Abstract</h3>
-
-          
+          <h3 id="abstract">Abstract</h3>
+<blockquote>
+<p>根据<code>safe-approximation</code>，过程内数据流分析<code>Intraprocedural</code>对所有的函数调用<code>method call</code>做出保守假设——即所有分析结果必须<code>safe</code>，而根据<code>Lattice</code>理论这种处理会使<code>must</code>和<code>may</code>分析都变的<code>less precise</code>。所以引入过程间数据流分析<code>Interprocedural Analysis</code>，通过<code>return/call edges</code>来实现过程间的数据流传递，从而进一步提高分析的精度。</p>
+<p>For Better precision, we need Interprocedural Analysis：propagate data-flow information along <strong>interprocedural control-flow edges</strong> i.e., call and return edges</p>
+<p>而<code>constant Propagation</code>常量传播优化在LLVM中也是通过<code>Interprocedural Analysis</code>实现的。</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/10/NJU静态程序分析（2-Interprocedural-Analysis）/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -849,7 +858,7 @@
 <blockquote>
 <p>编译器中大部分机器无关的全局优化是基于<code>Data-flow Analysis</code>实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。</p>
 <p><strong>In each data-flow analysis application, we associate with every program point a data-flow value that represents an abstraction of the set of all possible program states that can be observed for that point.</strong></p>
-<p>在工业界的<a href="https://www.zhihu.com/question/41959902" target="_blank" rel="noopener">主流编译器</a>中，<code>C</code>系的<code>LLVM</code>，<code>Java</code>系的<code>HotSpot</code>都是基于<code>SSA</code>做数据流分析而不是传统的<code>lattice</code>。南大这节课中是用<code>Bit Vector</code>来讲解过程内<code>Intra-procedural</code>，无别名<code>no aliases</code>的经典数据流分析框架。</p>
+<p>在工业界的<a href="https://www.zhihu.com/question/41959902" target="_blank" rel="noopener">主流编译器</a>中，<code>C</code>系的<code>LLVM</code>，<code>Java</code>系的<code>HotSpot</code>都是基于<code>SSA</code>做数据流分析而不是传统的<code>lattice</code>。南大这节课中是基于<code>Lattice</code>来讲解过程内<code>Intra-procedural</code>，无别名<code>no aliases</code>的经典数据流分析框架。</p>
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
