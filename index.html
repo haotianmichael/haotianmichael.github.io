@@ -472,10 +472,9 @@
 
       
         
-          <h3 id="abstract">Abstract</h3>
-<blockquote>
-<p>最近终于有时间研究一下MIT的<a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener">神课</a><code>6.824</code>。</p>
-<p>这门课教<code>Distributed System</code>，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。</p>
+          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>最近终于有时间研究一下MIT的<a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener">神课</a><code>6.824</code>。  </p>
+<p>这门课教<code>Distributed System</code>，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。  </p>
 <p><strong>分布式系统</strong>和单机相比，除了有很多高并发的<code>Partial Failures</code>，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——<strong><code>Performance</code>性能和<code>Fault Tolerance</code>容错</strong>是这门课的核心。</p>
 <p>课程共有20个<code>Lectures</code>和4个<code>labs</code>。和<code>6.828</code>一样重视实践——<strong>看论文，查资料，做<code>lab</code></strong>~简单粗暴。所以学习过程基本上就按照如下推进：</p>
 <ul>
@@ -667,8 +666,7 @@
 
       
         
-          <h3 id="abstract">Abstract</h3>
-<blockquote>
+          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
 <p>根据<code>safe-approximation</code>，过程内数据流分析<code>Intraprocedural</code>对所有的函数调用<code>method call</code>做出保守假设——即所有分析结果必须<code>safe</code>，而根据<code>Lattice</code>理论这种处理会使<code>must</code>和<code>may</code>分析都变的<code>less precise</code>。所以引入过程间数据流分析<code>Interprocedural Analysis</code>，通过<code>return/call edges</code>来实现过程间的数据流传递，从而进一步提高分析的精度。</p>
 <p>For Better precision, we need Interprocedural Analysis：propagate data-flow information along <strong>interprocedural control-flow edges</strong> i.e., call and return edges</p>
 <p>而<code>constant Propagation</code>常量传播优化在LLVM中也是通过<code>Interprocedural Analysis</code>实现的。</p>
@@ -816,7 +814,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  1.4k
                 </span>
               
 
@@ -854,8 +852,7 @@
 
       
         
-          <h3 id="abstract">Abstract</h3>
-<blockquote>
+          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
 <p>编译器中大部分机器无关的全局优化是基于<code>Data-flow Analysis</code>实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。</p>
 <p><strong>In each data-flow analysis application, we associate with every program point a data-flow value that represents an abstraction of the set of all possible program states that can be observed for that point.</strong></p>
 <p>在工业界的<a href="https://www.zhihu.com/question/41959902" target="_blank" rel="noopener">主流编译器</a>中，<code>C</code>系的<code>LLVM</code>，<code>Java</code>系的<code>HotSpot</code>都是基于<code>SSA</code>做数据流分析而不是传统的<code>lattice</code>。南大这节课中是基于<code>Lattice</code>来讲解过程内<code>Intra-procedural</code>，无别名<code>no aliases</code>的经典数据流分析框架。</p>
@@ -1041,11 +1038,10 @@
 
       
         
-          <h3 id="abstract">Abstract</h3>
-<blockquote>
-<p>编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待<code>计算</code>这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里<code>Programming Language</code>的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。</p>
-<p>​ <strong>Static Analysis analyzes a program P to reasono about its behaviors and determines whether it satisfies some properties before running P.</strong></p>
-<p>​ 主要的学习资源是<a href="https://pascal-group.bitbucket.io/teaching.html" target="_blank" rel="noopener">NJU-PASCAL团队的静态分析课程</a>以及<a href="https://book.douban.com/subject/3774682/" target="_blank" rel="noopener">龙书</a>和<a href="https://book.douban.com/subject/1400374/" target="_blank" rel="noopener">鲸书</a>中的部分章节。</p>
+          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p> 编译器作为工业界对PL理论的部分实现——和编程语言，运行时环境一样只是机器解释世界的一个角度。而当我解锁了从更加PL的方式看待<code>计算</code>这件事情之后，又打开了一扇通往新世界的大门。过去的几十年里<code>Programming Language</code>的内核并没有变化多少——但是程序本身却随着应用需求变的更加庞大和复杂。而静态程序分析作为PL的重要应用，其目的就在于在编译期确保程序的可靠性，安全性等各种性质。</p>
+<p>​    <strong>Static Analysis analyzes a program P to reasono about its behaviors and determines whether it satisfies some properties before running P.</strong>  </p>
+<p>​     主要的学习资源是<a href="https://pascal-group.bitbucket.io/teaching.html" target="_blank" rel="noopener">NJU-PASCAL团队的静态分析课程</a>以及<a href="https://book.douban.com/subject/3774682/" target="_blank" rel="noopener">龙书</a>和<a href="https://book.douban.com/subject/1400374/" target="_blank" rel="noopener">鲸书</a>中的部分章节。  </p>
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1206,7 +1202,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  8
+                  9
                 </span>
               
             </div>
@@ -1228,26 +1224,25 @@
 
       
         
-          <h3 id="abstract">Abstract</h3>
-<blockquote>
-<p>​ 最近在实验室实习的过程中学到了很多有意思的东西，对<code>Programming Languages</code>也有了更深的了解，<code>Ocaml</code>是一门支持多范式的函数式编程语言。<strong>程序描述计算，但是又不仅仅是计算</strong>。<code>Ocaml</code>的学习带给我的不仅仅是语言本身，这个系列记录了其中的部分心得:</p>
+          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>​    最近在实验室实习的过程中学到了很多有意思的东西，对<code>Programming Languages</code>也有了更深的了解，<code>Ocaml</code>是一门支持多范式的函数式编程语言。<strong>程序描述计算，但是又不仅仅是计算</strong>。<code>Ocaml</code>的学习带给我的不仅仅是语言本身，这个系列记录了其中的部分心得:</p>
 <ul>
-<li>关于<code>scripting/imperative/object-oriented/functional PL</code>的基本概念
-<ul>
+<li>关于<code>scripting/imperative/object-oriented/functional PL</code>的基本概念<ul>
 <li><code>Higher-order Functions</code></li>
 <li><code>State-Full vs State-Free Computation</code></li>
 <li><code>Modelling Objects and Closures</code></li>
 <li><code>Exceptions/Continuations to Defer Control</code></li>
 <li><code>Polymorphism</code></li>
 <li><code>Partial Evaluation/Lazy Programming/Modules</code></li>
-</ul></li>
-<li>关于<code>reason about programs</code>的方法
-<ul>
+</ul>
+</li>
+<li>关于<code>reason about programs</code>的方法<ul>
 <li><code>Type Checking</code></li>
 <li><code>Induction</code></li>
 <li><code>Operational Semantics</code></li>
 <li><code>QuickCheck</code></li>
-</ul></li>
+</ul>
+</li>
 <li>关于设计一门语言的基本规则</li>
 </ul>
 </blockquote>
@@ -1432,10 +1427,9 @@
 
       
         
-          <h3 id="abstract">Abstract</h3>
-<blockquote>
-<p>​ 第一次接触<code>EMACS</code>是大二的时候，当时只顾着新奇的界面和强大的功能却忽视了其背后真正的理论。后来我写代码也一直不喜欢IDE这种东西，但现在回过头来看，这貌似也只是一种浮于表面而无关原理的执拗。</p>
-<p>​ 这次重新回归到<code>Spacemacs</code>，我希望仔细从<code>Lisp</code>的角度理解这款编辑器，不管是其插件特性还是语言本身。</p>
+          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>​    第一次接触<code>EMACS</code>是大二的时候，当时只顾着新奇的界面和强大的功能却忽视了其背后真正的理论。后来我写代码也一直不喜欢IDE这种东西，但现在回过头来看，这貌似也只是一种浮于表面而无关原理的执拗。 </p>
+<p>​    这次重新回归到<code>Spacemacs</code>，我希望仔细从<code>Lisp</code>的角度理解这款编辑器，不管是其插件特性还是语言本身。</p>
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1580,7 +1574,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  937
+                  936
                 </span>
               
 
@@ -1618,8 +1612,7 @@
 
       
         
-          <h3 id="abstract">Abstract</h3>
-<blockquote>
+          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
 <p>最近参加<a href="https://github.com/deeplang-org" target="_blank" rel="noopener"><code>deeplang</code></a>的的过程中，接触到了一些编译领域的新技术，总结一下希望有时间了可以进一步的深入了解。参考资料是<a href="https://book.douban.com/subject/30396640/" target="_blank" rel="noopener">WebAssembly标准入门</a>。</p>
 </blockquote>
           <!--noindex-->
@@ -1765,7 +1758,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  185
+                  184
                 </span>
               
 
@@ -1803,10 +1796,9 @@
 
       
         
-          <h1 id="abstract">Abstract</h1>
-<blockquote>
-<p>基于<code>LLVM</code>实现简单的编程语言<code>kaleidoscope</code>，来源于<a href="https://releases.llvm.org/9.0.0/docs/tutorial/LangImpl01.html" target="_blank" rel="noopener">LLVM9.0.0 tutorial</a>。</p>
-<p><code>LLVM</code>的官方文档还是很不错的，阅读完其中的<strong>tutorials</strong>就能大致上手<code>LLVM</code>了。实现的代码对<code>C++11</code>要求比较高，我放在了<a href="https://github.com/haotianmichael/LLVMSet/tree/master/Kaleidoscope" target="_blank" rel="noopener">Github</a>上。</p>
+          <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote>
+<p>基于<code>LLVM</code>实现简单的编程语言<code>kaleidoscope</code>，来源于<a href="https://releases.llvm.org/9.0.0/docs/tutorial/LangImpl01.html" target="_blank" rel="noopener">LLVM9.0.0 tutorial</a>。  </p>
+<p><code>LLVM</code>的官方文档还是很不错的，阅读完其中的<strong>tutorials</strong>就能大致上手<code>LLVM</code>了。实现的代码对<code>C++11</code>要求比较高，我放在了<a href="https://github.com/haotianmichael/LLVMSet/tree/master/Kaleidoscope" target="_blank" rel="noopener">Github</a>上。  </p>
 <p>实现共分为10部分：</p>
 <ul>
 <li>实现<strong>词法分析器Lexer</strong></li>
@@ -2002,15 +1994,12 @@
 
       
         
-          <h1 id="abstract">Abstract</h1>
-<blockquote>
-<p><strong>LLVM</strong>，这个星球最牛逼的编译器。</p>
-<p>其核心设计理念就是<strong>统一的底层中间表达以及模块化的软件工程化方法。</strong>LLVM采用了<code>前端-优化器-后端</code>的组织形式，<strong>只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。</strong></p>
+          <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote>
+<p><strong>LLVM</strong>，这个星球最牛逼的编译器。  </p>
+<p>其核心设计理念就是<strong>统一的底层中间表达以及模块化的软件工程化方法。</strong>LLVM采用了<code>前端-优化器-后端</code>的组织形式，<strong>只是不同的前端和后端都采用统一的底层中间表示格式（LLVM IR）来最大可能复用优化器的代码。</strong>  </p>
 <p>在<a href="http://nondot.org/sabre/" target="_blank" rel="noopener">Chris Lattner</a>将其开源后，<a href="http://llvm.org/" target="_blank" rel="noopener">LLVM</a>逐渐发展成为了成熟的编译框架，具有大量库和编译链工具。</p>
-</blockquote>
-<blockquote>
-<p>我使用的平台是<code>macOS Mojave 10.14</code>，在编译的时候要注意版本是否兼容。</p>
-<p><strong>一般系统会通过打印二进制文件名称和无法加载的动态库的名称来发现链接错误。当屏幕上打印动态库名称时要予以注意，这说明系统动态链接器和加载器无法加载该库，因为该程序与当前系统不兼容。</strong></p>
+<p>我使用的平台是<code>macOS Mojave 10.14</code>，在编译的时候要注意版本是否兼容。  </p>
+<p><strong>一般系统会通过打印二进制文件名称和无法加载的动态库的名称来发现链接错误。当屏幕上打印动态库名称时要予以注意，这说明系统动态链接器和加载器无法加载该库，因为该程序与当前系统不兼容。</strong>  </p>
 <p>我编译<code>LLVM 10.0.0</code>的时候出错如下：</p>
 </blockquote>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
@@ -2198,17 +2187,16 @@
 
       
         
-          <h1 id="abstract">Abstract</h1>
-<blockquote>
-<p>从开始接触编译系统的学习已经快半年了，有些心得总结一下。</p>
-<p>什么是编译系统？我想从两个角度谈一下：</p>
+          <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote>
+<p>从开始接触编译系统的学习已经快半年了，有些心得总结一下。  </p>
+<p>什么是编译系统？我想从两个角度谈一下：  </p>
 <p>首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括<strong>编译器</strong>， <strong>汇编器</strong>，<strong>静态/动态链接器</strong>，<strong>操作系统装载器</strong>以及<strong>运行库</strong>。</p>
 <ul>
 <li>编译器： 是系统前半部分的核心，负责将源文件<strong>.c</strong>转换成为汇编文件<strong>.s</strong>。</li>
 <li>汇编/链接/装载器：是系统后半部分的核心，主要是将<strong>.s</strong>转换为<strong>二进制ELF文件</strong>并进一步围绕<strong>ELF</strong>处理。</li>
 <li>运行库：是操作系统层面用来支持<strong>高级语言运行环境</strong>比如内存池，标准API等的库文件。</li>
 </ul>
-<p>然后从专业的角度来讲，我觉得可以分为<strong>系统层面</strong>和<strong>算法优化层面</strong>，系统层面主要是整个编译框架比如LLVM，核心是和操作系统交互的部分，这部分内容是编译器工程师的基本功，需要掌握细节。而算法优化层面指的是<strong>编译优化</strong>——编译器工程师的最理想的方向就是做优化，这一部分需要精通，从静态单赋值SSA等传统的静态分析优化到现在主流的深度学习推理引擎比如TVM等。</p>
+<p>然后从专业的角度来讲，我觉得可以分为<strong>系统层面</strong>和<strong>算法优化层面</strong>，系统层面主要是整个编译框架比如LLVM，核心是和操作系统交互的部分，这部分内容是编译器工程师的基本功，需要掌握细节。而算法优化层面指的是<strong>编译优化</strong>——编译器工程师的最理想的方向就是做优化，这一部分需要精通，从静态单赋值SSA等传统的静态分析优化到现在主流的深度学习推理引擎比如TVM等。  </p>
 <p>本文主要是对系统层面的学习，对系统层面的学习止步于对LLVM编译框架的使用和源代码阅读。</p>
 </blockquote>
           <!--noindex-->
