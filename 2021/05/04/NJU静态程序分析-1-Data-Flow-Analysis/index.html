@@ -115,13 +115,13 @@
 
 
 
-<meta name="description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta name="description" content="Abstract 编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an ab">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta property="og:description" content="Abstract 编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an ab">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/2.png">
@@ -130,10 +130,10 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/5.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/6.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/7.png">
-<meta property="og:updated_time" content="2022-02-07T07:37:19.330Z">
+<meta property="og:updated_time" content="2022-02-07T07:54:06.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
-<meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta name="twitter:description" content="Abstract 编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an ab">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/1.png">
 
 
@@ -440,7 +440,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  1.8k
                 </span>
               
 
@@ -456,7 +456,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  6
+                  7
                 </span>
               
             </div>
@@ -477,96 +477,75 @@
       
 
       
-        <h3 id="abstract">Abstract</h3>
-<blockquote>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
 <p>编译器中大部分机器无关的全局优化是基于<code>Data-flow Analysis</code>实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。</p>
 <p><strong>In each data-flow analysis application, we associate with every program point a data-flow value that represents an abstraction of the set of all possible program states that can be observed for that point.</strong></p>
 <p>在工业界的<a href="https://www.zhihu.com/question/41959902" target="_blank" rel="noopener">主流编译器</a>中，<code>C</code>系的<code>LLVM</code>，<code>Java</code>系的<code>HotSpot</code>都是基于<code>SSA</code>做数据流分析而不是传统的<code>lattice</code>。南大这节课中是基于<code>Lattice</code>来讲解过程内<code>Intra-procedural</code>，无别名<code>no aliases</code>的经典数据流分析框架。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="applications">Applications</h3>
-<h4 id="overview">Overview</h4>
-<blockquote>
-<h5 id="cfg">CFG</h5>
-<p>分析框架都是建立在<code>control-flow-graph</code>上的，这是一种<code>IR</code>——由<code>basic-blocks</code>通过<code>control-flows</code>连接而成，可以分别看成是<code>CFG</code>的<code>nodes</code>和<code>edges</code>。 如何通过源码（单个函数）生成<code>CFG</code>见课件。</p>
-<p><img src="1.png" width="50%" height="50%" alt=""></p>
-<h5 id="abstract-1">Abstract</h5>
-<p>数据流分析用来描述所谓<strong>数据</strong>如何在<strong>CFG</strong>中流动。这里的<code>data</code>指的是程序语义信息的一种<code>abstraction</code>，<code>CFG</code>中的<code>nodes</code>和<code>edges</code>分别映射<code>transfer-function</code>和<code>control-flow handling</code>。所以整个分析是建立在一套成熟的理论框架之上的。</p>
+<h3 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h3><h4 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h4><blockquote>
+<h5 id="CFG"><a href="#CFG" class="headerlink" title="CFG"></a>CFG</h5><p>分析框架都是建立在<code>control-flow-graph</code>上的，这是一种<code>IR</code>——由<code>basic-blocks</code>通过<code>control-flows</code>连接而成，可以分别看成是<code>CFG</code>的<code>nodes</code>和<code>edges</code>。  如何通过源码（单个函数）生成<code>CFG</code>见课件。</p>
+<p> <img src="1.png" width="50%" height="50%" alt=""></p>
+<h5 id="Abstract-1"><a href="#Abstract-1" class="headerlink" title="Abstract"></a>Abstract</h5><p>数据流分析用来描述所谓<strong>数据</strong>如何在<strong>CFG</strong>中流动。这里的<code>data</code>指的是程序语义信息的一种<code>abstraction</code>，<code>CFG</code>中的<code>nodes</code>和<code>edges</code>分别映射<code>transfer-function</code>和<code>control-flow handling</code>。所以整个分析是建立在一套成熟的理论框架之上的。</p>
 <ul>
-<li><code>data(application-specific)</code>: 不同的数据流分析应用会有不同的抽象值<code>value</code>，比如分析变量数值时：<code>+;-;0;UND;UNKNOW;</code>
-<ul>
+<li><code>data(application-specific)</code>: 不同的数据流分析应用会有不同的抽象值<code>value</code>，比如分析变量数值时：<code>+;-;0;UND;UNKNOW;</code><ul>
 <li><code>domain</code>: 抽象数据流的值域即所有<code>value</code>定义的集合</li>
-</ul></li>
+</ul>
+</li>
 <li><code>transfer-functions</code>:不同的程序会有不同的<code>CFG</code>表示，进一步需要深刻<code>CFG</code>中<code>statements</code>，<code>basic-blocks</code>在被映射成<code>transfer-functions</code>时的区别和联系</li>
 <li><code>control-flows</code>:控制流基本上只有三个——顺序，汇聚以及分流</li>
 </ul>
-<h5 id="safety-analysis">safety analysis</h5>
-<p>大部分的分析框架要求分析结果是<code>Sound</code>的即<code>over-approximation</code>。而实际上并非所有如此——这里正式将所有分析分成两类：<code>may analysis</code>和<code>must analysis</code>。</p>
+<h5 id="safety-analysis"><a href="#safety-analysis" class="headerlink" title="safety analysis"></a>safety analysis</h5><p>大部分的分析框架要求分析结果是<code>Sound</code>的即<code>over-approximation</code>。而实际上并非所有如此——这里正式将所有分析分成两类：<code>may analysis</code>和<code>must analysis</code>。</p>
 <ul>
 <li><code>may analysis</code>: 要求分析结果中必须全部包含所有正确答案，换个角度理解就是<strong>不放过任何一个动态运行时的可能出错的行为</strong>——一旦发现就要报错，即<code>over</code>的概念</li>
 <li><code>must analysis</code>: 要求分析结果一定是正确的，即不能有误报，即<code>under</code>的概念</li>
 </ul>
 <p>而<code>over</code>和<code>under</code>在不同的应用中都代表了各自最<code>safe</code>的结果，因此所有的静态程序分析可以总结成：<code>abstraction</code>和<code>safe-approximation</code>两个阶段，不同的数据流分析有不同的<code>abstraction</code>和<code>safe-approximation strategies</code>即不同的<code>transfer-functions</code>和<code>control-flow handlings</code>。</p>
 </blockquote>
-<h4 id="preliminaries">Preliminaries</h4>
-<blockquote>
-<h5 id="input-and-output-states">Input and Output States</h5>
-<p>所有的操作对象都是在一个<code>CFG</code>中。</p>
-<p><code>statements</code> 是<code>CFG</code>中的执行的最小单位——每一条<code>statements</code>的执行都会改变程序的状态。</p>
-<p><strong>每一个<code>statements</code>前后都有自己的<code>program point</code>分别代表<code>input/output state</code>，记作<code>IN[S_i]/OUT[S_i]</code>。又因为一个<code>basic-blocks</code>中的所有<code>statements</code>可以结合在一起（因为BB内部只能顺序执行）故每个<code>basic-blocks</code>开始和结束也有自己的<code>program point</code>，记作<code>IN[B_i]/OUT[B_i]</code>。</strong></p>
+<h4 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h4><blockquote>
+<h5 id="Input-and-Output-States"><a href="#Input-and-Output-States" class="headerlink" title="Input and Output States"></a>Input and Output States</h5><p>所有的操作对象都是在一个<code>CFG</code>中。  </p>
+<p><code>statements</code>  是<code>CFG</code>中的执行的最小单位——每一条<code>statements</code>的执行都会改变程序的状态。 </p>
+<p><strong>每一个<code>statements</code>前后都有自己的<code>program point</code>分别代表<code>input/output state</code>，记作<code>IN[S_i]/OUT[S_i]</code>。又因为一个<code>basic-blocks</code>中的所有<code>statements</code>可以结合在一起（因为BB内部只能顺序执行）故每个<code>basic-blocks</code>开始和结束也有自己的<code>program point</code>，记作<code>IN[B_i]/OUT[B_i]</code>。</strong>  </p>
 <p><code>control flow</code>表示了各个<code>basic-blocks</code>的执行顺序关系。分为三种：顺序，汇聚和分流</p>
-<p><img src="2.png" width="50%" height="50%" alt=""></p>
+<p> <img src="2.png" width="50%" height="50%" alt=""></p>
 <ul>
 <li>顺序：<code>IN[s2] = OUT[s1]</code></li>
-<li>汇聚: <code>IN[s2] = OUT[s1] ^ OUT[s3]</code>
-<ul>
+<li>汇聚:  <code>IN[s2] = OUT[s1] ^ OUT[s3]</code><ul>
 <li>操作符<code>^</code>指的是<code>meet operator</code>，不同的算法有不同操作比如并集，交集等</li>
-</ul></li>
-<li>分流: <code>IN[s2] = IN[s3] = OUT[s1]</code></li>
+</ul>
+</li>
+<li>分流:  <code>IN[s2] = IN[s3] = OUT[s1]</code></li>
 </ul>
 <p><strong>需要关注的是每个BB或者Statement的<code>program point</code>，数据流分析会给每个<code>program point</code>一个<code>data-flow value</code>来抽象出当前位置程序的部分语义信息，再进一步利用各种<code>safe-approximation-directed constraints</code>以达到分析目的，这里的<code>constraints</code>具体指的是不同的<code>transfer functions</code>和<code>control flow handlings</code>。</strong></p>
-<h5 id="notations-for-transfer-functions-constraints">Notations for Transfer Functions' Constraints</h5>
-<ul>
-<li>Forward Analysis： OUT[s] = F_s(IN[s]),其中F_s就是针对具体输入的<code>Transfer Function</code>，前向分析是从输入推导输出</li>
-</ul>
+<h5 id="Notations-for-Transfer-Functions’-Constraints"><a href="#Notations-for-Transfer-Functions’-Constraints" class="headerlink" title="Notations for Transfer Functions’ Constraints"></a>Notations for Transfer Functions’ Constraints</h5><ul>
+<li><p>Forward Analysis： OUT[s] = F_s(IN[s]),其中F_s就是针对具体输入的<code>Transfer Function</code>，前向分析是从输入推导输出</p>
 <p><img src="3.png" width="50%" height="50%" alt=""></p>
-<ul>
-<li>Backward Analysis：IN[s] = F_s(OUT[s]),后向分析是从输出推导输入</li>
-</ul>
+</li>
+<li><p>Backward Analysis：IN[s]  = F_s(OUT[s]),后向分析是从输出推导输入</p>
 <p><img src="4.png" width="50%" height="50%" alt=""></p>
-<h5 id="notations-for-control-flows-constraints">Notations for Control Flows' Constraints</h5>
-<h6 id="control-flow-within-a-bb">control flow within a BB</h6>
-<p>在一个BB内部，<code>IN[S_(i+1)] = OUT[S_(i)], for all i = 1, 2,...n-1</code>——这个很好理解，一个BB中的<code>statements</code>只能顺序执行故只会有一个输入输出。</p>
-<h6 id="control-flow-among-bbs">control flow among BBs</h6>
-<p>对于一个<code>basic block</code>来说：<code>IN[B] = IN[S_1];   OUT[B] = OUT[S_n]</code>。 而BB之间的执行不仅仅是顺序关系。还有汇聚和分流的执行顺序。</p>
-<p>首先是汇聚：<code>OUT[B] = F_b(IN[B])</code>，其中<code>F_b = F_sn * ...* F_s2 * F_s1</code>也就是一个BB的的<code>Transfer Function</code>由内部<code>statements</code>各自的<code>transfer function</code>组成，<code>IN[B] = ^ OUT[P]</code>，表示所有汇聚的输出的并集都成为下一个的输入，这里的<code>^</code>就是表示并集的<code>meet operator</code>而<code>P</code>表示<code>B</code>的所有前驱<code>basic blocks</code>。</p>
-<p><img src="5.png" width="50%" height="50%" alt=""></p>
+</li>
+</ul>
+<h5 id="Notations-for-Control-Flows’-Constraints"><a href="#Notations-for-Control-Flows’-Constraints" class="headerlink" title="Notations for Control Flows’ Constraints"></a>Notations for Control Flows’ Constraints</h5><h6 id="control-flow-within-a-BB"><a href="#control-flow-within-a-BB" class="headerlink" title="control flow within a BB"></a>control flow within a BB</h6><p>在一个BB内部，<code>IN[S_(i+1)] = OUT[S_(i)], for all i = 1, 2,...n-1</code>——这个很好理解，一个BB中的<code>statements</code>只能顺序执行故只会有一个输入输出。</p>
+<h6 id="control-flow-among-BBs"><a href="#control-flow-among-BBs" class="headerlink" title="control flow among BBs"></a>control flow among BBs</h6><p>对于一个<code>basic block</code>来说：<code>IN[B] = IN[S_1];   OUT[B] = OUT[S_n]</code>。  而BB之间的执行不仅仅是顺序关系。还有汇聚和分流的执行顺序。  </p>
+<p>首先是汇聚：<code>OUT[B] = F_b(IN[B])</code>，其中<code>F_b = F_sn * ...* F_s2 * F_s1</code>也就是一个BB的的<code>Transfer Function</code>由内部<code>statements</code>各自的<code>transfer function</code>组成，<code>IN[B] = ^ OUT[P]</code>，表示所有汇聚的输出的并集都成为下一个的输入，这里的<code>^</code>就是表示并集的<code>meet operator</code>而<code>P</code>表示<code>B</code>的所有前驱<code>basic blocks</code>。  </p>
+<p> <img src="5.png" width="50%" height="50%" alt=""></p>
 <p>其次是分流：<code>IN[B] = F_b(OUT[B])</code>;<code>OUT[B] = ^IN[S]</code>这里表示<code>B</code>的输出都成为所有<code>S</code>的输入，<code>S</code>是<code>B</code>的所有后继。</p>
-<p><img src="6.png" width="50%" height="50%" alt=""></p>
+<p> <img src="6.png" width="50%" height="50%" alt=""></p>
 <p>有了前面的基础，下面先介绍三种经典的数据流分析算法：</p>
 </blockquote>
-<h4 id="reaching-definitions-analysis">Reaching Definitions Analysis</h4>
-<blockquote>
-<h5 id="定义">定义</h5>
-<p>A definition d at <strong>program point</strong> p reaches a point q if <strong>there is</strong> a path from p to q such that d is not &quot;killed&quot; along that path.(A definition of a variable is a statement that assigns a value to v).</p>
+<h4 id="Reaching-Definitions-Analysis"><a href="#Reaching-Definitions-Analysis" class="headerlink" title="Reaching Definitions Analysis"></a>Reaching Definitions Analysis</h4><blockquote>
+<h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>A definition d at <strong>program point</strong> p reaches a point q if <strong>there is</strong> a path from p to q such that d is not “killed” along that path.(A definition of a variable is a statement that assigns a value to v).</p>
 <p><img src="7.png" width="50%" height="50%" alt=""></p>
 <p>首先<strong><code>definition</code>-定义</strong>指的是对变量<code>v</code>进行赋值的语句。一般来讲<strong>定义</strong>都是从一个<code>program point</code>上完成的。</p>
-<p>在p点上的，一个对变量<code>v</code>的<code>definition</code>能<code>reach</code>到某一个新的点q，取决于在控制流上是否<strong>存在</strong>一条从p到q的路径，同时在这条路径上该变量<code>v</code>不会被重新定义，就说是这个<code>definition</code>可以reach到q点。</p>
-<h5 id="分析类型">分析类型</h5>
-<p>从定义的<code>there is</code>可以看出，这是一个<code>may analysis</code>——即控制流上从p到q的所有路径而言，只需要有一条路径没有被重新定义，那这两个<code>program point</code>之间就是<code>Reached</code>的。并且还知道这是一个<code>forward analysis</code>——因为是前面的<code>program point</code>上的<code>definition</code>可以<code>reach</code>到后面的<code>program point</code>。</p>
-<h5 id="应用">应用</h5>
-<p>该分析可以用来<strong>检查未定义的变量</strong>。对于所有需要检测的变量，在<code>CFG</code>的<code>entry</code>入口处都赋值为<code>dummy definition</code>——实际上就是一个<code>undefined</code>的标签，如果变量<code>v</code>的可以<strong>到达</strong>某一个使用点，那这个变量就有可能是未定义前使用。</p>
-<h5 id="细节">细节</h5>
-<h6 id="data-flow-valuesfact">Data Flow Values/Fact</h6>
-<p>首先数据流分析需要对分析的对象进行抽象，<strong>这里使用<code>BitVector</code>来表示一个<code>CFG</code>（即一段过程内程序中）上所有变量的<code>definition</code>。</strong>（注意关注对象<code>definition</code>不是变量本身，而是定义这个变量的所有<code>program point</code>。）</p>
-<h6 id="transfer-function">Transfer Function</h6>
-<h6 id="control-flow">Control Flow</h6>
-<h6 id="算法">算法</h6>
+<p>在p点上的，一个对变量<code>v</code>的<code>definition</code>能<code>reach</code>到某一个新的点q，取决于在控制流上是否<strong>存在</strong>一条从p到q的路径，同时在这条路径上该变量<code>v</code>不会被重新定义，就说是这个<code>definition</code>可以reach到q点。  </p>
+<h5 id="分析类型"><a href="#分析类型" class="headerlink" title="分析类型"></a>分析类型</h5><p>从定义的<code>there is</code>可以看出，这是一个<code>may analysis</code>——即控制流上从p到q的所有路径而言，只需要有一条路径没有被重新定义，那这两个<code>program point</code>之间就是<code>Reached</code>的。并且还知道这是一个<code>forward analysis</code>——因为是前面的<code>program point</code>上的<code>definition</code>可以<code>reach</code>到后面的<code>program point</code>。</p>
+<h5 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h5><p>该分析可以用来<strong>检查未定义的变量</strong>。对于所有需要检测的变量，在<code>CFG</code>的<code>entry</code>入口处都赋值为<code>dummy definition</code>——实际上就是一个<code>undefined</code>的标签，如果变量<code>v</code>的可以<strong>到达</strong>某一个使用点，那这个变量就有可能是未定义前使用。</p>
+<h5 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h5><h6 id="Data-Flow-Values-Fact"><a href="#Data-Flow-Values-Fact" class="headerlink" title="Data Flow Values/Fact"></a>Data Flow Values/Fact</h6><p>首先数据流分析需要对分析的对象进行抽象，<strong>这里使用<code>BitVector</code>来表示一个<code>CFG</code>（即一段过程内程序中）上所有变量的<code>definition</code>。</strong>（注意关注对象<code>definition</code>不是变量本身，而是定义这个变量的所有<code>program point</code>。）</p>
+<h6 id="Transfer-Function"><a href="#Transfer-Function" class="headerlink" title="Transfer Function"></a>Transfer Function</h6><p>根据<code>IN</code>求出每一个<code>statemetns/basic blocks</code>的<code>OUT</code>的。由该分析的目的可以得出：<code>OUT[B] = gen_B ∪ (IN[B] - kill_B)</code>，即对于每一个<code>program point</code>来说，其<code>OUT</code>就是在该点处新增加的对变量的<code>definitions</code>除掉别处这些变量的<code>definitions</code>。</p>
+<h6 id="Control-Flow"><a href="#Control-Flow" class="headerlink" title="Control Flow"></a>Control Flow</h6><p>根据上一个<code>statements/basic blocks</code>的<code>OUT</code>求出下一个的<code>IN</code>。因为作为<code>may</code>分析，其不放过任何一个运行时的行为，所以针对所有留到该<code>IN</code>的<code>OUT</code>都要接收。即<code>IN[B] = ∪_p(p是B所有的前驱结点)OUT[P]</code>。</p>
+<h6 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h6><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">/*</span></span><br><span class="line"><span class="comment">&gt; 	INPUT: CFG(kill_B and gen_B computed for each basic blocks B)</span></span><br><span class="line"><span class="comment">&gt; 	OUTOUT: IN[B] and OUT[B] for each basic block B</span></span><br><span class="line"><span class="comment">&gt; */</span></span><br><span class="line">&gt; OUT[entry] = <span class="literal">nullptr</span>;</span><br><span class="line">&gt; <span class="keyword">for</span> (each basic block B\entry)</span><br><span class="line">&gt;   	OUT[B] = <span class="literal">nullptr</span>;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="keyword">while</span>(changes to ant OUT occur) </span><br><span class="line">&gt;   	<span class="keyword">for</span>(each basic blocks B\entry) &#123;</span><br><span class="line">&gt;       IN[B] = ∪_OUT[P];</span><br><span class="line">&gt;       OUT[B] = gen_B ∪ (IN[B] - kill_B);      </span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<h4 id="live-variables-analysis">Live Variables Analysis</h4>
-<h4 id="available-expressions-analysis">Available Expressions Analysis</h4>
-<h3 id="foundations">Foundations</h3>
-
+<h4 id="Live-Variables-Analysis"><a href="#Live-Variables-Analysis" class="headerlink" title="Live Variables Analysis"></a>Live Variables Analysis</h4><h4 id="Available-Expressions-Analysis"><a href="#Available-Expressions-Analysis" class="headerlink" title="Available Expressions Analysis"></a>Available Expressions Analysis</h4><h3 id="Foundations"><a href="#Foundations" class="headerlink" title="Foundations"></a>Foundations</h3>
       
     </div>
     
@@ -824,7 +803,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#applications"><span class="nav-number">2.</span> <span class="nav-text">Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#cfg"><span class="nav-number">2.1.1.</span> <span class="nav-text">CFG</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#abstract-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#safety-analysis"><span class="nav-number">2.1.3.</span> <span class="nav-text">safety analysis</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#preliminaries"><span class="nav-number">2.2.</span> <span class="nav-text">Preliminaries</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#input-and-output-states"><span class="nav-number">2.2.1.</span> <span class="nav-text">Input and Output States</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#notations-for-transfer-functions-constraints"><span class="nav-number">2.2.2.</span> <span class="nav-text">Notations for Transfer Functions&#39; Constraints</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#notations-for-control-flows-constraints"><span class="nav-number">2.2.3.</span> <span class="nav-text">Notations for Control Flows&#39; Constraints</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#control-flow-within-a-bb"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">control flow within a BB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#control-flow-among-bbs"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">control flow among BBs</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reaching-definitions-analysis"><span class="nav-number">2.3.</span> <span class="nav-text">Reaching Definitions Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分析类型"><span class="nav-number">2.3.2.</span> <span class="nav-text">分析类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#应用"><span class="nav-number">2.3.3.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#细节"><span class="nav-number">2.3.4.</span> <span class="nav-text">细节</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#data-flow-valuesfact"><span class="nav-number">2.3.4.1.</span> <span class="nav-text">Data Flow Values/Fact</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#transfer-function"><span class="nav-number">2.3.4.2.</span> <span class="nav-text">Transfer Function</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#control-flow"><span class="nav-number">2.3.4.3.</span> <span class="nav-text">Control Flow</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#算法"><span class="nav-number">2.3.4.4.</span> <span class="nav-text">算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#live-variables-analysis"><span class="nav-number">2.4.</span> <span class="nav-text">Live Variables Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#available-expressions-analysis"><span class="nav-number">2.5.</span> <span class="nav-text">Available Expressions Analysis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Applications"><span class="nav-number">2.</span> <span class="nav-text">Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CFG"><span class="nav-number">2.1.1.</span> <span class="nav-text">CFG</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Abstract-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#safety-analysis"><span class="nav-number">2.1.3.</span> <span class="nav-text">safety analysis</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Preliminaries"><span class="nav-number">2.2.</span> <span class="nav-text">Preliminaries</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Input-and-Output-States"><span class="nav-number">2.2.1.</span> <span class="nav-text">Input and Output States</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Notations-for-Transfer-Functions’-Constraints"><span class="nav-number">2.2.2.</span> <span class="nav-text">Notations for Transfer Functions’ Constraints</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Notations-for-Control-Flows’-Constraints"><span class="nav-number">2.2.3.</span> <span class="nav-text">Notations for Control Flows’ Constraints</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#control-flow-within-a-BB"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">control flow within a BB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#control-flow-among-BBs"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">control flow among BBs</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reaching-Definitions-Analysis"><span class="nav-number">2.3.</span> <span class="nav-text">Reaching Definitions Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分析类型"><span class="nav-number">2.3.2.</span> <span class="nav-text">分析类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#应用"><span class="nav-number">2.3.3.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#细节"><span class="nav-number">2.3.4.</span> <span class="nav-text">细节</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Data-Flow-Values-Fact"><span class="nav-number">2.3.4.1.</span> <span class="nav-text">Data Flow Values/Fact</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Transfer-Function"><span class="nav-number">2.3.4.2.</span> <span class="nav-text">Transfer Function</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Control-Flow"><span class="nav-number">2.3.4.3.</span> <span class="nav-text">Control Flow</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#算法"><span class="nav-number">2.3.4.4.</span> <span class="nav-text">算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Live-Variables-Analysis"><span class="nav-number">2.4.</span> <span class="nav-text">Live Variables Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Available-Expressions-Analysis"><span class="nav-number">2.5.</span> <span class="nav-text">Available Expressions Analysis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a></li></ol></div>
             
 
           </div>
