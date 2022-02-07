@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract 根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出保守假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过return/call edges来实现过程间">
+<meta name="description" content="Abstract  根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出保守假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过return/call edges来实现过程">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(2-Interprocedural-Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-Interprocedural-Analysis）/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract 根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出保守假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过return/call edges来实现过程间">
+<meta property="og:description" content="Abstract  根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出保守假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过return/call edges来实现过程">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2022-01-29T02:56:47.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(2-Interprocedural-Analysis)">
-<meta name="twitter:description" content="Abstract 根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出保守假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过return/call edges来实现过程间">
+<meta name="twitter:description" content="Abstract  根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出保守假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过return/call edges来实现过程">
 
 
 
@@ -469,7 +469,8 @@
       
 
       
-        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+        <h3 id="abstract">Abstract</h3>
+<blockquote>
 <p>根据<code>safe-approximation</code>，过程内数据流分析<code>Intraprocedural</code>对所有的函数调用<code>method call</code>做出保守假设——即所有分析结果必须<code>safe</code>，而根据<code>Lattice</code>理论这种处理会使<code>must</code>和<code>may</code>分析都变的<code>less precise</code>。所以引入过程间数据流分析<code>Interprocedural Analysis</code>，通过<code>return/call edges</code>来实现过程间的数据流传递，从而进一步提高分析的精度。</p>
 <p>For Better precision, we need Interprocedural Analysis：propagate data-flow information along <strong>interprocedural control-flow edges</strong> i.e., call and return edges</p>
 <p>而<code>constant Propagation</code>常量传播优化在LLVM中也是通过<code>Interprocedural Analysis</code>实现的。</p>
@@ -733,7 +734,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
             
 
           </div>
