@@ -129,7 +129,8 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/4.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/5.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/6.png">
-<meta property="og:updated_time" content="2022-01-29T02:30:17.049Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/7.png">
+<meta property="og:updated_time" content="2022-02-07T03:52:27.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
@@ -439,7 +440,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.1k
+                  1.3k
                 </span>
               
 
@@ -455,7 +456,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  4
+                  5
                 </span>
               
             </div>
@@ -546,7 +547,14 @@
 </blockquote>
 <h4 id="reaching-definitions-analysis">Reaching Definitions Analysis</h4>
 <blockquote>
-
+<h5 id="定义">定义</h5>
+<p>A definition d at <strong>program point</strong> p reaches a point q if <strong>there is</strong> a path from p to q such that d is not &quot;killed&quot; along that path.(A definition of a variable is a statement that assigns a value to v)</p>
+<p><img src="7.png" width="50%" height="50%" alt=""></p>
+<p>即变量v<strong>可以</strong>从<code>program point</code>的一个<strong>定义点p</strong>到达另一个<strong>使用点q</strong>，这中间该变量不会有新的定义点就可以说是变量v<code>Reach</code>到q了。</p>
+<h5 id="分析类型">分析类型</h5>
+<p>从定义的<code>there is</code>可以看出，这是一个<code>may analysis</code>——即对从定义点p到使用点q的所有路径而言，只需要有一条路径过程中没有被新的定义点破坏，那这两个变量之间就是<code>Reached</code>的。并且根据其定义还知道其为一个<code>forward analysis</code>。</p>
+<h5 id="应用">应用</h5>
+<p>该分析可以用来<strong>检查未定义的变量</strong>。</p>
 </blockquote>
 <h4 id="live-variables-analysis">Live Variables Analysis</h4>
 <h4 id="available-expressions-analysis">Available Expressions Analysis</h4>
@@ -571,7 +579,7 @@
   <p><span>本文标题:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/">NJU静态程序分析(1-Data Flow Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月03日 - 16:05</p>
-  <p><span>最后更新:</span>2022年01月29日 - 10:01</p>
+  <p><span>最后更新:</span>2022年02月07日 - 11:02</p>
   <p><span>原始链接:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/" title="NJU静态程序分析(1-Data Flow Analysis)">http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
@@ -809,7 +817,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#applications"><span class="nav-number">2.</span> <span class="nav-text">Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#cfg"><span class="nav-number">2.1.1.</span> <span class="nav-text">CFG</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#abstract-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#safety-analysis"><span class="nav-number">2.1.3.</span> <span class="nav-text">safety analysis</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#preliminaries"><span class="nav-number">2.2.</span> <span class="nav-text">Preliminaries</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#input-and-output-states"><span class="nav-number">2.2.1.</span> <span class="nav-text">Input and Output States</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#notations-for-transfer-functions-constraints"><span class="nav-number">2.2.2.</span> <span class="nav-text">Notations for Transfer Functions&#39; Constraints</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#notations-for-control-flows-constraints"><span class="nav-number">2.2.3.</span> <span class="nav-text">Notations for Control Flows&#39; Constraints</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#control-flow-within-a-bb"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">control flow within a BB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#control-flow-among-bbs"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">control flow among BBs</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reaching-definitions-analysis"><span class="nav-number">2.3.</span> <span class="nav-text">Reaching Definitions Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#live-variables-analysis"><span class="nav-number">2.4.</span> <span class="nav-text">Live Variables Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#available-expressions-analysis"><span class="nav-number">2.5.</span> <span class="nav-text">Available Expressions Analysis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#applications"><span class="nav-number">2.</span> <span class="nav-text">Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#cfg"><span class="nav-number">2.1.1.</span> <span class="nav-text">CFG</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#abstract-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#safety-analysis"><span class="nav-number">2.1.3.</span> <span class="nav-text">safety analysis</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#preliminaries"><span class="nav-number">2.2.</span> <span class="nav-text">Preliminaries</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#input-and-output-states"><span class="nav-number">2.2.1.</span> <span class="nav-text">Input and Output States</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#notations-for-transfer-functions-constraints"><span class="nav-number">2.2.2.</span> <span class="nav-text">Notations for Transfer Functions&#39; Constraints</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#notations-for-control-flows-constraints"><span class="nav-number">2.2.3.</span> <span class="nav-text">Notations for Control Flows&#39; Constraints</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#control-flow-within-a-bb"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">control flow within a BB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#control-flow-among-bbs"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">control flow among BBs</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reaching-definitions-analysis"><span class="nav-number">2.3.</span> <span class="nav-text">Reaching Definitions Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分析类型"><span class="nav-number">2.3.2.</span> <span class="nav-text">分析类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#应用"><span class="nav-number">2.3.3.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#live-variables-analysis"><span class="nav-number">2.4.</span> <span class="nav-text">Live Variables Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#available-expressions-analysis"><span class="nav-number">2.5.</span> <span class="nav-text">Available Expressions Analysis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a></li></ol></div>
             
 
           </div>
