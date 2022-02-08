@@ -131,7 +131,8 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/6.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/7.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/8.png">
-<meta property="og:updated_time" content="2022-02-08T02:34:44.635Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/9.png">
+<meta property="og:updated_time" content="2022-02-08T03:32:45.610Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
@@ -441,7 +442,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2k
+                  2.5k
                 </span>
               
 
@@ -457,7 +458,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  8
+                  10
                 </span>
               
             </div>
@@ -577,12 +578,27 @@
 <p><img src="8.png" width="50%" height="50%" alt=""></p>
 <p>分析<strong>变量<code>v</code>在一个<code>program point</code>-p上是否是活跃的</strong>，取决于是否存在一条从p点开始一直到程序执行结束的路径，该路径中有使用过<code>v</code>的地方，<strong>并且从p点到使用点期间<code>v</code>不可以被重新定义</strong>——则说明该变量<code>v</code>在p点是活跃的。</p>
 <h5 id="分析类型-1">分析类型</h5>
+<p>根据定义可以知道这是一个<code>may</code>分析，该变量只要有使用点则分析结果就是活跃的。又因为分析的过程是从后往前的故该分析也是一个<code>backward analysis</code>。</p>
 <h5 id="应用-1">应用</h5>
+<p>该分析可以用来完成<strong>寄存器分配</strong>。比如在执行到程序的某一点需要将操作数加载到其中一个寄存器中——而这时候所有的<code>registers</code>都满了。如何选择合适的寄存器呢？如果选择的是一个<code>dead</code>不活跃的寄存器值（未来不会被用到），那就可以直接替换掉。而如果这个寄存器中的变量值是活跃的，那后面再次使用到的时候就需要把它再次从内存读到寄存器，浪费了资源。</p>
 <h5 id="细节-1">细节</h5>
 <h6 id="data-flow-valuefact">Data Flow Value/Fact</h6>
+<p>该分析关注的对象，<strong>就是变量本身</strong>，使用<code>BitVector</code>表示。</p>
 <h6 id="transfer-function-1">Transfer Function</h6>
+<p><code>IN[B] = use_B ∪ (OUT[B] - def_B)</code>。这里的<code>use_B</code>指的是<strong>所有在重新定义之前变量的使用点，</strong>通过<code>backward</code>的思路来分析，对于一个<code>basic block</code>，给出其<code>OUT</code>来得到其<code>IN</code>需要关注在BB中变量是否是满足活跃的前提要求的。</p>
+<p><img src="9.png" width="50%" height="50%" alt=""></p>
 <h6 id="control-flow-1">Control Flow</h6>
+<p>因为作为<code>may</code>分析，其不放过任何一个运行时的行为，所以针对所有留到该<code>IN</code>的<code>OUT</code>都要接收。即<code>IN[B] = ∪_s(s是B所有的前驱结点)OUT[s]</code>。</p>
 <h5 id="算法-1">算法</h5>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">/*</span></span><br><span class="line"><span class="comment">&gt; 	INPUT: CFG(def_B and use_B computed for each basic blocks B)</span></span><br><span class="line"><span class="comment">&gt; 	OUTOUT: IN[B] and OUT[B] for each basic block B</span></span><br><span class="line"><span class="comment">&gt; */</span></span><br><span class="line">&gt; IN[<span class="built_in">exit</span>] = <span class="literal">nullptr</span>;</span><br><span class="line">&gt; <span class="keyword">for</span> (each basic block B\<span class="built_in">exit</span>)</span><br><span class="line">&gt; 	IN[B] = <span class="literal">nullptr</span>;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="keyword">while</span>(changes to ant IN occur) </span><br><span class="line">&gt; 	<span class="keyword">for</span>(each basic blocks B\<span class="built_in">exit</span>) &#123;</span><br><span class="line">&gt;    	OUT[B] = ∪_IN[S];</span><br><span class="line">&gt;    	OUT[B] = use_B ∪ (OUT[B] - def_B);      </span><br><span class="line">&gt;  &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>将两个算法的<code>Transfer Func</code>放到一起对比：</p>
+<ul>
+<li>RDA: <code>OUT[B] = gen_B ∪ (IN[B] - kill_B)</code></li>
+<li>LVA: <code>IN[B] = use_B ∪ (OUT[B] - def_B)</code></li>
+</ul>
+<p>会发现很多的数据流分析算法都是<code>GEN/KILL Problem</code>。</p>
 </blockquote>
 <h4 id="available-expressions-analysis">Available Expressions Analysis</h4>
 <blockquote>
@@ -609,7 +625,7 @@
   <p><span>本文标题:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/">NJU静态程序分析(1-Data Flow Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月03日 - 16:05</p>
-  <p><span>最后更新:</span>2022年02月08日 - 10:02</p>
+  <p><span>最后更新:</span>2022年02月08日 - 11:02</p>
   <p><span>原始链接:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/" title="NJU静态程序分析(1-Data Flow Analysis)">http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
