@@ -134,7 +134,8 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/9.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/10.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/11.png">
-<meta property="og:updated_time" content="2022-02-09T03:40:07.065Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/12.png">
+<meta property="og:updated_time" content="2022-02-09T06:35:11.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
@@ -630,14 +631,15 @@
 <blockquote>
 <h4 id="mathematics-prerequisite">Mathematics Prerequisite</h4>
 <h5 id="partial-order">Partial Order</h5>
-<p>定义<code>poset</code>偏序集<code>(P, ≼)</code>表示一个集合<code>p</code>，符号<code>≼</code>定义在该集合的偏序有如下性质：</p>
+<p>定义<code>poset</code>偏序集<code>(P, ≼)</code>表示一个集合<code>p</code>，符号<code>≼</code>定义在该集合的<code>partial ordering</code>有如下性质：</p>
 <ul>
 <li><em>Reflexivity</em>. ∀ x∊P, x≼x<br>
 </li>
 <li><em>Antisymmetry.</em> ∀ x,y∊P, x≼y ∧ y≼x ⟹ x=y.</li>
 <li><em>Transitivity</em>. ∀ x,y,z∊P, x≼y ∧ y≼z ⟹ x≼z.</li>
 </ul>
-<p>如何理解<code>partial</code>？</p>
+<p>如何理解偏序-<code>partial ordering</code>？<strong>在集合<code>p</code>中定义了一种<code>order</code>，但并不是所有两个元素之间都必须满足这种<code>order</code>——即集合中两个元素之间可以是<code>incomparable</code>的</strong>。比如<code>power set</code>是非常典型的<code>poset</code>。</p>
+<p><img src="12.png" width="50%" height="50%" alt=""></p>
 <h5 id="upper-and-lower-bounds">Upper and Lower Bounds</h5>
 <h5 id="lattic">Lattic</h5>
 <h5 id="complete-lattice">Complete Lattice</h5>
@@ -669,7 +671,7 @@
   <p><span>本文标题:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/">NJU静态程序分析(1-Data Flow Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月03日 - 16:05</p>
-  <p><span>最后更新:</span>2022年02月09日 - 11:02</p>
+  <p><span>最后更新:</span>2022年02月09日 - 14:02</p>
   <p><span>原始链接:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/" title="NJU静态程序分析(1-Data Flow Analysis)">http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
