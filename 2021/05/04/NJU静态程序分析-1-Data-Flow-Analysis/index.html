@@ -135,7 +135,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/10.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/11.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/12.png">
-<meta property="og:updated_time" content="2022-02-09T06:35:11.910Z">
+<meta property="og:updated_time" content="2022-02-09T06:59:43.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
@@ -445,7 +445,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  3.1k
+                  3.3k
                 </span>
               
 
@@ -461,7 +461,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  12
+                  13
                 </span>
               
             </div>
@@ -641,6 +641,22 @@
 <p>如何理解偏序-<code>partial ordering</code>？<strong>在集合<code>p</code>中定义了一种<code>order</code>，但并不是所有两个元素之间都必须满足这种<code>order</code>——即集合中两个元素之间可以是<code>incomparable</code>的</strong>。比如<code>power set</code>是非常典型的<code>poset</code>。</p>
 <p><img src="12.png" width="50%" height="50%" alt=""></p>
 <h5 id="upper-and-lower-bounds">Upper and Lower Bounds</h5>
+<p>给定偏序集<code>(P, ≼)</code>以及该集合的一个子集<code>S ⊆ P</code>。我们使用集合<code>P</code>中的<strong>一个元素<code>u ∊ P</code></strong>来定义<strong>集合<code>S</code>的<code>upper bound</code>和<code>lower bound</code>:</strong></p>
+<ul>
+<li>∀x∊S, x≼u ⟹ u∊P is an <em>upper bounds</em> of S</li>
+<li>∀x∊S, l≼x ⟹ l∊P is an <em>lower bound</em> of S</li>
+</ul>
+<p>在此基础上，我们进一步定义<strong>集合<code>S</code>的<code>least upper bound(lub or join)</code>简写为<code>⊔S</code>，以及<code>greatest lower bound(glb or meet)</code>简写为<code>⊓S</code>:</strong></p>
+<ul>
+<li>for every <em>upper bound</em> of S, say u: <code>⊔S ≼ u</code></li>
+<li>for every <em>lower bound</em> of S, say l:<code>l ≼ ⊓S</code></li>
+</ul>
+<p>根据<code>⊔S/⊓S</code>的定义，如果集合<code>S</code>中只有两个元素<code>a and b</code>。那么：</p>
+<ul>
+<li><code>⊔S</code> ≡ <code>a ⊔ b</code>(a和b的并集)</li>
+<li><code>⊓S</code> ≡ <code>a ⊓ b</code>（a和b的交集）</li>
+</ul>
+<p><strong>不是所有的偏序集都有<code>⊓S/⊔S</code>，但是如果一个偏序集同时有<code>⊔S/⊓S</code>的话，那该偏序集就是唯一的。</strong></p>
 <h5 id="lattic">Lattic</h5>
 <h5 id="complete-lattice">Complete Lattice</h5>
 <h5 id="product-lattice">Product Lattice</h5>
