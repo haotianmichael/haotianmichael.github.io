@@ -136,7 +136,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/11.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/12.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/13.png">
-<meta property="og:updated_time" content="2022-02-10T07:13:51.592Z">
+<meta property="og:updated_time" content="2022-02-10T07:33:04.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
@@ -729,17 +729,17 @@
 <h6 id="proof">Proof</h6>
 <p><em>Proof-Existence of Fixed Point:</em></p>
 <p>​ <em>∵ <code>⊥</code>是<code>Lattice</code>最小元素，由<code>f:L⟶L</code>的定义可知<code>f(⊥)</code>也是<code>Lattice</code>上的元素⟹ ⊥ ≼ f(⊥)</em></p>
-<p>​ <em>∵ <code>f</code>是单调的 ⟹ f(⊥) ≼ f(f(⊥))=f^2(⊥) 相似的 ⟹ ⊥≼f(⊥)≼f<sup>2(⊥)...≼f</sup>i(⊥)</em></p>
-<p>​ <em>∵<code>L</code>是<code>finite</code>的 ⟹ f^k(⊥) = f^(k+1)(⊥)</em></p>
+<p>​ <em>∵ <code>f</code>是单调的 ⟹ f(⊥) ≼ f(f(⊥))=f<sup>2</sup>(⊥) 相似的 ⟹ ⊥≼ f(⊥) ≼ f<sup>2</sup>(⊥) ... ≼ f<sup>i</sup>(⊥)</em></p>
+<p>​ <em>∵<code>L</code>是<code>finite</code>的 ⟹ f<sup>k</sup>(⊥) = f<sup>(k+1)</sup>(⊥)</em></p>
 <p>​ <em>∴ 不动点存在</em></p>
 <p><em>Proof-Least Fixed Point:</em></p>
 <p>​ <em>假设有另一个不动点<code>x</code>，⟹ <code>x = f(x)</code>, <code>⊥ ≼ x</code></em></p>
 <p><code>Induction:</code></p>
 <p>​ <em>∵ f 是单调的 ⟹ f(⊥) ≼ f(x)</em></p>
-<p>​ <em>假设f^i(⊥) ≼ f^i(x), ∵ f单调 ⟹ f^(i+1)(⊥) ≼ f^(i+1)(x)</em></p>
-<p>​ <em>∴根据归纳法 ⟹ f^i(⊥) ⟹ f^i(x)</em></p>
-<p>​ <em>∵<code>x</code>是不动点，f^i(⊥) ≼ f^i(x) = x， 又∵f<sup>fix=f</sup>k(⊥)是从⊥开始迭代停止的不动点 ⟹ f^k(⊥) ≼ x</em></p>
-<p>​ <em>∴f^k(⊥)是唯一的最小不动点(最大不动点证明类似)</em></p>
+<p>​ <em>假设f^i(⊥) ≼ f<sup>i</sup>(x), ∵ f单调 ⟹ f<sup>(i+1)</sup>(⊥) ≼ f<sup>(i+1)</sup>(x)</em></p>
+<p>​ <em>∴根据归纳法 ⟹ f<sup>i</sup>(⊥) ⟹ f<sup>i</sup>(x)</em></p>
+<p>​ <em>∵<code>x</code>是不动点，f<sup>i</sup>(⊥) ≼ f<sup>i</sup>(x) = x， 又∵f<sup>fix</sup>=f<sup>k</sup>(⊥)是从⊥开始迭代停止的不动点 ⟹ f<sup>k</sup>(⊥) ≼ x</em></p>
+<p>​ <em>∴f<sup>k</sup>(⊥)是唯一的最小不动点(最大不动点证明类似)</em></p>
 </blockquote>
 <h4 id="maymust-analysis-on-lattice">May/Must Analysis On Lattice</h4>
 <h4 id="mop-and-distributivity">MOP and Distributivity</h4>
