@@ -140,7 +140,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/16.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/17.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/18.png">
-<meta property="og:updated_time" content="2022-02-14T06:45:41.473Z">
+<meta property="og:updated_time" content="2022-02-14T07:16:38.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  7.1k
+                  7.3k
                 </span>
               
 
@@ -466,7 +466,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  28
+                  29
                 </span>
               
             </div>
@@ -856,7 +856,12 @@
 </blockquote>
 <h4 id="worklist-algorithm">Worklist Algorithm</h4>
 <blockquote>
-
+<p>在实际的数据流分析中会使用迭代算法的优化版本即<code>Worklist Algorithm</code>。</p>
+<p>迭代算法的主要复杂度在<code>CFG</code>中一个节点输出有变化都需要使得整个<code>CFG</code>迭代，而<code>Worklist Algorithm</code>则是迭代算法的一种剪枝优化。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="type">OUT</span>[entry] = nullptr;</span><br><span class="line">&gt;for(each basic block\entry)</span><br><span class="line">&gt;	<span class="type">OUT</span>[<span class="type">B</span>] = nullptr;</span><br><span class="line">&gt;<span class="type">Worklist</span> ⟵ all basic blocks</span><br><span class="line">&gt;while(<span class="type">Worklist</span> is not empty) </span><br><span class="line">&gt;	<span class="type">Pick</span> a basic block <span class="type">B</span> from <span class="type">Worklist</span></span><br><span class="line">&gt;	old_OUT = <span class="type">OUT</span>[<span class="type">B</span>]</span><br><span class="line">&gt;	<span class="type">IN</span>[<span class="type">B</span>] = ⊔<span class="type">OUT</span>[<span class="type">P</span>]</span><br><span class="line">&gt;	<span class="type">OUT</span>[<span class="type">B</span>] = gen_B ⋃ (<span class="type">IN</span>[<span class="type">B</span>] - kill_B)</span><br><span class="line">&gt;	<span class="keyword">if</span>(old_OUT ≠ <span class="type">OUT</span>[<span class="type">B</span>]) </span><br><span class="line">&gt;		add all successors <span class="keyword">of</span> <span class="type">B</span> to <span class="type">Worklist</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>至此，数据流分析的学习告一段落。</p>
 </blockquote>
 
       
@@ -878,7 +883,7 @@
   <p><span>本文标题:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/">NJU静态程序分析(1-Data Flow Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月03日 - 16:05</p>
-  <p><span>最后更新:</span>2022年02月14日 - 14:02</p>
+  <p><span>最后更新:</span>2022年02月14日 - 15:02</p>
   <p><span>原始链接:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/" title="NJU静态程序分析(1-Data Flow Analysis)">http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
