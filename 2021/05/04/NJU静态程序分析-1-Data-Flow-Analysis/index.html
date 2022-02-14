@@ -139,7 +139,8 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/15.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/16.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/17.png">
-<meta property="og:updated_time" content="2022-02-14T02:54:47.650Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/18.png">
+<meta property="og:updated_time" content="2022-02-14T06:45:41.473Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
@@ -449,7 +450,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  6.7k
+                  7.1k
                 </span>
               
 
@@ -465,7 +466,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  27
+                  28
                 </span>
               
             </div>
@@ -822,6 +823,36 @@
 <h4 id="constant-propagation">Constant Propagation</h4>
 <blockquote>
 <p>常量传播是一个<code>non-distributive</code>的数据流分析算法。</p>
+<p>Given a variable x at program point p, determine whether x is guaranteed to hold a constant value at p.</p>
+<p>按照数据流分析框架(<font color="red">D</font>, <font color="green">L</font>, <font color="blue">F</font>)来解释的话，该分析一定是前向分析<code>forward-analysis</code>，由于作为优化算法其必须保证运行时不可以出错故是<code>must</code>分析。其<code>lattice</code>的domain是一个pair<code>(x, v)</code>其中<code>x</code>是变量而<code>v</code>表示变量的值（有<code>constant</code>, <code>undefined</code>，<code>notAconstant</code>三种选项），分析的<code>meet operator</code>和之前的算法不同——不是单一的⊔/⊓：</p>
+<ul>
+<li>NAC ⊓ v = NAC</li>
+<li>UNDEF ⊓ v = v</li>
+<li>c ⊓ v = ?
+<ul>
+<li>c ⊓ c = c</li>
+<li>c<sub>1</sub> ⊓ c<sub>2</sub> = NAC</li>
+</ul></li>
+</ul>
+<p>给定<code>s: x = ...</code>是一个赋值语句，因此该语句OUT则是IN的所有变量减掉<code>x</code>(因为x被重新赋值了)再加上该语句中新gen出来的变量。故定义常量传播的<code>Transfer Function</code>F: OUT[s] = gen ⋃ (IN[s] - {(x, _)})。其中gen函数:</p>
+<ul>
+<li>s: x = c; //c is a constant ⟹ gen = {(x, c)}</li>
+<li>s: x = y; ⟹ gen = {(x, val(y))}</li>
+<li>x: x = y op z; ⟹ gen = {(x, f(y, z))}
+<ul>
+<li>val(y) op val(z) // if val(y) and val(z) are constants</li>
+<li>NAC // if val(y) or val(z) is NAC</li>
+<li>UNDEF //UNDEF op UNDEF or UNDEF op NAC</li>
+</ul></li>
+</ul>
+<p>下面的这个例子中：</p>
+<p><img src="18.png" width="50%" height="50%" alt=""></p>
+<p>用数据流分析迭代算法以及<code>MOP</code>算法来完成常量传播求值之后进行一次对比:</p>
+<ul>
+<li>Ours: F(X ⊓ Y) = {(a, NAC), (c, NAC), <font color="green">(c, NAC)</font>}</li>
+<li>MOP: F(X) ⊓ F(Y) = {(a, NAC), (b, NAC), <font color="green">(c, 10)</font>}</li>
+</ul>
+<p>按照<code>must</code>分析的不动点理论，分析是从⊤到⊥（⊤就是UNDEF，⊥是NAC）进行的。而<code>Ours</code>的值要比<code>MOP</code>的值更靠近⊥故其分析则<code>less precise</code>。因此<code>F(X⊓Y)≠ F(X)⊓ F(Y)</code>进而<code>F(X⊓Y) ⋞ F(X)⊓ F(Y)</code>。所以该分析是<code>Nondistributive</code>的。</p>
 </blockquote>
 <h4 id="worklist-algorithm">Worklist Algorithm</h4>
 <blockquote>
@@ -847,7 +878,7 @@
   <p><span>本文标题:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/">NJU静态程序分析(1-Data Flow Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月03日 - 16:05</p>
-  <p><span>最后更新:</span>2022年02月14日 - 10:02</p>
+  <p><span>最后更新:</span>2022年02月14日 - 14:02</p>
   <p><span>原始链接:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/" title="NJU静态程序分析(1-Data Flow Analysis)">http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
