@@ -138,7 +138,8 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/13.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/15.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/16.png">
-<meta property="og:updated_time" content="2022-02-11T07:42:37.031Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/17.png">
+<meta property="og:updated_time" content="2022-02-14T02:54:47.650Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
@@ -448,7 +449,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  6.4k
+                  6.7k
                 </span>
               
 
@@ -464,7 +465,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  25
+                  27
                 </span>
               
             </div>
@@ -801,8 +802,31 @@
 <p>老师在这里提供了另一个角度，就是在<code>lattice</code>上迭代函数，其中<code>Transfer Function</code>本身是固定的，<strong>而两种分析的<code>join/meet Function</code>根据<code>lattice</code>的性质其就是两个元素的<code>least/greatest upper/lower bound</code>，加上分别从<code>⊥</code>和<code>⊤</code>开始，</strong>故每次迭代函数走的都是最小/大的路径，故到达的也是最小/最大不动点。</p>
 </blockquote>
 <h4 id="mop-and-distributivity">MOP and Distributivity</h4>
+<blockquote>
+<p>前面讨论了数据流分析<code>Iterative Algorithm</code>最后到达的不动点是最精确的。但是如何衡量这个精度？这一小节引入一个很经典的<strong>概念</strong><code>Meet-Over-All-Paths Solution</code>即<code>MOP</code>。</p>
+<p><code>MOP</code>概念引入<code>CFG</code>的每一条路径都是从<code>entry</code>一直到其执行结束。</p>
+<ul>
+<li>P = Entry ⟶ S<sub>1</sub> ⟶ S<sub>2</sub> ⟶... ⟶ S<sub>i</sub></li>
+</ul>
+<p><code>MOP</code>每一条<code>path</code>的<code>Transfer Function</code>是该条路径上所有<code>statements</code>的<code>Transfer Function</code>的合力，最后应用<code>meet operator</code>来计算数据流值: MOP[S<sub>i</sub>] = ⊔/⊓ F<sub>P</sub>(OUT[Entry])。<code>MOP</code>仅仅作为一个理论上的概念存在是因为应用中很多路径是<code>not executable</code>的，<code>Unbounded</code>的以及<code>not enumerable</code>的，故对于那种指数爆炸的程序<code>MOP</code>是<code>impractical</code>的。<strong>这里主要通过<code>MOP</code>概念对比<code>Iterative Algorithm</code>。</strong>对于同一个<code>CFG</code>:</p>
+<p><img src="17.png" width="50%" height="50%" alt=""></p>
+<p>迭代算法是在每一个<code>control flow</code>应用函数:<em>IN[S<sub>4</sub>] = f<sub>S<sub>3</sub></sub>(f<sub>S<sub>1</sub></sub>(OUT[Entry]) ⊔ f<sub>S<sub>2</sub></sub>(OUT[Entry]))</em></p>
+<p>而<code>MOP</code>只会在路径结束之后应用函数:<em>MOP[S<sub>4</sub>] = f<sub>S<sub>3</sub></sub>(f<sub>S<sub>1</sub></sub>(OUT[Entry])) ⊔ f<sub>S<sub>3</sub></sub>(f<sub>S<sub>2</sub></sub>(OUT[Entry]))</em></p>
+<p>简化一下就是:</p>
+<ul>
+<li>Ours = F(x ⊔ y)</li>
+<li>MOP = F(x) ⊔ F(y)</li>
+</ul>
+<p>可以证明<strong>迭代算法的精度要比<code>MOP</code>更不准。</strong>只有当F函数是<code>distributive</code>的时候才能保证<code>F(x⊔y) = F(x) ⊔ F(y)</code>即两种算法的精确度是一样的。前面的所有<code>Bit-vector/Gen/Kill</code>问题的数据流分析算法它们的<code>meet/join</code>函数都是<code>distributive</code>的。</p>
+</blockquote>
 <h4 id="constant-propagation">Constant Propagation</h4>
+<blockquote>
+<p>常量传播是一个<code>non-distributive</code>的数据流分析算法。</p>
+</blockquote>
 <h4 id="worklist-algorithm">Worklist Algorithm</h4>
+<blockquote>
+
+</blockquote>
 
       
     </div>
@@ -823,7 +847,7 @@
   <p><span>本文标题:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/">NJU静态程序分析(1-Data Flow Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月03日 - 16:05</p>
-  <p><span>最后更新:</span>2022年02月11日 - 15:02</p>
+  <p><span>最后更新:</span>2022年02月14日 - 10:02</p>
   <p><span>原始链接:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/" title="NJU静态程序分析(1-Data Flow Analysis)">http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
