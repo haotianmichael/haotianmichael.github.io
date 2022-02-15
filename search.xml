@@ -14,6 +14,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[NJU静态分析(3-Pointer-Analysis)]]></title>
+    <url>%2F2021%2F05%2F14%2FNJU%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90-3-Pointer-Analysis%2F</url>
+    <content type="text"><![CDATA[Abstract]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+      <tags>
+        <tag>PL</tag>
+        <tag>Software-Analysis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[NJU静态程序分析(2-CHA-Analysis)]]></title>
     <url>%2F2021%2F05%2F10%2FNJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90%EF%BC%882-CHA-Analysis%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Abstract 根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出过度保守的假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过Call Graph来实现过程间的数据流传递，从而进一步提高分析的精度。因此如何构造这些call-graph就是过程间分析的关键环节。 For Better precision, we need Interprocedural Analysis：propagate data-flow information along interprocedural control-flow edges i.e., call and return edges Class hierarchy analysis是用来构造Call Graph的一种经典方法——也是过程间分析的基础。 CHA Inter-procedural Control-Flow Graph Inter-procedural Data-Flow Analysis]]></content>
@@ -71,18 +83,6 @@
       <tags>
         <tag>EMACS</tag>
         <tag>PL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[NJU静态分析(3-Pointer-Analysis)]]></title>
-    <url>%2F2021%2F02%2F16%2FNJU%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90-3-Pointer-Analysis%2F</url>
-    <content type="text"><![CDATA[Abstract]]></content>
-      <categories>
-        <category>JAVA</category>
-      </categories>
-      <tags>
-        <tag>PL</tag>
-        <tag>Software-Analysis</tag>
       </tags>
   </entry>
   <entry>
