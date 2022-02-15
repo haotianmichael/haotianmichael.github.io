@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2022-01-14T09:29:43.333Z</updated>
+  <updated>2022-02-15T09:34:59.078Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NJU静态分析(3-Pointer-Analysis)</title>
+    <link href="http://haotianmcihael.github.io/2022/02/16/NJU%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90-3-Pointer-Analysis/"/>
+    <id>http://haotianmcihael.github.io/2022/02/16/NJU静态分析-3-Pointer-Analysis/</id>
+    <published>2022-02-15T17:34:59.000Z</published>
+    <updated>2022-02-15T09:34:59.078Z</updated>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>MIT6.824(Spring 2021)-MapReduce</title>
@@ -56,21 +78,21 @@
   </entry>
   
   <entry>
-    <title>NJU静态程序分析(2-Interprocedural-Analysis)</title>
-    <link href="http://haotianmcihael.github.io/2021/05/10/NJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90%EF%BC%882-Interprocedural-Analysis%EF%BC%89/"/>
-    <id>http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-Interprocedural-Analysis）/</id>
+    <title>NJU静态程序分析(2-CHA-Analysis)</title>
+    <link href="http://haotianmcihael.github.io/2021/05/10/NJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90%EF%BC%882-CHA-Analysis%EF%BC%89/"/>
+    <id>http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/</id>
     <published>2021-05-10T10:23:58.000Z</published>
-    <updated>2022-01-29T02:56:47.588Z</updated>
+    <updated>2022-02-15T09:34:45.598Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>根据<code>safe-approximation</code>，过程内数据流分析<code>Intraprocedural</code>对所有的函数调用<code>method call</code>做出保守假设——即所有分析结果必须<code>safe</code>，而根据<code>Lattice</code>理论这种处理会使<code>must</code>和<code>may</code>分析都变的<code>less precise</code>。所以引入过程间数据流分析<code>Interprocedural Analysis</code>，通过<code>return/call edges</code>来实现过程间的数据流传递，从而进一步提高分析的精度。</p><p>For Better precision, we need Interprocedural Analysis：propagate data-flow information along <strong>interprocedural control-flow edges</strong> i.e., call and return edges</p><p>而<code>constant Propagation</code>常量传播优化在LLVM中也是通过<code>Interprocedural Analysis</code>实现的。</p></blockquote><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>根据<code>safe-approximation</code>，过程内数据流分析<code>Intraprocedural</code>对所有的函数调用<code>method call</code>做出过度保守的假设——即所有分析结果必须<code>safe</code>，而根据<code>Lattice</code>理论这种处理会使<code>must</code>和<code>may</code>分析都变的<code>less precise</code>。所以引入<strong>过程间数据流分析</strong><code>Interprocedural Analysis</code>，通过<code>Call Graph</code>来实现过程间的数据流传递，从而进一步提高分析的精度。<strong>因此如何构造这些<code>call-graph</code>就是过程间分析的关键环节。</strong></p><p>For Better precision, we need Interprocedural Analysis：propagate data-flow information along <strong>interprocedural control-flow edges</strong> i.e., call and return edges</p><p><code>Class hierarchy analysis</code>是用来构造<code>Call Graph</code>的一种经典方法——也是过程间分析的基础。</p></blockquote><a id="more"></a><h3 id="cha">CHA</h3><h3 id="inter-procedural-control-flow-graph">Inter-procedural Control-Flow Graph</h3><h3 id="inter-procedural-data-flow-analysis">Inter-procedural Data-Flow Analysis</h3>]]></content>
     
     <summary type="html">
     
       &lt;h3 id=&quot;abstract&quot;&gt;Abstract&lt;/h3&gt;
 &lt;blockquote&gt;
-&lt;p&gt;根据&lt;code&gt;safe-approximation&lt;/code&gt;，过程内数据流分析&lt;code&gt;Intraprocedural&lt;/code&gt;对所有的函数调用&lt;code&gt;method call&lt;/code&gt;做出保守假设——即所有分析结果必须&lt;code&gt;safe&lt;/code&gt;，而根据&lt;code&gt;Lattice&lt;/code&gt;理论这种处理会使&lt;code&gt;must&lt;/code&gt;和&lt;code&gt;may&lt;/code&gt;分析都变的&lt;code&gt;less precise&lt;/code&gt;。所以引入过程间数据流分析&lt;code&gt;Interprocedural Analysis&lt;/code&gt;，通过&lt;code&gt;return/call edges&lt;/code&gt;来实现过程间的数据流传递，从而进一步提高分析的精度。&lt;/p&gt;
+&lt;p&gt;根据&lt;code&gt;safe-approximation&lt;/code&gt;，过程内数据流分析&lt;code&gt;Intraprocedural&lt;/code&gt;对所有的函数调用&lt;code&gt;method call&lt;/code&gt;做出过度保守的假设——即所有分析结果必须&lt;code&gt;safe&lt;/code&gt;，而根据&lt;code&gt;Lattice&lt;/code&gt;理论这种处理会使&lt;code&gt;must&lt;/code&gt;和&lt;code&gt;may&lt;/code&gt;分析都变的&lt;code&gt;less precise&lt;/code&gt;。所以引入&lt;strong&gt;过程间数据流分析&lt;/strong&gt;&lt;code&gt;Interprocedural Analysis&lt;/code&gt;，通过&lt;code&gt;Call Graph&lt;/code&gt;来实现过程间的数据流传递，从而进一步提高分析的精度。&lt;strong&gt;因此如何构造这些&lt;code&gt;call-graph&lt;/code&gt;就是过程间分析的关键环节。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;For Better precision, we need Interprocedural Analysis：propagate data-flow information along &lt;strong&gt;interprocedural control-flow edges&lt;/strong&gt; i.e., call and return edges&lt;/p&gt;
-&lt;p&gt;而&lt;code&gt;constant Propagation&lt;/code&gt;常量传播优化在LLVM中也是通过&lt;code&gt;Interprocedural Analysis&lt;/code&gt;实现的。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Class hierarchy analysis&lt;/code&gt;是用来构造&lt;code&gt;Call Graph&lt;/code&gt;的一种经典方法——也是过程间分析的基础。&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
@@ -280,9 +302,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -318,9 +340,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -354,9 +376,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
       <category term="Linker" scheme="http://haotianmcihael.github.io/tags/Linker/"/>
     
@@ -397,9 +419,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
     
   </entry>
   
@@ -640,33 +662,6 @@
 &lt;blockquote&gt;
 &lt;p&gt;内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，&lt;strong&gt;注意这里的内存指的是内存地址空间&lt;/strong&gt;。&lt;br&gt;
 CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
-    
-    
-      <category term="i386" scheme="http://haotianmcihael.github.io/tags/i386/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>汇编语言（王爽）ch2</title>
-    <link href="http://haotianmcihael.github.io/2018/10/04/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%88%E7%8E%8B%E7%88%BD%EF%BC%89ch2/"/>
-    <id>http://haotianmcihael.github.io/2018/10/04/汇编语言（王爽）ch2/</id>
-    <published>2018-10-03T20:26:50.000Z</published>
-    <updated>2020-06-26T02:30:06.641Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="第二部分汇编结构">第二部分:汇编结构</h2><h3 id="abstract">Abstract</h3><h4 id="汇编语言的结构">汇编语言的结构</h4><h5 id="寄存器和内存之间">寄存器和内存之间</h5><blockquote><p>汇编语言是由不同的段构成的，这些段的功能各异不过主要分为<code>指令</code>和<code>数据</code>两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。<br><a id="more"></a> <strong>字节存储和字存储</strong>就是两种解决办法，在8086中寄存器是16位的(16位为一字)，而存储器的最小存储单元是8位也就是一个字节，所以如果在一些读写中需要用到字存储而不是字节存储的话，就需要两块连续的内存单元才能完成数据的传输，而且是<strong>高地址存放字的高位字节，低地址存放字的低位字节</strong>。<br><strong>要读写一块内存单元的时候，必须先要给出这个内存单元的地址。</strong>在实验1中我们知道了CPU使用<code>段地址+偏移地址</code>的方式来进行寻址。而实现这些功能的就是一些具有特殊功能的寄存器。这里提到的是最简单的也最常使用的两种类型:<br>* <code>CS</code>+<code>IP</code>————在任意时刻CPU将CS:IP指向的内容当做指令执行。<br>* <code>DS</code>+[idata]————<code>DS</code>通常用来存放需要访问的数据的段地址。<br><strong>这里主要介绍汇编语言的结构，对应到寄存器和内存寻址的方式后面会讲。</strong> ##### 数据段 将一段内存当做数据段，是我们在编程的时候的一种安排，可以在具体操作的时候，<strong>用ds存放数据的段地址，</strong>再根据相关指令访问数据段中的具体单元。</p></blockquote><h5 id="代码段">代码段</h5><blockquote><p>从硬件角度讲，CPU只认被CS:IP指向的内存单元中的内容为指令。要让CPU执行我们放在代码段的指令，必须要将CS:IP指向所定义的代码段中的第一条指令的首地址。</p></blockquote><h5 id="栈段">栈段</h5><blockquote><p><strong>栈是一种先进后出的数据结构</strong>，这是最基本的栈的概念。这里讲到的栈指的是内存区域。从操作系统的角度讲一个线程需要分配一个栈(stack)。相对应的一个进程需要分配一个堆(heap)。栈的大小在分配的时候就已经确定好了，其作用主要是存放一些局部和确定的变量和数据。<br>关于栈也有两个寄存器:<code>SS:SP</code>。换句话讲CPU如何知道一段内存区域是不是栈？栈顶的段地址放在<code>SS</code>中，而偏移地址放在<code>SP</code>中。<strong>任意时刻，SS:SP指向栈顶元素</strong>。这是规定。<br>另外，上微机原理课的时候，老师讲到栈的分类:<br>* 向高地址生长的称为递增堆栈。 * 向地地址生长的称为递减堆栈。<br>地址延伸主要的影响就是内存中的大端寻址和小端寻址。</p></blockquote><pre><code>&lt;img src=&quot;4.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; alt=&quot;&quot;&gt;</code></pre><ul><li>堆栈指针指向最后压入堆栈的有效数据项，叫做满堆栈。</li><li>堆栈指针指向下一个待压入数据的空位置，叫做空堆栈。<br><img src="5.png" width="50%" height="50%" alt=""></li></ul><h5 id="栈指令">栈指令</h5><blockquote><p>在i386的指令集中，栈操作都是以字为单位的。 ###### push执行过程 1. SP=SP-2; 2. 向<code>SP:SS</code>指向的内存字单元中送入数据; ###### pop执行过程 1. 从<code>SP:SS</code>指向的内存字单元中读取数据; 2. SP=SP+2;</p></blockquote><h5 id="段的概念">段的概念</h5><blockquote><p>之前讨论过关于<strong>段</strong>这个概念。我认为，还是因为在编程的时候可以通过一个系统化的结构来统一汇编语言的实现逻辑。使得这些指令看上去便于管理和协调合作。至于其物理实现，其实就是CPU的寻址方式决定的。书本中有一段话特别经典，我摘抄如下:</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">比如我们将10000H~1001F安排为代码段，并在里面存储如下代码:  </span><br><span class="line"></span><br><span class="line">MOV ax,1000H  </span><br><span class="line">MOV ss,ax</span><br><span class="line">MOV sp,0020H  //初始化栈顶</span><br><span class="line">MOV ax,cs</span><br><span class="line">MOV ds,ax  //设置数据段段地址</span><br><span class="line">MOV ax,[0]</span><br><span class="line">add ax,[2]</span><br><span class="line">add bx,[4]</span><br><span class="line">add bx,[6]</span><br><span class="line">push ax</span><br><span class="line">push bx</span><br><span class="line">pop ax</span><br><span class="line">pop bx  </span><br><span class="line"></span><br><span class="line">设置CS=1000，IP=0.这段代码就会被执行，但是可以看到在这段代码中，我们又将  </span><br><span class="line">10000H~1001FH安排为栈段和数据段。  </span><br><span class="line">可见不管我们如何安排，CPU将内存中的某段内存当做代码，是因CS:IP指向了那里。  </span><br><span class="line">CPU将某段内存当做栈，是因为SS:SP指向了那里。我们一定要清楚，什么是我们的安排，  </span><br><span class="line">以及如何让CPU按我们的安排行事。要非常清楚CPU的工作机理，才能在控制CPU按照我们  </span><br><span class="line">的安排运行的时候做到游刃有余。  </span><br><span class="line">一段内存，可以既是代码的存储空间，又是数据的存储空间，还可以是栈空间，也可以什么都不是。  </span><br><span class="line">关键是在于CPU中寄存器的设置，机CS，IP，SS，SP，DS的指向。</span><br></pre></td></tr></table></figure><h5 id="多个段的统一">多个段的统一</h5><blockquote><p>以前写的汇编都是单个段，并且主要是代码段。如果内存中的一段汇编代码需要包含多个数据段，代码段，栈段。该如何设计才能保证程序正常运行呢？<br><strong>我们应该有一个概念，就是所谓和CPU对应的程序一定是<code>CS:IP</code>指向的内存地址。</strong>所以实际上这个问题是在问保证<code>CS:IP</code>正确指向程序的前提下，如何让数据段，栈段合理的加进来？<br>这里有个<code>伪指令</code>的概念，伪指令主要是为汇编器提供一些编译的前提信息比如从哪里开始执行代码，其他的段的起始地址在哪里。所以问题也就解决了。</p><ul><li>如何保证<code>CS:IP</code>指向代码段: <code>end</code>和<code>end start</code></li><li>如何定义一个段: <code>code segment</code>和<code>code ends</code></li><li>如何将段寄存器和段相对应: <code>assume cs:code</code></li></ul></blockquote><h4 id="汇编语言的编译连接过程及其工具的使用">汇编语言的编译、连接过程及其工具的使用</h4><blockquote><p>这部分详细见书上。</p></blockquote><h5 id="源程序组成">源程序组成</h5><blockquote><p>一个汇编程序的源程序由<code>汇编指令</code>和<code>伪指令</code>构成。汇编指令指的是编译成为机器指令最终为CPU所执行的代码。伪指令没有相对应的机器指令，主要是由编译器来执行的指令。</p></blockquote><h5 id="编译链接执行">编译、链接、执行</h5><blockquote><p>源程序经过编译成为可重定位文件，然后经过链接成为可执行文件。可执行文件是可以直接在操作系统中执行的。上述两种文件都属于ELF格式的文件，ELF是Linux下面的一种文件格式，具体的细节在后面的操作系统中会谈到，这里只是了解。<br><code>编程</code>（edit）————&gt;<code>1.asm</code>————&gt;<code>编译</code>(masm)————&gt;<code>1.obj</code>————&gt;<code>链接</code>(link)————&gt;<code>1.exe</code>————&gt;<code>加载</code>(shell)————&gt;<code>内存中的程序</code>————&gt;<code>运行</code>(CPU)</p></blockquote><p><img src="6.png" width="50%" height="50%" alt=""></p><h3 id="工具进阶">工具进阶</h3><h4 id="debug--d">debug -d</h4><blockquote><p>第一个实验中使用的debug工具，通过各种参数来对寄存器和内存进行读写。比如<code>d 段地址:偏移地址</code>指令会列出指定内存单元中的内容。但是debug也是一个程序，而能定位内存地址的方式在8086中只有段寄存器可以做到,实际上debug就是通过将地址写入段寄存器中的方式来进行内存寻址。这个原理适用于所有的参数。<br>而使用的这个段寄存器正是<code>DS</code>寄存器。<br>根据这个原理，就可以通过修改寄存器来进阶使用这些命令，比如:<code>-r ds</code>,<code>:1000</code>,<code>-d ds:0</code>这段代码就表示查看从1000：0开始的内存空间中的内容。这里主要是认识到段寄存器DS的寻址功能，为之后的寻址方式打基础。</p></blockquote><h4 id="debug--p">debug -p</h4><blockquote><p>在整个实验中，debug工具是经常要使用的。debug有两种用法，一种就是使用<code>a</code>参数直接写入程序然后调试。还有一种就是直接调试<code>exe</code>文件。<br>第一种之前一直在用，第二种方式加载的过程有一些不一样，ds段寄存器中存放着该程序的段地址，因为偏移为零所以DS:0就是所加载程序的首地址。而加载进来的程序前256字节存放的是一段通信程序，所以真正的代码是在<code>(DS+10H:0):0</code>开始的。<br>每一段汇编指令都需要以<code>mov ax,4c00H</code>，<code>int 21H</code>结尾。在调试到<code>int 21H</code>的时候需要使用<code>P</code>命令执行。出现<code>Program terminated normally</code>程序正常退出。</p></blockquote><h3 id="实验2-用机器指令和汇编指令编程">实验2 用机器指令和汇编指令编程</h3><blockquote><p>这个实验很有意思，一共有两部分: #### 第一部分 使用<code>a</code>将下面的汇编指令写入内存，然后使用<code>T</code>命令调试。如下:</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2000</span><br><span class="line">mov ss,ax</span><br><span class="line">mov sp,10</span><br><span class="line">mov ax,3123</span><br><span class="line">push ax</span><br><span class="line">mov ax,3366</span><br><span class="line">push ax</span><br></pre></td></tr></table></figure><blockquote><p>会发现在单步调试的时候，在<code>mov ss,ax</code>之后的下一条指令竟然不是<code>mov sp,10</code>。但是查看寄存器的时候发现实际上这条执行已经被执行结束了。这是第一个现象。 <img src="7.png" width="50%" height="50%" alt=""></p></blockquote><h4 id="第二部分">第二部分</h4><blockquote><p>对上面的代码继续调试，如下： 会发现最开始对栈初始化之后，到执行到<code>mov ss,ax</code>指令的时候，查看原来的栈段内容竟然不再是零，且这些数字还都是和段寄存器相关的。<br><img src="8.png" width="50%" height="50%" alt=""></p></blockquote><h4 id="总结">总结</h4><blockquote><p>下图是接下来的每一步后栈段中的内存变化。<br><img src="9.png" width="50%" height="50%" alt=""> 可以看到的现象是:开始的时候栈中是没有数据的，栈桢SP指向<code>2000:0010</code>的位置。<br>在<code>mov ss,ax</code>和<code>mov sp,10</code>这两步执行结束之后，发现栈中已经有数据了，这里称为初始化。初始化的一共有6字节的数据:4个字节为<code>CS:IP</code>，还有两字节在栈底确定为<code>01A3H</code>。<br>之后的每一条栈操作的指令执行结束之后栈中的<code>CS:IP</code>值也会跟着变化，这说明每一次指令都有可能产生一次中断。<br>但是在栈底的<code>01A3H</code>一直没有变化估计应该是中断相关。在正式压栈操作的过程中发现最开始初始化过的那些数据并没有被压到栈底，<strong>这就意味着堆栈指针SP应该还在栈底，然后真正有数据项压栈的时候才会SP-=2操作。</strong> ##### 小实验 就上面的三个现象，我在想仅仅是初始化的过程就已经占据了一大半栈空间，那如果将栈大小调整成为8字节的。那会出现什么情况？ 我将<code>mov sp,10</code>改成<code>mov sp,08</code>；然后准备了8字节数据，所以栈会被压满。这时候我想看看现象。<br>这是一张初始化的图: <img src="10.png" width="50%" height="50%" alt=""></p></blockquote><blockquote><p>这是末尾压栈满了的图: <img src="11.png" width="50%" height="50%" alt=""></p></blockquote><blockquote><p>因为书上关于中断的详细讲解在第四部分，所以这里只是一个猜测。<strong>现象中随着栈不断被压满，之前初始化的那些数据都被挤出去了，具体去哪了不知道。那6个字节的数据到底有什么用也不知道。</strong><br>##### 猜测 不过可以知道的是初始化栈帧的时候会有参数压到栈里，参数有<code>CS:IP</code>和中断向量号，其中<code>CS:IP</code>还在<strong>不断变化</strong>。而随着栈中的数据越来越多，栈中的这6个字节的参数被慢慢挤出。难道这6个字节不重要吗，或者说只是在初始化的时候用了一下？但是过程中这些参数一直也在变化，所以不可能不重要.不过这些数据之所以放到栈中的原因一定不是为了存储，否则就不会被随便挤出。<br>结合第一部分实验，<code>mov sp,10</code>是紧跟着前一条指令执行的，所以我能想到的唯一一个合理的解释就是:这些参数是在指令执行过程中直接使用的，而执行过程对shell屏蔽不可见，所以在栈中数据越来越多的时候这些参数还可以随意的移动位置并且被抛弃，这些参数是过程中使用的参数，而这个过程就是中断！至于中断到底是什么，到第4章再详细学习吧。</p></blockquote><h3 id="实验3-用编程编译连接跟踪">实验3 用编程、编译、连接、跟踪</h3><blockquote><p>最后一个实验查看PSP（就是加载开始前256字节）的内容。<br>使用<code>u</code>来查看汇编好像又和中断有关系。 <img src="12.png" width="50%" height="50%" alt=""></p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;第二部分汇编结构&quot;&gt;第二部分:汇编结构&lt;/h2&gt;
-&lt;h3 id=&quot;abstract&quot;&gt;Abstract&lt;/h3&gt;
-&lt;h4 id=&quot;汇编语言的结构&quot;&gt;汇编语言的结构&lt;/h4&gt;
-&lt;h5 id=&quot;寄存器和内存之间&quot;&gt;寄存器和内存之间&lt;/h5&gt;
-&lt;blockquote&gt;
-&lt;p&gt;汇编语言是由不同的段构成的，这些段的功能各异不过主要分为&lt;code&gt;指令&lt;/code&gt;和&lt;code&gt;数据&lt;/code&gt;两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。&lt;br&gt;
     
     </summary>
     

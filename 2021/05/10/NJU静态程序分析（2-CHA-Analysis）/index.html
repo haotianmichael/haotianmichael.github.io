@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="PL,Software-Analysis," />
 
 
 
@@ -115,17 +115,18 @@
 
 
 
-<meta name="description" content="About 可能我在扯淡 马昊天: 2398419426@buaa.edu.cn">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CodeSaw">
-<meta property="og:url" content="http://haotianmcihael.github.io/about/index.html">
+<meta name="description" content="Abstract  根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出过度保守的假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过Call Graph来实现过程间的数据">
+<meta name="keywords" content="PL,Software-Analysis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NJU静态程序分析(2-CHA-Analysis)">
+<meta property="og:url" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="About 可能我在扯淡 马昊天: 2398419426@buaa.edu.cn">
+<meta property="og:description" content="Abstract  根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出过度保守的假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过Call Graph来实现过程间的数据">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-17T03:44:51.000Z">
+<meta property="og:updated_time" content="2022-02-15T09:34:45.598Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CodeSaw">
-<meta name="twitter:description" content="About 可能我在扯淡 马昊天: 2398419426@buaa.edu.cn">
+<meta name="twitter:title" content="NJU静态程序分析(2-CHA-Analysis)">
+<meta name="twitter:description" content="Abstract  根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出过度保守的假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过Call Graph来实现过程间的数据">
 
 
 
@@ -154,14 +155,14 @@
 
 
 
-  <link rel="canonical" href="http://haotianmcihael.github.io/about/"/>
+  <link rel="canonical" href="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/"/>
 
 
 
 
 
 
-  <title> | CodeSaw</title>
+  <title>NJU静态程序分析(2-CHA-Analysis) | CodeSaw</title>
   
 
 
@@ -336,36 +337,250 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HaotianMichael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSaw">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline"></h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <h1 id="about">About</h1>
-<h2 id="可能我在扯淡">可能我在扯淡</h2>
-<h3 id="马昊天-2398419426buaa.edu.cn">马昊天: 2398419426@buaa.edu.cn</h3>
-
+          <h1 class="post-title" itemprop="name headline">NJU静态程序分析(2-CHA-Analysis)</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-05-10T10:23:58Z">
+                2021-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  184
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h3 id="abstract">Abstract</h3>
+<blockquote>
+<p>根据<code>safe-approximation</code>，过程内数据流分析<code>Intraprocedural</code>对所有的函数调用<code>method call</code>做出过度保守的假设——即所有分析结果必须<code>safe</code>，而根据<code>Lattice</code>理论这种处理会使<code>must</code>和<code>may</code>分析都变的<code>less precise</code>。所以引入<strong>过程间数据流分析</strong><code>Interprocedural Analysis</code>，通过<code>Call Graph</code>来实现过程间的数据流传递，从而进一步提高分析的精度。<strong>因此如何构造这些<code>call-graph</code>就是过程间分析的关键环节。</strong></p>
+<p>For Better precision, we need Interprocedural Analysis：propagate data-flow information along <strong>interprocedural control-flow edges</strong> i.e., call and return edges</p>
+<p><code>Class hierarchy analysis</code>是用来构造<code>Call Graph</code>的一种经典方法——也是过程间分析的基础。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="cha">CHA</h3>
+<h3 id="inter-procedural-control-flow-graph">Inter-procedural Control-Flow Graph</h3>
+<h3 id="inter-procedural-data-flow-analysis">Inter-procedural Data-Flow Analysis</h3>
+
       
     </div>
     
     
     
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/">NJU静态程序分析(2-CHA-Analysis)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
+  <p><span>发布时间:</span>2021年05月10日 - 10:05</p>
+  <p><span>最后更新:</span>2022年02月15日 - 17:02</p>
+  <p><span>原始链接:</span><a href="/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/" title="NJU静态程序分析(2-CHA-Analysis)">http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
+
+      
+   </div>	 
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PL/" rel="tag"><i class="fa fa-tag"></i> PL</a>
+          
+            <a href="/tags/Software-Analysis/" rel="tag"><i class="fa fa-tag"></i> Software-Analysis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/" rel="next" title="NJU静态程序分析(1-Data Flow Analysis)">
+                <i class="fa fa-chevron-left"></i> NJU静态程序分析(1-Data Flow Analysis)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/" rel="prev" title="MIT6.824(Spring 2021)-MapReduce">
+                MIT6.824(Spring 2021)-MapReduce <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -522,7 +737,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#about"><span class="nav-number">1.</span> <span class="nav-text">About</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可能我在扯淡"><span class="nav-number">1.1.</span> <span class="nav-text">可能我在扯淡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#马昊天-2398419426buaa.edu.cn"><span class="nav-number">1.1.1.</span> <span class="nav-text">马昊天: 2398419426@buaa.edu.cn</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cha"><span class="nav-number">2.</span> <span class="nav-text">CHA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inter-procedural-control-flow-graph"><span class="nav-number">3.</span> <span class="nav-text">Inter-procedural Control-Flow Graph</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inter-procedural-data-flow-analysis"><span class="nav-number">4.</span> <span class="nav-text">Inter-procedural Data-Flow Analysis</span></a></li></ol></div>
             
 
           </div>
@@ -631,10 +846,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
