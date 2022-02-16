@@ -125,7 +125,8 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/2.png">
-<meta property="og:updated_time" content="2022-02-16T03:44:45.054Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/3.png">
+<meta property="og:updated_time" content="2022-02-16T04:07:45.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(2-CHA-Analysis)">
 <meta name="twitter:description" content="Abstract  根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出过度保守的假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过Call Graph来实现过程间的数据">
@@ -435,7 +436,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  1.9k
                 </span>
               
 
@@ -451,7 +452,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  6
+                  7
                 </span>
               
             </div>
@@ -588,9 +589,45 @@
 </ul></li>
 </ul>
 <p><img src="2.png" width="50%" height="50%" alt=""></p>
-<p>而这两种新加的边信息就来自于<code>Call Graph</code>。</p>
+<p>而这两种新加的边信息就来自于<code>Call Graph</code>。对于整个程序的<code>ICFG</code>，只需要将函数调用语句单独作为一个<code>Basic Block</code>即可，其他的不变。</p>
+<p>从上图中可以看到，数据流从<code>call-site</code>沿着<code>call edges</code>流向<code>callees</code>，接着从<code>callees</code>的返回语句流向<code>return-site</code>。<strong>而<code>call-site</code>和<code>return-site</code>之间还有一条边<code>call-to-return edge</code>是为了传递本地函数的数据流，</strong>以免这些信息跟着<code>call graph</code>绕远路。</p>
 </blockquote>
 <h3 id="inter-procedural-data-flow-analysis">Inter-procedural Data-Flow Analysis</h3>
+<blockquote>
+<p>在构建好<code>ICFG</code>之后，就可以进行过程间数据流分析了。</p>
+<p>这里对比过程内<code>Intraprocedural</code>和<code>Interprocedural</code>两种分析：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><font color="red">Intra</font>procedural</th>
+<th><font color="red">Inter</font>procedural</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Program representation</td>
+<td>CFG</td>
+<td>ICFG = CFGs + <font color="red">call &amp; return edges</font></td>
+</tr>
+<tr class="even">
+<td>Transfer functions</td>
+<td>Node transfer</td>
+<td>Node transfer + <font color="red">edge transfer</font></td>
+</tr>
+</tbody>
+</table>
+<p>可以看到过程间分析比过程内分析多了一些<code>edge analysis</code>。从理论上看这些<code>edge analysis</code>完成了函数调用过程中的跨函数数据流比如参数，返回值的传递。</p>
+<ul>
+<li>Call edge transfer: 传递参数（从call-site到entry of callee）</li>
+<li>Return edge transfer: 传递返回值(从return ofcallee到return-site)</li>
+</ul>
+<p>而过程间分析和过程内分析的<code>Transfer Function</code>相比，多了一条规则：</p>
+<p>For each call node(call-site), kill data-flow value for the LHS variable. Its value will flow to return site along the return edges.</p>
+<p>即要<code>kill</code>掉调用点语句的<strong>左值变量</strong>。</p>
+<p><img src="3.png"" width="50%" height="50%" alt=""></p>
+<p>因为左值的数据流会在<code>callee</code>中得到更新最终沿着<code>return edge</code>传递，而如果该值在<code>call-to-return edge</code>中继续传递下去，在<code>merge</code>的时候回损失精度比如常量传播中c<sub>1</sub> ⊓ c<sub>2</sub> = NAC。故拿常量传播来说的话，<code>Interprocedural constant propagation</code>要比<code>Intraprocedural constant propagation</code>更加精确。</p>
+</blockquote>
 
       
     </div>
@@ -611,7 +648,7 @@
   <p><span>本文标题:</span><a href="/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/">NJU静态程序分析(2-CHA-Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月10日 - 10:05</p>
-  <p><span>最后更新:</span>2022年02月16日 - 11:02</p>
+  <p><span>最后更新:</span>2022年02月16日 - 12:02</p>
   <p><span>原始链接:</span><a href="/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/" title="NJU静态程序分析(2-CHA-Analysis)">http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/"  aria-label="复制成功！"></i></span>
   </p>
