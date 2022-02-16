@@ -124,7 +124,8 @@
 <meta property="og:description" content="Abstract  根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出过度保守的假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过Call Graph来实现过程间的数据">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/1.png">
-<meta property="og:updated_time" content="2022-02-16T03:33:59.849Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析（2-CHA-Analysis）/2.png">
+<meta property="og:updated_time" content="2022-02-16T03:44:45.054Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(2-CHA-Analysis)">
 <meta name="twitter:description" content="Abstract  根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出过度保守的假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过Call Graph来实现过程间的数据">
@@ -434,7 +435,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.5k
+                  1.6k
                 </span>
               
 
@@ -576,6 +577,19 @@
 </ul>
 </blockquote>
 <h3 id="inter-procedural-control-flow-graph">Inter-procedural Control-Flow Graph</h3>
+<blockquote>
+<p>构建<code>Call Graph</code>的目的就是为了进一步构建<code>ICFG</code>，如果说<code>CFG</code>表示单个函数的结构，那<code>ICFG</code>表示的就是整个程序的结构。有了<code>ICFG</code>我们就可以进行过程间分析了，<code>ICFG</code>主要由两部分构成:</p>
+<ul>
+<li>程序中所有函数的CFG</li>
+<li>两种新加的edges
+<ul>
+<li>Call edges: 从<code>call-site</code>指向<code>callees</code>的<code>entry</code></li>
+<li>Return edges: 从<code>callees</code>的返回语句指向<code>return-site</code>(紧跟着<code>call-site</code>的语句)</li>
+</ul></li>
+</ul>
+<p><img src="2.png" width="50%" height="50%" alt=""></p>
+<p>而这两种新加的边信息就来自于<code>Call Graph</code>。</p>
+</blockquote>
 <h3 id="inter-procedural-data-flow-analysis">Inter-procedural Data-Flow Analysis</h3>
 
       
