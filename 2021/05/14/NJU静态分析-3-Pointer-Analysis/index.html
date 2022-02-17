@@ -115,18 +115,20 @@
 
 
 
-<meta name="description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
+<meta name="description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
+<meta property="og:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-02-17T07:34:06.823Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/1.png">
+<meta property="og:updated_time" content="2022-02-17T08:13:08.233Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
-<meta name="twitter:description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
+<meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/1.png">
 
 
 
@@ -432,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  220
+                  351
                 </span>
               
 
@@ -469,12 +471,61 @@
       
 
       
-        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
-<p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL&#39;1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。  </p>
-<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.  </p>
+        <h3 id="abstract">Abstract</h3>
+<blockquote>
+<p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL'1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。</p>
+<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.</p>
 <p>指针分析除了可以构建<code>Call Graph</code>等程序基本信息之外，还可以用于编译优化，程序鲁棒性和安全等各个领域，是最基础的静态分析算法之一——比如流行的别名分析<code>Alias Analysis</code>就是从指针分析中派生出来的:Alias information can be derived from points-to relations.在指针分析的输出指向关系中是否有两个指针可以指向同一个对象。</p>
 </blockquote>
 <a id="more"></a>
+<h3 id="introduction">Introduction</h3>
+<blockquote>
+<p>指针分析是一种<code>may</code>分析，输入时整个程序，分析结果的输出是类似于map的一系列指向关系<code>Points-to relations</code>。</p>
+<p><img src="1.png" width="50%" height="50%" alt="">s</p>
+<h4 id="keyfactors">KeyFactors</h4>
+<p>作为一项比较复杂的技术，指针分析的<strong>精度</strong>和<strong>速度</strong>取决于四个很主要的因素：</p>
+<table>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 34%">
+<col style="width: 49%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Factor</th>
+<th>Problem</th>
+<th>Choice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Heap abtraction</td>
+<td>How to model heap memory?</td>
+<td><font color="red">Allocation-site</font>/Storeless</td>
+</tr>
+<tr class="even">
+<td>Context sensitivity</td>
+<td>How to model calling contexts?</td>
+<td><font color="red">Context-sensitive/Context-insensitive</font></td>
+</tr>
+<tr class="odd">
+<td>Flow sensitivity</td>
+<td>How to model control flow?</td>
+<td>Flow-sensitive/<font color-red="">Flow-insensitive</font></td>
+</tr>
+<tr class="even">
+<td>Analysis scope</td>
+<td>Which parts of program should be analyzed?</td>
+<td><font color="red">Whole-program</font>/Demand-driven</td>
+</tr>
+</tbody>
+</table>
+<h5 id="heap-abstraction">Heap Abstraction</h5>
+<h5 id="context-sensitivity">Context Sensitivity</h5>
+<h5 id="flow-sensitivity">Flow Sensitivity</h5>
+<h5 id="analysis-scope">Analysis Scope</h5>
+<h4 id="concerned-statements">Concerned Statements</h4>
+</blockquote>
 
       
     </div>
@@ -495,7 +546,7 @@
   <p><span>本文标题:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/">NJU静态分析(3-Pointer-Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月13日 - 17:05</p>
-  <p><span>最后更新:</span>2022年02月17日 - 15:02</p>
+  <p><span>最后更新:</span>2022年02月17日 - 16:02</p>
   <p><span>原始链接:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/" title="NJU静态分析(3-Pointer-Analysis)">http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
@@ -733,7 +784,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#keyfactors"><span class="nav-number">2.1.</span> <span class="nav-text">KeyFactors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#heap-abstraction"><span class="nav-number">2.1.1.</span> <span class="nav-text">Heap Abstraction</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#context-sensitivity"><span class="nav-number">2.1.2.</span> <span class="nav-text">Context Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flow-sensitivity"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#analysis-scope"><span class="nav-number">2.1.4.</span> <span class="nav-text">Analysis Scope</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concerned-statements"><span class="nav-number">2.2.</span> <span class="nav-text">Concerned Statements</span></a></li></ol></li></ol></div>
             
 
           </div>
