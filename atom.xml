@@ -60,17 +60,18 @@
     <link href="http://haotianmcihael.github.io/2021/05/14/NJU%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90-3-Pointer-Analysis/"/>
     <id>http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/</id>
     <published>2021-05-13T17:34:59.000Z</published>
-    <updated>2022-02-15T10:40:30.876Z</updated>
+    <updated>2022-02-17T07:17:03.575Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3>]]></content>
+    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>过程间分析需要基于程序的<code>Call Graph</code>完成，而<code>CHA Analysis</code>过度追求速度而造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL'1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。</p><p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.</p><p>指针分析除了可以构建<code>Call Graph</code>等程序基本信息，还可以用于程序优化，鲁棒性和安全等各个领域，是最基础的静态分析算法之一。</p></blockquote><a id="more"></a>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;h3 id=&quot;abstract&quot;&gt;Abstract&lt;/h3&gt;
-
-      
+      &lt;h3 id=&quot;abstract&quot;&gt;Abstract&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;过程间分析需要基于程序的&lt;code&gt;Call Graph&lt;/code&gt;完成，而&lt;code&gt;CHA Analysis&lt;/code&gt;过度追求速度而造成误报——而&lt;code&gt;false positive&lt;/code&gt;对于常量传播这样的&lt;code&gt;must&lt;/code&gt;分析来说是不可接受的。因此指针分析在&lt;code&gt;POPL&#39;1980&lt;/code&gt;被第一次提出&lt;a href=&quot;https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.&lt;/p&gt;
+&lt;p&gt;指针分析除了可以构建&lt;code&gt;Call Graph&lt;/code&gt;等程序基本信息，还可以用于程序优化，鲁棒性和安全等各个领域，是最基础的静态分析算法之一。&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
@@ -308,9 +309,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
   </entry>
   
@@ -346,9 +347,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
   </entry>
   
@@ -382,9 +383,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
       <category term="Linker" scheme="http://haotianmcihael.github.io/tags/Linker/"/>
     
@@ -425,9 +426,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
