@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract  过程间分析需要基于程序的Call Graph完成，而CHA Analysis过度追求速度而造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Vari">
+<meta name="description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  过程间分析需要基于程序的Call Graph完成，而CHA Analysis过度追求速度而造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Vari">
+<meta property="og:description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-02-17T07:17:03.575Z">
+<meta property="og:updated_time" content="2022-02-17T07:34:06.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
-<meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph完成，而CHA Analysis过度追求速度而造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Vari">
+<meta name="twitter:description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  152
+                  220
                 </span>
               
 
@@ -469,11 +469,10 @@
       
 
       
-        <h3 id="abstract">Abstract</h3>
-<blockquote>
-<p>过程间分析需要基于程序的<code>Call Graph</code>完成，而<code>CHA Analysis</code>过度追求速度而造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL'1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。</p>
-<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.</p>
-<p>指针分析除了可以构建<code>Call Graph</code>等程序基本信息，还可以用于程序优化，鲁棒性和安全等各个领域，是最基础的静态分析算法之一。</p>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL&#39;1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。  </p>
+<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.  </p>
+<p>指针分析除了可以构建<code>Call Graph</code>等程序基本信息之外，还可以用于编译优化，程序鲁棒性和安全等各个领域，是最基础的静态分析算法之一——比如流行的别名分析<code>Alias Analysis</code>就是从指针分析中派生出来的:Alias information can be derived from points-to relations.在指针分析的输出指向关系中是否有两个指针可以指向同一个对象。</p>
 </blockquote>
 <a id="more"></a>
 
@@ -734,7 +733,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
             
 
           </div>
