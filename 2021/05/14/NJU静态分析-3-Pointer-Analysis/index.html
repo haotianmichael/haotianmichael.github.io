@@ -125,7 +125,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/2.png">
-<meta property="og:updated_time" content="2022-02-18T06:44:41.393Z">
+<meta property="og:updated_time" content="2022-02-18T06:53:23.590Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
@@ -590,7 +590,7 @@
 <p>再此基础上，引入如何处理<code>Pointer-Affecting Statements</code>:</p>
 <h6 id="new">New</h6>
 <p><code>i: x = new T()</code>，使用数学公式表示为： <span class="math display">\[
-\frac {}{O_i ∊ pt(x)}
+\frac {}{O ∊ pt(x)}
 \]</span></p>
 </blockquote>
 <h4 id="how-to-implement-pointer-analysis">How to Implement Pointer Analysis</h4>
