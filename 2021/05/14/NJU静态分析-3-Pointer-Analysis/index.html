@@ -115,22 +115,22 @@
 
 
 
-<meta name="description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
+<meta name="description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
+<meta property="og:description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/3.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/4.png">
-<meta property="og:updated_time" content="2022-02-18T08:17:30.052Z">
+<meta property="og:updated_time" content="2022-02-18T08:35:04.601Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
-<meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
+<meta name="twitter:description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/1.png">
 
 
@@ -474,84 +474,72 @@
       
 
       
-        <h3 id="abstract">Abstract</h3>
-<blockquote>
-<p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL'1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。</p>
-<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.</p>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL&#39;1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。  </p>
+<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.  </p>
 <p>指针分析除了可以构建<code>Call Graph</code>等程序基本信息之外，还可以用于编译优化，程序鲁棒性和安全等各个领域，是最基础的静态分析算法之一——比如流行的别名分析<code>Alias Analysis</code>就是从指针分析中派生出来的:Alias information can be derived from points-to relations.在指针分析的输出指向关系中是否有两个指针可以指向同一个对象。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="introduction">Introduction</h3>
-<blockquote>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><blockquote>
 <p>指针分析是一种<code>may</code>分析，输入时整个程序，分析结果的输出是类似于map的一系列指向关系<code>Points-to relations</code>。</p>
 <p><img src="1.png" width="50%" height="50%" alt="">s</p>
-<h4 id="keyfactors">KeyFactors</h4>
-<p>作为一项比较复杂的技术，指针分析的<strong>精度</strong>和<strong>速度</strong>取决于四个很主要的因素：</p>
+<h4 id="KeyFactors"><a href="#KeyFactors" class="headerlink" title="KeyFactors"></a>KeyFactors</h4><p>作为一项比较复杂的技术，指针分析的<strong>精度</strong>和<strong>速度</strong>取决于四个很主要的因素：</p>
+<div class="table-container">
 <table>
-<colgroup>
-<col style="width: 15%">
-<col style="width: 34%">
-<col style="width: 49%">
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Factor</th>
 <th>Problem</th>
 <th>Choice</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Heap abtraction</td>
 <td>How to model heap memory?</td>
 <td><font color="red">Allocation-site</font>/Storeless</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Context sensitivity</td>
 <td>How to model calling contexts?</td>
 <td><font color="red">Context-sensitive/Context-insensitive</font></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Flow sensitivity</td>
 <td>How to model control flow?</td>
 <td>Flow-sensitive/<font color-red="">Flow-insensitive</font></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Analysis scope</td>
 <td>Which parts of program should be analyzed?</td>
 <td><font color="red">Whole-program</font>/Demand-driven</td>
 </tr>
 </tbody>
 </table>
-<h5 id="heap-abstraction">Heap Abstraction</h5>
-<p>如何抽象堆操作，循环和递归会在动态运行时创建很多的堆对象。如何将这些<code>unbounded</code>的操作进一步简化抽象成<code>finite</code>的静态分析对象。</p>
+</div>
+<h5 id="Heap-Abstraction"><a href="#Heap-Abstraction" class="headerlink" title="Heap Abstraction"></a>Heap Abstraction</h5><p>如何抽象堆操作，循环和递归会在动态运行时创建很多的堆对象。如何将这些<code>unbounded</code>的操作进一步简化抽象成<code>finite</code>的静态分析对象。</p>
 <p><img src="2.png" width="50%" height="50%" alt=""></p>
 <p>学术界有两个流派来完成堆抽象：<code>Store based model</code>和<code>Storeless model</code>。本节课介绍第一个流派下面的<code>Allocation sites</code>方法来对所有堆对象完成建模——<code>One abstract object per allocation site</code>。即每一个分配点<code>new</code>的堆对象都抽象到一个<code>object</code>中。</p>
-<h5 id="context-sensitivity">Context Sensitivity</h5>
-<p>在函数调用的时候会产生上下文<code>context</code>。<strong>一个<code>method</code>被调用多次的话如何对每一次的上下文进行抽象。</strong>关于上下文抽象也有两种流派:</p>
+<h5 id="Context-Sensitivity"><a href="#Context-Sensitivity" class="headerlink" title="Context Sensitivity"></a>Context Sensitivity</h5><p>在函数调用的时候会产生上下文<code>context</code>。<strong>一个<code>method</code>被调用多次的话如何对每一次的上下文进行抽象。</strong>关于上下文抽象也有两种流派:</p>
 <ul>
-<li><code>Context-sensitive</code>: 对每一次调用都区别对待，具体调用具体分析</li>
+<li><code>Context-sensitive</code>:  对每一次调用都区别对待，具体调用具体分析</li>
 <li><code>Context-insensitive</code>: 对一个<code>method</code>的所有调用都merge到一起，一次性处理</li>
 </ul>
 <p>上下文敏感是提高静态分析非常有效的工具，因此是本次指针分析需要讨论的重点。</p>
-<h5 id="flow-sensitivity">Flow Sensitivity</h5>
-<p>如何对控制流抽象，也有两种流派：</p>
+<h5 id="Flow-Sensitivity"><a href="#Flow-Sensitivity" class="headerlink" title="Flow Sensitivity"></a>Flow Sensitivity</h5><p>如何对控制流抽象，也有两种流派：</p>
 <ul>
 <li><code>Flow-sensitive</code>: 确保程序的执行顺序<code>execution order</code>，维护每一个程序点的<code>points-to relations</code>表</li>
 <li><code>Flow-insensitive</code>:忽略执行顺序，维护整个程序的指向表</li>
 </ul>
 <p>目前学术界还没有直接研究表明<code>flow sensitivity</code>相比于<code>flow insensitivity</code>对<code>Java</code>这样的OOP语言会有多少优势。</p>
-<h5 id="analysis-scope">Analysis Scope</h5>
-<p>在进行指针分析的时候，如何选取需要分析的程序段？</p>
+<h5 id="Analysis-Scope"><a href="#Analysis-Scope" class="headerlink" title="Analysis Scope"></a>Analysis Scope</h5><p>在进行指针分析的时候，如何选取需要分析的程序段？</p>
 <ul>
 <li>Whole-program</li>
 <li>Demand-driven</li>
 </ul>
 <p>是直接分析整套程序还是以需求为驱动进行特定程序片段的分析。实际上如果需求很多的话，单独分析的复杂度和直接进行整套程序分析的复杂度不想你下。</p>
-<h4 id="concerned-statements">Concerned Statements</h4>
-<p>上面影响指针分析的因素很多都是非常有特征性的。对于现代程序而言，例如<code>if/for/break</code>这样的控制流语句并不会对指针分析的结果造成影响。我们需要关注真正的<font color="red">pointer-affecting statements</font>。</p>
-<h5 id="pointers-in-java">Pointers in Java</h5>
-<p>首先总结一下Java中所有可以用作指针的声明。</p>
+<h4 id="Concerned-Statements"><a href="#Concerned-Statements" class="headerlink" title="Concerned Statements"></a>Concerned Statements</h4><p>上面影响指针分析的因素很多都是非常有特征性的。对于现代程序而言，例如<code>if/for/break</code>这样的控制流语句并不会对指针分析的结果造成影响。我们需要关注真正的<font color="red">pointer-affecting statements</font>。</p>
+<h5 id="Pointers-in-Java"><a href="#Pointers-in-Java" class="headerlink" title="Pointers in Java"></a>Pointers in Java</h5><p>首先总结一下Java中所有可以用作指针的声明。</p>
 <ul>
 <li>Local variable：x</li>
 <li>Static field: C.f</li>
@@ -559,54 +547,43 @@
 <li>Array element: array[i]</li>
 </ul>
 <p>其中<code>static field</code>被视为全局变量。而数组元素在分析时可以忽略掉索引，看成是可以指向任何数组元素的<strong>field</strong>——array.arr，因此也被看成是一种<code>Instance field</code>。因此指针分析主要处理<code>Local variable</code>和<code>instance field</code>两种指针类型。</p>
-<h5 id="pointer-affecting-statements">Pointer-Affecting Statements</h5>
-<p>指针分析重点关注的语句如下:</p>
+<h5 id="Pointer-Affecting-Statements"><a href="#Pointer-Affecting-Statements" class="headerlink" title="Pointer-Affecting Statements"></a>Pointer-Affecting Statements</h5><p>指针分析重点关注的语句如下:</p>
 <ul>
-<li><code>New</code>: x = new T()</li>
-<li><code>Assign</code> x = y</li>
-<li><code>Store</code> x.f = y</li>
-<li><code>Load</code> y = x.f</li>
-<li><code>Call</code> r = x.k(a, ...) 重点关注<code>virtual calls</code></li>
+<li><code>New</code>:      x = new T()</li>
+<li><code>Assign</code>    x = y</li>
+<li><code>Store</code>    x.f = y</li>
+<li><code>Load</code>   y = x.f</li>
+<li><code>Call</code>    r = x.k(a, …)     重点关注<code>virtual calls</code></li>
 </ul>
 </blockquote>
-<h3 id="foundations">Foundations</h3>
-<h4 id="rules">Rules</h4>
-<blockquote>
-<h5 id="domains-and-notations">Domains and Notations</h5>
-<p>引入指针分析的域和符号解释：</p>
+<h3 id="Foundations"><a href="#Foundations" class="headerlink" title="Foundations"></a>Foundations</h3><h4 id="Rules"><a href="#Rules" class="headerlink" title="Rules"></a>Rules</h4><blockquote>
+<h5 id="Domains-and-Notations"><a href="#Domains-and-Notations" class="headerlink" title="Domains and Notations"></a>Domains and Notations</h5><p>引入指针分析的域和符号解释：</p>
 <ul>
-<li><font color="red">Variable</font>: x, y ∊ V</li>
-<li>Fields: f,g ∊ F</li>
-<li>Objects: o<sub>i</sub>,o<sub>j </sub>∊ O (Allocation sites)</li>
-<li><font color="red">Instance fields</font>: o<sub>i</sub>.f, o<sub>j</sub>.g ∊ O⨉F</li>
-<li><font color="red">Pointers</font>: Pointer = V⋃(O⨉F)</li>
+<li><font color="red">Variable</font>:   x, y ∊ V</li>
+<li>Fields:  f,g ∊ F</li>
+<li>Objects:  o<sub>i</sub>,o<sub>j </sub>∊ O    (Allocation sites)</li>
+<li><font color="red">Instance fields</font>:  o<sub>i</sub>.f, o<sub>j</sub>.g ∊ O⨉F</li>
+<li><font color="red">Pointers</font>:   Pointer = V⋃(O⨉F)</li>
 </ul>
-<p>其中Variable表示程序中的所有变量指针。Object和Fields分别指的是程序中分配堆对象的创建点和程序中的域——对象和域组合起来的Instance Fields也表示程序中一种指针。<strong>Pointers指的是程序中所有的<code>variable</code>和<code>instance field</code>的<code>product</code>。</strong>最后引入指向关系<code>pt</code>(本身就是一种映射， 代表指针可能指向的对象的集合)：</p>
+<p>其中Variable表示程序中的所有变量指针。Object和Fields分别指的是程序中分配堆对象的创建点和程序中的域——对象和域组合起来的Instance Fields也表示程序中一种指针。<strong>Pointers指的是程序中所有的<code>variable</code>和<code>instance field</code>的<code>product</code>。</strong>最后引入指向关系<code>pt</code>(本身就是一种映射， 代表指针可能指向的对象的集合)： </p>
 <ul>
-<li><font color="blue">Points-to relations</font>: pt: Pointer ⟶ 𝓟(O)
-<ul>
+<li><font color="blue">Points-to relations</font>:  pt: Pointer ⟶ 𝓟(O)    <ul>
 <li>𝓟(O)表示对象O的<code>powerset</code></li>
 <li>pt(p)表示变量p的指针集</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>在此基础上，引入如何处理<code>Pointer-Affecting Statements</code>的Rules：</p>
 <p><img src="3.png" width="50%" height="50%" alt=""></p>
 <p>在Rule中分数上面是前提<code>premise</code>而分数下面是结论<code>conclusion</code>。</p>
-<h6 id="new">New</h6>
-<p><code>New</code>规则中的o<sub>i</sub> 表示一个<code>Allocation site</code>或者在这一点创建出来的对象，那么指针分析如何处理一个<code>New</code>语句——<strong>即执行完这条语句后让x指向o<sub>i</sub>即o<sub>i</sub> ∊ pt(x)</strong>。</p>
-<h6 id="assign">Assign</h6>
-<p>如果o<sub>i</sub>属于y的指针集，<strong>那在执行完这条语句后o<sub>i</sub>则需要加入到x的指针集中。</strong></p>
-<h6 id="store">Store</h6>
-<p>将新对象保存到该对象的一个域f——如果x指向o<sub>i</sub>而y指向o<sub>j</sub>，<strong>那执行完这条语句之后o<sub>i</sub>.f需要指向o<sub>j</sub>。</strong></p>
-<h6 id="load">Load</h6>
-<p>将某个对象的域f加载到新对象中——如果x指向o<sub>i</sub>而o<sub>i</sub>的域f指向o<sub>j</sub>，<strong>那执行完后将o<sub>j</sub>加入到y的指针集当中。</strong></p>
-<p>总结一下这些规则的从属关系的话：</p>
+<h6 id="New"><a href="#New" class="headerlink" title="New"></a>New</h6><p><code>New</code>规则中的o<sub>i</sub> 表示一个<code>Allocation site</code>或者在这一点创建出来的对象，那么指针分析如何处理一个<code>New</code>语句——<strong>即执行完这条语句后让x指向o<sub>i</sub>即o<sub>i</sub> ∊ pt(x)</strong>。</p>
+<h6 id="Assign"><a href="#Assign" class="headerlink" title="Assign"></a>Assign</h6><p>如果o<sub>i</sub>属于y的指针集，<strong>那在执行完这条语句后o<sub>i</sub>则需要加入到x的指针集中。</strong></p>
+<h6 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h6><p>将新对象保存到该对象的一个域f——如果x指向o<sub>i</sub>而y指向o<sub>j</sub>，<strong>那执行完这条语句之后o<sub>i</sub>.f需要指向o<sub>j</sub>。</strong></p>
+<h6 id="Load"><a href="#Load" class="headerlink" title="Load"></a>Load</h6><p>将某个对象的域f加载到新对象中——如果x指向o<sub>i</sub>而o<sub>i</sub>的域f指向o<sub>j</sub>，<strong>那执行完后将o<sub>j</sub>加入到y的指针集当中。</strong></p>
+<p>总结一下这些规则的从属关系：</p>
 <p><img src="4.png" width="50%" height="50%" alt=""></p>
 </blockquote>
-<h4 id="how-to-implement-pointer-analysis">How to Implement Pointer Analysis</h4>
-<h4 id="algorithm">Algorithm</h4>
-<h4 id="how-to-deal-with-method-calls">How To Deal With Method Calls</h4>
-
+<h4 id="How-to-Implement-Pointer-Analysis"><a href="#How-to-Implement-Pointer-Analysis" class="headerlink" title="How to Implement Pointer Analysis"></a>How to Implement Pointer Analysis</h4><h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><h4 id="How-To-Deal-With-Method-Calls"><a href="#How-To-Deal-With-Method-Calls" class="headerlink" title="How To Deal With Method Calls"></a>How To Deal With Method Calls</h4>
       
     </div>
     
@@ -864,7 +841,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#keyfactors"><span class="nav-number">2.1.</span> <span class="nav-text">KeyFactors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#heap-abstraction"><span class="nav-number">2.1.1.</span> <span class="nav-text">Heap Abstraction</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#context-sensitivity"><span class="nav-number">2.1.2.</span> <span class="nav-text">Context Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flow-sensitivity"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#analysis-scope"><span class="nav-number">2.1.4.</span> <span class="nav-text">Analysis Scope</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concerned-statements"><span class="nav-number">2.2.</span> <span class="nav-text">Concerned Statements</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pointers-in-java"><span class="nav-number">2.2.1.</span> <span class="nav-text">Pointers in Java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pointer-affecting-statements"><span class="nav-number">2.2.2.</span> <span class="nav-text">Pointer-Affecting Statements</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rules"><span class="nav-number">3.1.</span> <span class="nav-text">Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#domains-and-notations"><span class="nav-number">3.1.1.</span> <span class="nav-text">Domains and Notations</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#new"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">New</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#assign"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">Assign</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#store"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">Store</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#load"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">Load</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-to-implement-pointer-analysis"><span class="nav-number">3.2.</span> <span class="nav-text">How to Implement Pointer Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-to-deal-with-method-calls"><span class="nav-number">3.4.</span> <span class="nav-text">How To Deal With Method Calls</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KeyFactors"><span class="nav-number">2.1.</span> <span class="nav-text">KeyFactors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Heap-Abstraction"><span class="nav-number">2.1.1.</span> <span class="nav-text">Heap Abstraction</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Context-Sensitivity"><span class="nav-number">2.1.2.</span> <span class="nav-text">Context Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Flow-Sensitivity"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Analysis-Scope"><span class="nav-number">2.1.4.</span> <span class="nav-text">Analysis Scope</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Concerned-Statements"><span class="nav-number">2.2.</span> <span class="nav-text">Concerned Statements</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pointers-in-Java"><span class="nav-number">2.2.1.</span> <span class="nav-text">Pointers in Java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pointer-Affecting-Statements"><span class="nav-number">2.2.2.</span> <span class="nav-text">Pointer-Affecting Statements</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Rules"><span class="nav-number">3.1.</span> <span class="nav-text">Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Domains-and-Notations"><span class="nav-number">3.1.1.</span> <span class="nav-text">Domains and Notations</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#New"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">New</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Assign"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">Assign</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Store"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">Store</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Load"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">Load</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-to-Implement-Pointer-Analysis"><span class="nav-number">3.2.</span> <span class="nav-text">How to Implement Pointer Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-To-Deal-With-Method-Calls"><span class="nav-number">3.4.</span> <span class="nav-text">How To Deal With Method Calls</span></a></li></ol></li></ol></div>
             
 
           </div>
