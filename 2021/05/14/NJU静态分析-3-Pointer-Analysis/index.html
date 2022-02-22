@@ -126,7 +126,8 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/3.png">
-<meta property="og:updated_time" content="2022-02-22T02:42:03.528Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/4.png">
+<meta property="og:updated_time" content="2022-02-22T06:39:00.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
@@ -436,7 +437,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.8k
+                  1.9k
                 </span>
               
 
@@ -602,15 +603,14 @@
 </blockquote>
 <h4 id="how-to-implement-pointer-analysis">How to Implement Pointer Analysis</h4>
 <blockquote>
-<p>Essentially，pointer analysis is to <font color="red">propagate</font> points-to information among pointers(variable &amp; fields).</p>
-<p>在两种指针(<code>variable</code>和<code>fields</code>)之间根据<code>Pointer-Affecting Statements</code>传递指向关系<code>points-to</code>，所以本质上指针分析就是在解决指针之间的<code>inclusion constraints</code>。<strong>而关键的是当<code>pt(x)</code>改变了，那这些改变也需要传递给x的其他相关指针——在实现上通过图的方式来解决，将数据流信息传递给了x的后继元素</strong>。</p>
+<p>在确定好Domain和Rules之后开始具体实现一个<strong>全程序的指针分析算法</strong>。</p>
+<p>Essentially，pointer analysis is to <font color="red">propagate</font> points-to information among pointers(variables &amp; fields).</p>
+<p><strong>在两种指针(<code>variable</code>和<code>fields</code>)之间根据<code>Pointer-Affecting Statements</code>建立和传递指向关系<code>points-to</code>。</strong>从另一个角度来说指针分析就是在解决指针之间的<code>inclusion constraints</code>即对于<code>x = y</code>语句指针x一定包含指针y的所有指向信息。<strong>而关键的是当<code>pt(x)</code>更新时，这些改变也需要传递给x的其他相关指针</strong>。</p>
+<p>而在实现上，我们用<code>Graph</code>来连接相关联的指针，当<code>pt(x)</code>更新时，将更新的数据流传递给<code>x</code>的后继元素，这个图就是<code>Pointer Flow Graph</code>。</p>
 <h5 id="pointer-flow-graphpfg">Pointer Flow Graph(PFG)</h5>
-<p>一个程序的<code>PFG</code>代表了<code>object</code>如何在<code>pointers</code>之间流动的有向图：</p>
-<ul>
-<li>object: 指的是通过<code>allocation sites</code>方法抽象出的堆对象</li>
-<li>pointers: 指针分析<code>domain</code>中的<code>variable</code>和<code>instance fields</code></li>
-</ul>
-<p>针对PFG来说，图中的节点代表了<code>V ⋃ (O ⨉ F)</code>——变量或者抽象对象的域，边代表了<code>Pointer ⨉ Pointer</code>——比如<code>x⟶y</code>代表了指针x的指向集合需要流动到y的指向集合。</p>
+<p>一个程序的<code>PFG</code>是一种表示<code>points-to</code>信息如何在<code>pointers</code>之间流动的有向图，图中的节点代表了<code>V ⋃ (O ⨉ F)</code>——变量或者<strong>抽象对象</strong>(因为PFG是静态分析建立的，所以是抽象的堆对象)的域，边代表了对象在指针之间的流动关系<code>Pointer ⨉ Pointer</code>——比如<code>x⟶y</code>代表了指针x的指向对象集合<font color="red">可能(指针分析是<code>may</code>分析)会流动到</font>y的指向集合。</p>
+<p>PFG中的节点就是程序中的各种指针，而边是根据指针分析的Rules建立的。</p>
+<p><img src="4.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <h4 id="algorithm">Algorithm</h4>
 <blockquote>
@@ -640,7 +640,7 @@
   <p><span>本文标题:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/">NJU静态分析(3-Pointer-Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月13日 - 17:05</p>
-  <p><span>最后更新:</span>2022年02月22日 - 10:02</p>
+  <p><span>最后更新:</span>2022年02月22日 - 14:02</p>
   <p><span>原始链接:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/" title="NJU静态分析(3-Pointer-Analysis)">http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
