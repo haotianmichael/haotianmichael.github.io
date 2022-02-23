@@ -129,7 +129,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/4.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/5.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/6.png">
-<meta property="og:updated_time" content="2022-02-23T03:32:36.464Z">
+<meta property="og:updated_time" content="2022-02-23T07:16:36.044Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
@@ -632,7 +632,7 @@
 </blockquote>
 <blockquote>
 <h5 id="addedge">AddEdge</h5>
-<p>首先每一条<code>New</code>语句生成一条指向关系完成对<code>WL</code>的初始化。</p>
+<p>首先每一条<code>New</code>语句生成一条指向关系完成对<code>WL</code>的初始化。这套算法的输入语句<code>S</code>是流不敏感<code>insensitive</code>的，即处理过程不会关注语句顺序。</p>
 <p><code>AddEdge</code>函数主要是通过处理<code>Assign</code>语句构建<code>PFG</code>。每一条<code>s⟶t</code>都对应着图上一条边，根据指针分析的<code>inclusion constraints</code>原理将<code>&lt;t, pt(s)&gt;</code>加入<code>WL</code>中实现把指针<code>s</code>的指向集合加到指针<code>t</code>中。</p>
 <h5 id="propagate">Propagate</h5>
 <p>在构建完最基础的的<code>PFG</code>之后，算法进入<code>While</code>循环开始迭代处理<code>WL</code>中的指向关系。取出一项<code>&lt;n, pts&gt;</code>，<strong>过滤掉指针<code>s</code>指向关系中指针<code>n</code>已经存在的抽象对象即𝚫=pts-pt(n)——主要是为了避免更多的冗余操作已达到<code>Differential Propagation</code></strong></p>
@@ -674,7 +674,7 @@
   <p><span>本文标题:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/">NJU静态分析(3-Pointer-Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月13日 - 17:05</p>
-  <p><span>最后更新:</span>2022年02月23日 - 11:02</p>
+  <p><span>最后更新:</span>2022年02月23日 - 15:02</p>
   <p><span>原始链接:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/" title="NJU静态分析(3-Pointer-Analysis)">http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
