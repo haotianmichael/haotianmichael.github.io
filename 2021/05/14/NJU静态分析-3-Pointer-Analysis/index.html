@@ -129,7 +129,9 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/4.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/5.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/6.png">
-<meta property="og:updated_time" content="2022-02-23T07:16:36.044Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/7.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/8.png">
+<meta property="og:updated_time" content="2022-02-24T07:36:45.837Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
@@ -439,7 +441,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  3.2k
+                  3.8k
                 </span>
               
 
@@ -455,7 +457,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  12
+                  14
                 </span>
               
             </div>
@@ -652,7 +654,33 @@
 </blockquote>
 <h4 id="how-to-deal-with-method-calls">How To Deal With Method Calls</h4>
 <blockquote>
-
+<p>全程序的指针分析算法还需要处理方法调用。和所有过程间分析一样，<code>Inter-procedural pointer analysis</code>也需要建立<code>call graph</code>。不过相比于<code>CHA analysis</code>仅仅通过<code>receiver object</code>的声明类型来构建调用图不同，指针分析还使用指向信息<code>points-to relations</code>来使得<code>call graph</code>的构建更加精确。比如<code>void foo(A a) {... b = a.bar();...}</code>中<strong><code>points-to relations</code>和<code>Call Graph</code>都是在指针分析的过程中动态更新的，这种方法被称为<code>on-the-fly call graph construction</code></strong>。</p>
+<ul>
+<li><code>CHA</code>: 基于<code>a</code>声明类型解析<code>call targets</code></li>
+<li><code>pointer analysis</code>: 基于<code>pt(a)</code>解析<code>call targets</code></li>
+</ul>
+<h5 id="rule-call">Rule: Call</h5>
+<p>首先引入指针分析处理方法调用Rules的形式化描述：</p>
+<p><img src="7.png" width="50%" height="50%" alt=""></p>
+<p>指针分析器在遇到了<code>r = x.k(a1, ...)</code>调用语句的时候，肯定会模拟编译器的运行时行为并解析：</p>
+<blockquote>
+<ul>
+<li>o<sub>i</sub>∊pt(<font color="blue">x</font>),m=Dispatch(o<sub>i</sub>,k) ⟶ o<sub>i</sub>∊pt(<font color="blue">m<sub>this</sub></font>)，其中x是<code>caller</code>变量</li>
+<li>o<sub>u</sub>∊pt(<font color="blue">a<sub>j</sub></font>) ⟶ o<sub>u</sub>∊pt(<font color="blue">m<sub>pj</sub></font>)，其中a<sub>j</sub>是形参</li>
+<li>o<sub>v</sub>∊pt(<font color="blue">m<sub>ret</sub></font>)⟶o<sub>v</sub>∊pt(<font color="blue">m<sub>r</sub></font>)，其中m<sub>ret</sub>是返回值</li>
+</ul>
+</blockquote>
+<p>为了解释的更清楚，下面对规则进行了进一步的解释：</p>
+<ul>
+<li>根据<code>pt(x)</code>得到被调用方法<code>k</code>的<code>receiver object</code>即o<sub>i</sub>，然后调用<code>Dispatch(O_i, k)</code>解析出<code>target method</code>即<code>m</code><br>
+</li>
+<li>将目标函数<code>m</code>的<code>this</code>指针指向变量<code>x</code>指向的对象集合<code>pt(x)</code>即o<sub>i</sub></li>
+<li>将形参<code>m_pj</code>的指针指向实参变量指向的对象集合<code>pt(aj)</code>，<font color="red">并将形参变量和对应实参变量之间加上<code>PFG</code>边(a1⟶m_p<sub>j</sub>)</font></li>
+<li>将调用语句的<code>LHS</code>指向目标函数<code>m</code>的返回值变量指向的对象结婚<code>m_ret</code>，<font color="red">并将这两个变量之间加上<code>PFG</code>的边(r⟵m<sub>ret</sub>)</font></li>
+</ul>
+<p>主要需要关注的是<code>receiver object</code>，<code>target method</code>，<code>arguments</code>和<code>return value</code>。</p>
+<p><img src="8.png" width="50%" height="50%" alt=""></p>
+<p>而这里对形参和实参之间，返回值和左值之间连上<code>PFG</code>的边而没有给目标方法和调用者之间加边的原因是<strong>因为<code>caller</code>变量<code>x</code>有可能有多个指向对象<code>pt(x)</code>，而对于<code>Dispatch</code>函数来说，只要<code>receiver object</code>确定那<code>target method</code>也是确定的。如果我们需要保证OOP语言中所有函数的<code>this</code>指针都指向唯一正确的<code>receiver object</code>即o<sub>i</sub>，前提就是保证不让<code>pt(x)</code>信息直接流入<code>this</code>指针——</strong>如果贸然给<code>x</code>和目标方法的<code>this</code>指针之间加上<code>PFG</code>只会导致引入虚假<code>spurious</code>信息。</p>
 </blockquote>
 
       
@@ -674,7 +702,7 @@
   <p><span>本文标题:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/">NJU静态分析(3-Pointer-Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月13日 - 17:05</p>
-  <p><span>最后更新:</span>2022年02月23日 - 15:02</p>
+  <p><span>最后更新:</span>2022年02月24日 - 15:02</p>
   <p><span>原始链接:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/" title="NJU静态分析(3-Pointer-Analysis)">http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
@@ -912,7 +940,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#keyfactors"><span class="nav-number">2.1.</span> <span class="nav-text">KeyFactors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#heap-abstraction"><span class="nav-number">2.1.1.</span> <span class="nav-text">Heap Abstraction</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#context-sensitivity"><span class="nav-number">2.1.2.</span> <span class="nav-text">Context Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flow-sensitivity"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#analysis-scope"><span class="nav-number">2.1.4.</span> <span class="nav-text">Analysis Scope</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concerned-statements"><span class="nav-number">2.2.</span> <span class="nav-text">Concerned Statements</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pointers-in-java"><span class="nav-number">2.2.1.</span> <span class="nav-text">Pointers in Java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pointer-affecting-statements"><span class="nav-number">2.2.2.</span> <span class="nav-text">Pointer-Affecting Statements</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rules"><span class="nav-number">3.1.</span> <span class="nav-text">Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#domains-and-notations"><span class="nav-number">3.1.1.</span> <span class="nav-text">Domains and Notations</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-to-implement-pointer-analysis"><span class="nav-number">3.2.</span> <span class="nav-text">How to Implement Pointer Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pointer-flow-graphpfg"><span class="nav-number">3.2.1.</span> <span class="nav-text">Pointer Flow Graph(PFG)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#main-algorithm"><span class="nav-number">3.3.1.</span> <span class="nav-text">Main Algorithm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#addedge"><span class="nav-number">3.3.2.</span> <span class="nav-text">AddEdge</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#propagate"><span class="nav-number">3.3.3.</span> <span class="nav-text">Propagate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#differential-propagation"><span class="nav-number">3.3.4.</span> <span class="nav-text">Differential Propagation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fixed-point"><span class="nav-number">3.3.5.</span> <span class="nav-text">Fixed Point</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-to-deal-with-method-calls"><span class="nav-number">3.4.</span> <span class="nav-text">How To Deal With Method Calls</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#keyfactors"><span class="nav-number">2.1.</span> <span class="nav-text">KeyFactors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#heap-abstraction"><span class="nav-number">2.1.1.</span> <span class="nav-text">Heap Abstraction</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#context-sensitivity"><span class="nav-number">2.1.2.</span> <span class="nav-text">Context Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flow-sensitivity"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#analysis-scope"><span class="nav-number">2.1.4.</span> <span class="nav-text">Analysis Scope</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concerned-statements"><span class="nav-number">2.2.</span> <span class="nav-text">Concerned Statements</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pointers-in-java"><span class="nav-number">2.2.1.</span> <span class="nav-text">Pointers in Java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pointer-affecting-statements"><span class="nav-number">2.2.2.</span> <span class="nav-text">Pointer-Affecting Statements</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rules"><span class="nav-number">3.1.</span> <span class="nav-text">Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#domains-and-notations"><span class="nav-number">3.1.1.</span> <span class="nav-text">Domains and Notations</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-to-implement-pointer-analysis"><span class="nav-number">3.2.</span> <span class="nav-text">How to Implement Pointer Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pointer-flow-graphpfg"><span class="nav-number">3.2.1.</span> <span class="nav-text">Pointer Flow Graph(PFG)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#main-algorithm"><span class="nav-number">3.3.1.</span> <span class="nav-text">Main Algorithm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#addedge"><span class="nav-number">3.3.2.</span> <span class="nav-text">AddEdge</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#propagate"><span class="nav-number">3.3.3.</span> <span class="nav-text">Propagate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#differential-propagation"><span class="nav-number">3.3.4.</span> <span class="nav-text">Differential Propagation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fixed-point"><span class="nav-number">3.3.5.</span> <span class="nav-text">Fixed Point</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-to-deal-with-method-calls"><span class="nav-number">3.4.</span> <span class="nav-text">How To Deal With Method Calls</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#rule-call"><span class="nav-number">3.4.1.</span> <span class="nav-text">Rule: Call</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
