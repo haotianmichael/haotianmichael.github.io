@@ -131,7 +131,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/6.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/7.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/8.png">
-<meta property="og:updated_time" content="2022-02-24T07:36:45.837Z">
+<meta property="og:updated_time" content="2022-02-24T07:38:32.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
@@ -680,7 +680,7 @@
 </ul>
 <p>主要需要关注的是<code>receiver object</code>，<code>target method</code>，<code>arguments</code>和<code>return value</code>。</p>
 <p><img src="8.png" width="50%" height="50%" alt=""></p>
-<p>而这里对形参和实参之间，返回值和左值之间连上<code>PFG</code>的边而没有给目标方法和调用者之间加边的原因是<strong>因为<code>caller</code>变量<code>x</code>有可能有多个指向对象<code>pt(x)</code>，而对于<code>Dispatch</code>函数来说，只要<code>receiver object</code>确定那<code>target method</code>也是确定的。如果我们需要保证OOP语言中所有函数的<code>this</code>指针都指向唯一正确的<code>receiver object</code>即o<sub>i</sub>，前提就是保证不让<code>pt(x)</code>信息直接流入<code>this</code>指针——</strong>如果贸然给<code>x</code>和目标方法的<code>this</code>指针之间加上<code>PFG</code>只会导致引入虚假<code>spurious</code>信息。</p>
+<p>而这里对形参和实参之间，返回值和左值之间连上<code>PFG</code>的边而没有给目标方法和调用者之间加边的原因是<strong>因为<code>caller</code>变量<code>x</code>有可能有多个指向对象<code>pt(x)</code>，而对于<code>Dispatch</code>函数来说，只要<code>receiver object</code>确定那<code>target method</code>也是确定的。如果我们需要保证OOP语言中所有函数的<code>this</code>指针都指向唯一正确的<code>receiver object</code>即o<sub>i</sub>，前提就是保证不能让其他虚假的<code>pt(x)</code>信息直接流入<code>this</code>指针——</strong>如果贸然给<code>x</code>和目标方法的<code>this</code>指针之间加上<code>PFG</code>只会导致引入虚假<code>spurious</code>信息。</p>
 </blockquote>
 
       
