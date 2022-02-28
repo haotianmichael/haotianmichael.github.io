@@ -472,16 +472,17 @@
 
       
         
-          <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote>
-<p>从开始接触编译系统的学习已经快半年了，有些心得总结一下。  </p>
-<p>什么是编译系统？我想从两个角度谈一下：  </p>
+          <h1 id="abstract">Abstract</h1>
+<blockquote>
+<p>从开始接触编译系统的学习已经快半年了，有些心得总结一下。</p>
+<p>什么是编译系统？我想从两个角度谈一下：</p>
 <p>首先从技术角度来讲，广义的编译系统负责将高级语言转换成为CPU可执行的二进制机器代码。编译系统包括<strong>编译器</strong>， <strong>汇编器</strong>，<strong>静态/动态链接器</strong>，<strong>操作系统装载器</strong>以及<strong>运行库</strong>。</p>
 <ul>
 <li>编译器： 是系统前半部分的核心，负责将源文件<strong>.c</strong>转换成为汇编文件<strong>.s</strong>。</li>
 <li>汇编/链接/装载器：是系统后半部分的核心，主要是将<strong>.s</strong>转换为<strong>二进制ELF文件</strong>并进一步围绕<strong>ELF</strong>处理。</li>
 <li>运行库：是操作系统层面用来支持<strong>高级语言运行环境</strong>比如内存池，标准API等的库文件。</li>
 </ul>
-<p>然后从专业的角度来讲，我觉得可以分为<strong>系统层面</strong>和<strong>算法优化层面</strong>，系统层面主要是整个编译框架比如LLVM，核心是和操作系统交互的部分，这部分内容是编译器工程师的基本功，需要掌握细节。而算法优化层面指的是<strong>编译优化</strong>——编译器工程师的最理想的方向就是做优化，这一部分需要精通，从静态单赋值SSA等传统的静态分析优化到现在主流的深度学习推理引擎比如TVM等。  </p>
+<p>然后从专业的角度来讲，我觉得可以分为<strong>系统层面</strong>和<strong>算法优化层面</strong>，系统层面主要是整个编译框架比如LLVM，核心是和操作系统交互的部分，这部分内容是编译器工程师的基本功，需要掌握细节。而算法优化层面指的是<strong>编译优化</strong>——编译器工程师的最理想的方向就是做优化，这一部分需要精通，从静态单赋值SSA等传统的静态分析优化到现在主流的深度学习推理引擎比如TVM等。</p>
 <p>本文主要是对系统层面的学习，对系统层面的学习止步于对LLVM编译框架的使用和源代码阅读。</p>
 </blockquote>
           <!--noindex-->
@@ -665,17 +666,18 @@
 
       
         
-          <h3 id="Absrtact"><a href="#Absrtact" class="headerlink" title="Absrtact"></a>Absrtact</h3><blockquote>
-<p>旨在x86平台上编译RISCV架构的可执行文件。  </p>
-<p>RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在<a href="https://github.com/riscv/riscv-gnu-toolchain" target="_blank" rel="noopener">这里</a>下载。      </p>
+          <h3 id="absrtact">Absrtact</h3>
+<blockquote>
+<p>旨在x86平台上编译RISCV架构的可执行文件。</p>
+<p>RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在<a href="https://github.com/riscv/riscv-gnu-toolchain" target="_blank" rel="noopener">这里</a>下载。</p>
 <p>交叉编译工具链包括:</p>
 <ul>
 <li><code>GCC</code>编译器</li>
-<li>C运行库<ul>
-<li><code>Glibc</code> :    <code>gnu</code>旗下的库，作为<code>linux</code>的标准库和内核打交道</li>
-<li><code>Newlib</code>：  在嵌入式中使用广泛</li>
-</ul>
-</li>
+<li>C运行库
+<ul>
+<li><code>Glibc</code> : <code>gnu</code>旗下的库，作为<code>linux</code>的标准库和内核打交道</li>
+<li><code>Newlib</code>： 在嵌入式中使用广泛</li>
+</ul></li>
 <li><code>Buntils</code>二进制套件</li>
 <li><code>GDB</code>调试器</li>
 </ul>
@@ -861,11 +863,12 @@
 
       
         
-          <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><blockquote>
-<p>操作系统控制硬件资源并完成底层抽象。  </p>
-<p>UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种<strong>标准化工作</strong>对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——<strong>ISO-C，IEEE-POSIX以及Single UNIX Specification</strong>等等。    </p>
-<p><strong>这些标准本质上是应用程序和操作系统接口的子集。</strong>一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。<strong>UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。</strong>  </p>
-<p>个人觉得从<strong>系统编程和内存</strong>的角度去理解<strong>文件系统</strong>和<strong>进程/线程</strong>等OS核心概念会比较有趣。  </p>
+          <h1 id="abstract">Abstract</h1>
+<blockquote>
+<p>操作系统控制硬件资源并完成底层抽象。</p>
+<p>UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种<strong>标准化工作</strong>对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——<strong>ISO-C，IEEE-POSIX以及Single UNIX Specification</strong>等等。</p>
+<p><strong>这些标准本质上是应用程序和操作系统接口的子集。</strong>一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。<strong>UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。</strong></p>
+<p>个人觉得从<strong>系统编程和内存</strong>的角度去理解<strong>文件系统</strong>和<strong>进程/线程</strong>等OS核心概念会比较有趣。</p>
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1048,8 +1051,10 @@
 
       
         
-          <h2 id="Lab2"><a href="#Lab2" class="headerlink" title="Lab2"></a>Lab2</h2><h3 id="Before-Lab"><a href="#Before-Lab" class="headerlink" title="Before Lab"></a>Before Lab</h3><blockquote>
-<p>Lab2的主要内容:<code>Physical Page Management</code>,<code>Virtual Memroy</code>,<code>Kernel Address Space</code>;<strong>代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。</strong>和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:  </p>
+          <h2 id="lab2">Lab2</h2>
+<h3 id="before-lab">Before Lab</h3>
+<blockquote>
+<p>Lab2的主要内容:<code>Physical Page Management</code>,<code>Virtual Memroy</code>,<code>Kernel Address Space</code>;<strong>代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。</strong>和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:</p>
 </blockquote>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
 <blockquote>
@@ -1057,7 +1062,7 @@
 </blockquote>
 <p><img src="9.png" width="50%" height="50%" alt=""></p>
 <blockquote>
-<p>切换合并Git分支的时候可能会出现冲突，需要手动注释掉Lab1中的一些测试代码来解决，这里不再赘述。<br>
+<p>切换合并Git分支的时候可能会出现冲突，需要手动注释掉Lab1中的一些测试代码来解决，这里不再赘述。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/11/22/Mit6-828-Fall-2018-Lab2/#more" rel="contents">
@@ -1239,16 +1244,18 @@
 
       
         
-          <h2 id="HW-Shell"><a href="#HW-Shell" class="headerlink" title="HW:Shell"></a>HW:Shell</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
-<p>6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW<strong>需要实现一个小型的Shell</strong>，需要阅读的Readings有:    </p>
+          <h2 id="hwshell">HW:Shell</h2>
+<h3 id="abstract">Abstract</h3>
+<blockquote>
+<p>6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW<strong>需要实现一个小型的Shell</strong>，需要阅读的Readings有:</p>
 </blockquote>
 <ul>
 <li>XV-6.Chapter.0（重点资料）</li>
-<li>man  fork, (3)exec，open， close</li>
+<li>man fork, (3)exec，open， close</li>
 <li>TCPL</li>
 </ul>
 <blockquote>
-<p>学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————<a href="http://vim-taglist.sourceforge.net/manual.html#taglist-using" target="_blank" rel="noopener">Taglist</a>。  </p>
+<p>学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————<a href="http://vim-taglist.sourceforge.net/manual.html#taglist-using" target="_blank" rel="noopener">Taglist</a>。</p>
 </blockquote>
 <p><img src="27.png" width="50%" height="50%" alt=""></p>
           <!--noindex-->
@@ -1394,7 +1401,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  7.1k
+                  7.2k
                 </span>
               
 
@@ -1432,8 +1439,12 @@
 
       
         
-          <h2 id="Lab1"><a href="#Lab1" class="headerlink" title="Lab1"></a>Lab1</h2><h3 id="Before-Lab"><a href="#Before-Lab" class="headerlink" title="Before Lab"></a>Before Lab</h3><blockquote>
-<p>Lab1一共有三部分:<code>Bootstrap</code>,<code>BootLoader</code>,<code>Kernel</code>;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分<code>monitor</code>中<strong>test_backtrace</strong>的功能。<br>如果<code>GDB</code>调试出错，可能是因为调试器没有链接到操作系统上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add </span><br><span class="line">add-auto-load-safe-path /Your Working Dir/.gdbinit</span><br><span class="line">line to your configuration file &quot;/root/.gdbinit&quot;</span><br></pre></td></tr></table></figure></p>
+          <h2 id="lab1">Lab1</h2>
+<h3 id="before-lab">Before Lab</h3>
+<blockquote>
+<p>Lab1一共有三部分:<code>Bootstrap</code>,<code>BootLoader</code>,<code>Kernel</code>;前两部分都是GDB调试为主，熟悉GDB的调试技巧和操作系统的启动流程。最后实现一小部分<code>monitor</code>中<strong>test_backtrace</strong>的功能。<br>
+如果<code>GDB</code>调试出错，可能是因为调试器没有链接到操作系统上：<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add </span><br><span class="line">add-auto-load-safe-path /Your Working Dir/.gdbinit</span><br><span class="line">line to your configuration file &quot;/root/.gdbinit&quot;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1594,7 +1605,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  8
+                  9
                 </span>
               
             </div>
@@ -1616,8 +1627,11 @@
 
       
         
-          <h2 id="Lab0"><a href="#Lab0" class="headerlink" title="Lab0"></a>Lab0</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
-<p>从<code>8086汇编</code>实验之后，前后两周的时间勉强通过Lab1。<br>最大的感触是<strong>基础太差</strong>:对C语言的理解，对程序编译链接本质的理解，对<code>GDB</code>等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。<br>但是这次触动中却又多了一丝<code>见山不是山，见山又是山</code>的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如<code>printf</code>函数的实现就涉及C语言中变参的特性。有理由相信这种<strong>血浓于水</strong>的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————<strong>Talk is cheap, show me the code.</strong>。<br>截止到Lab1，整个学习的过程显得很清晰————就是<strong>通过调试<code>kernel</code>的反汇编代码来理解运行原理并加以修改</strong>。Lab0是我在实验过程中掉进的坑，查阅的资料和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。<br>
+          <h2 id="lab0">Lab0</h2>
+<h3 id="abstract">Abstract</h3>
+<blockquote>
+<p>从<code>8086汇编</code>实验之后，前后两周的时间勉强通过Lab1。<br>
+最大的感触是<strong>基础太差</strong>:对C语言的理解，对程序编译链接本质的理解，对<code>GDB</code>等工具的使用……当然也包括弱弱的英语理解能力。导致完成Lab1用了这么久的时间。 但是这次触动中却又多了一丝<code>见山不是山，见山又是山</code>的感觉。主要体现在我对操作系统的理解最终都回归到代码上来。比如<code>printf</code>函数的实现就涉及C语言中变参的特性。有理由相信这种<strong>血浓于水</strong>的关系在后续的Lab中还会进一步加强，所以我也希望这会是我学习OS最完美的方法论——————<strong>Talk is cheap, show me the code.</strong>。 截止到Lab1，整个学习的过程显得很清晰————就是<strong>通过调试<code>kernel</code>的反汇编代码来理解运行原理并加以修改</strong>。Lab0是我在实验过程中掉进的坑，查阅的资料和逐渐点亮的技能树，缩短实验前的准备时间对理解OS本身还是很有帮助的。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/11/05/Mit6-828-Fall-2018-Lab0/#more" rel="contents">
@@ -1799,8 +1813,10 @@
 
       
         
-          <h2 id="第五部分-中断II"><a href="#第五部分-中断II" class="headerlink" title="第五部分:中断II"></a>第五部分:中断II</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
-<p>CPU实现I/O功能的两个问题:从何处获得外设的输入？如何解决外设输入随时可能发生的问题？首先外设芯片内部有若干寄存器，CPU将这些寄存器当做端口来访问。外设的输入输出不直接送入CPU和内存而是通过这些寄存器。第二，CPU通过外中断控制I/O的随时性。<br>
+          <h2 id="第五部分中断ii">第五部分:中断II</h2>
+<h3 id="abstract">Abstract</h3>
+<blockquote>
+<p>CPU实现I/O功能的两个问题:从何处获得外设的输入？如何解决外设输入随时可能发生的问题？首先外设芯片内部有若干寄存器，CPU将这些寄存器当做端口来访问。外设的输入输出不直接送入CPU和内存而是通过这些寄存器。第二，CPU通过外中断控制I/O的随时性。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/16/汇编语言（王爽）ch5/#more" rel="contents">
@@ -1982,7 +1998,9 @@
 
       
         
-          <h2 id="第四部分-中断I"><a href="#第四部分-中断I" class="headerlink" title="第四部分:中断I"></a>第四部分:中断I</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+          <h2 id="第四部分中断i">第四部分:中断I</h2>
+<h3 id="abstract">Abstract</h3>
+<blockquote>
 <p>在之前的实验中，我们所编写的汇编程序从编译到运行出结果都很顺利。这个过程映射到CPU层面就是<code>CS:IP</code>的跳转<strong>唯一取决于</strong>汇编程序员的代码。<code>CSAPP</code>将这个过程称为<strong>程序控制流</strong>。而<strong>中断</strong>则是将这种流程打断，建立更复杂的<strong>异常控制流</strong>。中断分为<code>内中断</code>和<code>外中断</code>两种。<br>
           <!--noindex-->
           <div class="post-button text-center">
@@ -2165,8 +2183,12 @@
 
       
         
-          <h2 id="第三部分-指令核心"><a href="#第三部分-指令核心" class="headerlink" title="第三部分:指令核心"></a>第三部分:指令核心</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><h4 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h4><blockquote>
-<p>内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，<strong>注意这里的内存指的是内存地址空间</strong>。<br>CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。<br>
+          <h2 id="第三部分指令核心">第三部分:指令核心</h2>
+<h3 id="abstract">Abstract</h3>
+<h4 id="内存寻址">内存寻址</h4>
+<blockquote>
+<p>内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，<strong>注意这里的内存指的是内存地址空间</strong>。<br>
+CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/11/汇编语言（王爽）ch3/#more" rel="contents">
