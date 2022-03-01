@@ -135,7 +135,8 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/10.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/11.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/12.png">
-<meta property="og:updated_time" content="2022-03-01T05:04:22.115Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/13.png">
+<meta property="og:updated_time" content="2022-03-01T07:31:36.572Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
@@ -445,7 +446,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  5.7k
+                  6k
                 </span>
               
 
@@ -461,7 +462,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  22
+                  23
                 </span>
               
             </div>
@@ -751,6 +752,9 @@
 <h5 id="call-rule">Call Rule</h5>
 <p>上下文敏感的规则中最重要的就是<code>Call</code>规则，它主导并传递了不同的数据流使得精度提升成为可能。</p>
 <p><img src="12.png" width="50%" height="50%" alt=""></p>
+<p>假设用<code>c</code>代表当前所在方法也就是调用者<code>Caller</code>的上下文，而用c<sup>t</sup>代表被调用者<code>Callee</code>的上下文。首先得到指针变量<code>x</code>的<code>receiver object</code>即o<sub>i</sub>，该堆对象有可能是在不同的上下文中因此和其指针的上下文不同。其次使用o<sub>i </sub>和方法签名<code>k</code>作为参数，<code>Dispatch</code>出真正的<code>target method</code>。最后使用和<code>call-site</code>相关的信息：<code>call-site</code>，当前上下文<code>c</code>以及所指向的堆对象<code>c':o_i</code>作为参数使用函数<code>Select</code>来取得该<code>target method</code>的上下文。<strong>需要注意的就是<font color="red">o<sub>i,j,k...</sub> = pt(x)&lt;</font>中的o<sub>i,j,k...</sub>和<code>x</code>两者之间的上下文是没有直接关系的，所以严格讲这两个的<code>c</code>都应该是不同的。</strong></p>
+<p><img src="13.png" width="50%" height="50%" alt=""></p>
+<p>这时候基本上所有<code>Cloning-Based</code>的程序元素都取得了，就和上下文不敏感指针分析处理<code>Call</code>的规则基本一致。</p>
 <h4 id="algorithm-2">Algorithm</h4>
 <h4 id="variants">Variants</h4>
 </blockquote>
@@ -774,7 +778,7 @@
   <p><span>本文标题:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/">NJU静态分析(3-Pointer-Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月13日 - 17:05</p>
-  <p><span>最后更新:</span>2022年03月01日 - 13:03</p>
+  <p><span>最后更新:</span>2022年03月01日 - 15:03</p>
   <p><span>原始链接:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/" title="NJU静态分析(3-Pointer-Analysis)">http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
