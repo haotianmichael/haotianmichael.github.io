@@ -133,7 +133,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/8.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/9.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/10.png">
-<meta property="og:updated_time" content="2022-03-01T03:43:02.625Z">
+<meta property="og:updated_time" content="2022-03-01T04:10:12.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
@@ -443,7 +443,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  5.3k
+                  5.5k
                 </span>
               
 
@@ -720,8 +720,28 @@
 <p>从更细粒度的角度看，OOP是<code>heap-intensive</code>的语言——所有的对象都是建立在堆区<code>by new</code>。在实际设计中，上下文敏感的指针分析算法还需要考虑到堆敏感的问题——这是因为所有的语句其实都有自己的作用域，OOP的作用域就是函数。<strong>创建新对象的<code>new</code>语句就是一个<code>allocation site</code>，而当<code>new</code>语句出现在一个函数中恰巧该函数又被多次调用的时候，同一个<code>allocation site</code>会在不同的上下文背景下建立各自的对象</strong>，所以同一个方法中的堆对象也需要根据不同的<code>heap context</code>来进行区分。最直接的方式就是直接继承其所在<code>method</code>的上下文并从更加细粒度的角度处理指针分析算法：</p>
 <p><img src="10.png" width="50%" height="50%" alt=""></p>
 <h4 id="rules-1">Rules</h4>
-<p>下面引入指针分析的<code>Rules</code>：</p>
+<p>下面引入上下文敏感指针分析的<code>Rules</code>：</p>
 <h5 id="domains-and-notations-1">Domains and Notations</h5>
+<p>在上下文敏感分析中，程序中的所有元素（变量，方法，对象）都加上了上下文。首先引入上下文的集合<code>C</code>,</p>
+<ul>
+<li>c,c',c'' ∊ C</li>
+</ul>
+<p>而程序中的方法，变量和对象都和<code>context</code>做了<code>product</code>：</p>
+<ul>
+<li><font color="red">Context-sensitive methods</font>: <font color="red">c:</font>m ∊ <font color="red">C</font> x M</li>
+<li><font color="red">Context-sensitive variables</font>: <font color="red">c:</font>x, <font color="red">c':</font>y ∊ <font color="red">C</font> x V</li>
+<li><font color="red">Context-sensitive objects</font>: <font color="red">c:</font>o<sub>i</sub>, <font color="red">c':</font>o<sub>j</sub> ∊ <font color="red">C</font> x O</li>
+<li>Fields: f, g ∊ F</li>
+<li>Instance fields: <font color="red">c:</font>o<sub>i</sub>.f, <font color="red">c':</font>o<sub>j</sub>.g ∊ <font color="red">C</font> x O x F</li>
+</ul>
+<p>最后，引入这些程序中的两种上下文敏感的指针类型：</p>
+<ul>
+<li><font color="red">Context-sensitive pointers</font>: CSPointer = (<font color="red">C</font> x V) ⋃ (<font color="red">C</font> x O x F)</li>
+</ul>
+<p>以及指向关系集合：</p>
+<ul>
+<li>Points-to relations: pt: CSPointer ⟶ 𝓟(<font color="red">C</font> x O)</li>
+</ul>
 <h5 id="rules-2">Rules</h5>
 <h4 id="algorithm-2">Algorithm</h4>
 <h4 id="variants">Variants</h4>
@@ -746,7 +766,7 @@
   <p><span>本文标题:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/">NJU静态分析(3-Pointer-Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月13日 - 17:05</p>
-  <p><span>最后更新:</span>2022年03月01日 - 11:03</p>
+  <p><span>最后更新:</span>2022年03月01日 - 12:03</p>
   <p><span>原始链接:</span><a href="/2021/05/14/NJU静态分析-3-Pointer-Analysis/" title="NJU静态分析(3-Pointer-Analysis)">http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
