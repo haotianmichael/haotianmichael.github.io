@@ -136,7 +136,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/11.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/12.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态分析-3-Pointer-Analysis/13.png">
-<meta property="og:updated_time" content="2022-03-01T07:31:36.572Z">
+<meta property="og:updated_time" content="2022-03-01T07:34:35.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(3-Pointer-Analysis)">
 <meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
@@ -717,7 +717,7 @@
 <p>Context sensitivity models calling contextx by <font color="red">distinguishing </font>different data flows of different contextx to improve precision.</p>
 <p>下面讨论开展上下文敏感的指针分析算法所需要考虑的几个方面：</p>
 <h5 id="call-site-sensitivity">Call-site sensitivity</h5>
-<p><code>Context sensitivity .aka. C.S.</code>用来区别不同上下文的方式中最常见的是<code>call-site sensitivity</code>——每一个上下文都抽象成本次方法调用的<strong>动态运行时调用栈</strong>即一系列<code>call-sites</code>组成的列表。比如上面一段代码中的<code>id</code>方法共有两个<code>context</code>分别是<code>[1]</code>和<code>[2]</code>。从实现的角度来看，<code>Cloning-Based Context Sensitivity</code>是实现<code>C.S.</code>最直接的方式——同一个<code>method</code>的多次调用都根据各自的<code>context</code>区分成不同的<code>Cloning-Based</code>版本，<code>method</code>中的调用也随着各自的<code>Cloning-Based</code>区分出来——<code>one clone per context</code>。</p>
+<p><code>Context sensitivity .aka. C.S.</code>用来区别不同上下文的方式中最常见的是<code>call-site sensitivity</code>——每一个上下文都抽象成本次方法调用的<strong>动态运行时调用栈</strong>即一系列<code>call-sites</code>组成的列表，算法中我们用行号来直接表示<code>call-site</code>比如上面一段代码中的<code>id</code>方法共有两个<code>context</code>分别是<code>[1]</code>和<code>[2]</code>。从实现的角度来看，<code>Cloning-Based Context Sensitivity</code>是实现<code>C.S.</code>最直接的方式——同一个<code>method</code>的多次调用都根据各自的<code>context</code>区分成不同的<code>Cloning-Based</code>版本，<code>method</code>中的调用也随着各自的<code>Cloning-Based</code>区分出来——<code>one clone per context</code>。</p>
 <p><img src="9.png" width="50%" height="50%" alt=""></p>
 <h5 id="context-sensitive-heap">Context-Sensitive Heap</h5>
 <p>从更细粒度的角度看，OOP是<code>heap-intensive</code>的语言——所有的对象都是建立在堆区<code>by new</code>。在实际设计中，上下文敏感的指针分析算法还需要考虑到堆敏感的问题——这是因为所有的语句其实都有自己的作用域，OOP的作用域就是函数。<strong>创建新对象的<code>new</code>语句就是一个<code>allocation site</code>，而当<code>new</code>语句出现在一个函数中恰巧该函数又被多次调用的时候，同一个<code>allocation site</code>会在不同的上下文背景下建立各自的对象</strong>，所以同一个方法中的堆对象也需要根据不同的<code>heap context</code>来进行区分。最直接的方式就是直接继承其所在<code>method</code>的上下文并从更加细粒度的角度处理指针分析算法：</p>
