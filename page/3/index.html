@@ -472,8 +472,12 @@
 
       
         
-          <h2 id="第三部分-指令核心"><a href="#第三部分-指令核心" class="headerlink" title="第三部分:指令核心"></a>第三部分:指令核心</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><h4 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h4><blockquote>
-<p>内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，<strong>注意这里的内存指的是内存地址空间</strong>。<br>CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。<br>
+          <h2 id="第三部分指令核心">第三部分:指令核心</h2>
+<h3 id="abstract">Abstract</h3>
+<h4 id="内存寻址">内存寻址</h4>
+<blockquote>
+<p>内存是啥？计算机从诞生之初，就面临着CPU和I/O之间，与存储器之间越来越明显的速度矛盾。正是因此才诞生了内存，cache等一系列缓冲的加速设备。你可以理解为内存是CPU获取运行代码的唯一途径，<strong>注意这里的内存指的是内存地址空间</strong>。<br>
+CPU如何访问内存？当然是使用寄存器;那寄存器如何访问内存？这就涉及到内存寻址的知识。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/11/汇编语言（王爽）ch3/#more" rel="contents">
@@ -655,7 +659,11 @@
 
       
         
-          <h2 id="第二部分-汇编结构"><a href="#第二部分-汇编结构" class="headerlink" title="第二部分:汇编结构"></a>第二部分:汇编结构</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><h4 id="汇编语言的结构"><a href="#汇编语言的结构" class="headerlink" title="汇编语言的结构"></a>汇编语言的结构</h4><h5 id="寄存器和内存之间"><a href="#寄存器和内存之间" class="headerlink" title="寄存器和内存之间"></a>寄存器和内存之间</h5><blockquote>
+          <h2 id="第二部分汇编结构">第二部分:汇编结构</h2>
+<h3 id="abstract">Abstract</h3>
+<h4 id="汇编语言的结构">汇编语言的结构</h4>
+<h5 id="寄存器和内存之间">寄存器和内存之间</h5>
+<blockquote>
 <p>汇编语言是由不同的段构成的，这些段的功能各异不过主要分为<code>指令</code>和<code>数据</code>两部分。运行汇编代码的意思就是将汇编代码加载到内存中，通过寄存器完成内存和CPU之间的交互。从这个角度看寄存器就是汇编的一种手段。但是寄存器和内存实际上是两个完全不一样的硬件设备，暂时先不考虑性能和速率差的问题。指令和数据到底是如何在不同的存储单元之间传递的。<br>
           <!--noindex-->
           <div class="post-button text-center">
@@ -838,8 +846,12 @@
 
       
         
-          <h2 id="第一部分-硬件模型"><a href="#第一部分-硬件模型" class="headerlink" title="第一部分:硬件模型"></a>第一部分:硬件模型</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><h4 id="硬件基础"><a href="#硬件基础" class="headerlink" title="硬件基础"></a>硬件基础</h4><blockquote>
-<p>   全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————<code>冯诺依曼结构</code>。<br>   CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？<br>
+          <h2 id="第一部分硬件模型">第一部分:硬件模型</h2>
+<h3 id="abstract">Abstract</h3>
+<h4 id="硬件基础">硬件基础</h4>
+<blockquote>
+<p>全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————<code>冯诺依曼结构</code>。<br>
+CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/02/汇编语言（王爽）ch1/#more" rel="contents">
@@ -983,7 +995,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  790
+                  788
                 </span>
               
 
@@ -1021,8 +1033,9 @@
 
       
         
-          <h4 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h4><blockquote>
-<p>王爽老师的《汇编语言》是国内的经典教材。<br>学习汇编是为了获得底层编程的体验和理解机器运行程序的机理。所以经典的做法往往不是只针对于某一种指令集，而是以一种指令集为手段来深入理解机器工作的原理，体会一个没有操作系统的编程开发环境。正如书中所讲:编程的平台是硬件而不是操作系统。或许这也是汇编语言真正的价值所在吧。</p>
+          <h4 id="abstract">Abstract</h4>
+<blockquote>
+<p>王爽老师的《汇编语言》是国内的经典教材。 学习汇编是为了获得底层编程的体验和理解机器运行程序的机理。所以经典的做法往往不是只针对于某一种指令集，而是以一种指令集为手段来深入理解机器工作的原理，体会一个没有操作系统的编程开发环境。正如书中所讲:编程的平台是硬件而不是操作系统。或许这也是汇编语言真正的价值所在吧。</p>
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
