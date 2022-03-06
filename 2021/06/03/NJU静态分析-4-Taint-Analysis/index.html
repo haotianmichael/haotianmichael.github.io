@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract  同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析">
+<meta name="description" content="Abstract 同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态分析(4-Taint-Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/06/03/NJU静态分析-4-Taint-Analysis/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析">
+<meta property="og:description" content="Abstract 同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-03T09:22:56.175Z">
+<meta property="og:updated_time" content="2022-03-05T10:24:06.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态分析(4-Taint-Analysis)">
-<meta name="twitter:description" content="Abstract  同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析">
+<meta name="twitter:description" content="Abstract 同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  234
+                  272
                 </span>
               
 
@@ -469,18 +469,14 @@
       
 
       
-        <h3 id="abstract">Abstract</h3>
-<blockquote>
-<p>同符号执行一样，<code>Taint-Analysis</code>也是分析代码安全漏洞，检测攻击方式的重要手段。对于<code>Web</code>应用程序中存在着的大量安全漏洞,如跨站脚本攻击，<code>SQL</code>注入等~污点分析都可以进行有效地检测。而污点传播技术是当前<code>Taint-Analysis</code>领域的重要课题，<strong>通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结果。</strong></p>
-<p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(call sinks).</p>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>同符号执行一样，<code>Taint-Analysis</code>也是分析代码安全漏洞，检测攻击方式的重要手段。对于<code>Web</code>应用程序中存在着的大量安全漏洞,如跨站脚本攻击，<code>SQL</code>注入等~污点分析都可以进行有效地检测。而污点传播技术是当前<code>Taint-Analysis</code>领域的重要课题，<strong>通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结果。</strong>  </p>
+<p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(call sinks).  </p>
 <p>比如通过利用静态指针分析算法完成简化的显式流<code>explicit flow</code>分析，不讨论<a href="https://www.k0rz3n.com/2019/03/01/%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/" target="_blank" rel="noopener">路径爆炸</a>和其他动态漏洞分析技术。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="information-flow-security">Information Flow Security</h3>
-<h3 id="confidentiality-and-integrity">Confidentiality and Integrity</h3>
-<h3 id="explicit-flows-and-convert-channels">Explicit Flows and Convert Channels</h3>
-<h3 id="taint-analysis">Taint Analysis</h3>
-
+<h3 id="Information-Flow-Security"><a href="#Information-Flow-Security" class="headerlink" title="Information Flow Security"></a>Information Flow Security</h3><p>当服务器和客户机在网络上进行通信的时候就会存在<code>Information Flow</code>，而也产生了相应的安全问题——Prevent unwanted information flow。</p>
+<h3 id="Confidentiality-and-Integrity"><a href="#Confidentiality-and-Integrity" class="headerlink" title="Confidentiality and Integrity"></a>Confidentiality and Integrity</h3><h3 id="Explicit-Flows-and-Convert-Channels"><a href="#Explicit-Flows-and-Convert-Channels" class="headerlink" title="Explicit Flows and Convert Channels"></a>Explicit Flows and Convert Channels</h3><h3 id="Taint-Analysis"><a href="#Taint-Analysis" class="headerlink" title="Taint Analysis"></a>Taint Analysis</h3>
       
     </div>
     
@@ -500,7 +496,7 @@
   <p><span>本文标题:</span><a href="/2021/06/03/NJU静态分析-4-Taint-Analysis/">NJU静态分析(4-Taint-Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月02日 - 16:06</p>
-  <p><span>最后更新:</span>2022年03月03日 - 17:03</p>
+  <p><span>最后更新:</span>2022年03月05日 - 18:03</p>
   <p><span>原始链接:</span><a href="/2021/06/03/NJU静态分析-4-Taint-Analysis/" title="NJU静态分析(4-Taint-Analysis)">http://haotianmcihael.github.io/2021/06/03/NJU静态分析-4-Taint-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/03/NJU静态分析-4-Taint-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
@@ -560,8 +556,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/" rel="prev" title="MIT6.824(Spring 2021)-MapReduce">
-                MIT6.824(Spring 2021)-MapReduce <i class="fa fa-chevron-right"></i>
+              <a href="/2021/06/06/NJU静态程序分析-5-IFDS/" rel="prev" title="NJU静态程序分析(5-IFDS)">
+                NJU静态程序分析(5-IFDS) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -639,7 +635,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -738,7 +734,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#information-flow-security"><span class="nav-number">2.</span> <span class="nav-text">Information Flow Security</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#confidentiality-and-integrity"><span class="nav-number">3.</span> <span class="nav-text">Confidentiality and Integrity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#explicit-flows-and-convert-channels"><span class="nav-number">4.</span> <span class="nav-text">Explicit Flows and Convert Channels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#taint-analysis"><span class="nav-number">5.</span> <span class="nav-text">Taint Analysis</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Information-Flow-Security"><span class="nav-number">2.</span> <span class="nav-text">Information Flow Security</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Confidentiality-and-Integrity"><span class="nav-number">3.</span> <span class="nav-text">Confidentiality and Integrity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Explicit-Flows-and-Convert-Channels"><span class="nav-number">4.</span> <span class="nav-text">Explicit Flows and Convert Channels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Taint-Analysis"><span class="nav-number">5.</span> <span class="nav-text">Taint Analysis</span></a></li></ol></div>
             
 
           </div>
