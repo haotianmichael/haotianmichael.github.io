@@ -88,9 +88,9 @@
     <link href="http://haotianmcihael.github.io/2021/06/03/NJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-4-Taint-Analysis/"/>
     <id>http://haotianmcihael.github.io/2021/06/03/NJU静态程序分析-4-Taint-Analysis/</id>
     <published>2021-06-02T16:33:35.000Z</published>
-    <updated>2022-03-06T10:37:42.681Z</updated>
+    <updated>2022-03-13T02:39:07.243Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>同符号执行一样，<code>Taint-Analysis</code>也是分析代码安全漏洞，检测攻击方式的重要手段。对于<code>Web</code>应用程序中存在着的大量安全漏洞,如跨站脚本攻击，<code>SQL</code>注入等~污点分析都可以进行有效地检测。而污点传播技术是当前<code>Taint-Analysis</code>领域的重要课题，<strong>通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结果。</strong></p><p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(call sinks).</p><p>比如通过利用静态指针分析算法完成简化的显式流<code>explicit flow</code>分析，不讨论<a href="https://www.k0rz3n.com/2019/03/01/%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/" target="_blank" rel="noopener">路径爆炸</a>和其他动态漏洞分析技术。</p></blockquote><a id="more"></a><h3 id="information-flow-security">Information Flow Security</h3><p>当服务器和客户机在网络上进行通信的时候就会存在<code>Information Flow</code>，而也产生了相应的安全问题——Prevent unwanted information flow。</p><h3 id="confidentiality-and-integrity">Confidentiality and Integrity</h3><h3 id="explicit-flows-and-convert-channels">Explicit Flows and Convert Channels</h3><h3 id="taint-analysis">Taint Analysis</h3>]]></content>
+    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><blockquote><p>同符号执行一样，<code>Taint-Analysis</code>也是分析代码安全漏洞，检测攻击方式的重要手段。对于<code>Web</code>应用程序中存在着的大量安全漏洞,如跨站脚本攻击，<code>SQL</code>注入等~污点分析都可以进行有效地检测。而污点传播技术是当前<code>Taint-Analysis</code>领域的重要课题，<strong>通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结果。</strong></p><p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(call sinks).</p><p>比如通过利用静态指针分析算法完成简化的显式流<code>explicit flow</code>分析，不讨论<a href="https://www.k0rz3n.com/2019/03/01/%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/" target="_blank" rel="noopener">路径爆炸</a>和其他动态漏洞分析技术。</p></blockquote><a id="more"></a><h3 id="information-flow-security">Information Flow Security</h3><blockquote><p>当服务器和客户机在网络上进行通信的时候就会存在<code>Information Flow</code>，从而产生了相应的安全问题——Prevent unwanted information flow。如何防止客户端的信息不被流入到黑客手中，目前主流有两种途径：</p><h4 id="access-control">Access Control</h4><p>通过使用<strong>权限</strong>的方式来控制程序是否可以访问敏感数据，主要是通过管理<strong>如何获取数据</strong>的方式来完成数据保护，但是它仅仅可以保证获取时的保护，但是获取到数据之后呢？</p><h4 id="information-flow-security-1">Information Flow Security</h4><p><font color="red">信息流安全</font>是一种<code>end to end</code>的数据保护方式，它追踪信息流是如何在程序中流动的来确保程序能更安全的处理敏感数据，主要是通过管<strong>如何传播数据</strong>的方式来完成数据保护。</p><p>这两种方式共同作用，才可以真正保证敏感数据的安全。</p><p>下面介绍信息流的概念:如果在变量<code>x</code>中的信息被传入到了变量<code>y</code>中，那么在<code>x——&gt;y</code>之间就有信息流。而实现信息流安全实际上还需要两种方式：</p><h5 id="security-levels">security levels</h5><p>通过将信息流分为不同的等级来控制数据的获取权限，最基本的模型就是<code>two-level policy</code>，分为<code>H</code>和<code>L</code>两个级别，<code>H</code>指的是安全等级高的敏感信息，<code>L</code>指的是敏感信息低的可公开信息。比如</p><ul><li><code>h = getPassword();</code> h为<code>H</code></li><li><code>Broadcast(l);</code> l为<code>L</code></li></ul><p>对于更复杂的数据模型，安全等级实际上可以按照<code>lattice</code>来进行建模。</p><h5 id="information-flow-policy">information flow policy</h5><p>在不同等级的信息流之间采取不一样的安全策略。比如<strong>Noninterference policy</strong>规定高级别的信息流数据不可以影响(should not interfere with)低级别的信息流。<strong>换句话讲，机器的操作不能使得信息流从高级别的数据传播到低级别的数据中。</strong></p><p><img src="1.png" width="50%" height="50%" alt=""></p><p>这种安全策略需要使得信息流只能沿着<code>lattice</code>的<code>upwards</code>方向进行传播。可以是<code>H——&gt;H、L——&gt;L、L——&gt;H</code>但是不可以是<code>H——&gt;L</code>。</p></blockquote><h3 id="confidentiality-and-integrity">Confidentiality and Integrity</h3><blockquote><p><strong>保密性</strong>和<strong>完整性</strong>从另一个视角解读了安全策略<code>information flow policy</code>如何从本质上保证信息流安全。</p><p>对于已经分级好的信息，高级别的信息不可以流到低级别的信息中可以看成是为了保密性，防止数据泄露。而低级别的信息也不能流到高级别的信息中可以看成是为了保护数据的完整性。保密性已经介绍过了，这里介绍一下完整性。</p><h4 id="integrity">Integrity</h4><p>完整性需要保证一些无关紧要的信息流无法污染，破坏重要的敏感信息。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> x = readInput();  //untrusted</span><br><span class="line"><span class="meta">&gt;</span> cmd = "..." + x;</span><br><span class="line"><span class="meta">&gt;</span> execute(cmd);    //critical (trusted)</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure></blockquote><blockquote><p>比如一些常见的注入错误基本上都是因为破坏了数据的完整性才导致安全问题：</p><ul><li>Command injection</li><li>SQL injection</li><li>XSS attacks</li></ul><p><strong>对于已经分好级别的数据来说，保证安全就是需要在从高级别数据向低级别的信息流中防止泄露的同时，还需要在从低级别数据向高级别数据的信息流中防止污染。确保做到根据不同的信息流向应用不同的信息流安全策略。</strong></p><p>从更加广泛的角度来看的话，信息里安全需要保证的是信息的正确性，完整性以及数据的一致性：</p><ul><li>正确性：高级别的数据防止被污染</li><li>完整性：数据得到正确存储</li><li>一致性：保证在读写上数据能保持一致</li></ul></blockquote><h3 id="explicit-flows-and-convert-channels">Explicit Flows and Convert Channels</h3><blockquote><p>这里引入两个安全领域常见的概念，显式<code>explicit</code>和隐式<code>implicit</code>。</p><p>对于一些基本的信息流传播都是显式的比如:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; Xh = Yh;</span><br><span class="line">&gt; Xl = Yh;</span><br><span class="line">&gt; Xl = Yl + Zh</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></blockquote><blockquote><p>可以看到数据都是直接通过赋值或者引用这些显式的修改语句直接进行传播的，成为显示流。而对于下面这些情况：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; secret = getSecret();</span><br><span class="line">&gt; <span class="keyword">if</span>(secret &lt; <span class="number">0</span>)&#123;</span><br><span class="line">&gt; <span class="keyword">public</span> = <span class="number">1</span>;</span><br><span class="line">&gt; &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">&gt; <span class="keyword">public</span> = <span class="number">0</span>;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></blockquote><blockquote><p>这种情况属于隐式流——即数据的传播都是通过一些被敏感数据控制的<code>if/while</code>语句来完成的。在上面的例子中，public是低级别数据可以直接被观测到，而secret是高级别的敏感数据，但是我们通过观测到public的值是否为1还是0就可以判断出高级别数据的最终值，这就是隐式流传播。</p><p><strong>隐式流的数据是通过程序的控制流信息进行传播的。</strong>也是安全领域最难以处理的一类安全问题。</p></blockquote><h3 id="taint-analysis">Taint Analysis</h3><blockquote></blockquote>]]></content>
     
     <summary type="html">
     
@@ -366,9 +366,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
   </entry>
   
@@ -404,9 +404,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
   </entry>
   
@@ -440,9 +440,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
     
       <category term="Linker" scheme="http://haotianmcihael.github.io/tags/Linker/"/>
     
@@ -483,9 +483,9 @@
       <category term="Assembly" scheme="http://haotianmcihael.github.io/categories/Assembly/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="RISCV" scheme="http://haotianmcihael.github.io/tags/RISCV/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
