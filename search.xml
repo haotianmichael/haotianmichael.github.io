@@ -16,7 +16,7 @@
   <entry>
     <title><![CDATA[NJU静态程序分析(5-IFDS-And-Soundiness)]]></title>
     <url>%2F2021%2F06%2F06%2FNJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-5-IFDS%2F</url>
-    <content type="text"><![CDATA[Abastract 经典过程间数据流分析intra-procedural analysis框架(D,L,F)可以看成是在一个lattice的值上不停迭代transfer function和join/meet operations的模型，评判它精度的方式称为MOP即meet-over-all-paths。 POPL'1995发表的Precise Interprocedural Dataflow Analysis via Graph Reachability通过将一类inter-procedural analysis问题转化为a special kind of graph-reachability problem图可达性问题，使其可在多项式时间内被解决——这就是著名的IFDS框架。值得注意的是作者在Theoretical Computer Science'96上还发表过一篇Precise interprocedural dataflow analysis with applications to constant propagation提出一套用于处理常量传播问题problems of mapping from symbols to values的IDE框架。在实际的开源工具中这两套框架会同时支持。]]></content>
+    <content type="text"><![CDATA[Abastract 在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill问题——reaching definitions,available expressions,live variabl的过程间分析）③对普遍分析问题提供非多项式时间的算法方案。 随着POPL'1995发表的Precise Interprocedural Dataflow Analysis via Graph Reachability通过将一类inter-procedural analysis问题转化为a special kind of graph-reachability problem图可达性问题——IFDS框架横空出世。IFDS除了针对separable problems，还针对包括truly-live variables,copy constant propagation,possibly-uninitialized variablestruly-live variables在内的non-separable problems等一大类普遍性分析问题都提供了多项式时间的精确解决手段。由于IFDS本身的约束，作者在Theoretical Computer Science'1996上还发表过一篇Precise interprocedural dataflow analysis with applications to constant propagation提出IDE框架来处理interprocedural constant propagation等IFDS框架处理不了的non-distributive问题。这两篇论文为程序分析领域引入新的血液。 近年Sparse Value IFDS,Disk-Assisted IFDS等课题一直是学术界的研究热点。在工业界比如phasar等程序分析工具中IFDS/IDE也有具体实现。]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -105,8 +105,8 @@
         <category>Lisp</category>
       </categories>
       <tags>
-        <tag>PL</tag>
         <tag>EMACS</tag>
+        <tag>PL</tag>
       </tags>
   </entry>
   <entry>

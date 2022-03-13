@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abastract  经典过程间数据流分析intra-procedural analysis框架(D,L,F)可以看成是在一个lattice的值上不停迭代transfer function和join/meet operations的模型，评判它精度的方式称为MOP即meet-over-all-paths。 POPL&apos;1995发表的Precise Interprocedural Dataflow A">
+<meta name="description" content="Abastract  在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(5-IFDS-And-Soundiness)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abastract  经典过程间数据流分析intra-procedural analysis框架(D,L,F)可以看成是在一个lattice的值上不停迭代transfer function和join/meet operations的模型，评判它精度的方式称为MOP即meet-over-all-paths。 POPL&apos;1995发表的Precise Interprocedural Dataflow A">
+<meta property="og:description" content="Abastract  在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-13T12:19:55.003Z">
+<meta property="og:updated_time" content="2022-03-13T16:42:52.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(5-IFDS-And-Soundiness)">
-<meta name="twitter:description" content="Abastract  经典过程间数据流分析intra-procedural analysis框架(D,L,F)可以看成是在一个lattice的值上不停迭代transfer function和join/meet operations的模型，评判它精度的方式称为MOP即meet-over-all-paths。 POPL&apos;1995发表的Precise Interprocedural Dataflow A">
+<meta name="twitter:description" content="Abastract  在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  184
+                  307
                 </span>
               
 
@@ -471,8 +471,9 @@
       
         <h3 id="abastract">Abastract</h3>
 <blockquote>
-<p>经典过程间数据流分析<code>intra-procedural analysis</code>框架(<font color="red">D</font>,<font color="green">L</font>,<font color="blue">F</font>)可以看成是在一个<code>lattice</code>的值上不停迭代<code>transfer function</code>和<code>join/meet operations</code>的模型，评判它精度的方式称为<code>MOP</code>即<code>meet-over-all-paths</code>。</p>
-<p><code>POPL'1995</code>发表的<a href="http://web.cs.ucla.edu/~harryxu/courses/253/sp2013/papers/popl95.pdf" target="_blank" rel="noopener">Precise Interprocedural Dataflow Analysis via Graph Reachability</a>通过将一类<code>inter-procedural analysis</code>问题转化为<code>a special kind of graph-reachability problem</code>图可达性问题，使其可在多项式时间内被解决——这就是著名的<font color="red"><code>IFDS</code></font>框架。值得注意的是作者在<code>Theoretical Computer Science'96</code>上还发表过一篇<a href="https://pdf.sciencedirectassets.com/271538/1-s2.0-S0304397500X00448/1-s2.0-0304397596000722/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQDHEEjOJdEm0cLtUB%2BHaJKZnI%2BPN5tMP4ElOR%2FgbYtzIgIhAJLujFNrXghpU6i4dLJlbR4WmRz%2FBokVzMrouNR8thheKvoDCEMQBBoMMDU5MDAzNTQ2ODY1IgwWTLJMo41Prpn%2F%2FEgq1wPGTtVLFsiVIF9uO3Jqe%2Fc7DNIZ2aCoMKASRnKPldZG3DL%2Fkla1b4JCb1utfraGJZeeG8LZFHTKpNPPAfY8Ax4cYe2D2fM1efeJUEv%2FGD2v21Ge7INGhUegLgtSJXoz%2FTGqXHronY0wS56U4dQHPyuDJ9pJYu8tQi5bCN93m1E%2BvoIrIoPK1IBlinh9LCUHfggCjlfJcrUWdkz6FvAO9pGlBB2bSWVrDJQZhf6k8%2FEA5%2BXg3GaNvYrHvzSnNokhfIAooqmnr9POzK6%2B3%2Fx0h%2Bs4dh9hNMSBVThSuNZlmYyRaRKHAukdzlgx7Lu9cQrKYEbMA9sr6UbY1CBGWM0IkEQ7hmxoPj3%2BkLlagNcZRd2FVg7zQcCPjdYrEeuUM6FicieZyU64gwrF%2Fl2Jq9GQPaZpYcndiEruIB8ggW%2F6moNCZs2IDLW40fNnp3Hm32GGMPuJDgPa9Yg7iD9Rfrr7uPhjSB8oKcpFqUKwmYqMn4W6pM74elsDHPsbw%2FsaqXNJCU42md6tfWSTBmByS3IQHgs6NpJWs3QckjVDmQYfTXv%2FgpMfrR%2FVnq7q6gGUgGrsgttCWa9VagHvZlUoLrIsFwlkjVjx7LNyflLfYyQBjsMjVKKQ7qw9kLMwrfi2kQY6pAGC4F0%2Bu4eJObfe5rQlGYJgI2OFVr6PyiBiTn4XcTtHOC2fbkj4Rre9Pj4QydLxF0oSXJqJCXkBJhzxpC9ouKJpDzYffbmPkpIA6rzdujGyRGluGCeiM2cOu7JtFEx1nvPsB%2BLlMN8JJBJQL3QWxnV36yu6ycImjADRWzn2Oe1Hn59BdoZO9nzL8zTLFHgS9jRZeYlTJQnh6FZe4I4upbqHwxemIw%3D%3D&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Date=20220313T104326Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Expires=300&amp;X-Amz-Credential=ASIAQ3PHCVTY3WOOQG6M%2F20220313%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Signature=d189220faa10689b60977d689048eeee379847ff107227365fec1a7742463d7d&amp;hash=c12a21daeaec6fe0aaf5b9fb5ec0259bf755743c2eea8ab65f566cece9ee2d36&amp;host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&amp;pii=0304397596000722&amp;tid=spdf-17632b09-bb7d-4bc0-9605-080c373f0575&amp;sid=d0b19308547fc443ae8b53f5ca290b286a01gxrqa&amp;type=client&amp;ua=50040252510d525a5a05&amp;rr=6eb42b298d006da7" target="_blank" rel="noopener">Precise interprocedural dataflow analysis with applications to constant propagation</a>提出一套用于处理常量传播问题<code>problems of mapping from symbols to values</code>的<code>IDE</code>框架。在实际的开源工具中这两套框架会同时支持。</p>
+<p>在<code>IFDS</code>出现之前，经典<code>intra-procedural analysis</code>框架(<font color="red">D</font>,<font color="green">L</font>,<font color="blue">F</font>)对于程序分析问题的研究还停留在①多项式时间处理<code>specific individual problem</code>比如<code>constant propagation/pointer analysis</code>②多项式时间处理<code>locally separable proble</code>（经典<code>bit-vector/gen-kill</code>问题——<code>reaching definitions,available expressions,live variabl</code>的过程间分析）③对普遍分析问题提供<strong>非多项式时间</strong>的算法方案。</p>
+<p>随着<code>POPL'1995</code>发表的<a href="http://web.cs.ucla.edu/~harryxu/courses/253/sp2013/papers/popl95.pdf" target="_blank" rel="noopener">Precise Interprocedural Dataflow Analysis via Graph Reachability</a>通过将一类<code>inter-procedural analysis</code>问题转化为<code>a special kind of graph-reachability problem</code>图可达性问题——<font color="red"><code>IFDS</code></font>框架横空出世。<strong><code>IFDS</code>除了针对<code>separable problems</code>，还针对包括<code>truly-live variables,copy constant propagation,possibly-uninitialized variablestruly-live variables</code>在内的<code>non-separable problems</code>等一大类普遍性分析问题都提供了多项式时间的精确解决手段。</strong>由于<code>IFDS</code>本身的约束，作者在<code>Theoretical Computer Science'1996</code>上还发表过一篇<a href="https://pdf.sciencedirectassets.com/271538/1-s2.0-S0304397500X00448/1-s2.0-0304397596000722/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQDHEEjOJdEm0cLtUB%2BHaJKZnI%2BPN5tMP4ElOR%2FgbYtzIgIhAJLujFNrXghpU6i4dLJlbR4WmRz%2FBokVzMrouNR8thheKvoDCEMQBBoMMDU5MDAzNTQ2ODY1IgwWTLJMo41Prpn%2F%2FEgq1wPGTtVLFsiVIF9uO3Jqe%2Fc7DNIZ2aCoMKASRnKPldZG3DL%2Fkla1b4JCb1utfraGJZeeG8LZFHTKpNPPAfY8Ax4cYe2D2fM1efeJUEv%2FGD2v21Ge7INGhUegLgtSJXoz%2FTGqXHronY0wS56U4dQHPyuDJ9pJYu8tQi5bCN93m1E%2BvoIrIoPK1IBlinh9LCUHfggCjlfJcrUWdkz6FvAO9pGlBB2bSWVrDJQZhf6k8%2FEA5%2BXg3GaNvYrHvzSnNokhfIAooqmnr9POzK6%2B3%2Fx0h%2Bs4dh9hNMSBVThSuNZlmYyRaRKHAukdzlgx7Lu9cQrKYEbMA9sr6UbY1CBGWM0IkEQ7hmxoPj3%2BkLlagNcZRd2FVg7zQcCPjdYrEeuUM6FicieZyU64gwrF%2Fl2Jq9GQPaZpYcndiEruIB8ggW%2F6moNCZs2IDLW40fNnp3Hm32GGMPuJDgPa9Yg7iD9Rfrr7uPhjSB8oKcpFqUKwmYqMn4W6pM74elsDHPsbw%2FsaqXNJCU42md6tfWSTBmByS3IQHgs6NpJWs3QckjVDmQYfTXv%2FgpMfrR%2FVnq7q6gGUgGrsgttCWa9VagHvZlUoLrIsFwlkjVjx7LNyflLfYyQBjsMjVKKQ7qw9kLMwrfi2kQY6pAGC4F0%2Bu4eJObfe5rQlGYJgI2OFVr6PyiBiTn4XcTtHOC2fbkj4Rre9Pj4QydLxF0oSXJqJCXkBJhzxpC9ouKJpDzYffbmPkpIA6rzdujGyRGluGCeiM2cOu7JtFEx1nvPsB%2BLlMN8JJBJQL3QWxnV36yu6ycImjADRWzn2Oe1Hn59BdoZO9nzL8zTLFHgS9jRZeYlTJQnh6FZe4I4upbqHwxemIw%3D%3D&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Date=20220313T104326Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Expires=300&amp;X-Amz-Credential=ASIAQ3PHCVTY3WOOQG6M%2F20220313%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Signature=d189220faa10689b60977d689048eeee379847ff107227365fec1a7742463d7d&amp;hash=c12a21daeaec6fe0aaf5b9fb5ec0259bf755743c2eea8ab65f566cece9ee2d36&amp;host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&amp;pii=0304397596000722&amp;tid=spdf-17632b09-bb7d-4bc0-9605-080c373f0575&amp;sid=d0b19308547fc443ae8b53f5ca290b286a01gxrqa&amp;type=client&amp;ua=50040252510d525a5a05&amp;rr=6eb42b298d006da7" target="_blank" rel="noopener">Precise interprocedural dataflow analysis with applications to constant propagation</a>提出<code>IDE</code>框架来处理<code>interprocedural constant propagation</code>等<code>IFDS</code>框架处理不了的<code>non-distributive</code>问题。这两篇论文为程序分析领域引入新的血液。</p>
+<p>近年<code>Sparse Value IFDS,Disk-Assisted IFDS</code>等课题一直是学术界的研究热点。在工业界比如<a href="https://linkspringer.53yu.com/content/pdf/10.1007%2F978-3-030-17465-1.pdf" target="_blank" rel="noopener">phasar</a>等程序分析工具中<code>IFDS/IDE</code>也有具体<a href="https://github.com/secure-software-engineering/phasar" target="_blank" rel="noopener">实现</a>。</p>
 </blockquote>
 <a id="more"></a>
 
@@ -495,7 +496,7 @@
   <p><span>本文标题:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/">NJU静态程序分析(5-IFDS-And-Soundiness)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月06日 - 15:06</p>
-  <p><span>最后更新:</span>2022年03月13日 - 20:03</p>
+  <p><span>最后更新:</span>2022年03月14日 - 00:03</p>
   <p><span>原始链接:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/" title="NJU静态程序分析(5-IFDS-And-Soundiness)">http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/"  aria-label="复制成功！"></i></span>
   </p>
