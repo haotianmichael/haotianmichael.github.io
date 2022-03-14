@@ -128,7 +128,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/3.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/4.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/5.png">
-<meta property="og:updated_time" content="2022-03-14T16:12:23.541Z">
+<meta property="og:updated_time" content="2022-03-14T16:53:14.724Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(5-IFDS-And-Soundiness)">
 <meta name="twitter:description" content="Abastract  在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill">
@@ -438,7 +438,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.3k
+                  2.8k
                 </span>
               
 
@@ -454,7 +454,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  9
+                  11
                 </span>
               
             </div>
@@ -571,6 +571,7 @@
 </blockquote>
 <h4 id="exploded-supergraph-and-tabulation-algorithm">Exploded Supergraph and Tabulation Algorithm</h4>
 <blockquote>
+<h5 id="exploded-supergraph">Exploded SuperGraph</h5>
 <p>通过将<code>flow function</code>转换成为<code>representation relations</code>子图来建造<code>exploded superGraph G#</code>。</p>
 <p>每一个<code>flow function</code>被一个<code>2(D + 1)</code>个<code>node</code>组成的<code>Graph</code>代表，<font color="blue">其中<code>D</code>表示的是一个<code>dataflow facts</code>的<strong>有限集合</strong>。</font></p>
 <p><img src="4.png" width="50%" height="50%" alt=""></p>
@@ -587,14 +588,32 @@
 <p>回顾一下传统的数据流分析，如果想要确定一个<code>program point</code>是否还保持一个<code>data fact</code>比如<code>definition</code>是否是<code>reachable</code>的，我们需要判断从程序入口到该<code>program point</code>的流动中该<code>data fact</code>是否会传播到该点。</p>
 <p><img src="5.png" width="50%" height="50%" alt=""></p>
 <p>即OUT[p] = f4○f3○f2○f1(IN[n1])。准确的说<strong>Data facts are propagated via the composition of flow functions.</strong>——这里最重要的是一个<strong>composition</strong>的概念，实际上对于<code>IFDS</code>框架来说，如何在如图可达性问题中实现这种连接，否则会导致整个分析的结果无法沿着<code>edge</code>进行传播，而<code>Glue Edge:0⟶0</code>便解决了这个问题。</p>
+<h5 id="tabulation-algorithm">Tabulation Algorithm</h5>
+<p>最后一步在构建好<code>G#</code>之后，最终在其上应用<code>Tabulation</code>算法来寻找从&lt;S<sub>main</sub>, 0&gt;开始的所有<code>realizable paths</code>来决定该分析问题的所有<code>MRP solutions</code>。</p>
+<p>理解一下整个算法的核心：</p>
+<p><font color="purple">Let n be a program point, data fact d ∊ MRP<sub>n</sub>, iff there is a realizable path in G# from &lt;S<sub>main</sub>, 0&gt; to &lt;n, d&gt;.</font></p>
+<p>首先解释&lt;S,d&gt;指的是在<code>program point</code>点S的一个<code>data fact</code>即<code>d</code>。如果对于一个<code>program point</code>点<code>n</code>，如果在<code>G#</code>上可以从&lt;S<sub>main</sub>, 0&gt;到&lt;<font color="red">n</font>,<font color="blue">d</font>&gt;有一条<code>realizable path</code>——则就说<code>data fact d</code>在<code>program point n</code>这一点是holds的。</p>
+<p>关于该算法的核心暂时不深入理解。比如这里的<code>summary</code>思想也是为了处理同一个方法被冗余处理。</p>
 </blockquote>
 <h4 id="distributivity">Distributivity</h4>
 <blockquote>
-
+<p>这里我们了解一下<code>IFDS</code>的可分配性<code>Distributivity</code>：</p>
+<ul>
+<li>F(X ^ Y) = F(X) ^ F(Y)</li>
+</ul>
+<p>而根据定义，对于处理<code>constant propagation</code>来说比如<code>z = x + y</code>，需要同时考虑两个输入，<strong>而<code>IFDS</code>一次只能处理一个输入:F(x)^F(y)。本质上每一个<code>representation relation</code>只能处理如果<code>x</code>存在则...，但是无法处理如果<code>x and y</code>同时存在则...。</strong>故常量传播是不可分配的。</p>
+<p>In IFDS, each data fact(circle) and its propagation(edges) could be handled independently, and doing so will affect the correctness of the final results.</p>
+<p>就是说其<code>data fact</code>和<code>edge</code>都是可以分开处理，到最后一步才进行<code>union/intersection</code>——即可分配性。而<code>Pointer analysis</code>因为需要处理别名<code>alias</code>信息，这样的话需要考虑多个输入信息——故其本质上也不是可分配性的。</p>
 </blockquote>
 <h3 id="soundiness">Soundiness</h3>
 <blockquote>
-
+<p>虽然所有的程序分析算法都在强调其可以捕捉到所有的程序运行时行为。但是学术界和工业界的理论和工具在实际应用中都会产生<code>unsound</code>的结果。<strong>这是因为编程语言本身会有一些<code>Hard Feature</code>导致程序分析无法进行。</strong></p>
+<ul>
+<li>Java: Reflection，native code，dynamic class loading ...</li>
+<li>C/C++: Pointer arithmetic, function pointer...</li>
+</ul>
+<p>这些特性使得程序分析精度受损。故学术界引入一个新词<code>Soundiness</code>表示：</p>
+<p>A soundy analysis typically means that the analysis is mostly sound, with well-identified unsound treatments to hard/specific language features.</p>
 </blockquote>
 
       
@@ -854,7 +873,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abastract"><span class="nav-number">1.</span> <span class="nav-text">Abastract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cfl-reachability"><span class="nav-number">2.</span> <span class="nav-text">CFL-Reachability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#feasible-and-realizable-paths"><span class="nav-number">2.1.</span> <span class="nav-text">Feasible and Realizable Paths</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#realizable-paths"><span class="nav-number">2.1.1.</span> <span class="nav-text">Realizable Paths</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cfl-reachabiligy"><span class="nav-number">2.2.</span> <span class="nav-text">CFL-Reachabiligy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#context-free-grammer"><span class="nav-number">2.2.1.</span> <span class="nav-text">context-free grammer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#partially-balanced-parenthesis-problem"><span class="nav-number">2.2.2.</span> <span class="nav-text">Partially Balanced-Parenthesis Problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifds"><span class="nav-number">3.</span> <span class="nav-text">IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview-of-ifds"><span class="nav-number">3.1.</span> <span class="nav-text">Overview of IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mrp"><span class="nav-number">3.1.1.</span> <span class="nav-text">MRP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#algorithm"><span class="nav-number">3.1.2.</span> <span class="nav-text">Algorithm</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#supergraph-and-flow-functions"><span class="nav-number">3.2.</span> <span class="nav-text">SuperGraph and Flow Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#supergraph"><span class="nav-number">3.2.1.</span> <span class="nav-text">SuperGraph</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flow-functions"><span class="nav-number">3.2.2.</span> <span class="nav-text">Flow Functions</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exploded-supergraph-and-tabulation-algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Exploded Supergraph and Tabulation Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#edge-00"><span class="nav-number">3.3.1.</span> <span class="nav-text">Edge 0⟶0</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#distributivity"><span class="nav-number">3.4.</span> <span class="nav-text">Distributivity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#soundiness"><span class="nav-number">4.</span> <span class="nav-text">Soundiness</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abastract"><span class="nav-number">1.</span> <span class="nav-text">Abastract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cfl-reachability"><span class="nav-number">2.</span> <span class="nav-text">CFL-Reachability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#feasible-and-realizable-paths"><span class="nav-number">2.1.</span> <span class="nav-text">Feasible and Realizable Paths</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#realizable-paths"><span class="nav-number">2.1.1.</span> <span class="nav-text">Realizable Paths</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cfl-reachabiligy"><span class="nav-number">2.2.</span> <span class="nav-text">CFL-Reachabiligy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#context-free-grammer"><span class="nav-number">2.2.1.</span> <span class="nav-text">context-free grammer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#partially-balanced-parenthesis-problem"><span class="nav-number">2.2.2.</span> <span class="nav-text">Partially Balanced-Parenthesis Problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifds"><span class="nav-number">3.</span> <span class="nav-text">IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview-of-ifds"><span class="nav-number">3.1.</span> <span class="nav-text">Overview of IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mrp"><span class="nav-number">3.1.1.</span> <span class="nav-text">MRP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#algorithm"><span class="nav-number">3.1.2.</span> <span class="nav-text">Algorithm</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#supergraph-and-flow-functions"><span class="nav-number">3.2.</span> <span class="nav-text">SuperGraph and Flow Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#supergraph"><span class="nav-number">3.2.1.</span> <span class="nav-text">SuperGraph</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flow-functions"><span class="nav-number">3.2.2.</span> <span class="nav-text">Flow Functions</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exploded-supergraph-and-tabulation-algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Exploded Supergraph and Tabulation Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#exploded-supergraph"><span class="nav-number">3.3.1.</span> <span class="nav-text">Exploded SuperGraph</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#edge-00"><span class="nav-number">3.3.2.</span> <span class="nav-text">Edge 0⟶0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tabulation-algorithm"><span class="nav-number">3.3.3.</span> <span class="nav-text">Tabulation Algorithm</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#distributivity"><span class="nav-number">3.4.</span> <span class="nav-text">Distributivity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#soundiness"><span class="nav-number">4.</span> <span class="nav-text">Soundiness</span></a></li></ol></div>
             
 
           </div>
