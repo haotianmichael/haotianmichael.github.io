@@ -123,10 +123,13 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abastract  在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-13T16:42:52.358Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/1.png">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/2.png">
+<meta property="og:updated_time" content="2022-03-14T03:57:04.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(5-IFDS-And-Soundiness)">
 <meta name="twitter:description" content="Abastract  在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill">
+<meta name="twitter:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/1.png">
 
 
 
@@ -432,7 +435,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  307
+                  1.1k
                 </span>
               
 
@@ -448,7 +451,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  4
                 </span>
               
             </div>
@@ -476,6 +479,60 @@
 <p>近年<code>Sparse Value IFDS,Disk-Assisted IFDS</code>等课题一直是学术界的研究热点。在工业界比如<a href="https://linkspringer.53yu.com/content/pdf/10.1007%2F978-3-030-17465-1.pdf" target="_blank" rel="noopener">phasar</a>等程序分析工具中<code>IFDS/IDE</code>也有具体<a href="https://github.com/secure-software-engineering/phasar" target="_blank" rel="noopener">实现</a>。</p>
 </blockquote>
 <a id="more"></a>
+<h3 id="cfl-reachability">CFL-Reachability</h3>
+<blockquote>
+<p>首先介绍图可达性的概念。</p>
+</blockquote>
+<h4 id="feasible-and-realizable-paths">Feasible and Realizable Paths</h4>
+<blockquote>
+<p>过程间数据流分析真正用于工程落地之后的复杂度往往是很高的，即<code>ICFG</code>的边出现路劲爆炸导致分析速度变慢。究其根本原因，是因为在这些<code>edges</code>中有一些属于不可达边——<code>Infeasible paths</code>。</p>
+<p>Paths in CFG that do not correspond to actual executions is Infeasible paths.</p>
+<p>如果我们能够尽可能的防止<code>CFG</code>被<code>Infeasible paths</code>所污染，让分析流图边的更加简洁，势必大大提升分析速度。<strong>但是实际情况下这种<code>infeasible paths</code>往往无法判定。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; foo(<span class="keyword">int</span> age) &#123;    <span class="comment">//age只会是Positive，所以一条分支肯定不会被执行</span></span><br><span class="line">&gt; 	<span class="keyword">if</span>(age &gt;= <span class="number">0</span>) </span><br><span class="line">&gt; 		r = age;</span><br><span class="line">&gt; 	<span class="keyword">else</span> </span><br><span class="line">&gt; 		r = <span class="number">-1</span>;  <span class="comment">//但是程序在静态时该条路径无法判定其可执行性</span></span><br><span class="line">&gt; 	<span class="keyword">return</span> r;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h5 id="realizable-paths">Realizable Paths</h5>
+<p>The paths in which &quot;returns&quot; are matched with corresponding &quot;calls&quot;.</p>
+<p>如果一条调用边，其return-edge可以正确匹配到其call-edge，则称这条边是<code>realizable</code>的。<strong>既然<code>infeasible</code>不可判定，便引入其子集——因为<code>realizable paths</code>可能不会被执行到，但是<code>unrealizable paths</code>则一定不会被执行到，而<code>unrealizable paths</code>则是可判定的。</strong></p>
+<p><img src="1.png" width="50%" height="50%" alt=""></p>
+<p><strong>寻找这样的<code>realizable paths</code>来是<code>IFDS</code>顺利执行的前提，</strong>下面引入一种系统的方式识别<code>realizable paths</code>——<code>CFL-Reachability</code>。</p>
+</blockquote>
+<h4 id="cfl-reachabiligy">CFL-Reachabiligy</h4>
+<blockquote>
+<p>A path is considered to connect two nodes A and B, or<font color="red"> B is reachable from A</font>. Only if the concatenation of the labels on the edges of the path is a word in a specified <font color="red">context-free language</font>.</p>
+<p>对于A和B两个<code>node</code>之间有一条<code>path</code>（一系列<code>edge</code>组成的，换句话说B可达A）并且这条<code>path</code>上的所有<code>edge</code>的<code>labels</code>构成的单词是<strong>由事先规定的context-free language定义好的合法单词的话，</strong>就说<font color="red">B is CFL-Reachable from A.</font></p>
+<h5 id="context-free-grammer">context-free grammer</h5>
+<p>上下文无关语言<code>context-free language</code>指的是由上下文无关文法<code>context-free grammer</code>产生的语言。</p>
+<p>上下文无关文法是一种形式语言用于描述某种语法，它的主要形式就是：S ⟶ 𝞪. 这是一种产生式。S代表非终结符而𝞪代表一系列终结符或者空格。比如CFG的文法如下的话：</p>
+<ul>
+<li>S ⟶ aSb</li>
+<li>S ⟶ ℇ</li>
+</ul>
+<p>这里的𝞪就是<code>aSb/ℇ</code>，上下文无关<code>context-free</code>的意思就是说在<strong>任何出现S的地方</strong>都可以使用<code>aSb/ℇ</code>来替换。</p>
+<h5 id="partially-balanced-parenthesis-problem">Partially Balanced-Parenthesis Problem</h5>
+<p>将寻找<code>realizable paths</code>抽象成为典型的括号匹配问题。这里的<code>Partially</code>指的是)<sub>i</sub>一定会有一个(<sub>i</sub>匹配，换句话讲就是说对于每一个<code>return-edge</code>都有会有一个<code>call-edge</code>匹配，但是每一个<code>call-edge</code>却不一定有返回值（比如<code>realizable but not infeasiable paths</code>）。<strong>问题的整个建模过程为：对<code>control-flow graph</code>上的所有<code>edge</code>都加上一个<code>label</code>，对于一个<code>call</code>语句<code>i</code>，其<code>call-edge</code>被标记为(<sub>i</sub>其<code>return-edge</code>被标记为)<sub>i</sub>，而其余所有的<code>edge</code>都被标记为<code>e</code>。</strong></p>
+<p>A path is a realizable path if thee path' word is in the language L(realizable).比如</p>
+<ul>
+<li><font color="green">(<sub>1</sub>(<sub>2 </sub>e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub></font></li>
+<li><font color="green">(<sub>1</sub>(<sub>2 </sub>e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub>(<sub>4</sub></font></li>
+<li><font color="green">(<sub>1</sub>(<sub>2 </sub>e e e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub>(<sub>4</sub></font></li>
+<li><font color="blue">e e</font><font color="green">(<sub>1</sub>(<sub>2 </sub>e e e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub>(<sub>4</sub></font> <font color="blue">e</font></li>
+</ul>
+<p>则根据括号匹配设计的上下文无关文法如下：</p>
+<p><font color="blue">realizable</font> ⟶ <font color="green">mathched</font> <font color="blue">realizable</font></p>
+<p>​ ⟶ <font color="red">(<sub>i</sub></font> <font color="blue">realizable</font></p>
+<p>​ ⟶ <font color="blue">ℇ</font></p>
+<p><font color="green">mathched</font> ⟶ <font color="red">(<sub>i</sub></font> <font color="green">mathched</font> <font color="red">)<sub>i</sub></font></p>
+<p>​ ⟶ <font color="blue">e</font></p>
+<p>​ ⟶ <font color="blue">ℇ</font></p>
+<p>​ ⟶ <font color="green">mathched matched</font></p>
+<p><img src="2.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+<h3 id="ifds">IFDS</h3>
+<blockquote>
+
+</blockquote>
+<h3 id="soundiness">Soundiness</h3>
 
       
     </div>
@@ -496,7 +553,7 @@
   <p><span>本文标题:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/">NJU静态程序分析(5-IFDS-And-Soundiness)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月06日 - 15:06</p>
-  <p><span>最后更新:</span>2022年03月14日 - 00:03</p>
+  <p><span>最后更新:</span>2022年03月14日 - 11:03</p>
   <p><span>原始链接:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/" title="NJU静态程序分析(5-IFDS-And-Soundiness)">http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/"  aria-label="复制成功！"></i></span>
   </p>
@@ -734,7 +791,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abastract"><span class="nav-number">1.</span> <span class="nav-text">Abastract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abastract"><span class="nav-number">1.</span> <span class="nav-text">Abastract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cfl-reachability"><span class="nav-number">2.</span> <span class="nav-text">CFL-Reachability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#feasible-and-realizable-paths"><span class="nav-number">2.1.</span> <span class="nav-text">Feasible and Realizable Paths</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#realizable-paths"><span class="nav-number">2.1.1.</span> <span class="nav-text">Realizable Paths</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cfl-reachabiligy"><span class="nav-number">2.2.</span> <span class="nav-text">CFL-Reachabiligy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#context-free-grammer"><span class="nav-number">2.2.1.</span> <span class="nav-text">context-free grammer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#partially-balanced-parenthesis-problem"><span class="nav-number">2.2.2.</span> <span class="nav-text">Partially Balanced-Parenthesis Problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifds"><span class="nav-number">3.</span> <span class="nav-text">IFDS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#soundiness"><span class="nav-number">4.</span> <span class="nav-text">Soundiness</span></a></li></ol></div>
             
 
           </div>
