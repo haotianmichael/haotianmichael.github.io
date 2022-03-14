@@ -125,7 +125,8 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/2.png">
-<meta property="og:updated_time" content="2022-03-14T04:31:40.311Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/3.png">
+<meta property="og:updated_time" content="2022-03-14T11:04:14.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(5-IFDS-And-Soundiness)">
 <meta name="twitter:description" content="Abastract  在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill">
@@ -435,7 +436,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.1k
+                  1.5k
                 </span>
               
 
@@ -451,7 +452,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  4
+                  6
                 </span>
               
             </div>
@@ -530,8 +531,24 @@
 </blockquote>
 <h3 id="ifds">IFDS</h3>
 <blockquote>
-
+<p><code>IFDS</code>是<code>Interprocedural，Finite，Distributive，Subset Problems</code>的简称。总结来就说：IFDS is for interprocedural data flow analysis with <font color="red">distributive</font> flow functions over <font color="red">finite</font> domains.</p>
+<p><code>IFDS</code>将一大类数据流分析问题转化成为了图可达性问题进行处理，相比较于迭代数据流框架提供了多项式时间的精确处理。但是<code>IFDS</code>必须在一定的约束下才可以：</p>
+<p>很多普遍的数据流分析问题都是<code>subset problem</code>——集合的<code>union/intersection</code>等；而<code>Interprocedural</code>指的是全程序分析；<strong>而该分析问题还有必须有一个<code>distributive flow function</code>并且其<code>domains</code>还是<code>finite</code>才可以用<code>IFDS</code>来处理。</strong></p>
+<p>就比如<code>constant propagation</code>就不可以用<code>IFDS</code>处理，因为其<code>domains</code>是理论上所有的常数所以是<code>Infinite</code>，而且该分析本身也不是<code>Distributive</code>。</p>
 </blockquote>
+<h4 id="overview-of-ifds">Overview of IFDS</h4>
+<blockquote>
+<h5 id="mrp">MRP</h5>
+<p>跟<code>Intra-procedural analysis</code>使用<code>meet-over-all-paths</code>来衡量分析的精度一样，<code>IFDS</code>也使用<code>meet-over-all-realizable-paths</code>来衡量其分析精度。</p>
+<p>根据MOP<sub>n</sub> = ⊔<font color="green">(p∊Paths(start, n))</font>pf<sub>p</sub>(⊥)的定义，对于每一个<code>node</code>点n，MOP<sub>n</sub>表示在<code>CFG</code>上的<code>start</code>点到<code>node</code>点n所有的<code>paths</code>的<code>union/intersection</code>操作。</p>
+<p>而根据MRP<sub>n</sub> = ⊔<font color="green">(p∊RPaths(start, n))</font>pf<sub>p</sub>(⊥)的定义，对于每一个<code>node</code>点n，MRP<sub>n</sub>表示在<code>CFG</code>上的<code>start</code>点到<code>node</code>点n所有的<font color="red">realizable paths（这些paths的label构成的word符合<code>realizalble</code>语言的上下文无关文法）</font>的<code>union/intersection</code>操作。</p>
+<p>根据两个精度计算方式的定义可以看出，MRP<sub>n</sub>对那些<code>unrealizable paths</code>进行了剪枝优化，因此其结果也比MOP<sub>n</sub>更精确——MRP<sub>n</sub> ≼ MOP<sub>n</sub>。</p>
+<h6 id="algorithm">Algorithm</h6>
+<p><img src="3.png" width="50%" height="50%" alt=""></p>
+</blockquote>
+<h4 id="supergraph-and-flow-functions">SuperGraph and Flow Functions</h4>
+<h4 id="exploded-supergraph-and-tabulation-algorithm">Exploded Supergraph and Tabulation Algorithm</h4>
+<h4 id="distributivity">Distributivity</h4>
 <h3 id="soundiness">Soundiness</h3>
 <blockquote>
 
@@ -556,7 +573,7 @@
   <p><span>本文标题:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/">NJU静态程序分析(5-IFDS-And-Soundiness)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月06日 - 15:06</p>
-  <p><span>最后更新:</span>2022年03月14日 - 12:03</p>
+  <p><span>最后更新:</span>2022年03月14日 - 19:03</p>
   <p><span>原始链接:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/" title="NJU静态程序分析(5-IFDS-And-Soundiness)">http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/"  aria-label="复制成功！"></i></span>
   </p>
@@ -794,7 +811,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abastract"><span class="nav-number">1.</span> <span class="nav-text">Abastract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cfl-reachability"><span class="nav-number">2.</span> <span class="nav-text">CFL-Reachability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#feasible-and-realizable-paths"><span class="nav-number">2.1.</span> <span class="nav-text">Feasible and Realizable Paths</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#realizable-paths"><span class="nav-number">2.1.1.</span> <span class="nav-text">Realizable Paths</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cfl-reachabiligy"><span class="nav-number">2.2.</span> <span class="nav-text">CFL-Reachabiligy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#context-free-grammer"><span class="nav-number">2.2.1.</span> <span class="nav-text">context-free grammer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#partially-balanced-parenthesis-problem"><span class="nav-number">2.2.2.</span> <span class="nav-text">Partially Balanced-Parenthesis Problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifds"><span class="nav-number">3.</span> <span class="nav-text">IFDS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#soundiness"><span class="nav-number">4.</span> <span class="nav-text">Soundiness</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abastract"><span class="nav-number">1.</span> <span class="nav-text">Abastract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cfl-reachability"><span class="nav-number">2.</span> <span class="nav-text">CFL-Reachability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#feasible-and-realizable-paths"><span class="nav-number">2.1.</span> <span class="nav-text">Feasible and Realizable Paths</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#realizable-paths"><span class="nav-number">2.1.1.</span> <span class="nav-text">Realizable Paths</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cfl-reachabiligy"><span class="nav-number">2.2.</span> <span class="nav-text">CFL-Reachabiligy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#context-free-grammer"><span class="nav-number">2.2.1.</span> <span class="nav-text">context-free grammer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#partially-balanced-parenthesis-problem"><span class="nav-number">2.2.2.</span> <span class="nav-text">Partially Balanced-Parenthesis Problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifds"><span class="nav-number">3.</span> <span class="nav-text">IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview-of-ifds"><span class="nav-number">3.1.</span> <span class="nav-text">Overview of IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mrp"><span class="nav-number">3.1.1.</span> <span class="nav-text">MRP</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#algorithm"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">Algorithm</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#supergraph-and-flow-functions"><span class="nav-number">3.2.</span> <span class="nav-text">SuperGraph and Flow Functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exploded-supergraph-and-tabulation-algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Exploded Supergraph and Tabulation Algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#distributivity"><span class="nav-number">3.4.</span> <span class="nav-text">Distributivity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#soundiness"><span class="nav-number">4.</span> <span class="nav-text">Soundiness</span></a></li></ol></div>
             
 
           </div>
