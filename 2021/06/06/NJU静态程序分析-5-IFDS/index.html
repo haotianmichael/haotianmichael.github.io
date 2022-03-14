@@ -126,7 +126,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/3.png">
-<meta property="og:updated_time" content="2022-03-14T13:46:00.240Z">
+<meta property="og:updated_time" content="2022-03-14T14:00:52.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(5-IFDS-And-Soundiness)">
 <meta name="twitter:description" content="Abastract  在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill">
@@ -436,7 +436,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.5k
+                  1.7k
                 </span>
               
 
@@ -544,10 +544,20 @@
 <p>而根据MRP<sub>n</sub> = ⊔<font color="green">(p∊RPaths(start, n))</font>pf<sub>p</sub>(⊥)的定义，对于每一个<code>node</code>点n，MRP<sub>n</sub>表示在<code>CFG</code>上的<code>start</code>点到<code>node</code>点n所有的<font color="red">realizable paths（这些paths的label构成的word符合<code>realizalble</code>语言的上下文无关文法）</font>的<code>union/intersection</code>操作。</p>
 <p>根据两个精度计算方式的定义可以看出，MRP<sub>n</sub>对那些<code>unrealizable paths</code>进行了剪枝优化，因此其结果也比MOP<sub>n</sub>更精确——MRP<sub>n</sub> ≼ MOP<sub>n</sub>。</p>
 <h5 id="algorithm">Algorithm</h5>
-<p><img src="3.png" width="50%" height="50%" alt=""></p>
 <p>首先从总体上概括一下<code>IFDS</code>的算法框架：</p>
+<p>输入：程序<code>P</code>，数据流分析问题<code>Q</code></p>
+<ul>
+<li>为程序<code>P</code>建立<code>superGraph G*</code>，并根据分析问题<code>Q</code>为<code>G*</code>的每一个<code>edge</code>定义<code>flow functions（使用𝛌表达式）</code>(可以对比<code>intra-procedural analysis</code>为每一个<code>node</code>建立<code>flow functinos</code>)</li>
+<li>通过将<code>flow functions</code>转化为<code>representation relations</code>（一种子图）的形式来建立程序<code>P</code>的<code>exploded supergraph G#</code></li>
+<li>最后在<code>G#</code>上应用<code>tabulations algorithm</code>就可以将程序<code>Q</code>的分析问题当做图可达性问题从而求解（找到<code>MRP solutions</code>）</li>
+</ul>
+<p><font color="purple">Let n be a program point, data fact d ∊ MRP<sub>n</sub>, iff there is a realizable path in G# from &lt;S<sub>main</sub>, 0&gt; to &lt;n, d&gt;.</font></p>
+<p><img src="3.png" width="50%" height="50%" alt=""></p>
 </blockquote>
 <h4 id="supergraph-and-flow-functions">SuperGraph and Flow Functions</h4>
+<blockquote>
+
+</blockquote>
 <h4 id="exploded-supergraph-and-tabulation-algorithm">Exploded Supergraph and Tabulation Algorithm</h4>
 <h4 id="distributivity">Distributivity</h4>
 <h3 id="soundiness">Soundiness</h3>
@@ -574,7 +584,7 @@
   <p><span>本文标题:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/">NJU静态程序分析(5-IFDS-And-Soundiness)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月06日 - 15:06</p>
-  <p><span>最后更新:</span>2022年03月14日 - 21:03</p>
+  <p><span>最后更新:</span>2022年03月14日 - 22:03</p>
   <p><span>原始链接:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/" title="NJU静态程序分析(5-IFDS-And-Soundiness)">http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/"  aria-label="复制成功！"></i></span>
   </p>
