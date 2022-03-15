@@ -60,16 +60,17 @@
     <link href="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"/>
     <id>http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</id>
     <published>2021-06-15T18:02:32.000Z</published>
-    <updated>2022-03-15T10:07:08.263Z</updated>
+    <updated>2022-03-15T15:35:58.004Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3>]]></content>
+    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><p><span class="math display">\[\frac{\Gamma_{1} \vdash \Im_{1}  ...  \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im}\]</span></p>]]></content>
     
     <summary type="html">
     
       
       
         &lt;h3 id=&quot;abstract&quot;&gt;Abstract&lt;/h3&gt;
-
+&lt;p&gt;&lt;span class=&quot;math display&quot;&gt;\[
+\frac{\Gamma_{1} \vdash \Im_{1}  ...  \Gamma_{n} \vdash \Im_{n}}{\Gamma \vd
       
     
     </summary>

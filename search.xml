@@ -16,7 +16,7 @@
   <entry>
     <title><![CDATA[Type system, a Sketchy view.]]></title>
     <url>%2F2021%2F06%2F16%2FType-system-a-Sketchy-view%2F</url>
-    <content type="text"><![CDATA[Abstract]]></content>
+    <content type="text"><![CDATA[Abstract \[ \frac{\Gamma_{1} \vdash \Im_{1} ... \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im} \]]]></content>
       <categories>
         <category>𝛌</category>
       </categories>
