@@ -128,7 +128,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/3.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/4.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/5.png">
-<meta property="og:updated_time" content="2022-03-14T16:53:14.724Z">
+<meta property="og:updated_time" content="2022-03-15T04:57:37.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(5-IFDS-And-Soundiness)">
 <meta name="twitter:description" content="Abastract  在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill">
@@ -613,7 +613,9 @@
 <li>C/C++: Pointer arithmetic, function pointer...</li>
 </ul>
 <p>这些特性使得程序分析精度受损。故学术界引入一个新词<code>Soundiness</code>表示：</p>
-<p>A soundy analysis typically means that the analysis is mostly sound, with well-identified unsound treatments to hard/specific language features.</p>
+<p>A soundy analysis typically means that the analysis is mostly sound, with well-identified unsound treatments to hard/specific language features. <span class="math display">\[
+sin^2\theta + cos^2\theta = 1
+\]</span></p>
 </blockquote>
 
       
@@ -635,7 +637,7 @@
   <p><span>本文标题:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/">NJU静态程序分析(5-IFDS-And-Soundiness)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月06日 - 15:06</p>
-  <p><span>最后更新:</span>2022年03月15日 - 00:03</p>
+  <p><span>最后更新:</span>2022年03月15日 - 12:03</p>
   <p><span>原始链接:</span><a href="/2021/06/06/NJU静态程序分析-5-IFDS/" title="NJU静态程序分析(5-IFDS-And-Soundiness)">http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/"  aria-label="复制成功！"></i></span>
   </p>
@@ -1351,6 +1353,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
