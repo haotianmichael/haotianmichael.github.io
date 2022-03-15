@@ -115,13 +115,13 @@
 
 
 
-<meta name="description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
+<meta name="description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(3-Pointer-Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/05/14/NJU静态程序分析-3-Pointer-Analysis/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
+<meta property="og:description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态程序分析-3-Pointer-Analysis/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态程序分析-3-Pointer-Analysis/2.png">
@@ -140,7 +140,7 @@
 <meta property="og:updated_time" content="2022-03-06T10:37:17.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(3-Pointer-Analysis)">
-<meta name="twitter:description" content="Abstract  过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&apos;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Var">
+<meta name="twitter:description" content="Abstract 过程间分析需要基于程序的Call Graph来完成。由于CHA Analysis过度追求速度造成误报——而false positive对于常量传播这样的must分析来说是不可接受的。因此指针分析在POPL&amp;#39;1980被第一次提出Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2021/05/14/NJU静态程序分析-3-Pointer-Analysis/1.png">
 
 
@@ -447,7 +447,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  7.2k
+                  4.4k
                 </span>
               
 
@@ -463,7 +463,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  29
+                  17
                 </span>
               
             </div>
@@ -484,189 +484,168 @@
       
 
       
-        <h3 id="abstract">Abstract</h3>
-<blockquote>
-<p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL'1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。</p>
-<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.</p>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL&#39;1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。  </p>
+<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.  </p>
 <p>指针分析除了可以构建<code>Call Graph</code>等程序基本信息之外，还可以用于编译优化，程序鲁棒性和安全等各个领域，是最基础的静态分析算法之一——比如流行的别名分析<code>Alias Analysis</code>就是从指针分析中派生出来的:Alias information can be derived from points-to relations.在指针分析的输出指向关系中是否有两个指针可以指向同一个对象。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="introduction">Introduction</h3>
-<blockquote>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><blockquote>
 <p>指针分析是一种<code>may</code>分析，输入时整个程序，分析结果的输出是类似于map的一系列指向关系<code>Points-to relations</code>。</p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
-<h4 id="keyfactors">KeyFactors</h4>
-<p>作为一项比较复杂的技术，指针分析框架的<strong>精度</strong>和<strong>速度</strong>取决于四个很主要的因素：</p>
+<h4 id="KeyFactors"><a href="#KeyFactors" class="headerlink" title="KeyFactors"></a>KeyFactors</h4><p>作为一项比较复杂的技术，指针分析框架的<strong>精度</strong>和<strong>速度</strong>取决于四个很主要的因素：</p>
+<div class="table-container">
 <table>
-<colgroup>
-<col style="width: 15%">
-<col style="width: 34%">
-<col style="width: 49%">
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Factor</th>
 <th>Problem</th>
 <th>Choice</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Heap abtraction</td>
 <td>How to model heap memory?</td>
 <td><font color="red">Allocation-site</font>/Storeless</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Context sensitivity</td>
 <td>How to model calling contexts?</td>
 <td><font color="red">Context-sensitive/Context-insensitive</font></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Flow sensitivity</td>
 <td>How to model control flow?</td>
 <td>Flow-sensitive/<font color-red="">Flow-insensitive</font></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Analysis scope</td>
 <td>Which parts of program should be analyzed?</td>
 <td><font color="red">Whole-program</font>/Demand-driven</td>
 </tr>
 </tbody>
 </table>
-<h5 id="heap-abstraction">Heap Abstraction</h5>
-<p>如何抽象堆操作，比如循环和递归会在动态运行时创建很多的堆对象，如何将这些<code>unbounded</code>的操作进一步简化抽象成<code>finite</code>的静态分析对象。</p>
+</div>
+<h5 id="Heap-Abstraction"><a href="#Heap-Abstraction" class="headerlink" title="Heap Abstraction"></a>Heap Abstraction</h5><p>如何抽象堆操作，比如循环和递归会在动态运行时创建很多的堆对象，如何将这些<code>unbounded</code>的操作进一步简化抽象成<code>finite</code>的静态分析对象。</p>
 <p><img src="2.png" width="50%" height="50%" alt=""></p>
 <p>学术界有两个流派来完成堆抽象：<code>Store based model</code>和<code>Storeless model</code>。本节课介绍第一个流派下面的<code>Allocation sites</code>方法来对所有堆对象完成建模——<code>One abstract object per allocation site</code>。<strong>即每一个分配点<code>new</code>的堆对象都抽象到一个<code>object</code>中。</strong></p>
-<h5 id="context-sensitivity">Context Sensitivity</h5>
-<p>在函数调用的时候会产生上下文<code>context</code>。<strong>一个<code>method</code>被调用多次的话如何对每一次的上下文进行抽象。</strong>关于上下文抽象也有两种流派:</p>
+<h5 id="Context-Sensitivity"><a href="#Context-Sensitivity" class="headerlink" title="Context Sensitivity"></a>Context Sensitivity</h5><p>在函数调用的时候会产生上下文<code>context</code>。<strong>一个<code>method</code>被调用多次的话如何对每一次的上下文进行抽象。</strong>关于上下文抽象也有两种流派:</p>
 <ul>
-<li><code>Context-sensitive</code>: 对每一次调用都区别对待，具体调用具体分析</li>
+<li><code>Context-sensitive</code>:  对每一次调用都区别对待，具体调用具体分析</li>
 <li><code>Context-insensitive</code>: 对一个<code>method</code>的所有调用都merge到一起，一次性处理</li>
 </ul>
 <p>上下文敏感是提高静态分析效率非常有效的工具之一，是这门课需要讨论的重点。</p>
-<h5 id="flow-sensitivity">Flow Sensitivity</h5>
-<p>如何对控制流抽象，也有两种流派：</p>
+<h5 id="Flow-Sensitivity"><a href="#Flow-Sensitivity" class="headerlink" title="Flow Sensitivity"></a>Flow Sensitivity</h5><p>如何对控制流抽象，也有两种流派：</p>
 <ul>
 <li><code>Flow-sensitive</code>: 确保程序的执行顺序<code>execution order</code>，维护每一个程序点的<code>points-to relations</code>表</li>
 <li><code>Flow-insensitive</code>:忽略执行顺序，维护整个程序的指向表</li>
 </ul>
 <p>目前学术界还没有直接研究表明<code>flow sensitivity</code>相比于<code>flow insensitivity</code>对<code>Java</code>这样的OOP语言会有多少优势。</p>
-<h5 id="analysis-scope">Analysis Scope</h5>
-<p>在进行指针分析的时候，如何选取需要分析的程序段？</p>
+<h5 id="Analysis-Scope"><a href="#Analysis-Scope" class="headerlink" title="Analysis Scope"></a>Analysis Scope</h5><p>在进行指针分析的时候，如何选取需要分析的程序段？</p>
 <ul>
 <li>Whole-program</li>
 <li>Demand-driven</li>
 </ul>
 <p>是直接分析整套程序还是以需求为驱动进行特定程序片段的分析。实际上如果需求很多的话，单独分析的复杂度和直接进行整套程序分析的复杂度不相上下。</p>
-<h4 id="concerned-statements">Concerned Statements</h4>
-<p>上述的<code>Key Factors</code>是具有全局性质的-<strong>即针对整个指针算法框架</strong>，那在实现上-<strong>即针对<code>Java</code>编程语言的具体指针分析框架</strong>来说，更细粒度的<code>Concerned Statements</code>会是什么呢？</p>
-<h5 id="pointers-in-java">Pointers in Java</h5>
-<p>首先需要总结一下<code>Java</code>中所有可以用作指针的声明。</p>
+<h4 id="Concerned-Statements"><a href="#Concerned-Statements" class="headerlink" title="Concerned Statements"></a>Concerned Statements</h4><p>上述的<code>Key Factors</code>是具有全局性质的-<strong>即针对整个指针算法框架</strong>，那在实现上-<strong>即针对<code>Java</code>编程语言的具体指针分析框架</strong>来说，更细粒度的<code>Concerned Statements</code>会是什么呢？</p>
+<h5 id="Pointers-in-Java"><a href="#Pointers-in-Java" class="headerlink" title="Pointers in Java"></a>Pointers in Java</h5><p>首先需要总结一下<code>Java</code>中所有可以用作指针的声明。</p>
 <ul>
 <li><code>Local variable：x</code></li>
 <li><code>Static field: C.f</code></li>
 <li><code>Instance field: x.f</code></li>
 <li><code>Array element: array[i]</code></li>
 </ul>
-<p>共有4中具体的指针类型——<code>static field</code>是一种全局变量。数组元素在分析时可以忽略掉索引，看成是可以指向任何数组元素<strong>field</strong>的指针类型<code>array.arr</code>，因此也被看成是一种<code>Instance field</code>。<font color="red">综上来看，针对Java语言的指针分析主要处理<code>Local variable</code>和<code>instance field</code>两种指针类型。</font></p>
-<h5 id="pointer-affecting-statements">Pointer-Affecting Statements</h5>
-<p>明确了指针分析研究对象<strong><code>Pointers</code>的具体类型</strong>之后，继续思考全程序的指针分析如何更具体的完成实现？就语句本身来说例如<code>if/for/break</code>这样的控制流并不会对指针分析的结果造成影，我们需要关注真正的<font color="red">pointer-affecting statements</font>如下：</p>
+<p>共有4中具体的指针类型——<code>static field</code>是一种全局变量。数组元素在分析时可以忽略掉索引，看成是可以指向任何数组元素<strong>field</strong>的指针类型<code>array.arr</code>，因此也被看成是一种<code>Instance field</code>。<font color="red">综上来看，针对Java语言的指针分析主要处理<code>Local variable</code>和<code>instance field</code>两种指针类型。</font>  </p>
+<h5 id="Pointer-Affecting-Statements"><a href="#Pointer-Affecting-Statements" class="headerlink" title="Pointer-Affecting Statements"></a>Pointer-Affecting Statements</h5><p>明确了指针分析研究对象<strong><code>Pointers</code>的具体类型</strong>之后，继续思考全程序的指针分析如何更具体的完成实现？就语句本身来说例如<code>if/for/break</code>这样的控制流并不会对指针分析的结果造成影，我们需要关注真正的<font color="red">pointer-affecting statements</font>如下：</p>
 <ul>
 <li><code>New:      x = new T()</code></li>
 <li><code>Assign:    x = y</code></li>
 <li><code>Store:  x.f = y</code></li>
 <li><code>Load:  y = x.f</code></li>
-<li><code>Call:    r = x.k(a, ...)</code> 重点关注<code>virtual calls</code></li>
+<li><code>Call:    r = x.k(a, ...)</code>     重点关注<code>virtual calls</code></li>
 </ul>
 </blockquote>
-<h3 id="foundations">Foundations</h3>
-<h4 id="rules">Rules</h4>
-<blockquote>
-<h5 id="domains-and-notations">Domains and Notations</h5>
-<p>指针分析是一种以指向关系作为传递信息的数据流分析。所以其理论也需要引入域和某些符号解释：</p>
+<h3 id="Foundations"><a href="#Foundations" class="headerlink" title="Foundations"></a>Foundations</h3><h4 id="Rules"><a href="#Rules" class="headerlink" title="Rules"></a>Rules</h4><blockquote>
+<h5 id="Domains-and-Notations"><a href="#Domains-and-Notations" class="headerlink" title="Domains and Notations"></a>Domains and Notations</h5><p>指针分析是一种以指向关系作为传递信息的数据流分析。所以其理论也需要引入域和某些符号解释：</p>
 <ul>
-<li><font color="red">Variable</font>: x, y ∊ V</li>
-<li>Fields: f,g ∊ F</li>
-<li>Objects: o<sub>i</sub>,o<sub>j </sub>∊ O (Allocation sites)</li>
-<li><font color="red">Instance fields</font>: o<sub>i</sub>.f, o<sub>j</sub>.g ∊ O⨉F</li>
-<li><font color="red">Pointers</font>: Pointer = V⋃(O⨉F)</li>
+<li><font color="red">Variable</font>:   x, y ∊ V</li>
+<li>Fields:  f,g ∊ F</li>
+<li>Objects:  o<sub>i</sub>,o<sub>j </sub>∊ O    (Allocation sites)</li>
+<li><font color="red">Instance fields</font>:  o<sub>i</sub>.f, o<sub>j</sub>.g ∊ O⨉F</li>
+<li><font color="red">Pointers</font>:   Pointer = V⋃(O⨉F)</li>
 </ul>
-<p>其中Variable表示程序中的所有变量指针类型。Object和Fields分别指的是程序中分配堆对象的创建点和抽象堆对象中的域——对象和域组合起来的Instance Fields也表示程序中一种指针。<strong>Pointers指的是程序中所有的<code>variable</code>和<code>instance field</code>——<code>V ⋃ (O x F)</code>。</strong></p>
-<p>最后引入<strong>指向关系<code>pt</code>(其本身就是一种映射， 代表指针可能指向的对象的集合)</strong>：</p>
+<p>其中Variable表示程序中的所有变量指针类型。Object和Fields分别指的是程序中分配堆对象的创建点和抽象堆对象中的域——对象和域组合起来的Instance Fields也表示程序中一种指针。<strong>Pointers指的是程序中所有的<code>variable</code>和<code>instance field</code>——<code>V ⋃ (O x F)</code>。</strong>  </p>
+<p>最后引入<strong>指向关系<code>pt</code>(其本身就是一种映射， 代表指针可能指向的对象的集合)</strong>： </p>
 <ul>
-<li><font color="blue">Points-to relations</font>: <code>pt: Pointer ⟶ 𝓟(O)</code>
-<ul>
+<li><font color="blue">Points-to relations</font>:  <code>pt: Pointer ⟶ 𝓟(O)</code><ul>
 <li><code>𝓟(O)</code>表示对象O的<code>powerset</code></li>
 <li><code>pt(p)</code>表示指针p的<strong>指向关系集合</strong></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p><strong>理解上，指针指向对象——指针p的值域就是<code>V ⋃ (O x F)</code>，对象o的值域就是<code>𝓟(allocation sites)</code>。<code>p⟶o ≡ o∊pt(p)</code>即指针p指向对象o等价于对象o属于指针p的指向关系集合。</strong></p>
 <p>在此基础上，引入如何处理<code>Pointer-Affecting Statements</code>的形式化Rules：</p>
 <p><img src="3.png" width="50%" height="50%" alt=""></p>
 <p>分数上面是前提<code>premise</code>而下面是结论<code>conclusion</code>。</p>
 <ul>
-<li><p>New: <code>New</code>规则中的o<sub>i</sub> 表示一个<code>Allocation site</code>在这一点创建出来的对象，那么指针分析如何处理一个<code>New</code>语句——<strong>即执行完这条语句后让x指向o<sub>i</sub>即o<sub>i</sub> ∊ pt(x)</strong>。</p></li>
-<li><p>Assign: 如果o<sub>i</sub>属于y的指向集，<strong>那在执行完这条语句后o<sub>i</sub>则需要加入到x的指向集中。</strong></p></li>
-<li><p>Store: 将新对象保存到该对象的一个域f——如果x指向o<sub>i</sub>而y指向o<sub>j</sub>，<strong>那执行完这条语句之后o<sub>i</sub>.f需要指向o<sub>j</sub>。</strong></p></li>
-<li><p>Load: 将某个对象的域f加载到新对象中——如果x指向o<sub>i</sub>而o<sub>i</sub>的域f指向o<sub>j</sub>，<strong>那执行完后将o<sub>j</sub>加入到y的指针集当中。</strong></p></li>
+<li><p>New:  <code>New</code>规则中的o<sub>i</sub> 表示一个<code>Allocation site</code>在这一点创建出来的对象，那么指针分析如何处理一个<code>New</code>语句——<strong>即执行完这条语句后让x指向o<sub>i</sub>即o<sub>i</sub> ∊ pt(x)</strong>。</p>
+</li>
+<li><p>Assign: 如果o<sub>i</sub>属于y的指向集，<strong>那在执行完这条语句后o<sub>i</sub>则需要加入到x的指向集中。</strong></p>
+</li>
+<li><p>Store: 将新对象保存到该对象的一个域f——如果x指向o<sub>i</sub>而y指向o<sub>j</sub>，<strong>那执行完这条语句之后o<sub>i</sub>.f需要指向o<sub>j</sub>。</strong></p>
+</li>
+<li><p>Load: 将某个对象的域f加载到新对象中——如果x指向o<sub>i</sub>而o<sub>i</sub>的域f指向o<sub>j</sub>，<strong>那执行完后将o<sub>j</sub>加入到y的指针集当中。</strong></p>
+</li>
 </ul>
 </blockquote>
-<h4 id="how-to-implement-pointer-analysis">How to Implement Pointer Analysis</h4>
-<blockquote>
+<h4 id="How-to-Implement-Pointer-Analysis"><a href="#How-to-Implement-Pointer-Analysis" class="headerlink" title="How to Implement Pointer Analysis"></a>How to Implement Pointer Analysis</h4><blockquote>
 <p>在确定好Domain和Rules之后开始明确如何实现<strong>全程序的指针分析算法</strong>。</p>
-<p>Essentially，pointer analysis is to <font color="red">propagate</font> points-to information among pointers(variables &amp; fields).</p>
-<p><strong>在两种指针(<code>variable</code>和<code>fields</code>)之间根据<code>Pointer-Affecting Statements</code>建立和传递指向关系<code>points-to</code>。</strong>从另一个角度来说指针分析就是在解决指针之间的<code>inclusion constraints</code>即对于<code>x = y</code>语句指针x一定包含指针y的所有指向信息。<strong>而关键的是当<code>pt(x)</code>更新时，这些改变也需要传递给x的其他相关指针</strong>。</p>
+<p>Essentially，pointer analysis is to <font color="red">propagate</font> points-to information among pointers(variables &amp; fields).  </p>
+<p><strong>在两种指针(<code>variable</code>和<code>fields</code>)之间根据<code>Pointer-Affecting Statements</code>建立和传递指向关系<code>points-to</code>。</strong>从另一个角度来说指针分析就是在解决指针之间的<code>inclusion constraints</code>即对于<code>x = y</code>语句指针x一定包含指针y的所有指向信息。<strong>而关键的是当<code>pt(x)</code>更新时，这些改变也需要传递给x的其他相关指针</strong>。    </p>
 <p>而在实现上，我们用<code>Graph</code>来连接相关联的指针，当<code>pt(x)</code>更新时，将更新的数据流（数据流分析根据Domain不同而不同，指向关系也是一种数据流信息）传递给<code>x</code>的后继元素，这个图就是<code>Pointer Flow Graph</code>。</p>
-<h5 id="pointer-flow-graphpfg">Pointer Flow Graph(PFG)</h5>
-<p>一个程序的<code>PFG</code>是一种表示<code>points-to</code>信息如何在<code>pointers</code>之间流动的有向图，图中的节点代表了<code>V ⋃ (O ⨉ F)</code>——变量或者<strong>抽象对象</strong>(因为PFG是静态分析建立的，所以是抽象的堆对象)的域，边代表了对象在指针之间的流动关系<code>Pointer ⨉ Pointer</code>——比如<code>x⟶y</code>代表了指针x的指向对象集合<font color="red">可能(指针分析是<code>may</code>分析)会流动到</font>y的指向集合。</p>
+<h5 id="Pointer-Flow-Graph-PFG"><a href="#Pointer-Flow-Graph-PFG" class="headerlink" title="Pointer Flow Graph(PFG)"></a>Pointer Flow Graph(PFG)</h5><p>一个程序的<code>PFG</code>是一种表示<code>points-to</code>信息如何在<code>pointers</code>之间流动的有向图，图中的节点代表了<code>V ⋃ (O ⨉ F)</code>——变量或者<strong>抽象对象</strong>(因为PFG是静态分析建立的，所以是抽象的堆对象)的域，边代表了对象在指针之间的流动关系<code>Pointer ⨉ Pointer</code>——比如<code>x⟶y</code>代表了指针x的指向对象集合<font color="red">可能(指针分析是<code>may</code>分析)会流动到</font>y的指向集合。  </p>
 <p>PFG中的节点就是程序中的各种指针，而边是根据指针分析的Rules建立的。</p>
 <p><img src="4.png" width="50%" height="50%" alt=""></p>
-<p>有了PFG，指针分析问题就可以看成是在PFG上求其<strong>传递闭包</strong>的问题，比如PFG中a点到b点是可达的，那a中的数据流信息就可以直接流到b节点上。</p>
+<p>有了PFG，指针分析问题就可以看成是在PFG上求其<strong>传递闭包</strong>的问题，比如PFG中a点到b点是可达的，那a中的数据流信息就可以直接流到b节点上。  </p>
 <p>综上，指针分析的思路主要有两部分：创建PFG——&gt;在PFG上传递指向信息。而难点在于这两者是互相依赖的。为什么创建PFG也会依赖指向信息呢？</p>
 <p><img src="5.png" width="50%" height="50%" alt=""></p>
 <p>因为在处理<code>instance fields</code>的指向关系的时候，前提是需要知道这些<code>field</code>的<code>object</code>的指向信息——由<code>allocation sites</code>更新得到。<strong>因此<code>PFG</code>本身也是随着指针分析的过程动态更新的。</strong></p>
 </blockquote>
-<h4 id="algorithm">Algorithm</h4>
-<blockquote>
+<h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><blockquote>
 <p>本节具体实现数据流分析算法，首先是使用到的数据结构：</p>
 <ul>
-<li><code>S</code>: 输入程序的语句集合</li>
-<li><code>WL</code>: work list存储了需要处理的指向关系pair，<strong>其中每一项<code>&lt;n,𝓟(O)&gt;*</code>意味着在<code>𝓟(O)</code>中的信息需要传递给<code>n</code>的指向关系集合<code>pt(n)</code>中</strong>，用</li>
-<li><code>PFG</code>: 有向图，表示成为边的集合，其中<code>s⟶t</code>表示<code>s</code>的指向关系流向<code>t</code>的指向关系</li>
+<li><code>S</code>:  输入程序的语句集合</li>
+<li><code>WL</code>:  work list存储了需要处理的指向关系pair，<strong>其中每一项<code>&lt;n,𝓟(O)&gt;*</code>意味着在<code>𝓟(O)</code>中的信息需要传递给<code>n</code>的指向关系集合<code>pt(n)</code>中</strong>，用</li>
+<li><code>PFG</code>:  有向图，表示成为边的集合，其中<code>s⟶t</code>表示<code>s</code>的指向关系流向<code>t</code>的指向关系</li>
 <li><code>Hybrid-Set</code>: 用来存在<code>pt(s)</code>，即当元素小于16时用<code>HashSet</code>大于16时用<code>BitVector</code></li>
 </ul>
-<h5 id="main-algorithm">Main Algorithm</h5>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&gt; Solve(S) &#123;</span><br><span class="line">&gt;   WL = [], PFG = &#123;&#125;</span><br><span class="line">&gt;   foreach i: x=<span class="keyword">new</span> T() ∊ S <span class="keyword">do</span>          <span class="comment">//处理New语句</span></span><br><span class="line">&gt;     	add &lt;x, &#123;O_i&#125;&gt; to WL              </span><br><span class="line">&gt;   </span><br><span class="line">&gt;   foreach x=y ∊ S <span class="keyword">do</span>       <span class="comment">//处理Assign语句</span></span><br><span class="line">&gt;     	AddEdge(y, x)</span><br><span class="line">&gt;   </span><br><span class="line">&gt;    <span class="keyword">while</span> WL is <span class="keyword">not</span> empty <span class="keyword">do</span></span><br><span class="line">&gt;      remove &lt;n, pts&gt; from WL</span><br><span class="line">&gt;      𝚫 = pts - pt(n)</span><br><span class="line">&gt;      Propagate(n, 𝚫)     </span><br><span class="line">&gt;      <span class="keyword">if</span> n represents a variable x then</span><br><span class="line">&gt;        foreach o_i ∊ 𝚫 <span class="keyword">do</span> </span><br><span class="line">&gt;          foreach x.f=y ∊ S <span class="keyword">do</span></span><br><span class="line">&gt;            AddEdge(y, o_i.f)     <span class="comment">//处理Store语句 </span></span><br><span class="line">&gt;          foreach y=x.f ∊ S <span class="keyword">do</span>    </span><br><span class="line">&gt;            AddEdge(o_i.f, y)    <span class="comment">//处理Load语句</span></span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; AddEdge(s, t) &#123;   <span class="comment">//构建PFG</span></span><br><span class="line">&gt;   <span class="keyword">if</span> s⟶t ∉ PFG then      </span><br><span class="line">&gt;     add s⟶t to PFG</span><br><span class="line">&gt;     <span class="keyword">if</span> pt(s) is <span class="keyword">not</span> empty then</span><br><span class="line">&gt;       	add &lt;t, pt(s)&gt; to WL</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; Propagate(n, pts) &#123;    <span class="comment">//更新pt(x)</span></span><br><span class="line">&gt;   <span class="keyword">if</span> pts is <span class="keyword">not</span> empty then</span><br><span class="line">&gt;     pt(n) ⋃= pts <span class="comment">//核心： 传递数据流</span></span><br><span class="line">&gt;     foreach n⟶s ∊ PFG <span class="keyword">do</span> </span><br><span class="line">&gt;       add &lt;s, pts&gt; to WL</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="Main-Algorithm"><a href="#Main-Algorithm" class="headerlink" title="Main Algorithm"></a>Main Algorithm</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&gt; Solve(S) &#123;</span><br><span class="line">&gt;   WL = [], PFG = &#123;&#125;</span><br><span class="line">&gt;   foreach i: x=<span class="keyword">new</span> T() ∊ S <span class="keyword">do</span>          <span class="comment">//处理New语句</span></span><br><span class="line">&gt;     	add &lt;x, &#123;O_i&#125;&gt; to WL              </span><br><span class="line">&gt;   </span><br><span class="line">&gt;   foreach x=y ∊ S <span class="keyword">do</span>       <span class="comment">//处理Assign语句</span></span><br><span class="line">&gt;     	AddEdge(y, x)</span><br><span class="line">&gt;   </span><br><span class="line">&gt;    <span class="keyword">while</span> WL is <span class="keyword">not</span> empty <span class="keyword">do</span></span><br><span class="line">&gt;      remove &lt;n, pts&gt; from WL</span><br><span class="line">&gt;      𝚫 = pts - pt(n)</span><br><span class="line">&gt;      Propagate(n, 𝚫)     </span><br><span class="line">&gt;      <span class="keyword">if</span> n represents a variable x then</span><br><span class="line">&gt;        foreach o_i ∊ 𝚫 <span class="keyword">do</span> </span><br><span class="line">&gt;          foreach x.f=y ∊ S <span class="keyword">do</span></span><br><span class="line">&gt;            AddEdge(y, o_i.f)     <span class="comment">//处理Store语句 </span></span><br><span class="line">&gt;          foreach y=x.f ∊ S <span class="keyword">do</span>    </span><br><span class="line">&gt;            AddEdge(o_i.f, y)    <span class="comment">//处理Load语句</span></span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; AddEdge(s, t) &#123;   <span class="comment">//构建PFG</span></span><br><span class="line">&gt;   <span class="keyword">if</span> s⟶t ∉ PFG then      </span><br><span class="line">&gt;     add s⟶t to PFG</span><br><span class="line">&gt;     <span class="keyword">if</span> pt(s) is <span class="keyword">not</span> empty then</span><br><span class="line">&gt;       	add &lt;t, pt(s)&gt; to WL</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; Propagate(n, pts) &#123;    <span class="comment">//更新pt(x)</span></span><br><span class="line">&gt;   <span class="keyword">if</span> pts is <span class="keyword">not</span> empty then</span><br><span class="line">&gt;     pt(n) ⋃= pts <span class="comment">//核心： 传递数据流</span></span><br><span class="line">&gt;     foreach n⟶s ∊ PFG <span class="keyword">do</span> </span><br><span class="line">&gt;       add &lt;s, pts&gt; to WL</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
-<h5 id="addedge">AddEdge</h5>
-<p>首先每一条<code>New</code>语句生成一条指向关系完成对<code>WL</code>的初始化。这套算法的输入语句<code>S</code>是流不敏感<code>insensitive</code>的，即处理过程不会关注语句顺序。</p>
+<h5 id="AddEdge"><a href="#AddEdge" class="headerlink" title="AddEdge"></a>AddEdge</h5><p>首先每一条<code>New</code>语句生成一条指向关系完成对<code>WL</code>的初始化。这套算法的输入语句<code>S</code>是流不敏感<code>insensitive</code>的，即处理过程不会关注语句顺序。</p>
 <p><code>AddEdge</code>函数主要是通过处理<code>Assign</code>语句构建<code>PFG</code>。每一条<code>s⟶t</code>都对应着图上一条边，根据指针分析的<code>inclusion constraints</code>原理将<code>&lt;t, pt(s)&gt;</code>加入<code>WL</code>中实现把指针<code>s</code>的指向集合加到指针<code>t</code>中。</p>
-<h5 id="propagate">Propagate</h5>
-<p>在构建完最基础的的<code>PFG</code>之后，算法进入<code>While</code>循环开始迭代处理<code>WL</code>中的指向关系。取出一项<code>&lt;n, pts&gt;</code>，<strong>过滤掉指针<code>s</code>指向关系中指针<code>n</code>已经存在的抽象对象即𝚫=pts-pt(n)——主要是为了避免更多的冗余操作已达到<code>Differential Propagation</code></strong></p>
+<h5 id="Propagate"><a href="#Propagate" class="headerlink" title="Propagate"></a>Propagate</h5><p>在构建完最基础的的<code>PFG</code>之后，算法进入<code>While</code>循环开始迭代处理<code>WL</code>中的指向关系。取出一项<code>&lt;n, pts&gt;</code>，<strong>过滤掉指针<code>s</code>指向关系中指针<code>n</code>已经存在的抽象对象即𝚫=pts-pt(n)——主要是为了避免更多的冗余操作已达到<code>Differential Propagation</code></strong>  </p>
 <p>然后开始<code>Propagate</code>函数，<font color="red">这个函数是真正修改了指针的指向关系即完成数据流的传递，换句话讲指针分析的过程就是在迭代过程中不断向<code>pts</code>中加入新的数据流</font>。而进入到函数内的𝚫是真正需要传递给<code>n</code>的指向集合，接着又根据<code>inclusion constraints</code>需要把指针<code>n</code>刚更新过的指向集合加到其在<code>PFG</code>上的后继中，故遍历整个图找到所有的后继节点<code>s</code>并把<code>&lt;s, pts&gt;</code>加到<code>WL</code>中等待下一轮更新。</p>
-<h5 id="differential-propagation">Differential Propagation</h5>
-<p><strong>查分传播</strong>是为了避免处理冗余的指针信息。这是因为在<code>PFG</code>上任意点的指向集合信息<code>pt(n)</code>一定已经传播到了其后继元素，没有必要在传播一次。在整个算法中一共有两处查分传播，分别是在<code>𝚫=pts-pt(n)</code>语句以及处理<code>Store/Load</code>语句的代码片段<code>foreach O_i ∊ 𝚫 do</code>。</p>
+<h5 id="Differential-Propagation"><a href="#Differential-Propagation" class="headerlink" title="Differential Propagation"></a>Differential Propagation</h5><p><strong>查分传播</strong>是为了避免处理冗余的指针信息。这是因为在<code>PFG</code>上任意点的指向集合信息<code>pt(n)</code>一定已经传播到了其后继元素，没有必要在传播一次。在整个算法中一共有两处查分传播，分别是在<code>𝚫=pts-pt(n)</code>语句以及处理<code>Store/Load</code>语句的代码片段<code>foreach O_i ∊ 𝚫 do</code>。   </p>
 <p>首先<code>Store/Load</code>语句映射到<code>PFG</code>上的操作正好相反：</p>
 <ul>
 <li><code>Store：x.f=y</code> o<sub>i</sub>.f ⟵ y</li>
-<li><code>Load: y=x.f</code> y⟵ o<sub>i</sub>.f</li>
+<li><code>Load: y=x.f</code>   y⟵ o<sub>i</sub>.f</li>
 </ul>
-<p>关键是需要知道指针<code>x</code>指向的抽象对象<code>o_i</code>然后继续操作。而<code>foreach o_i∊𝚫 do</code>正好清除掉指针<code>x</code>以前的指向信息而保留了这次迭代中<strong>新加入</strong>的抽象对象。</p>
+<p>关键是需要知道指针<code>x</code>指向的抽象对象<code>o_i</code>然后继续操作。而<code>foreach o_i∊𝚫 do</code>正好清除掉指针<code>x</code>以前的指向信息而保留了这次迭代中<strong>新加入</strong>的抽象对象。 </p>
 <p><img src="6.png" width="50%" height="50%" alt=""></p>
 <p>就<code>Store/Load</code>语句本身而言也是通过<code>AddEdge</code>的方式来更新<code>PFG</code>的，但这里要注意的是<strong>因为有可能两个变量会指向相同的抽象对象o<sub>i</sub>，即虽然o<sub>i</sub>对于x来说是新加入的指向信息，但是有可能在前几次迭代中有<code>z.f=y</code>中的指针<code>z</code>也指向抽象对象o<sub>i</sub>，<font color="red">即因为指针o<sub>i</sub>.f中o<sub>i</sub>是一个对象——有可能会被多个指针指向，因此这里的<code>AddEdge</code>操作不能保证一定会引入新的<code>PFG</code>边</font></strong>。</p>
-<h5 id="fixed-point">Fixed Point</h5>
-<p>算法符合不动点原理——<code>WL</code>的功能就是向<code>pt</code>中添加信息，而核心<code>pt(n) ⋃ =pts</code>之后如果直接检查合并前后<code>pt</code>集合是否有变化也以判断达到不动点。</p>
+<h5 id="Fixed-Point"><a href="#Fixed-Point" class="headerlink" title="Fixed Point"></a>Fixed Point</h5><p>算法符合不动点原理——<code>WL</code>的功能就是向<code>pt</code>中添加信息，而核心<code>pt(n) ⋃ =pts</code>之后如果直接检查合并前后<code>pt</code>集合是否有变化也以判断达到不动点。</p>
 </blockquote>
-<h4 id="how-to-deal-with-method-calls">How To Deal With Method Calls</h4>
-<blockquote>
+<h4 id="How-To-Deal-With-Method-Calls"><a href="#How-To-Deal-With-Method-Calls" class="headerlink" title="How To Deal With Method Calls"></a>How To Deal With Method Calls</h4><blockquote>
 <p>全程序的指针分析算法还需要处理方法调用。和所有过程间分析一样，<code>Inter-procedural pointer analysis</code>也需要建立<code>call graph</code>。不过相比于<code>CHA analysis</code>仅仅通过<code>receiver object</code>的声明类型来构建调用图不同，指针分析还使用指向信息<code>points-to relations</code>来使得<code>call graph</code>的构建更加精确。比如<code>void foo(A a) {... b = a.bar();...}</code>中<strong><code>points-to relations</code>和<code>Call Graph</code>都是在指针分析的过程中动态更新的，比如想要建立<code>pt(a)</code>需要知道函数<code>foo</code>的调用边，而如果想要给<code>a.bar()</code>建立调用边则也需要<code>pt(a)</code>，这种方法被称为<code>on-the-fly call graph construction</code></strong>。</p>
 <ul>
-<li><code>CHA</code>: 基于<code>a</code>声明类型解析<code>call targets</code></li>
+<li><code>CHA</code>:  基于<code>a</code>声明类型解析<code>call targets</code></li>
 <li><code>pointer analysis</code>: 基于<code>pt(a)</code>解析<code>call targets</code></li>
 </ul>
-<h5 id="rule-call">Rule: Call</h5>
-<p>首先引入指针分析处理方法调用Rules的形式化描述：</p>
+<h5 id="Rule-Call"><a href="#Rule-Call" class="headerlink" title="Rule: Call"></a>Rule: Call</h5><p>首先引入指针分析处理方法调用Rules的形式化描述：</p>
 <p><img src="7.png" width="50%" height="50%" alt=""></p>
 <p>指针分析器在遇到了<code>r = x.k(a1, ...)</code>调用语句的时候，肯定会模拟编译器的运行时行为并解析：</p>
 <blockquote>
@@ -678,132 +657,121 @@
 </blockquote>
 <p>为了解释的更清楚，下面对规则进行了进一步的解释：</p>
 <ul>
-<li>根据<code>pt(x)</code>得到被调用方法<code>k</code>的<code>receiver object</code>即o<sub>i</sub>，然后调用<code>Dispatch(O_i, k)</code>解析出<code>target method</code>即<code>m</code><br>
-</li>
+<li>根据<code>pt(x)</code>得到被调用方法<code>k</code>的<code>receiver object</code>即o<sub>i</sub>，然后调用<code>Dispatch(O_i, k)</code>解析出<code>target method</code>即<code>m</code>   </li>
 <li>将目标函数<code>m</code>的<code>this</code>指针指向变量<code>x</code>实际指向的对象即o<sub>i</sub></li>
 <li>将形参<code>m_pj</code>的指针指向实参变量指向的对象集合<code>pt(aj)</code>，<font color="red">并将形参变量和对应实参变量之间加上<code>PFG</code>边(a1⟶m_p<sub>j</sub>)</font></li>
 <li>将调用语句的<code>LHS</code>指向目标函数<code>m</code>的返回值变量指向的对象结婚<code>m_ret</code>，<font color="red">并将这两个变量之间加上<code>PFG</code>的边(r⟵m<sub>ret</sub>)</font></li>
 </ul>
 <p>主要需要关注的是<code>receiver object</code>，<code>target method</code>，<code>arguments</code>和<code>return value</code>。</p>
 <p><img src="8.png" width="50%" height="50%" alt=""></p>
-<p>而这里对形参和实参之间，返回值和左值之间连上<code>PFG</code>的边而没有给目标方法和调用者之间加边的原因是<strong>因为<code>caller</code>变量<code>x</code>有可能有多个指向对象<code>pt(x)</code>，而对于<code>Dispatch</code>函数来说，只要<code>receiver object</code>确定那<code>target method</code>也是确定的。如果我们需要保证OOP语言中所有函数的<code>this</code>指针都指向唯一正确的<code>receiver object</code>即o<sub>i</sub>，前提就是保证不能让其他虚假的<code>pt(x)</code>信息直接流入<code>this</code>指针——</strong>如果贸然给<code>x</code>和目标方法的<code>this</code>指针之间加上<code>PFG</code>只会导致引入虚假<code>spurious</code>信息。</p>
-<h5 id="algorithm-1">Algorithm</h5>
-<p>在过程间指针分析中，调用图的构建和指向关系的构建都是同步动态更新的，引入<code>reachable</code>可达的概念：即从<code>main</code>函数开始，将真正调用到的函数依次纳入可达方法集合中，所有的分析只从这些集合中完成。首先介绍算法中使用到的数据结构：</p>
+<p>而这里对形参和实参之间，返回值和左值之间连上<code>PFG</code>的边而没有给目标方法和调用者之间加边的原因是<strong>因为<code>caller</code>变量<code>x</code>有可能有多个指向对象<code>pt(x)</code>，而对于<code>Dispatch</code>函数来说，只要<code>receiver object</code>确定那<code>target method</code>也是确定的。如果我们需要保证OOP语言中所有函数的<code>this</code>指针都指向唯一正确的<code>receiver object</code>即o<sub>i</sub>，前提就是保证不能让其他虚假的<code>pt(x)</code>信息直接流入<code>this</code>指针——</strong>如果贸然给<code>x</code>和目标方法的<code>this</code>指针之间加上<code>PFG</code>只会导致引入虚假<code>spurious</code>信息。  </p>
+<h5 id="Algorithm-1"><a href="#Algorithm-1" class="headerlink" title="Algorithm"></a>Algorithm</h5><p>在过程间指针分析中，调用图的构建和指向关系的构建都是同步动态更新的，引入<code>reachable</code>可达的概念：即从<code>main</code>函数开始，将真正调用到的函数依次纳入可达方法集合中，所有的分析只从这些集合中完成。首先介绍算法中使用到的数据结构：</p>
 <ul>
 <li><code>S</code>: 可达语句<code>reachable statements</code>的集合</li>
-<li><code>S_m</code>: 函数<code>m</code>中的语句集合</li>
-<li><code>RM</code>: 可达函数集合</li>
-<li><code>CG</code>: 调用边<code>Call Graph</code>集合</li>
+<li><code>S_m</code>:  函数<code>m</code>中的语句集合</li>
+<li><code>RM</code>:  可达函数集合</li>
+<li><code>CG</code>:  调用边<code>Call Graph</code>集合</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&gt; Solve(m_entry) &#123;</span><br><span class="line">&gt; 	WL = &#123;&#125;, PFG = &#123;&#125;, RM = &#123;&#125;, CG = &#123;&#125;</span><br><span class="line">&gt; 	AddReachable(m_entry)</span><br><span class="line">&gt; 	<span class="keyword">while</span>(WL is <span class="keyword">not</span> empty) &#123;</span><br><span class="line">&gt; 		remove &lt;n, pts&gt; from WL</span><br><span class="line">&gt; 		𝚫 = pts - pt(n)</span><br><span class="line">&gt; 		Propagate(n, 𝚫)</span><br><span class="line">&gt; 		<span class="keyword">if</span> n represents a variable x &#123;</span><br><span class="line">&gt; 			foreach o_i∊𝚫 <span class="keyword">do</span></span><br><span class="line">&gt; 				foreach x.f=y∊S <span class="keyword">do</span></span><br><span class="line">&gt;         	AddEdge(y, o_i.f)</span><br><span class="line">&gt;         foreach y=x.f∊S <span class="keyword">do</span></span><br><span class="line">&gt;         	AddEdge(o_i.f, y)</span><br><span class="line">&gt;         ProcessCall(x, o_i)</span><br><span class="line">&gt; 		&#125;</span><br><span class="line">&gt; 	&#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; AddReachable(m) &#123;</span><br><span class="line">&gt; 	<span class="keyword">if</span> m∉RM then</span><br><span class="line">&gt; 		add m to RM</span><br><span class="line">&gt; 		S ⋃= S_m</span><br><span class="line">&gt; 		foreach i:x=<span class="keyword">new</span> T()∊S_m <span class="keyword">do</span></span><br><span class="line">&gt; 			add &lt;x, &#123;o_i&#125;&gt; toWL</span><br><span class="line">&gt; 		foreach x=y∊S_m <span class="keyword">do</span></span><br><span class="line">&gt; 			AddEdge(y, x)</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; ProcessCall(x, o_i) &#123;</span><br><span class="line">&gt; 	foreach l:r=x.k(a1,...an)∊S <span class="keyword">do</span></span><br><span class="line">&gt; 		m = Dispatch(o_i,k)</span><br><span class="line">&gt; 		add &lt;m_this,&#123;o_i&#125;&gt; to WL</span><br><span class="line">&gt; 		<span class="keyword">if</span> l⟶m∉CG then</span><br><span class="line">&gt; 			add l⟶m to CG</span><br><span class="line">&gt; 			AddReachable(m)</span><br><span class="line">&gt; 			foreach parameter p_i of m <span class="keyword">do</span></span><br><span class="line">&gt; 				AddEdge(a_i, p_i)</span><br><span class="line">&gt; 			AddEdge(m_ret, r)</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
-<h6 id="addreachable">AddReachable</h6>
-<p>这个函数的功能就是将被调用的方法加入<code>RM</code>，并将对应的语句加入到<code>S</code>中。<code>AddReachable</code>函数在整个算法一共两个地方被调用——一个是初始化将<code>main</code>函数首先加入，其次就是在每一次有新的<code>Call Graph edge</code>被创建的时候。函数本身还需要处理当前<code>Reachable Method</code>中的<code>New/Assign</code>语句。<strong>这是因为<code>Load/Store/Call</code>语句的分析都是根据指向信息的变化（比如<code>x.f=y</code>如果<code>x</code>又指向了一个新对象）来更新处理的，但是<code>New/Assign</code>不需要任何信息就可以独立完成分析。</strong>这也是<code>Differential</code>的目的。</p>
-<h6 id="processcall">ProcessCall</h6>
-<p>该函数处理方法调用的<code>Rules</code>。<strong>整个函数执行的前提就是该函数的<code>receiver object</code>即<code>x</code>有新的指向关系o<sub>i,j,k...</sub>被加入到𝚫时，</strong>这两个参数被传入到函数中开始执行。</p>
-<p>首先使用<code>Dispatch</code>函数解析出来<code>target method</code>即<code>m</code>变量。通过把&lt;m<sub>this</sub>,{o<sub>i</sub>}&gt;加入到<code>WL</code>中来完成将目标函数<code>m</code>的<code>this</code>指针指向变量<code>x</code>实际指向对象即o<sub>i</sub>。</p>
-<p>接下来添加<code>Call Graph</code>，这里之所以要有<code>if</code>语句判断该条调用边存在性即<code>Differential</code>，是因为<strong>有可能之前有和o<sub>i</sub>相同类型的对象o<sub>j</sub>已经触发了<code>ProcessCall</code>函数执行并加上调用边——因为整个<code>While</code>循环继续执行的前提就是<code>pt(x)</code>被更新，那更新前后的o<sub>i,j,k...</sub>完全有可能是同一个类型。</strong></p>
+<h6 id="AddReachable"><a href="#AddReachable" class="headerlink" title="AddReachable"></a>AddReachable</h6><p>这个函数的功能就是将被调用的方法加入<code>RM</code>，并将对应的语句加入到<code>S</code>中。<code>AddReachable</code>函数在整个算法一共两个地方被调用——一个是初始化将<code>main</code>函数首先加入，其次就是在每一次有新的<code>Call Graph edge</code>被创建的时候。函数本身还需要处理当前<code>Reachable Method</code>中的<code>New/Assign</code>语句。<strong>这是因为<code>Load/Store/Call</code>语句的分析都是根据指向信息的变化（比如<code>x.f=y</code>如果<code>x</code>又指向了一个新对象）来更新处理的，但是<code>New/Assign</code>不需要任何信息就可以独立完成分析。</strong>这也是<code>Differential</code>的目的。</p>
+<h6 id="ProcessCall"><a href="#ProcessCall" class="headerlink" title="ProcessCall"></a>ProcessCall</h6><p>该函数处理方法调用的<code>Rules</code>。<strong>整个函数执行的前提就是该函数的<code>receiver object</code>即<code>x</code>有新的指向关系o<sub>i,j,k…</sub>被加入到𝚫时，</strong>这两个参数被传入到函数中开始执行。  </p>
+<p>首先使用<code>Dispatch</code>函数解析出来<code>target method</code>即<code>m</code>变量。通过把<m<sub>this&lt;/sub&gt;,{o<sub>i</sub>}&gt;加入到<code>WL</code>中来完成将目标函数<code>m</code>的<code>this</code>指针指向变量<code>x</code>实际指向对象即o<sub>i</sub>。</m<sub></p>
+<p>接下来添加<code>Call Graph</code>，这里之所以要有<code>if</code>语句判断该条调用边存在性即<code>Differential</code>，是因为<strong>有可能之前有和o<sub>i</sub>相同类型的对象o<sub>j</sub>已经触发了<code>ProcessCall</code>函数执行并加上调用边——因为整个<code>While</code>循环继续执行的前提就是<code>pt(x)</code>被更新，那更新前后的o<sub>i,j,k…</sub>完全有可能是同一个类型。</strong>  </p>
 <p>添加完调用边之后，最后添加参数和返回值。整个算法的输出是<code>Points-to relations</code>和<code>Call Graph</code>。至此上下文不敏感的全程序指针分析算法就介绍完了。</p>
 </blockquote>
-<h3 id="context-sensitivity-1">Context Sensitivity</h3>
-<blockquote>
+<h3 id="Context-Sensitivity-1"><a href="#Context-Sensitivity-1" class="headerlink" title="Context Sensitivity"></a>Context Sensitivity</h3><blockquote>
 <p>上下文敏感是提升指针分析精度（尤其是针对<code>Java</code>语言的指针分析）最有效的技术，也是指针分析领域近年来研究的热点。</p>
-<h4 id="introduction-1">Introduction</h4>
-<p>在程序动态运行的过程中，一个<code>method</code>可能会在不同的<code>context</code>下被调用多次。而在不同的上下文中<code>method</code>的指针可能会指向不同的<code>object</code>。<strong><code>Context Insensitivity .aka. C.I.</code>导致这些不同上下文的<code>objects</code>通过返回值都被传递到程序的其他分支中进而产生虚假数据流信息。</strong>比如程序中：</p>
+<h4 id="Introduction-1"><a href="#Introduction-1" class="headerlink" title="Introduction"></a>Introduction</h4><p>在程序动态运行的过程中，一个<code>method</code>可能会在不同的<code>context</code>下被调用多次。而在不同的上下文中<code>method</code>的指针可能会指向不同的<code>object</code>。<strong><code>Context Insensitivity .aka. C.I.</code>导致这些不同上下文的<code>objects</code>通过返回值都被传递到程序的其他分支中进而产生虚假数据流信息。</strong>比如程序中：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; x = id(n1);</span><br><span class="line">&gt; y = id(n2);</span><br><span class="line">&gt; <span class="keyword">int</span> i = x.get();</span><br><span class="line">&gt; <span class="function">Number <span class="title">id</span><span class="params">(Number n)</span> </span>&#123;</span><br><span class="line">&gt; 	<span class="keyword">return</span> n;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
-<p>因为函数<code>id</code>被调用两次，故形式参数<code>n</code>被传入两条<code>PFG</code>边——分别是实参<code>n1</code>和<code>n2</code>，而这两个指针对象又分别指向不同的o<sub>i</sub>和o<sub>j</sub>，<strong>导致返回值<code>n</code>的指向关系集合<code>pt(n)</code>里增加了o<sub>i</sub>和o<sub>j</sub>。</strong>而<code>n</code>和<code>x</code>,<code>y</code>又各自连着<code>PFG</code>故导致<code>pt(x)/pt(y)</code>的指向关系也是o<sub>i</sub>和o<sub>j</sub>——如果是过程间的常量传播则最终分析的结果就是<code>x/y = NAC</code>，很明显丧失了精度。</p>
-<p>Context sensitivity models calling contextx by <font color="red">distinguishing </font>different data flows of different contextx to improve precision.</p>
+<p>因为函数<code>id</code>被调用两次，故形式参数<code>n</code>被传入两条<code>PFG</code>边——分别是实参<code>n1</code>和<code>n2</code>，而这两个指针对象又分别指向不同的o<sub>i</sub>和o<sub>j</sub>，<strong>导致返回值<code>n</code>的指向关系集合<code>pt(n)</code>里增加了o<sub>i</sub>和o<sub>j</sub>。</strong>而<code>n</code>和<code>x</code>,<code>y</code>又各自连着<code>PFG</code>故导致<code>pt(x)/pt(y)</code>的指向关系也是o<sub>i</sub>和o<sub>j</sub>——如果是过程间的常量传播则最终分析的结果就是<code>x/y = NAC</code>，很明显丧失了精度。  </p>
+<p>Context sensitivity models calling contextx by <font color="red">distinguishing </font>different data flows of different contextx to improve precision.  </p>
 <p>下面讨论开展上下文敏感的指针分析算法所需要考虑的几个方面：</p>
-<h5 id="call-site-sensitivity">Call-site sensitivity</h5>
-<p><code>Context sensitivity .aka. C.S.</code>用来区别不同上下文的方式中最常见的是<code>call-site sensitivity</code>——每一个上下文都抽象成本次方法调用的<strong>动态运行时调用栈</strong>即一系列<code>call-sites</code>组成的列表(随着调用层次深入<code>c</code>的长度会增加，区别于用<code>l</code>行号代表当前调用点)，比如上面一段代码中的<code>id</code>方法共有两个<code>context</code>分别是<code>[1]</code>和<code>[2]</code>。从实现的角度来看，<code>Cloning-Based Context Sensitivity</code>是实现<code>C.S.</code>最直接的方式——同一个<code>method</code>的多次调用都根据各自的<code>context</code>区分成不同的<code>Cloning-Based</code>版本，<code>method</code>中的调用也随着各自的<code>Cloning-Based</code>区分出来——<code>one clone per context</code>。</p>
+<h5 id="Call-site-sensitivity"><a href="#Call-site-sensitivity" class="headerlink" title="Call-site sensitivity"></a>Call-site sensitivity</h5><p><code>Context sensitivity .aka. C.S.</code>用来区别不同上下文的方式中最常见的是<code>call-site sensitivity</code>——每一个上下文都抽象成本次方法调用的<strong>动态运行时调用栈</strong>即一系列<code>call-sites</code>组成的列表(随着调用层次深入<code>c</code>的长度会增加，区别于用<code>l</code>行号代表当前调用点)，比如上面一段代码中的<code>id</code>方法共有两个<code>context</code>分别是<code>[1]</code>和<code>[2]</code>。从实现的角度来看，<code>Cloning-Based Context Sensitivity</code>是实现<code>C.S.</code>最直接的方式——同一个<code>method</code>的多次调用都根据各自的<code>context</code>区分成不同的<code>Cloning-Based</code>版本，<code>method</code>中的调用也随着各自的<code>Cloning-Based</code>区分出来——<code>one clone per context</code>。</p>
 <p><img src="9.png" width="50%" height="50%" alt=""></p>
-<h5 id="context-sensitive-heap">Context-Sensitive Heap</h5>
-<p>从更细粒度的角度看，OOP是<code>heap-intensive</code>的语言——所有的对象都是建立在堆区<code>by new</code>。在实际设计中，上下文敏感的指针分析算法还需要考虑到堆敏感的问题——这是因为所有的语句其实都有自己的作用域，OOP的作用域就是函数。<strong>创建新对象的<code>new</code>语句就是一个<code>allocation site</code>，而当<code>new</code>语句出现在一个函数中恰巧该函数又被多次调用的时候，同一个<code>allocation site</code>会在不同的上下文背景下建立各自的对象</strong>，所以同一个方法中的堆对象也需要根据不同的<code>heap context</code>来进行区分。最直接的方式就是直接继承其所在<code>method</code>的上下文并从更加细粒度的角度处理指针分析算法：</p>
+<h5 id="Context-Sensitive-Heap"><a href="#Context-Sensitive-Heap" class="headerlink" title="Context-Sensitive Heap"></a>Context-Sensitive Heap</h5><p>从更细粒度的角度看，OOP是<code>heap-intensive</code>的语言——所有的对象都是建立在堆区<code>by new</code>。在实际设计中，上下文敏感的指针分析算法还需要考虑到堆敏感的问题——这是因为所有的语句其实都有自己的作用域，OOP的作用域就是函数。<strong>创建新对象的<code>new</code>语句就是一个<code>allocation site</code>，而当<code>new</code>语句出现在一个函数中恰巧该函数又被多次调用的时候，同一个<code>allocation site</code>会在不同的上下文背景下建立各自的对象</strong>，所以同一个方法中的堆对象也需要根据不同的<code>heap context</code>来进行区分。最直接的方式就是直接继承其所在<code>method</code>的上下文并从更加细粒度的角度处理指针分析算法：</p>
 <p><img src="10.png" width="50%" height="50%" alt=""></p>
-<h4 id="rules-1">Rules</h4>
-<p>下面引入上下文敏感指针分析的<code>Rules</code>：</p>
-<h5 id="domains-and-notations-1">Domains and Notations</h5>
-<p>在上下文敏感分析中，程序中的所有元素（变量，方法，对象）都加上了上下文。首先引入上下文的集合<code>C</code>,</p>
+<h4 id="Rules-1"><a href="#Rules-1" class="headerlink" title="Rules"></a>Rules</h4><p>下面引入上下文敏感指针分析的<code>Rules</code>：</p>
+<h5 id="Domains-and-Notations-1"><a href="#Domains-and-Notations-1" class="headerlink" title="Domains and Notations"></a>Domains and Notations</h5><p>在上下文敏感分析中，程序中的所有元素（变量，方法，对象）都加上了上下文。首先引入上下文的集合<code>C</code>,</p>
 <ul>
-<li>c,c',c'' ∊ C</li>
+<li>c,c’,c’’ ∊ C</li>
 </ul>
 <p>而程序中的方法，变量和对象都和<code>context</code>做了<code>product</code>：</p>
 <ul>
-<li><font color="red">Context-sensitive methods</font>: <font color="red">c:</font>m ∊ <font color="red">C</font> x M</li>
-<li><font color="red">Context-sensitive variables</font>: <font color="red">c:</font>x, <font color="red">c':</font>y ∊ <font color="red">C</font> x V</li>
-<li><font color="red">Context-sensitive objects</font>: <font color="red">c:</font>o<sub>i</sub>, <font color="red">c':</font>o<sub>j</sub> ∊ <font color="red">C</font> x O</li>
-<li>Fields: f, g ∊ F</li>
-<li>Instance fields: <font color="red">c:</font>o<sub>i</sub>.f, <font color="red">c':</font>o<sub>j</sub>.g ∊ <font color="red">C</font> x O x F</li>
+<li><font color="red">Context-sensitive methods</font>:   <font color="red">c:</font>m   ∊    <font color="red">C</font> x M</li>
+<li><font color="red">Context-sensitive variables</font>:   <font color="red">c:</font>x, <font color="red">c’:</font>y  ∊  <font color="red">C</font> x V</li>
+<li><font color="red">Context-sensitive objects</font>:       <font color="red">c:</font>o<sub>i</sub>, <font color="red">c’:</font>o<sub>j</sub>  ∊   <font color="red">C</font> x O</li>
+<li>Fields:    f, g ∊ F</li>
+<li>Instance fields:    <font color="red">c:</font>o<sub>i</sub>.f, <font color="red">c’:</font>o<sub>j</sub>.g  ∊  <font color="red">C</font> x O x F</li>
 </ul>
 <p>最后，引入这些程序中的两种上下文敏感的指针类型：</p>
 <ul>
-<li><font color="red">Context-sensitive pointers</font>: CSPointer = (<font color="red">C</font> x V) ⋃ (<font color="red">C</font> x O x F)</li>
+<li><font color="red">Context-sensitive pointers</font>:    CSPointer = (<font color="red">C</font> x V) ⋃ (<font color="red">C</font> x O x F)</li>
 </ul>
 <p>以及指向关系集合：</p>
 <ul>
-<li>Points-to relations: pt: CSPointer ⟶ 𝓟(<font color="red">C</font> x O)</li>
+<li>Points-to relations:     pt:   CSPointer ⟶ 𝓟(<font color="red">C</font> x O)</li>
 </ul>
-<h5 id="regular-rules">Regular Rules</h5>
-<p>这些规则和之前针对<code>Java</code>语言的数据流分析框架规则基本一样，只是元素都加上了不同的上下文以区分，重点需要关注这些语句中的<font color="green">指针变量</font>和<font color="blue">堆对象</font>是否都在同一个<code>context</code>中：</p>
+<h5 id="Regular-Rules"><a href="#Regular-Rules" class="headerlink" title="Regular Rules"></a>Regular Rules</h5><p>这些规则和之前针对<code>Java</code>语言的数据流分析框架规则基本一样，只是元素都加上了不同的上下文以区分，重点需要关注这些语句中的<font color="green">指针变量</font>和<font color="blue">堆对象</font>是否都在同一个<code>context</code>中：</p>
 <p><img src="11.png" width="50%" height="50%" alt=""></p>
 <p><code>new</code>语句中<code>x</code>和分配的堆对象o<sub>i</sub>同属于一个上下文，那是因为指针变量的初始化堆内存一定是在一个作用域中。<code>assign</code>语句中会发现只有<code>x = y</code>是在一个<code>context</code>中，而其两个指针变量共同指向的堆内存部分<code>pt(y)</code>却<strong>共同</strong>在另一个<code>context</code>中这是因为有参数传递的可能。<code>Store/Load</code>语句中<code>x</code>和<code>y</code>在同一个上下文中但是它们的指向对象却<strong>分别</strong>在不同的<code>context</code>下。</p>
-<h5 id="call-rule">Call Rule</h5>
-<p>上下文敏感的规则中最重要的就是<code>Call</code>规则，它主导并传递了不同的数据流使得精度提升成为可能。</p>
+<h5 id="Call-Rule"><a href="#Call-Rule" class="headerlink" title="Call Rule"></a>Call Rule</h5><p>上下文敏感的规则中最重要的就是<code>Call</code>规则，它主导并传递了不同的数据流使得精度提升成为可能。  </p>
 <p><img src="12.png" width="50%" height="50%" alt=""></p>
-<p>假设用<code>c</code>代表当前所在方法也就是调用者<code>Caller</code>的上下文，而用c<sup>t</sup>代表被调用者<code>Callee</code>的上下文。首先得到指针变量<code>x</code>的<code>receiver object</code>即o<sub>i</sub>，该堆对象有可能是在不同的上下文中因此和其指针的上下文不同。其次使用o<sub>i </sub>和方法签名<code>k</code>作为参数，<code>Dispatch</code>出真正的<code>target method</code>。最后使用和<code>call-site</code>相关的信息：<code>call-site</code>，当前上下文<code>c</code>以及所指向的堆对象<code>c':o_i</code>作为参数使用函数<code>Select</code>来取得该<code>target method</code>的上下文c<sup>t</sup>。<strong>需要注意的就是<font color="red">o<sub>i,j,k...</sub> = pt(x)&lt;</font>中的o<sub>i,j,k...</sub>和<code>x</code>两者之间的上下文是没有直接关系的，所以严格讲这两个的<code>c</code>都应该是不同的。</strong></p>
+<p>假设用<code>c</code>代表当前所在方法也就是调用者<code>Caller</code>的上下文，而用c<sup>t</sup>代表被调用者<code>Callee</code>的上下文。首先得到指针变量<code>x</code>的<code>receiver object</code>即o<sub>i</sub>，该堆对象有可能是在不同的上下文中因此和其指针的上下文不同。其次使用o<sub>i </sub>和方法签名<code>k</code>作为参数，<code>Dispatch</code>出真正的<code>target method</code>。最后使用和<code>call-site</code>相关的信息：<code>call-site</code>，当前上下文<code>c</code>以及所指向的堆对象<code>c&#39;:o_i</code>作为参数使用函数<code>Select</code>来取得该<code>target method</code>的上下文c<sup>t</sup>。<strong>需要注意的就是<font color="red">o<sub>i,j,k…</sub> = pt(x)&lt;</font>中的o<sub>i,j,k…</sub>和<code>x</code>两者之间的上下文是没有直接关系的，所以严格讲这两个的<code>c</code>都应该是不同的。</strong></p>
 <p><img src="13.png" width="50%" height="50%" alt=""></p>
 <p>这时候基本上所有<code>Cloning-Based</code>的程序元素都取得了，就和上下文不敏感指针分析处理<code>Call</code>的规则基本一致。</p>
-<h4 id="algorithm-2">Algorithm</h4>
-<p>上下文敏感的算法和上下文不敏感的指针分析算法整体上框架是一样的。<strong>构建上下文敏感的指针流图并通过PFG with C.S.传递指向信息。</strong>只是这些PFG的节点和边为了更高的精度被加上了新的约束——上下文信息，从而变成了<code>context-sensitive variable/abstract object</code>的指针类型。</p>
+<h4 id="Algorithm-2"><a href="#Algorithm-2" class="headerlink" title="Algorithm"></a>Algorithm</h4><p>上下文敏感的算法和上下文不敏感的指针分析算法整体上框架是一样的。<strong>构建上下文敏感的指针流图并通过PFG with C.S.传递指向信息。</strong>只是这些PFG的节点和边为了更高的精度被加上了新的约束——上下文信息，从而变成了<code>context-sensitive variable/abstract object</code>的指针类型。</p>
 <ul>
 <li><code>Node: CSPointer = (C x V) ⋃ (C x O x F)</code></li>
 <li><code>Edges:CSPointer x CSPointer</code></li>
 </ul>
 <p>PFG中的每一个节点都被上下文<code>c</code>区分开，每一条边都有了更细粒度的解释：</p>
 <ul>
-<li><code>x = y</code>: c:x ⟵ c:y</li>
-<li><code>x.f = y</code>: c':o<sub>i</sub>.f ⟵ c:y</li>
-<li><code>y = x.f</code>: c:y ⟵ c':o<sub>i</sub>.f</li>
+<li><code>x = y</code>:   c:x ⟵ c:y</li>
+<li><code>x.f = y</code>:  c’:o<sub>i</sub>.f ⟵ c:y</li>
+<li><code>y = x.f</code>:  c:y ⟵ c’:o<sub>i</sub>.f</li>
 </ul>
 <p>下面就是上下文敏感的算法：</p>
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="type">Solve</span>(m_entry) &#123;</span><br><span class="line">&gt;   <span class="type">WL</span>=&#123;&#125;, <span class="type">PFG</span>=&#123;&#125;, <span class="type">S</span>=&#123;&#125;, <span class="type">RM</span>=&#123;&#125;, <span class="type">CG</span>=&#123;&#125;</span><br><span class="line">&gt;   <span class="type">AddReachable</span>([]:m_entry)     //上下文敏感函数</span><br><span class="line">&gt;   while <span class="type">WL</span> is not empty <span class="keyword">do</span></span><br><span class="line">&gt;     	remove &lt;n, pts&gt; from <span class="type">WL</span></span><br><span class="line">&gt;     	𝚫 = pts - pt(n)</span><br><span class="line">&gt;     	<span class="type">Propagate</span>(n, 𝚫)</span><br><span class="line">&gt;     	<span class="keyword">if</span> n represents a variable c:x <span class="keyword">then</span>   //上下文敏感的指针变量</span><br><span class="line">&gt;         	foreach c':o_i ∊ 𝚫 <span class="keyword">do</span>     //上下文敏感的堆对象</span><br><span class="line">&gt;         		foreach x.f = y ∊ <span class="type">S</span> <span class="keyword">do</span></span><br><span class="line">&gt;               <span class="type">AddEdge</span>(c:y, c':o_i.f)  //对上下文敏感的指针和堆对象加<span class="type">PFG</span>边</span><br><span class="line">&gt;             foreach y = x.f ∊ <span class="type">S</span> <span class="keyword">do</span></span><br><span class="line">&gt;               <span class="type">AddEdge</span>(c':o_i.f, c:y)</span><br><span class="line">&gt;             <span class="type">ProcessCall</span>(c:x, c':o_i)    //处理上下文敏感的方法调用</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;                         </span><br><span class="line">&gt; <span class="type">AddReachable</span>(c:m) &#123;</span><br><span class="line">&gt;   <span class="keyword">if</span> c:m ∉ <span class="type">RM</span> <span class="keyword">then</span></span><br><span class="line">&gt;     add c:m to <span class="type">RM</span></span><br><span class="line">&gt;     <span class="type">S</span> ⋃= <span class="type">S_m</span></span><br><span class="line">&gt;     foreach i:x = new <span class="type">T</span>() ∊ <span class="type">S_m</span> <span class="keyword">do</span></span><br><span class="line">&gt;       add&lt;c:x, &#123;c:o_i&#125;&gt; to <span class="type">WL</span>   //修改<span class="type">PFG</span></span><br><span class="line">&gt;     foreach x = y ∊ <span class="type">S_m</span> <span class="keyword">do</span></span><br><span class="line">&gt;       <span class="type">AddEdge</span>(c:y, c:x)</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="type">ProcessCall</span>(c:x, c':o_i)&#123;</span><br><span class="line">&gt;      foreach l: r = x.k(a1, ..., an)∊<span class="type">S</span> <span class="keyword">do</span></span><br><span class="line">&gt;         m = <span class="type">Dispatch</span>(o_i, k)</span><br><span class="line">&gt;         ct = <span class="type">Select</span>(c, l, c':o_i)   // 核心： 选择target method的上下文ct</span><br><span class="line">&gt;         add &lt;ct:m_this, &#123;c':o_i&#125;&gt; to <span class="type">WL</span>   //this指针和堆对象加<span class="type">PFG</span></span><br><span class="line">&gt;           <span class="keyword">if</span> c:l ⟶ ct:m to <span class="type">CG</span>      //添加调用边</span><br><span class="line">&gt;             	add c:l ⟶ ct:m to <span class="type">CG</span></span><br><span class="line">&gt;               <span class="type">AddReachable</span>(ct:m)   </span><br><span class="line">&gt;               foreach parameter p_i <span class="keyword">of</span> m <span class="keyword">do</span> //处理参数</span><br><span class="line">&gt;               		<span class="type">AddEdge</span>(c:a_i, ct:p_i)</span><br><span class="line">&gt;              	<span class="type">AddEdge</span>(ct:m_ret, c:r)   //处理返回值</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
-<h4 id="variants">Variants</h4>
-<p>上述算法中引入了一个新的<strong>函数<code>Select(c, l, c':o_i)</code>——在<code>caller</code>函数中利用相关信息获取当前<code>callee</code>的上下文。</strong>该信息包括调用者上下文<code>caller context</code>，调用点<code>call-ste</code>，堆上下文敏感的对象<code>receiver object with heap context</code>。</p>
+<h4 id="Variants"><a href="#Variants" class="headerlink" title="Variants"></a>Variants</h4><p>上述算法中引入了一个新的<strong>函数<code>Select(c, l, c&#39;:o_i)</code>——在<code>caller</code>函数中利用相关信息获取当前<code>callee</code>的上下文。</strong>该信息包括调用者上下文<code>caller context</code>，调用点<code>call-ste</code>，堆上下文敏感的对象<code>receiver object with heap context</code>。</p>
 <p><img src="14.png" width="50%" height="50%" alt=""></p>
 <p>介绍三个版本的<code>Select</code>函数。</p>
-<h5 id="call-site-sensitivity-1">Call-site sensitivity</h5>
-<p>该版本的<code>context</code>由一系列<code>call-site</code>（在代码中由行号来表示）组成的列表。<strong><code>callee-context</code>是在每次调用点将当前的行号append到<code>caller-context</code>上</strong>——本质上是在模拟调用栈：</p>
+<h5 id="Call-site-sensitivity-1"><a href="#Call-site-sensitivity-1" class="headerlink" title="Call-site sensitivity"></a>Call-site sensitivity</h5><p>该版本的<code>context</code>由一系列<code>call-site</code>（在代码中由行号来表示）组成的列表。<strong><code>callee-context</code>是在每次调用点将当前的行号append到<code>caller-context</code>上</strong>——本质上是在模拟调用栈：</p>
 <ul>
-<li>Select(c, l, ...) = [<font color="red">l', ..., l''</font>, l], where c = [<font color="red">l', ..., l''</font>]</li>
+<li>Select(c, l, …) = [<font color="red">l’, …, l’’</font>, l], where c = [<font color="red">l’, …, l’’</font>]</li>
 </ul>
 <p>这个列表的长度可以规定，故又称为<code>k-CFA</code>。而这种抽象在递归程序中会导致出现无数个<code>callee-context</code>,又比如在实际工程项目中调用栈很深的情况下上下文过于冗长：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; void main() &#123;   //context:[]</span><br><span class="line">&gt; 	...</span><br><span class="line">&gt; 	a.foo();</span><br><span class="line">&gt; 	...</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; void foo() &#123;   //context:[3]</span><br><span class="line">&gt; 	...</span><br><span class="line">&gt; 	b.bar();</span><br><span class="line">&gt; 	...</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; void bar()&#123;   //Context:[3,9], [3,9,15], [3,9,15,15...]  无数个</span><br><span class="line">&gt; 	...</span><br><span class="line">&gt; 	bar();</span><br><span class="line">&gt; 	...</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
 <p><code>k-Limiting Context</code>通过对上下文的长度进行了限制保证了不会过度增长。一般情况下长度≤3。而且<code>method context</code>和<code>heap context</code>使用不同的长度保证不会互相有影响。</p>
-<h5 id="object-sensitivity">Object sensitivity</h5>
-<p>该版本的<code>context</code>是由一系列抽象对象<code>abstract objects</code>（由其<code>allocations site</code>表示）组成的。</p>
+<h5 id="Object-sensitivity"><a href="#Object-sensitivity" class="headerlink" title="Object sensitivity"></a>Object sensitivity</h5><p>该版本的<code>context</code>是由一系列抽象对象<code>abstract objects</code>（由其<code>allocations site</code>表示）组成的。</p>
 <ul>
-<li>Select(,,c':o<sub>i</sub>) = [<font color="red">o<sub>j</sub>,...,o<sub>k</sub></font>,o<sub>i</sub>] where c'=[<font color="red">o<sub>j</sub>,...,o<sub>k</sub></font>]</li>
+<li>Select(,,c’:o<sub>i</sub>) = [<font color="red">o<sub>j</sub>,…,o<sub>k</sub></font>,o<sub>i</sub>]  where c’=[<font color="red">o<sub>j</sub>,…,o<sub>k</sub></font>]</li>
 </ul>
 <p>这里一个有意思的点就是不管是<code>Object</code>还是<code>Call-site</code>都有自己的局限性：</p>
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">class</span> <span class="type">A</span>&#123;</span><br><span class="line">&gt; 	<span class="type">B</span> f;</span><br><span class="line">&gt; 	void set(<span class="type">B</span> b)&#123;</span><br><span class="line">&gt; 		this.doSet(b);</span><br><span class="line">&gt; 	&#125;</span><br><span class="line">&gt; 	void doSet(<span class="type">B</span> p)&#123;</span><br><span class="line">&gt; 		this.f = p;</span><br><span class="line">&gt; 	&#125;</span><br><span class="line">&gt; 	<span class="type">B</span> get()&#123;</span><br><span class="line">&gt; 		return this.f;</span><br><span class="line">&gt; 	&#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; a1 = new <span class="type">A</span>();</span><br><span class="line">&gt; a2 = new <span class="type">A</span>();</span><br><span class="line">&gt; b1 = new <span class="type">B</span>();</span><br><span class="line">&gt; b2 = new <span class="type">B</span>();</span><br><span class="line">&gt; a1.set(b1);</span><br><span class="line">&gt; a2.set(b2);</span><br><span class="line">&gt; x = a1.get();</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
-<p>则使用<code>1-call-site</code>敏感来完成时，会发现因为<code>set</code>中套用了<code>doSet</code>函数而导致<code>c:b1</code>和<code>c':b2</code>都指向了<code>c'':doSet_this</code>函数，从而引入虚假信息。而使用<code>1-object</code>则因为<code>doSet</code>函数分别在两个堆对象下所以更精确。</p>
+<p>则使用<code>1-call-site</code>敏感来完成时，会发现因为<code>set</code>中套用了<code>doSet</code>函数而导致<code>c:b1</code>和<code>c&#39;:b2</code>都指向了<code>c&#39;&#39;:doSet_this</code>函数，从而引入虚假信息。而使用<code>1-object</code>则因为<code>doSet</code>函数分别在两个堆对象下所以更精确。</p>
 <p>下面的代码下：</p>
 <figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">class</span> <span class="type">C</span>&#123;</span><br><span class="line">&gt; 	static void main() &#123;</span><br><span class="line">&gt; 			<span class="type">C</span> c = new <span class="type">C</span>();</span><br><span class="line">&gt; 			c.m()</span><br><span class="line">&gt; 	&#125;</span><br><span class="line">&gt; 	<span class="type">Number</span> id(<span class="type">Number</span> n) &#123;</span><br><span class="line">&gt; 			return n;</span><br><span class="line">&gt; 	&#125;</span><br><span class="line">&gt; 	void m() &#123;</span><br><span class="line">&gt; 		<span class="type">Number</span> n1, n2, x, y;</span><br><span class="line">&gt; 		n1 = new <span class="type">One</span>();</span><br><span class="line">&gt; 		n2 = new <span class="type">Two</span>();</span><br><span class="line">&gt; 		x = this.id(n1);</span><br><span class="line">&gt; 		y = this.id(n2);</span><br><span class="line">&gt; 	&#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
-<p>使用<code>1-object</code>的时候因为这里两次调用<code>id</code>函数都是在<code>c</code>对象下的因此导致<code>c:n1</code>和<code>c':n2</code>都指向<code>c_this</code>函数从而引入虚假信息，而<code>1-call-site</code>则因为是两个<code>call-site</code>因此更加精确。</p>
+<p>使用<code>1-object</code>的时候因为这里两次调用<code>id</code>函数都是在<code>c</code>对象下的因此导致<code>c:n1</code>和<code>c&#39;:n2</code>都指向<code>c_this</code>函数从而引入虚假信息，而<code>1-call-site</code>则因为是两个<code>call-site</code>因此更加精确。</p>
 <p>故本质上很多时候指针分析本质和语言的性质有非常密切的关系。</p>
-<h5 id="type-sensitivity">Type sensitivity</h5>
-<p>该版本的<code>context</code>使用一系列<code>InType</code>组成，不深入了。</p>
+<h5 id="Type-sensitivity"><a href="#Type-sensitivity" class="headerlink" title="Type sensitivity"></a>Type sensitivity</h5><p>该版本的<code>context</code>使用一系列<code>InType</code>组成，不深入了。</p>
 <p>至此指针分析的学习结束。</p>
 </blockquote>
 
@@ -1064,7 +1032,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#keyfactors"><span class="nav-number">2.1.</span> <span class="nav-text">KeyFactors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#heap-abstraction"><span class="nav-number">2.1.1.</span> <span class="nav-text">Heap Abstraction</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#context-sensitivity"><span class="nav-number">2.1.2.</span> <span class="nav-text">Context Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flow-sensitivity"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#analysis-scope"><span class="nav-number">2.1.4.</span> <span class="nav-text">Analysis Scope</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concerned-statements"><span class="nav-number">2.2.</span> <span class="nav-text">Concerned Statements</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pointers-in-java"><span class="nav-number">2.2.1.</span> <span class="nav-text">Pointers in Java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pointer-affecting-statements"><span class="nav-number">2.2.2.</span> <span class="nav-text">Pointer-Affecting Statements</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rules"><span class="nav-number">3.1.</span> <span class="nav-text">Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#domains-and-notations"><span class="nav-number">3.1.1.</span> <span class="nav-text">Domains and Notations</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-to-implement-pointer-analysis"><span class="nav-number">3.2.</span> <span class="nav-text">How to Implement Pointer Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pointer-flow-graphpfg"><span class="nav-number">3.2.1.</span> <span class="nav-text">Pointer Flow Graph(PFG)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#main-algorithm"><span class="nav-number">3.3.1.</span> <span class="nav-text">Main Algorithm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#addedge"><span class="nav-number">3.3.2.</span> <span class="nav-text">AddEdge</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#propagate"><span class="nav-number">3.3.3.</span> <span class="nav-text">Propagate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#differential-propagation"><span class="nav-number">3.3.4.</span> <span class="nav-text">Differential Propagation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fixed-point"><span class="nav-number">3.3.5.</span> <span class="nav-text">Fixed Point</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-to-deal-with-method-calls"><span class="nav-number">3.4.</span> <span class="nav-text">How To Deal With Method Calls</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#rule-call"><span class="nav-number">3.4.1.</span> <span class="nav-text">Rule: Call</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#algorithm-1"><span class="nav-number">3.4.2.</span> <span class="nav-text">Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#addreachable"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">AddReachable</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#processcall"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">ProcessCall</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#context-sensitivity-1"><span class="nav-number">4.</span> <span class="nav-text">Context Sensitivity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#introduction-1"><span class="nav-number">4.1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#call-site-sensitivity"><span class="nav-number">4.1.1.</span> <span class="nav-text">Call-site sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#context-sensitive-heap"><span class="nav-number">4.1.2.</span> <span class="nav-text">Context-Sensitive Heap</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rules-1"><span class="nav-number">4.2.</span> <span class="nav-text">Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#domains-and-notations-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">Domains and Notations</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#regular-rules"><span class="nav-number">4.2.2.</span> <span class="nav-text">Regular Rules</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#call-rule"><span class="nav-number">4.2.3.</span> <span class="nav-text">Call Rule</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#algorithm-2"><span class="nav-number">4.3.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#variants"><span class="nav-number">4.4.</span> <span class="nav-text">Variants</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#call-site-sensitivity-1"><span class="nav-number">4.4.1.</span> <span class="nav-text">Call-site sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#object-sensitivity"><span class="nav-number">4.4.2.</span> <span class="nav-text">Object sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#type-sensitivity"><span class="nav-number">4.4.3.</span> <span class="nav-text">Type sensitivity</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KeyFactors"><span class="nav-number">2.1.</span> <span class="nav-text">KeyFactors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Heap-Abstraction"><span class="nav-number">2.1.1.</span> <span class="nav-text">Heap Abstraction</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Context-Sensitivity"><span class="nav-number">2.1.2.</span> <span class="nav-text">Context Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Flow-Sensitivity"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Analysis-Scope"><span class="nav-number">2.1.4.</span> <span class="nav-text">Analysis Scope</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Concerned-Statements"><span class="nav-number">2.2.</span> <span class="nav-text">Concerned Statements</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pointers-in-Java"><span class="nav-number">2.2.1.</span> <span class="nav-text">Pointers in Java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pointer-Affecting-Statements"><span class="nav-number">2.2.2.</span> <span class="nav-text">Pointer-Affecting Statements</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Foundations"><span class="nav-number">3.</span> <span class="nav-text">Foundations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Rules"><span class="nav-number">3.1.</span> <span class="nav-text">Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Domains-and-Notations"><span class="nav-number">3.1.1.</span> <span class="nav-text">Domains and Notations</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-to-Implement-Pointer-Analysis"><span class="nav-number">3.2.</span> <span class="nav-text">How to Implement Pointer Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pointer-Flow-Graph-PFG"><span class="nav-number">3.2.1.</span> <span class="nav-text">Pointer Flow Graph(PFG)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Main-Algorithm"><span class="nav-number">3.3.1.</span> <span class="nav-text">Main Algorithm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AddEdge"><span class="nav-number">3.3.2.</span> <span class="nav-text">AddEdge</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Propagate"><span class="nav-number">3.3.3.</span> <span class="nav-text">Propagate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Differential-Propagation"><span class="nav-number">3.3.4.</span> <span class="nav-text">Differential Propagation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Fixed-Point"><span class="nav-number">3.3.5.</span> <span class="nav-text">Fixed Point</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-To-Deal-With-Method-Calls"><span class="nav-number">3.4.</span> <span class="nav-text">How To Deal With Method Calls</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Rule-Call"><span class="nav-number">3.4.1.</span> <span class="nav-text">Rule: Call</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Algorithm-1"><span class="nav-number">3.4.2.</span> <span class="nav-text">Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#AddReachable"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">AddReachable</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ProcessCall"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">ProcessCall</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Context-Sensitivity-1"><span class="nav-number">4.</span> <span class="nav-text">Context Sensitivity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Introduction-1"><span class="nav-number">4.1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Call-site-sensitivity"><span class="nav-number">4.1.1.</span> <span class="nav-text">Call-site sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Context-Sensitive-Heap"><span class="nav-number">4.1.2.</span> <span class="nav-text">Context-Sensitive Heap</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rules-1"><span class="nav-number">4.2.</span> <span class="nav-text">Rules</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Domains-and-Notations-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">Domains and Notations</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Regular-Rules"><span class="nav-number">4.2.2.</span> <span class="nav-text">Regular Rules</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Call-Rule"><span class="nav-number">4.2.3.</span> <span class="nav-text">Call Rule</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Algorithm-2"><span class="nav-number">4.3.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Variants"><span class="nav-number">4.4.</span> <span class="nav-text">Variants</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Call-site-sensitivity-1"><span class="nav-number">4.4.1.</span> <span class="nav-text">Call-site sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Object-sensitivity"><span class="nav-number">4.4.2.</span> <span class="nav-text">Object sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Type-sensitivity"><span class="nav-number">4.4.3.</span> <span class="nav-text">Type sensitivity</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

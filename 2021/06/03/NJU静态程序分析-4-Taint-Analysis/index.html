@@ -115,13 +115,13 @@
 
 
 
-<meta name="description" content="Abstract  同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析">
+<meta name="description" content="Abstract 同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(4-Taint-Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/06/03/NJU静态程序分析-4-Taint-Analysis/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析">
+<meta property="og:description" content="Abstract 同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/03/NJU静态程序分析-4-Taint-Analysis/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/03/NJU静态程序分析-4-Taint-Analysis/2.png">
@@ -129,7 +129,7 @@
 <meta property="og:updated_time" content="2022-03-13T04:09:09.691Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(4-Taint-Analysis)">
-<meta name="twitter:description" content="Abstract  同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析">
+<meta name="twitter:description" content="Abstract 同符号执行一样，Taint-Analysis也是分析代码安全漏洞，检测攻击方式的重要手段。对于Web应用程序中存在着的大量安全漏洞,如跨站脚本攻击，SQL注入等~污点分析都可以进行有效地检测。而污点传播技术是当前Taint-Analysis领域的重要课题，通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2021/06/03/NJU静态程序分析-4-Taint-Analysis/1.png">
 
 
@@ -436,7 +436,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.2k
+                  2k
                 </span>
               
 
@@ -452,7 +452,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  8
+                  7
                 </span>
               
             </div>
@@ -473,42 +473,35 @@
       
 
       
-        <h3 id="abstract">Abstract</h3>
-<blockquote>
-<p>同符号执行一样，<code>Taint-Analysis</code>也是分析代码安全漏洞，检测攻击方式的重要手段。对于<code>Web</code>应用程序中存在着的大量安全漏洞,如跨站脚本攻击，<code>SQL</code>注入等~污点分析都可以进行有效地检测。而污点传播技术是当前<code>Taint-Analysis</code>领域的重要课题，<strong>通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结果。</strong></p>
-<p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(call sinks).</p>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>同符号执行一样，<code>Taint-Analysis</code>也是分析代码安全漏洞，检测攻击方式的重要手段。对于<code>Web</code>应用程序中存在着的大量安全漏洞,如跨站脚本攻击，<code>SQL</code>注入等~污点分析都可以进行有效地检测。而污点传播技术是当前<code>Taint-Analysis</code>领域的重要课题，<strong>通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结果。</strong>  </p>
+<p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(call sinks).  </p>
 <p>比如通过利用静态指针分析算法完成简化的显式流<code>explicit flow</code>分析，不讨论<a href="https://www.k0rz3n.com/2019/03/01/%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/" target="_blank" rel="noopener">路径爆炸</a>和其他动态漏洞分析技术。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="information-flow-security">Information Flow Security</h3>
-<blockquote>
+<h3 id="Information-Flow-Security"><a href="#Information-Flow-Security" class="headerlink" title="Information Flow Security"></a>Information Flow Security</h3><blockquote>
 <p>当服务器和客户机在网络上进行通信的时候就会存在<code>Information Flow</code>，从而产生了相应的安全问题——Prevent unwanted information flow。如何防止客户端的信息不被流入到黑客手中，目前主流有两种途径：</p>
-<h4 id="access-control">Access Control</h4>
-<p>通过使用<strong>权限</strong>的方式来控制程序是否可以访问敏感数据，主要是通过管理<strong>如何获取数据</strong>的方式来完成数据保护，但是它仅仅可以保证获取时的保护，但是获取到数据之后呢？</p>
-<h4 id="information-flow-security-1">Information Flow Security</h4>
-<p><font color="red">信息流安全</font>是一种<code>end to end</code>的数据保护方式，它追踪信息流是如何在程序中流动的来确保程序能更安全的处理敏感数据，主要是通过管<strong>如何传播数据</strong>的方式来完成数据保护。</p>
+<h4 id="Access-Control"><a href="#Access-Control" class="headerlink" title="Access Control"></a>Access Control</h4><p>通过使用<strong>权限</strong>的方式来控制程序是否可以访问敏感数据，主要是通过管理<strong>如何获取数据</strong>的方式来完成数据保护，但是它仅仅可以保证获取时的保护，但是获取到数据之后呢？</p>
+<h4 id="Information-Flow-Security-1"><a href="#Information-Flow-Security-1" class="headerlink" title="Information Flow Security"></a>Information Flow Security</h4><p><font color="red">信息流安全</font>是一种<code>end to end</code>的数据保护方式，它追踪信息流是如何在程序中流动的来确保程序能更安全的处理敏感数据，主要是通过管<strong>如何传播数据</strong>的方式来完成数据保护。</p>
 <p>这两种方式共同作用，才可以真正保证敏感数据的安全。</p>
 <p>下面介绍信息流的概念:如果在变量<code>x</code>中的信息被传入到了变量<code>y</code>中，那么在<code>x——&gt;y</code>之间就有信息流。而实现信息流安全实际上还需要两种方式：</p>
-<h5 id="security-levels">security levels</h5>
-<p>通过将信息流分为不同的等级来控制数据的获取权限，最基本的模型就是<code>two-level policy</code>，分为<code>H</code>和<code>L</code>两个级别，<code>H</code>指的是安全等级高的敏感信息，<code>L</code>指的是敏感信息低的可公开信息。比如</p>
+<h5 id="security-levels"><a href="#security-levels" class="headerlink" title="security levels"></a>security levels</h5><p>通过将信息流分为不同的等级来控制数据的获取权限，最基本的模型就是<code>two-level policy</code>，分为<code>H</code>和<code>L</code>两个级别，<code>H</code>指的是安全等级高的敏感信息，<code>L</code>指的是敏感信息低的可公开信息。比如</p>
 <ul>
-<li><code>h = getPassword();</code> h为<code>H</code></li>
-<li><code>Broadcast(l);</code> l为<code>L</code></li>
+<li><code>h = getPassword();</code>    h为<code>H</code></li>
+<li><code>Broadcast(l);</code>      l为<code>L</code></li>
 </ul>
 <p>对于更复杂的数据模型，安全等级实际上可以按照<code>lattice</code>来进行建模。</p>
-<h5 id="information-flow-policy">information flow policy</h5>
-<p>在不同等级的信息流之间采取不一样的安全策略。比如<strong>Noninterference policy</strong>规定高级别的信息流数据不可以影响(should not interfere with)低级别的信息流。<strong>换句话讲，机器的操作不能使得信息流从高级别的数据传播到低级别的数据中。</strong></p>
+<h5 id="information-flow-policy"><a href="#information-flow-policy" class="headerlink" title="information flow policy"></a>information flow policy</h5><p>在不同等级的信息流之间采取不一样的安全策略。比如<strong>Noninterference policy</strong>规定高级别的信息流数据不可以影响(should not interfere with)低级别的信息流。<strong>换句话讲，机器的操作不能使得信息流从高级别的数据传播到低级别的数据中。</strong></p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
 <p>这种安全策略需要使得信息流只能沿着<code>lattice</code>的<code>upwards</code>方向进行传播。可以是<code>H——&gt;H、L——&gt;L、L——&gt;H</code>但是不可以是<code>H——&gt;L</code>。</p>
 </blockquote>
-<h3 id="confidentiality-and-integrity">Confidentiality and Integrity</h3>
-<blockquote>
+<h3 id="Confidentiality-and-Integrity"><a href="#Confidentiality-and-Integrity" class="headerlink" title="Confidentiality and Integrity"></a>Confidentiality and Integrity</h3><blockquote>
 <p><strong>保密性</strong>和<strong>完整性</strong>从另一个视角解读了安全策略<code>information flow policy</code>如何从本质上保证信息流安全。</p>
 <p>对于已经分级好的信息，高级别的信息不可以流到低级别的信息中可以看成是为了保密性，防止数据泄露。而低级别的信息也不能流到高级别的信息中可以看成是为了保护数据的完整性。保密性已经介绍过了，这里介绍一下完整性。</p>
-<h4 id="integrity">Integrity</h4>
-<p>完整性需要保证一些无关紧要的信息流无法污染，破坏重要的敏感信息。</p>
+<h4 id="Integrity"><a href="#Integrity" class="headerlink" title="Integrity"></a>Integrity</h4><p>完整性需要保证一些无关紧要的信息流无法污染，破坏重要的敏感信息。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> x = readInput();  //untrusted</span><br><span class="line"><span class="meta">&gt;</span> cmd = "..." + x;</span><br><span class="line"><span class="meta">&gt;</span> execute(cmd);    //critical (trusted)</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
 <p>比如一些常见的注入错误基本上都是因为破坏了数据的完整性才导致安全问题：</p>
 <ul>
@@ -524,59 +517,53 @@
 <li>一致性：保证在读写上数据能保持一致</li>
 </ul>
 </blockquote>
-<h3 id="explicit-flows-and-convert-channels">Explicit Flows and Convert Channels</h3>
-<blockquote>
+<h3 id="Explicit-Flows-and-Convert-Channels"><a href="#Explicit-Flows-and-Convert-Channels" class="headerlink" title="Explicit Flows and Convert Channels"></a>Explicit Flows and Convert Channels</h3><blockquote>
 <p>这里引入两个安全领域常见的概念，显式<code>explicit</code>和隐式<code>implicit</code>。</p>
 <p>对于一些基本的信息流传播都是显式的比如:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; Xh = Yh;</span><br><span class="line">&gt; Xl = Yh;</span><br><span class="line">&gt; Xl = Yl + Zh</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
 <p>可以看到数据都是直接通过赋值或者引用这些显式的修改语句直接进行传播的，成为显示流。而对于下面这些情况：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; secret = getSecret();</span><br><span class="line">&gt; <span class="keyword">if</span>(secret &lt; <span class="number">0</span>)&#123;</span><br><span class="line">&gt; 		<span class="keyword">public</span> = <span class="number">1</span>;</span><br><span class="line">&gt; &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">&gt; 		<span class="keyword">public</span> = <span class="number">0</span>;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<p>&gt;</p>
 <blockquote>
 <p>这种情况属于隐式流——即数据的传播都是通过一些被敏感数据控制的<code>if/while</code>语句来完成的。在上面的例子中，public是低级别数据可以直接被观测到，而secret是高级别的敏感数据，但是我们通过观测到public的值是否为1还是0就可以判断出高级别数据的最终值，这就是隐式流传播。</p>
 <p><strong>隐式流的数据是通过程序的控制流信息进行传播的。</strong>也是安全领域最难以处理的一类安全问题。</p>
 </blockquote>
-<h3 id="taint-analysis">Taint Analysis</h3>
-<blockquote>
+<h3 id="Taint-Analysis"><a href="#Taint-Analysis" class="headerlink" title="Taint Analysis"></a>Taint Analysis</h3><blockquote>
 <p>污点分析是信息流安全领域最常见的检测手段。污点分析将数据分为两种：</p>
 <ul>
 <li><code>tainted data</code>: 整个分析需要关注到的污点数据</li>
 <li><code>other data</code>: 其他数据</li>
 </ul>
 <p>污点数据的来源被成为<code>sources</code>，从实现角度污点数据通常来自于函数的返回值，即在指针分析需要处理的<code>Call</code>语句。</p>
-<p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(called sinks).</p>
+<p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(called sinks).  </p>
 <p>污点分析就是通过追踪从<code>sources</code>发出的污点数据是如何在数据流上传播的，并观察这些污点数据是否会流到敏感源中(sinks)。不难看出，<strong>污点分析既可以检测高级别的数据是否被泄露——保密性，也可以检测低级别数据是否造成污染——完整性。</strong></p>
 <p>而究其本质，污点分析就是在问：污点数据是否可以流到敏感源中——而这和指针分析的目的不谋而合，<strong>即污点分析/指针分析的目的都是为了追踪污点数据/抽象对象是如何在程序中传播的</strong>：</p>
 <ul>
 <li>Can tainted data flow to a sink?</li>
 <li>Which tainted data a pointer (at a sink)can point to?</li>
 </ul>
-<h4 id="domains-and-notations">Domains and Notations</h4>
-<p>如何使用指针分析来对污点分析进行建模，只需完成<code>tainted data</code>⟶<code>object</code>,<code>sources</code>⟶ <code>allocation sites</code>这两个映射。</p>
+<h4 id="Domains-and-Notations"><a href="#Domains-and-Notations" class="headerlink" title="Domains and Notations"></a>Domains and Notations</h4><p>如何使用指针分析来对污点分析进行建模，只需完成<code>tainted data</code>⟶<code>object</code>,<code>sources</code>⟶ <code>allocation sites</code>这两个映射。</p>
 <ul>
-<li><font color="red">Variables</font>: x, y ∊ V<br>
-</li>
+<li><font color="red">Variables</font>:   x, y ∊ V   </li>
 <li>Fields: f, g ∊ F</li>
-<li>Objects: o<sub>i</sub>，o<sub>j</sub> ∊ O</li>
-<li>Tainted data: t<sub>i</sub>，t<sub>j</sub> ∊ T ⊂ O 污点数据就是在调用点产生的对象中被特殊标记的部分</li>
+<li>Objects:  o<sub>i</sub>，o<sub>j</sub> ∊ O</li>
+<li>Tainted data: t<sub>i</sub>，t<sub>j</sub> ∊ T ⊂ O   污点数据就是在调用点产生的对象中被特殊标记的部分</li>
 <li><font color="red">Instance fiedls</font>: o<sub>i</sub>.f, o<sub>j</sub>.g ∊ O x F</li>
-<li><font color="red">Pointers</font>: Pointer = V ⋃ (O x F)</li>
-<li>Points-to relations: pt: Pointer ⟶ 𝓟(O)</li>
+<li><font color="red">Pointers</font>:  Pointer = V ⋃ (O x F)</li>
+<li>Points-to relations:    pt: Pointer ⟶ 𝓟(O)</li>
 </ul>
-<p>其中t<sub>i</sub>代表了从<code>call-site</code>调用点<code>i</code>产生的污点数据。𝓟(O)代表了O的幂集，<code>pt(p)</code>代表了指针变量<code>p</code>的指向集合。</p>
-<h4 id="taint-analysis-input-outputs">Taint Analysis: Input &amp; Outputs</h4>
-<p>污点分析的输入为<code>sources</code>——一系列返回值产生污点数据的函数集合，<code>Sinks</code>——一些敏感函数的集合，一旦污点数据流入这些函数将会触发安全问题。</p>
-<p>污点分析的输出是<code>TaintFlows</code>:污点数据和Sinks函数的pairs集合。<strong>比如&lt;t<sub>i</sub>, m&gt;表示从<code>call-sites</code>调用点<code>i</code>产生的<code>tainted-data</code>可能会流入<code>sink-method</code></strong>。</p>
-<h4 id="call">Call</h4>
-<p>整个污点分析需要处理的规则和指针分析大体一致，而对于调用语句<code>Call</code>的处理需要完成两种——<code>sources</code>和<code>sinks</code>的处理，分别用于产生污点数据和产生污点信息流。</p>
-<h5 id="sources">Sources</h5>
-<p><img src="2.png" width="50%" height="50%" alt=""></p>
+<p>其中t<sub>i</sub>代表了从<code>call-site</code>调用点<code>i</code>产生的污点数据。𝓟(O)代表了O的幂集，<code>pt(p)</code>代表了指针变量<code>p</code>的指向集合。 </p>
+<h4 id="Taint-Analysis-Input-amp-Outputs"><a href="#Taint-Analysis-Input-amp-Outputs" class="headerlink" title="Taint Analysis: Input &amp; Outputs"></a>Taint Analysis: Input &amp; Outputs</h4><p>污点分析的输入为<code>sources</code>——一系列返回值产生污点数据的函数集合，<code>Sinks</code>——一些敏感函数的集合，一旦污点数据流入这些函数将会触发安全问题。</p>
+<p>污点分析的输出是<code>TaintFlows</code>:污点数据和Sinks函数的pairs集合。<strong>比如<t<sub>i&lt;/sub&gt;, m&gt;表示从<code>call-sites</code>调用点<code>i</code>产生的<code>tainted-data</code>可能会流入<code>sink-method</code></t<sub></strong>。</p>
+<h4 id="Call"><a href="#Call" class="headerlink" title="Call"></a>Call</h4><p>整个污点分析需要处理的规则和指针分析大体一致，而对于调用语句<code>Call</code>的处理需要完成两种——<code>sources</code>和<code>sinks</code>的处理，分别用于产生污点数据和产生污点信息流。</p>
+<h5 id="Sources"><a href="#Sources" class="headerlink" title="Sources"></a>Sources</h5><p><img src="2.png" width="50%" height="50%" alt=""></p>
 <p>规则的前提是如果调用边集合<code>CG</code>中存在从<code>l</code>到<code>m</code>的一条调用边——<code>l⟶m</code>，而<code>m</code>恰好是<code>sources</code>函数集合中的元素，则需要将该调用语句的指针变量集合<code>pt(r)</code>加上一条污点数据t<sub>i</sub>。</p>
-<h5 id="sinks">Sinks</h5>
-<p><img src="3.png" width="50%" height="50%" alt=""></p>
-<p>该规则的前提是如果调用边集合<code>CG</code>中存在一条调用边——<code>l⟶m</code>，而<code>m</code>恰好属于<code>sinks</code>函数集合中的元素，而在<code>m</code>的参数中还存在着污点数据集合中的元素t<sub>j</sub>，则会产生一条<code>TaintFlows</code>从t<sub>j</sub>到<code>m</code>函数即&lt;t<sub>j</sub>,m&gt;。</p>
+<h5 id="Sinks"><a href="#Sinks" class="headerlink" title="Sinks"></a>Sinks</h5><p><img src="3.png" width="50%" height="50%" alt=""></p>
+<p>该规则的前提是如果调用边集合<code>CG</code>中存在一条调用边——<code>l⟶m</code>，而<code>m</code>恰好属于<code>sinks</code>函数集合中的元素，而在<code>m</code>的参数中还存在着污点数据集合中的元素t<sub>j</sub>，则会产生一条<code>TaintFlows</code>从t<sub>j</sub>到<code>m</code>函数即<t<sub>j&lt;/sub&gt;,m&gt;。</t<sub></p>
 <p>污点分析的学习至此结束。</p>
 </blockquote>
 
@@ -837,7 +824,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#information-flow-security"><span class="nav-number">2.</span> <span class="nav-text">Information Flow Security</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#access-control"><span class="nav-number">2.1.</span> <span class="nav-text">Access Control</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#information-flow-security-1"><span class="nav-number">2.2.</span> <span class="nav-text">Information Flow Security</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#security-levels"><span class="nav-number">2.2.1.</span> <span class="nav-text">security levels</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#information-flow-policy"><span class="nav-number">2.2.2.</span> <span class="nav-text">information flow policy</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#confidentiality-and-integrity"><span class="nav-number">3.</span> <span class="nav-text">Confidentiality and Integrity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#integrity"><span class="nav-number">3.1.</span> <span class="nav-text">Integrity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#explicit-flows-and-convert-channels"><span class="nav-number">4.</span> <span class="nav-text">Explicit Flows and Convert Channels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#taint-analysis"><span class="nav-number">5.</span> <span class="nav-text">Taint Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#domains-and-notations"><span class="nav-number">5.1.</span> <span class="nav-text">Domains and Notations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#taint-analysis-input-outputs"><span class="nav-number">5.2.</span> <span class="nav-text">Taint Analysis: Input &amp; Outputs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#call"><span class="nav-number">5.3.</span> <span class="nav-text">Call</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#sources"><span class="nav-number">5.3.1.</span> <span class="nav-text">Sources</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sinks"><span class="nav-number">5.3.2.</span> <span class="nav-text">Sinks</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Information-Flow-Security"><span class="nav-number">2.</span> <span class="nav-text">Information Flow Security</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Access-Control"><span class="nav-number">2.1.</span> <span class="nav-text">Access Control</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Information-Flow-Security-1"><span class="nav-number">2.2.</span> <span class="nav-text">Information Flow Security</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#security-levels"><span class="nav-number">2.2.1.</span> <span class="nav-text">security levels</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#information-flow-policy"><span class="nav-number">2.2.2.</span> <span class="nav-text">information flow policy</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Confidentiality-and-Integrity"><span class="nav-number">3.</span> <span class="nav-text">Confidentiality and Integrity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Integrity"><span class="nav-number">3.1.</span> <span class="nav-text">Integrity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Explicit-Flows-and-Convert-Channels"><span class="nav-number">4.</span> <span class="nav-text">Explicit Flows and Convert Channels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Taint-Analysis"><span class="nav-number">5.</span> <span class="nav-text">Taint Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Domains-and-Notations"><span class="nav-number">5.1.</span> <span class="nav-text">Domains and Notations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Taint-Analysis-Input-amp-Outputs"><span class="nav-number">5.2.</span> <span class="nav-text">Taint Analysis: Input &amp; Outputs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Call"><span class="nav-number">5.3.</span> <span class="nav-text">Call</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Sources"><span class="nav-number">5.3.1.</span> <span class="nav-text">Sources</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Sinks"><span class="nav-number">5.3.2.</span> <span class="nav-text">Sinks</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
