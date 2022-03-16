@@ -115,13 +115,13 @@
 
 
 
-<meta name="description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta name="description" content="Abstract 编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an ab">
 <meta name="keywords" content="PL,Software-Analysis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(1-Data Flow Analysis)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta property="og:description" content="Abstract 编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an ab">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/2.png">
@@ -140,10 +140,10 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/16.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/17.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/18.png">
-<meta property="og:updated_time" content="2022-02-14T07:16:38.716Z">
+<meta property="og:updated_time" content="2022-03-16T10:20:48.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(1-Data Flow Analysis)">
-<meta name="twitter:description" content="Abstract  编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an a">
+<meta name="twitter:description" content="Abstract 编译器中大部分机器无关的全局优化是基于Data-flow Analysis实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。 In each data-flow analysis application, we associate with every program point a data-flow value that represents an ab">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/1.png">
 
 
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  7.3k
+                  7.2k
                 </span>
               
 
@@ -488,15 +488,12 @@
 
       
         <h3 id="abstract">Abstract</h3>
-<blockquote>
 <p>编译器中大部分机器无关的全局优化是基于<code>Data-flow Analysis</code>实现的。数据流分析技术从代码中收集程序语义相关的信息，是程序分析的基础。</p>
 <p><strong>In each data-flow analysis application, we associate with every program point a data-flow value that represents an abstraction of the set of all possible program states that can be observed for that point.</strong></p>
 <p>在工业界的<a href="https://www.zhihu.com/question/41959902" target="_blank" rel="noopener">主流编译器</a>中，<code>C</code>系的<code>LLVM</code>，<code>Java</code>系的<code>HotSpot</code>都是基于<code>SSA</code>做数据流分析而不是传统的<code>lattice</code>。南大这节课中是基于<code>Lattice</code>来讲解过程内<code>Intra-procedural</code>，无别名<code>no aliases</code>的经典数据流分析框架。</p>
-</blockquote>
 <a id="more"></a>
 <h3 id="applications">Applications</h3>
 <h4 id="overview">Overview</h4>
-<blockquote>
 <h5 id="cfg">CFG</h5>
 <p>分析框架都是建立在<code>control-flow-graph</code>上的，这是一种<code>IR</code>——由<code>basic-blocks</code>通过<code>control-flows</code>连接而成，可以分别看成是<code>CFG</code>的<code>nodes</code>和<code>edges</code>。 如何通过源码（单个函数）生成<code>CFG</code>见课件。</p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
@@ -517,9 +514,7 @@
 <li><code>must analysis</code>: 要求分析结果一定是正确的，即不能有误报，即<code>under</code>的概念</li>
 </ul>
 <p>而<code>over</code>和<code>under</code>在不同的应用中都代表了各自最<code>safe</code>的结果，因此所有的静态程序分析可以总结成：<code>abstraction</code>和<code>safe-approximation</code>两个阶段，不同的数据流分析有不同的<code>abstraction</code>和<code>safe-approximation strategies</code>即不同的<code>transfer-functions</code>和<code>control-flow handlings</code>。</p>
-</blockquote>
 <h4 id="preliminaries">Preliminaries</h4>
-<blockquote>
 <h5 id="input-and-output-states">Input and Output States</h5>
 <p>所有的操作对象都是在一个<code>CFG</code>中。</p>
 <p><code>statements</code> 是<code>CFG</code>中的执行的最小单位——每一条<code>statements</code>的执行都会改变程序的状态。</p>
@@ -554,9 +549,7 @@
 <p>其次是分流：<code>IN[B] = F_b(OUT[B])</code>;<code>OUT[B] = ^IN[S]</code>这里表示<code>B</code>的输出都成为所有<code>S</code>的输入，<code>S</code>是<code>B</code>的所有后继。</p>
 <p><img src="6.png" width="50%" height="50%" alt=""></p>
 <p>有了前面的基础，下面先介绍三种经典的数据流分析算法：</p>
-</blockquote>
 <h4 id="reaching-definitions-analysis">Reaching Definitions Analysis</h4>
-<blockquote>
 <h5 id="定义">定义</h5>
 <p>A definition d at <strong>program point</strong> p reaches a point q if <strong>there is</strong> a path from p to q such that d is not &quot;killed&quot; along that path.(A definition of a variable is a statement that assigns a value to v).</p>
 <p><img src="7.png" width="50%" height="50%" alt=""></p>
@@ -574,13 +567,9 @@
 <h6 id="control-flow">Control Flow</h6>
 <p>根据上一个<code>statements/basic blocks</code>的<code>OUT</code>求出下一个的<code>IN</code>。因为作为<code>may</code>分析，其不放过任何一个运行时的行为，所以针对所有留到该<code>IN</code>的<code>OUT</code>都要接收。即<code>IN[B] = ∪_p(p是B所有的前驱结点)OUT[P]</code>。</p>
 <h5 id="算法">算法</h5>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">/*</span></span><br><span class="line"><span class="comment">&gt; 	INPUT: CFG(kill_B and gen_B computed for each basic blocks B)</span></span><br><span class="line"><span class="comment">&gt; 	OUTOUT: IN[B] and OUT[B] for each basic block B</span></span><br><span class="line"><span class="comment">&gt; */</span></span><br><span class="line">&gt; OUT[entry] = <span class="literal">nullptr</span>;</span><br><span class="line">&gt; <span class="keyword">for</span> (each basic block B\entry)</span><br><span class="line">&gt;   	OUT[B] = <span class="literal">nullptr</span>;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="keyword">while</span>(changes to ant OUT occur) </span><br><span class="line">&gt;   	<span class="keyword">for</span>(each basic blocks B\entry) &#123;</span><br><span class="line">&gt;       IN[B] = ∪_OUT[P];</span><br><span class="line">&gt;       OUT[B] = gen_B ∪ (IN[B] - kill_B);      </span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	INPUT: CFG(kill_B and gen_B computed for each basic blocks B)</span></span><br><span class="line"><span class="comment">	OUTOUT: IN[B] and OUT[B] for each basic block B</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">OUT[entry] = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="keyword">for</span> (each basic block B\entry)</span><br><span class="line">	OUT[B] = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(changes to ant OUT occur) </span><br><span class="line">	<span class="keyword">for</span>(each basic blocks B\entry) &#123;</span><br><span class="line">   IN[B] = ∪_OUT[P];</span><br><span class="line">   OUT[B] = gen_B ∪ (IN[B] - kill_B);      </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>这是非常典型的<strong>不动点算法</strong>，如果我们简化模型仅仅只是关注每一个<code>basic blocks</code>的<code>IN</code>和<code>OUT</code>,会发现对于有限的<code>definition</code>集合，在经过多次迭代之后，正向的增加<code>gen/survivors</code>一定会导致<code>OUT</code>达到一个定值。</p>
-</blockquote>
 <h4 id="live-variables-analysis">Live Variables Analysis</h4>
-<blockquote>
 <h5 id="定义-1">定义</h5>
 <p>Live variables analysis tells whether the value of variable v at program point p <strong>could be used </strong>along some path in CFG starting at p. If so, v is live at p; otherwise, v is dead at p.</p>
 <p><img src="8.png" width="50%" height="50%" alt=""></p>
@@ -598,18 +587,14 @@
 <h6 id="control-flow-1">Control Flow</h6>
 <p>因为作为<code>may</code>分析，其不放过任何一个运行时的行为，所以针对所有留到该<code>IN</code>的<code>OUT</code>都要接收。即<code>IN[B] = ∪_s(s是B所有的前驱结点)OUT[s]</code>。</p>
 <h5 id="算法-1">算法</h5>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">/*</span></span><br><span class="line"><span class="comment">&gt; 	INPUT: CFG(def_B and use_B computed for each basic blocks B)</span></span><br><span class="line"><span class="comment">&gt; 	OUTOUT: IN[B] and OUT[B] for each basic block B</span></span><br><span class="line"><span class="comment">&gt; */</span></span><br><span class="line">&gt; IN[<span class="built_in">exit</span>] = <span class="literal">nullptr</span>;</span><br><span class="line">&gt; <span class="keyword">for</span> (each basic block B\<span class="built_in">exit</span>)</span><br><span class="line">&gt; 	IN[B] = <span class="literal">nullptr</span>;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="keyword">while</span>(changes to ant IN occur) </span><br><span class="line">&gt; 	<span class="keyword">for</span>(each basic blocks B\<span class="built_in">exit</span>) &#123;</span><br><span class="line">&gt;    	OUT[B] = ∪_IN[S];</span><br><span class="line">&gt;    	OUT[B] = use_B ∪ (OUT[B] - def_B);      </span><br><span class="line">&gt;  &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	INPUT: CFG(def_B and use_B computed for each basic blocks B)</span></span><br><span class="line"><span class="comment">	OUTOUT: IN[B] and OUT[B] for each basic block B</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">IN[<span class="built_in">exit</span>] = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="keyword">for</span> (each basic block B\<span class="built_in">exit</span>)</span><br><span class="line">	IN[B] = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(changes to ant IN occur) </span><br><span class="line">	<span class="keyword">for</span>(each basic blocks B\<span class="built_in">exit</span>) &#123;</span><br><span class="line">	OUT[B] = ∪_IN[S];</span><br><span class="line">	OUT[B] = use_B ∪ (OUT[B] - def_B);      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>将两个算法的<code>Transfer Func</code>放到一起对比：</p>
 <ul>
 <li>RDA: <code>OUT[B] = gen_B ∪ (IN[B] - kill_B)</code></li>
 <li>LVA: <code>IN[B] = use_B ∪ (OUT[B] - def_B)</code></li>
 </ul>
 <p>会发现很多的数据流分析算法都是<code>GEN/KILL Problem</code>，统计一下公式就是<code>OUT = gen ∪ (IN - kill)</code>。</p>
-</blockquote>
 <h4 id="available-expressions-analysis">Available Expressions Analysis</h4>
-<blockquote>
 <h5 id="定义-2">定义</h5>
 <p>An expression x op y is available at program point p if (1) <strong>all paths </strong>from the entry to p must pass through the evaluation of x op y, and (2) <strong>after the last evaluation of x op y, there is no redefinition of x or y</strong>.</p>
 <p><img src="10.png" width="50%" height="50%" alt=""></p>
@@ -627,14 +612,10 @@
 <h6 id="control-flow-2">Control Flow</h6>
 <p>因为是<code>must</code>分析对于所有的情况都要考虑，所以<code>IN[B] = ∩(p:predecessors of B)OUT[p]</code>。</p>
 <h5 id="算法-2">算法</h5>
-<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; /*</span><br><span class="line">&gt; 	<span class="type">INPUT</span>: <span class="type">CFG</span>(kill_B <span class="keyword">and</span> gen_B computed <span class="keyword">for</span> each basic blocks <span class="type">B</span>)</span><br><span class="line">&gt; 	<span class="type">OUTOUT</span>: <span class="type">IN</span>[<span class="type">B</span>] <span class="keyword">and</span> <span class="type">OUT</span>[<span class="type">B</span>] <span class="keyword">for</span> each basic block <span class="type">B</span></span><br><span class="line">&gt; */</span><br><span class="line">&gt; out[entry] = nullptr;</span><br><span class="line">&gt; <span class="keyword">for</span> (each basic block <span class="type">B</span>\entry)</span><br><span class="line">&gt; 	<span class="type">OUT</span>[<span class="type">B</span>] = nullptr;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="keyword">while</span>(changes <span class="keyword">to</span> ant <span class="type">OUT</span> occur) </span><br><span class="line">&gt; 	<span class="keyword">for</span>(each basic blocks <span class="type">B</span>\entry) &#123;</span><br><span class="line">&gt;    	<span class="type">IN</span>[<span class="type">B</span>] = ∪_IN[<span class="type">P</span>];</span><br><span class="line">&gt;    	<span class="type">OUT</span>[<span class="type">B</span>] = gen_B ∪ (<span class="type">OUT</span>[<span class="type">B</span>] - kill_B);      </span><br><span class="line">&gt;  &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	INPUT: CFG(kill_B and gen_B computed for each basic blocks B)</span></span><br><span class="line"><span class="comment">	OUTOUT: IN[B] and OUT[B] for each basic block B</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">out[entry] = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="keyword">for</span> (each basic block B\entry)</span><br><span class="line">	OUT[B] = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(changes to ant OUT occur) </span><br><span class="line">	<span class="keyword">for</span>(each basic blocks B\entry) &#123;</span><br><span class="line">	IN[B] = ∪_IN[P];</span><br><span class="line">	OUT[B] = gen_B ∪ (OUT[B] - kill_B);      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>对于这三种分析来说，如何理解<code>may/must</code>，<code>false positive/false negative</code>和在所有<code>CFG</code>上程序的运行时行为之间的关系是很关键的问题。</strong></p>
-</blockquote>
 <h3 id="foundations">Foundations</h3>
 <h4 id="mathematics-prerequisite">Mathematics Prerequisite</h4>
-<blockquote>
 <h5 id="partial-order">Partial Order</h5>
 <p>定义<code>poset</code>偏序集<code>(P, ≼)</code>表示一个集合<code>p</code>，符号<code>≼</code>定义在该集合的<code>partial ordering</code>有如下性质：</p>
 <ul>
@@ -685,9 +666,7 @@
 <li>(X1, ..., xn) ⊓ (y1, ..., yn) ≡ (x1 ⊓ y1)∧...∧(xn ⊓ yn)</li>
 </ul>
 <p>即一个<code>product lattice</code>中的每一个元素<code>lattice</code>满足的性质它都满足。</p>
-</blockquote>
 <h4 id="data-flow-analysis-framework-via-lattice">Data Flow Analysis Framework via Lattice</h4>
-<blockquote>
 <h5 id="iterative-algorithm">Iterative Algorithm</h5>
 <p>回顾前面三个具体的数据流分析算法，即相应的<code>may/must</code>分析从各自的初始状态出发，<strong>经过不断迭代（Transfer Function/Control Flow）</strong>最终到达<strong>不动点</strong>——整个程序的数据流不会发生变化，算法停止。</p>
 <p>这里从更具体的角度来理解这个算法：</p>
@@ -731,6 +710,7 @@
 <li>迭代到达最小/大不动点</li>
 </ul>
 <h6 id="proof">Proof</h6>
+<blockquote>
 <p><em>Proof-Existence of Fixed Point:</em></p>
 <p>​ <em>∵ <code>⊥</code>是<code>Lattice</code>最小元素，由<code>f:L⟶L</code>的定义可知<code>f(⊥)</code>也是<code>Lattice</code>上的元素⟹ ⊥ ≼ f(⊥)</em></p>
 <p>​ <em>∵ <code>f</code>是单调的 ⟹ f(⊥) ≼ f(f(⊥))=f<sup>2</sup>(⊥) 相似的 ⟹ ⊥≼ f(⊥) ≼ f<sup>2</sup>(⊥) ... ≼ f<sup>i</sup>(⊥)</em></p>
@@ -744,6 +724,7 @@
 <p>​ <em>∴根据归纳法 ⟹ f<sup>i</sup>(⊥) ⟹ f<sup>i</sup>(x)</em></p>
 <p>​ <em>∵<code>x</code>是不动点，f<sup>i</sup>(⊥) ≼ f<sup>i</sup>(x) = x， 又∵f<sup>fix</sup>=f<sup>k</sup>(⊥)是从⊥开始迭代停止的不动点 ⟹ f<sup>k</sup>(⊥) ≼ x</em></p>
 <p>​ <em>∴f<sup>k</sup>(⊥)是唯一的最小不动点(最大不动点证明类似)</em></p>
+</blockquote>
 <h6 id="iterative-and-fixed-point">Iterative and Fixed-Point</h6>
 <p>理解数据流分析的最后一步，就是将分析的<code>Iterative Algorithm</code>与前面建立在<code>Lattice</code>上<code>Fixed-Point Theorem</code>联系起来，而关于不动点原理的前提:</p>
 <ul>
@@ -764,20 +745,20 @@
 </ul>
 <p>由于输入一定是有限的(输入就是数据流比如<code>all definitions/all variables/all expressions</code>)因此该函数一定也是单调有界的。</p>
 <p>相对来说<code>meet/join Function</code>函数⊔/⊓:L x L ⟶ L，只证明⊔是单调的，⊓类似:</p>
+<blockquote>
 <p><em>Poof.</em></p>
 <p><em>∀x, y, z ∊ L, x ≼ y, 我们要证明 x⊔z ≼ y⊔z</em></p>
 <p><em>∵ x≼y, y ≼ y⊔z ⟹ x ≼ y⊔z</em></p>
 <p><em>∵ x⊔z是least upper bound of x and z</em></p>
 <p><em>∴x⊔z ≼ y⊔z</em></p>
+</blockquote>
 <p>得证该函数也是单调的。</p>
 <p>到此为止，我们完美的将<code>data-flow analysis</code>的<code>iterative algorithm</code>转化成为<code>fixed-point theorem</code>的已知条件，故<code>fixed-point theorem</code>的结论当然也适用于<code>iterative algorithm</code>。我们也回答了这一节最开始关于迭代算法不动点存在性和精度的问题。</p>
 <h6 id="complexity">Complexity</h6>
 <p>关于迭代算法的不动点理论还有最后一个问题，就是算法会在什么时候到达不动点即<code>when can we get the solution</code>?<strong>这就涉及到了在<code>Lattice</code>建立的函数的复杂度：</strong></p>
 <p>首先引入<code>Lattice</code>的高度<code>height</code>，即从<code>lattice</code>的<code>top</code>到<code>bottom</code>最长的一条路径<code>h</code>，假设该<code>CFG</code>中节点的数目是<code>k</code>，<strong>那最坏情况需要<code>i = h* k</code>次迭代才能到达不动点。</strong></p>
 <p>到此为止，所有的理论部分都介绍结束了！</p>
-</blockquote>
 <h4 id="maymust-analysis-on-lattice">May/Must Analysis On Lattice</h4>
-<blockquote>
 <p>前面一部分主要从数学角度引入<strong>在<code>lattice</code>上定义的函数的不动点定理，然后证明了数据流分析的算法本质上就是通过迭代来达到不动点。</strong>但是实际上不同的数据流分析算法有不同的应用场景，各自对精度和Soundness的要求也不相同——因此如何理解<code>may</code>和<code>must</code>分析的<strong>初始化条件</strong>以及<strong>最大/小不动点</strong>？ 本节解决 ①<code>may/must data-flow analysis</code>如果用<code>lattice</code>表述会是什么样子?②这些分析和求解<code>lattice</code>上的不动点有什么关系？即<code>may</code>求解最小不动点而<code>must</code>求解最大不动点？③求解不动点和分析的<code>Soundness</code>和分析精度有什么关系？这部分讲解十分精彩，图见课件，这里只是记录我认为最核心的需要理解的部分。</p>
 <h5 id="may-analysis">may analysis</h5>
 <p><code>may</code>分析从⊥到⊤。</p>
@@ -801,9 +782,7 @@
 <p><font color="red">由此可以看出<code>may/must</code>分析完全针对的是不同的场景，但是其分析结果的<code>safe</code>和<code>precision</code>却都是针对程序运行时和最终的结果。</font></p>
 <h5 id="another-view">another view</h5>
 <p>老师在这里提供了另一个角度，就是在<code>lattice</code>上迭代函数，其中<code>Transfer Function</code>本身是固定的，<strong>而两种分析的<code>join/meet Function</code>根据<code>lattice</code>的性质其就是两个元素的<code>least/greatest upper/lower bound</code>，加上分别从<code>⊥</code>和<code>⊤</code>开始，</strong>故每次迭代函数走的都是最小/大的路径，故到达的也是最小/最大不动点。</p>
-</blockquote>
 <h4 id="mop-and-distributivity">MOP and Distributivity</h4>
-<blockquote>
 <p>前面讨论了数据流分析<code>Iterative Algorithm</code>最后到达的不动点是最精确的。但是如何衡量这个精度？这一小节引入一个很经典的<strong>概念</strong><code>Meet-Over-All-Paths Solution</code>即<code>MOP</code>。</p>
 <p><code>MOP</code>概念引入<code>CFG</code>的每一条路径都是从<code>entry</code>一直到其执行结束。</p>
 <ul>
@@ -819,9 +798,7 @@
 <li>MOP = F(x) ⊔ F(y)</li>
 </ul>
 <p>可以证明<strong>迭代算法的精度要比<code>MOP</code>更不准。</strong>只有当F函数是<code>distributive</code>的时候才能保证<code>F(x⊔y) = F(x) ⊔ F(y)</code>即两种算法的精确度是一样的。前面的所有<code>Bit-vector/Gen/Kill</code>问题的数据流分析算法它们的<code>meet/join</code>函数都是<code>distributive</code>的。</p>
-</blockquote>
 <h4 id="constant-propagation">Constant Propagation</h4>
-<blockquote>
 <p>常量传播是一个<code>non-distributive</code>的数据流分析算法。</p>
 <p>Given a variable x at program point p, determine whether x is guaranteed to hold a constant value at p.</p>
 <p>按照数据流分析框架(<font color="red">D</font>, <font color="green">L</font>, <font color="blue">F</font>)来解释的话，该分析一定是前向分析<code>forward-analysis</code>，由于作为优化算法其必须保证运行时不可以出错故是<code>must</code>分析。其<code>lattice</code>的domain是一个pair<code>(x, v)</code>其中<code>x</code>是变量而<code>v</code>表示变量的值（有<code>constant</code>, <code>undefined</code>，<code>notAconstant</code>三种选项），分析的<code>meet operator</code>和之前的算法不同——不是单一的⊔/⊓：</p>
@@ -853,16 +830,11 @@
 <li>MOP: F(X) ⊓ F(Y) = {(a, NAC), (b, NAC), <font color="green">(c, 10)</font>}</li>
 </ul>
 <p>按照<code>must</code>分析的不动点理论，分析是从⊤到⊥（⊤就是UNDEF，⊥是NAC）进行的。而<code>Ours</code>的值要比<code>MOP</code>的值更靠近⊥故其分析则<code>less precise</code>。因此<code>F(X⊓Y)≠ F(X)⊓ F(Y)</code>进而<code>F(X⊓Y) ⋞ F(X)⊓ F(Y)</code>。所以该分析是<code>Nondistributive</code>的。</p>
-</blockquote>
 <h4 id="worklist-algorithm">Worklist Algorithm</h4>
-<blockquote>
 <p>在实际的数据流分析中会使用迭代算法的优化版本即<code>Worklist Algorithm</code>。</p>
 <p>迭代算法的主要复杂度在<code>CFG</code>中一个节点输出有变化都需要使得整个<code>CFG</code>迭代，而<code>Worklist Algorithm</code>则是迭代算法的一种剪枝优化。</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="type">OUT</span>[entry] = nullptr;</span><br><span class="line">&gt;for(each basic block\entry)</span><br><span class="line">&gt;	<span class="type">OUT</span>[<span class="type">B</span>] = nullptr;</span><br><span class="line">&gt;<span class="type">Worklist</span> ⟵ all basic blocks</span><br><span class="line">&gt;while(<span class="type">Worklist</span> is not empty) </span><br><span class="line">&gt;	<span class="type">Pick</span> a basic block <span class="type">B</span> from <span class="type">Worklist</span></span><br><span class="line">&gt;	old_OUT = <span class="type">OUT</span>[<span class="type">B</span>]</span><br><span class="line">&gt;	<span class="type">IN</span>[<span class="type">B</span>] = ⊔<span class="type">OUT</span>[<span class="type">P</span>]</span><br><span class="line">&gt;	<span class="type">OUT</span>[<span class="type">B</span>] = gen_B ⋃ (<span class="type">IN</span>[<span class="type">B</span>] - kill_B)</span><br><span class="line">&gt;	<span class="keyword">if</span>(old_OUT ≠ <span class="type">OUT</span>[<span class="type">B</span>]) </span><br><span class="line">&gt;		add all successors <span class="keyword">of</span> <span class="type">B</span> to <span class="type">Worklist</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">OUT</span>[entry] = nullptr;</span><br><span class="line"><span class="title">for</span>(each basic block\entry)</span><br><span class="line">	<span class="type">OUT</span>[<span class="type">B</span>] = nullptr;</span><br><span class="line"><span class="type">Worklist</span> ⟵ all basic blocks</span><br><span class="line"><span class="title">while</span>(<span class="type">Worklist</span> is not empty) </span><br><span class="line">	<span class="type">Pick</span> a basic block <span class="type">B</span> from <span class="type">Worklist</span></span><br><span class="line">	old_OUT = <span class="type">OUT</span>[<span class="type">B</span>]</span><br><span class="line">	<span class="type">IN</span>[<span class="type">B</span>] = ⊔<span class="type">OUT</span>[<span class="type">P</span>]</span><br><span class="line">	<span class="type">OUT</span>[<span class="type">B</span>] = gen_B ⋃ (<span class="type">IN</span>[<span class="type">B</span>] - kill_B)</span><br><span class="line">	<span class="keyword">if</span>(old_OUT ≠ <span class="type">OUT</span>[<span class="type">B</span>]) </span><br><span class="line">		add all successors <span class="keyword">of</span> <span class="type">B</span> to <span class="type">Worklist</span></span><br></pre></td></tr></table></figure>
 <p>至此，数据流分析的学习告一段落。</p>
-</blockquote>
 
       
     </div>
@@ -883,7 +855,7 @@
   <p><span>本文标题:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/">NJU静态程序分析(1-Data Flow Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月03日 - 16:05</p>
-  <p><span>最后更新:</span>2022年02月14日 - 15:02</p>
+  <p><span>最后更新:</span>2022年03月16日 - 18:03</p>
   <p><span>原始链接:</span><a href="/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/" title="NJU静态程序分析(1-Data Flow Analysis)">http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/04/NJU静态程序分析-1-Data-Flow-Analysis/"  aria-label="复制成功！"></i></span>
   </p>

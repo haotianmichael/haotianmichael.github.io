@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract  基于LLVM实现简单的编程语言kaleidoscope，来源于LLVM9.0.0 tutorial。 LLVM的官方文档还是很不错的，阅读完其中的tutorials就能大致上手LLVM了。实现的代码对C++11要求比较高，我放在了Github上。 实现共分为10部分：  实现词法分析器Lexer 使用递归下降和运算符优先级解析实现语法分析器Parser 将AST转化成LLVM-">
+<meta name="description" content="Abstract 基于LLVM实现简单的编程语言kaleidoscope，来源于LLVM9.0.0 tutorial。 LLVM的官方文档还是很不错的，阅读完其中的tutorials就能大致上手LLVM了。实现的代码对C++11要求比较高，我放在了Github上。 实现共分为10部分：  实现词法分析器Lexer 使用递归下降和运算符优先级解析实现语法分析器Parser 将AST转化成LLVM-I">
 <meta name="keywords" content="Compiler,LLVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LLVM漫谈（2-Implementing a Language）">
 <meta property="og:url" content="http://haotianmcihael.github.io/2020/07/07/LLVM漫谈（2-Implementing-a-Language）/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract  基于LLVM实现简单的编程语言kaleidoscope，来源于LLVM9.0.0 tutorial。 LLVM的官方文档还是很不错的，阅读完其中的tutorials就能大致上手LLVM了。实现的代码对C++11要求比较高，我放在了Github上。 实现共分为10部分：  实现词法分析器Lexer 使用递归下降和运算符优先级解析实现语法分析器Parser 将AST转化成LLVM-">
+<meta property="og:description" content="Abstract 基于LLVM实现简单的编程语言kaleidoscope，来源于LLVM9.0.0 tutorial。 LLVM的官方文档还是很不错的，阅读完其中的tutorials就能大致上手LLVM了。实现的代码对C++11要求比较高，我放在了Github上。 实现共分为10部分：  实现词法分析器Lexer 使用递归下降和运算符优先级解析实现语法分析器Parser 将AST转化成LLVM-I">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-10T08:37:02.148Z">
+<meta property="og:updated_time" content="2022-03-16T10:29:57.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLVM漫谈（2-Implementing a Language）">
-<meta name="twitter:description" content="Abstract  基于LLVM实现简单的编程语言kaleidoscope，来源于LLVM9.0.0 tutorial。 LLVM的官方文档还是很不错的，阅读完其中的tutorials就能大致上手LLVM了。实现的代码对C++11要求比较高，我放在了Github上。 实现共分为10部分：  实现词法分析器Lexer 使用递归下降和运算符优先级解析实现语法分析器Parser 将AST转化成LLVM-">
+<meta name="twitter:description" content="Abstract 基于LLVM实现简单的编程语言kaleidoscope，来源于LLVM9.0.0 tutorial。 LLVM的官方文档还是很不错的，阅读完其中的tutorials就能大致上手LLVM了。实现的代码对C++11要求比较高，我放在了Github上。 实现共分为10部分：  实现词法分析器Lexer 使用递归下降和运算符优先级解析实现语法分析器Parser 将AST转化成LLVM-I">
 
 
 
@@ -470,7 +470,6 @@
 
       
         <h1 id="abstract">Abstract</h1>
-<blockquote>
 <p>基于<code>LLVM</code>实现简单的编程语言<code>kaleidoscope</code>，来源于<a href="https://releases.llvm.org/9.0.0/docs/tutorial/LangImpl01.html" target="_blank" rel="noopener">LLVM9.0.0 tutorial</a>。</p>
 <p><code>LLVM</code>的官方文档还是很不错的，阅读完其中的<strong>tutorials</strong>就能大致上手<code>LLVM</code>了。实现的代码对<code>C++11</code>要求比较高，我放在了<a href="https://github.com/haotianmichael/LLVMSet/tree/master/Kaleidoscope" target="_blank" rel="noopener">Github</a>上。</p>
 <p>实现共分为10部分：</p>
@@ -486,7 +485,6 @@
 <li>扩展——<strong>添加调试器</strong></li>
 <li>深入——<strong>GC，异常等</strong></li>
 </ul>
-</blockquote>
 <a id="more"></a>
 <h1 id="parser">Parser</h1>
 <h2 id="编译原理">编译原理</h2>
@@ -512,7 +510,7 @@
   <p><span>本文标题:</span><a href="/2020/07/07/LLVM漫谈（2-Implementing-a-Language）/">LLVM漫谈（2-Implementing a Language）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2020年07月06日 - 23:07</p>
-  <p><span>最后更新:</span>2020年07月10日 - 16:07</p>
+  <p><span>最后更新:</span>2022年03月16日 - 18:03</p>
   <p><span>原始链接:</span><a href="/2020/07/07/LLVM漫谈（2-Implementing-a-Language）/" title="LLVM漫谈（2-Implementing a Language）">http://haotianmcihael.github.io/2020/07/07/LLVM漫谈（2-Implementing-a-Language）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2020/07/07/LLVM漫谈（2-Implementing-a-Language）/"  aria-label="复制成功！"></i></span>
   </p>

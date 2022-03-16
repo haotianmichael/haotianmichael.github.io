@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当一套编程语言的所有运行时行为都能确保这种性质的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-16T09:32:45.448Z">
+<meta property="og:updated_time" content="2022-03-16T10:35:29.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
 <meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当一套编程语言的所有运行时行为都能确保这种性质的">
@@ -378,7 +378,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-15T18:02:32Z">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-16T02:02:32+08:00">
                 2021-06-15
               </time>
             
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  483
+                  484
                 </span>
               
 
@@ -476,6 +476,7 @@
 <p><code>The formalization of Type system</code>需要一套精确的符号和定义系统，以便对这些形式属性进行严格的证明以确保其正确性。但是应该务实，直觉主义——即形式化的目的不能以牺牲<code>Type system</code>的易用性和流畅性为代价。这样的设计不仅可以避免各式各样的运行时陷阱，而且可以促进语言设计的<code>regularity</code>和<code>orthogonality</code>。</p>
 <p>一个<strong>严格正确</strong>的<code>Type system</code>可以对一门语言定义的各个重要性质进行<strong>完整</strong>的判断。而非形式化的描述甚至做不到完整概括语言的<code>type structure</code>则更谈不上实现上的唯一性。比如不同的编译器对于同一套语言<code>Type system</code>的实现往往不尽相同，甚至有一些<code>type unsound</code>的语言定义导致一段代码明明通过<code>typechecker</code>的检查但在运行时奔溃掉。理想情况下我们说<code>formal Type system</code>应该是所有<code>typed programming languages</code>内核定义的一部分。这样的话，<code>typechecking</code>算法就可以严格按照精确的类型<code>spec</code>执行，从某种程度上该语言可以看成是<code>Type sound</code>的。</p>
 <a id="more"></a>
+<h3 id="introduction">Introduction</h3>
 
       
     </div>
@@ -496,7 +497,7 @@
   <p><span>本文标题:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/">Type system, a Sketchy view.</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月15日 - 18:06</p>
-  <p><span>最后更新:</span>2022年03月16日 - 17:03</p>
+  <p><span>最后更新:</span>2022年03月16日 - 18:03</p>
   <p><span>原始链接:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/" title="Type system, a Sketchy view.">http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"  aria-label="复制成功！"></i></span>
   </p>
@@ -734,7 +735,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li></ol></div>
             
 
           </div>
