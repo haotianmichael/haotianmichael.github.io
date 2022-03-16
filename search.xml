@@ -16,7 +16,7 @@
   <entry>
     <title><![CDATA[Type system, a Sketchy view.]]></title>
     <url>%2F2021%2F06%2F16%2FType-system-a-Sketchy-view%2F</url>
-    <content type="text"><![CDATA[Abstract \[ \frac{\Gamma_{1} \vdash \Im_{1} ... \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im} \]]]></content>
+    <content type="text"><![CDATA[Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当一套编程语言的所有运行时行为都能确保这种性质的话，我们就说该语言是type sound的。事实证明为了更加没有歧义的描述编程语言的type soundness，需要做大量的分析和证明。因此针对Type system的分类，描述和研究过程逐渐演变成为一套formal discipline即形式化体系。 \[ \frac{\Gamma_{1} \vdash \Im_{1} ... \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im} \] The formalization of Type system需要一套精确的符号和定义系统，以便对这些形式属性进行严格的证明以确保其正确性。但是应该务实，直觉主义——即形式化的目的不能以牺牲Type system的易用性和流畅性为代价。这样的设计不仅可以避免各式各样的运行时陷阱，而且可以促进语言设计的regularity和orthogonality。]]></content>
       <categories>
         <category>𝛌</category>
       </categories>

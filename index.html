@@ -629,7 +629,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  15
+                  294
                 </span>
               
 
@@ -667,13 +667,18 @@
 
       
         
-          
-            <h3 id="abstract">Abstract</h3>
-<p><span class="math display">\[
+          <h3 id="abstract">Abstract</h3>
+<p><code>Type system</code>的基本目的是防止在程序运行时发生<code>execution error</code>。这种<code>Informal statement</code>即非形式化描述有很多内涵：首先该如何严格定义<code>execution error</code>；其次在这种定义下，描述<code>absence of execution error</code>也是<code>Type syatem</code>很<code>nontrivial</code>的性质——当一套编程语言的所有运行时行为都能确保这种性质的话，我们就说该语言是<code>type sound</code>的。事实证明为了更加没有歧义的描述编程语言的<code>type soundness</code>，需要做大量的分析和证明。因此针对<code>Type system</code>的分类，描述和研究过程逐渐演变成为一套<code>formal discipline</code>即形式化体系。 <span class="math display">\[
 \frac{\Gamma_{1} \vdash \Im_{1}  ...  \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im}
 \]</span></p>
-
-          
+<p><code>The formalization of Type system</code>需要一套精确的符号和定义系统，以便对这些形式属性进行严格的证明以确保其正确性。但是应该务实，直觉主义——即形式化的目的不能以牺牲<code>Type system</code>的易用性和流畅性为代价。这样的设计不仅可以避免各式各样的运行时陷阱，而且可以促进语言设计的<code>regularity</code>和<code>orthogonality</code>。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/06/16/Type-system-a-Sketchy-view/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
