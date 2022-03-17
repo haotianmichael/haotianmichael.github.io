@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当PL .aka. programming la">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-17T06:45:46.691Z">
+<meta property="og:updated_time" content="2022-03-17T08:28:50.259Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
 <meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当PL .aka. programming la">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  2.9k
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  6
+                  11
                 </span>
               
             </div>
@@ -527,6 +527,75 @@
 <p><code>Typed languages</code>通过运行静态检查(比如编译期)来实现语言的<code>well-behaved</code>——这样的语言被称为是<code>staticlly checked</code>，整个检查过程被称为<code>typechecking</code>，执行该检查过程的算法被称为<code>type-checker</code>。一段经过<code>type-checker</code>检查的程序被称为<code>well-typed</code>。<code>staticlly checked languages</code>有<code>ML,Java,Pascal</code>等。</p>
 <p><code>Untyped languages</code>通过运行时检查<code>runtime checks</code>来排除所有的<code>forbidden errors</code>。比如它们会检查所有数组边界，所有除法操作，并在错误出现的时候触发异常。整个检查过程被称为<code>dynamic checking</code>。<code>LISP</code>就是这样一门语言，这样的语言尽管没有静态检查，没有类型系统，但却还是<code>strongly checked</code>。</p>
 <h4 id="lack-of-safety">Lack of safety</h4>
+<p>根据定义，<code>well-behaved</code>的代码就是<code>safe</code>的。相对而言<code>safety</code>则是更加重要并且底线的性质，<code>type system</code>的首要目标就是要通过排除所有程序运行时的<code>untrapped errors</code>来确保程序的<code>safety</code>。但是实际上很多静态语言都不能保证<code>safety</code>——它们的类型系统并没有完全排除掉运行时的<code>untrapped errors</code>。这些语言被称为是<code>weakly-typed</code>，而且其程度都各自不同。比如<code>Pascal</code>只有在未标记的变量和函数参数类型被使用时是<code>unsafe</code>的，而<code>C</code>在<code>pointer arithmetic</code>和<code>casting</code>上有大量<code>unsafe</code>的操作。有意思的是针对<code>C</code>程序员十大编程告诫中有5个都是因为其<code>weakly-type</code>造成的。随着发展，<code>C</code>语言很多不安全的特性在<code>C++</code>上得到控制，甚至某些问题在<code>Java</code>中得到了解决。整个趋势都朝着<code>strong checking</code>发展。</p>
+<p>大多数<code>untyped languages</code>因为必要性都是<code>completely safe</code>的，否则程序既没有编译期检查又没有运行时检查一旦出错后果不堪设想。比如<code>Assembly</code>就属于这种语言范畴。</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Typed</th>
+<th>Untyped</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Safe</td>
+<td>ML、Java</td>
+<td>LISP</td>
+</tr>
+<tr class="even">
+<td>Unsafe</td>
+<td>C</td>
+<td>Assembly</td>
+</tr>
+</tbody>
+</table>
+<p>根据排查的错误范围对于<code>program</code>和<code>language</code>的分类：</p>
+<ul>
+<li><code>all programs are well-checked</code>⟶<code>strongly checked/typed languages</code>（强类型）</li>
+<li><code>partial programs are well-checked</code> ⟶ <code>weakly checked/typed languages</code>（弱类型）</li>
+<li><code>all proragms are safe</code>⟶ <code>safe languages</code></li>
+</ul>
+<p>根据排查错误的时间对其分类：</p>
+<ul>
+<li><code>static languages</code></li>
+<li><code>dynamic languages</code></li>
+</ul>
+<p>根据排查错误的方式对其分类：</p>
+<ul>
+<li><code>typed languages</code>: 通过类型</li>
+<li><code>untyped languages</code>： 通过运行时检查</li>
+</ul>
+<h4 id="should-languages-be-safe">Should languages be safe?</h4>
+<p>一些语言比如<code>C</code>是牺牲<code>safe</code>而重视性能——某些为了<code>safety</code>所需要的运行时检查是成本很高的。<code>safety</code>是有代价的，即使在广泛实行静态分析的语言中，数组边界检查等相关测试也不能完全消除。但是尽管成本很高，仍然有很多为<code>C</code>设计的安全模块，通过引入一系列运行时检查来确保代码的安全性能。这些尝试主要是为了一些对性能要求没有那么高的应用设计的，或者一些很严重的由<code>C</code>代码引起的安全问题所设计的。</p>
+<p>程序语言的<code>safety</code>属性一般需要以牺牲性能为代价。但是究其优势：其可以对运行时错误提供<code>fail-stop</code>行为来减少<code>debug</code>时间；其可以通过引入<code>garbage collection</code>来确保运行时结构的完整——反过来垃圾收集牺牲部分性能来减少代码量和开发时间。最后其对于像<code>OS/web browsers</code>等应用的安全提供了保证。随着系统安全成为软件开发和维护领域愈加重要的课题，程序语言的<code>safety</code>自然可以促进其发展。</p>
+<p>选择一门<code>safe</code>的语言与软件开发时间，维护时间以及执行时间的需求折中有密切关系。</p>
+<h4 id="should-languages-be-typed">Should languages be typed?</h4>
+<p>主要有两点：</p>
+<ul>
+<li><code>untyped languages</code>会导致大量<code>safety</code>问题</li>
+<li><code>untyped languages</code>比如<code>LISP</code>要比<code>weakly-typed languages</code>比如<code>C</code>更难维护</li>
+</ul>
+<h4 id="expected-properties-of-type-systems">Expected properties of type systems</h4>
+<p>我们在这里假设编程语言需要即<code>safe</code>又<code>type</code>，因此引入<code>type system</code>的讨论。接下来的讨论不区分<code>trapped/untrapped errors</code>，也不区分<code>safety/good behavior</code>。我们仅仅关心<code>good behavior</code>并且将<code>safety</code>看成是语言默认的性质。</p>
+<p><code>Types</code>，作为编程语言的一部分有着和其他<code>program annotations</code>编程标记更加实用的特征。总体上来说，对于编程语言行为的<code>annotations</code>涵盖了<code>informal comments</code>，<code>formal spec</code>，甚至<code>theorem proving</code>等。而<code>Types</code>就在几个范畴的中心地带——其比<code>comments</code>更加精确，但是比<code>formal spec</code>更加简洁和易用。总体来讲<code>type system</code>有如下属性：</p>
+<ul>
+<li><code>decidably verifiable:</code> 需要有算法(指的是<code>typechecker</code>)来确保程序是<code>well-behaved</code>的。<code>type system</code>的目的不仅仅是描述开发者的意图，更重要的是为了捕捉程序运行时错误。（<code>formal spec</code>只能进行描述）</li>
+<li><code>transparent:</code> 开发者对于<code>typechecker</code>的行为应该很易于上手。比如很容易看出某段代码是否可以通过类型测试，如果没有通过则问题一定是开发者自身（<code>automatic theorem proving</code>相比之下更晦涩难懂）</li>
+<li><code>enforceable:</code> <code>type declarations</code>应该被尽可能的完成静态/动态检查。类型声明和其对应程序之间的一致性应该符合验证。（<code>comments</code>无法做到这一点）</li>
+</ul>
+<h4 id="how-type-systems-are-formalized">How type systems are formalized</h4>
+<p>总结一下：<code>type system</code>可以通过静态/动态类型检查来确保编程语言是<code>well-typed</code>的，而<code>well-typed</code>包含<code>safety</code>——<code>safety</code>属性提供<code>fail-stop bahavior</code>和完善运行时结构（开启<code>grabage collection</code>）。<code>well-behaved/typed</code>进一步通过捕捉<code>execution errors</code>来确保开发质量。</p>
+<p>但是我们如何保证<code>well-typed</code>的程序确实是<code>well-behaved</code>的呢？如何确保一门语言的<code>type rules</code>不会遗漏部分<code>ill behaved</code>行为。</p>
+<p><code>Formal type systems</code>就是在PL的文档中对<code>type system</code>非形式化描述背后的数学特征描述。一旦某一个<code>type system</code>被形式化了，我们就可以证明其满足下面定理：</p>
+<blockquote>
+<p>Try to prove a type <em>soundness</em> theorem stating that <em>well-typed</em> programs are <em>well-behaved</em>.</p>
+</blockquote>
+<p>一旦该定理成立，我们就说该<code>type system</code>是<code>sound</code>的。</p>
+<blockquote>
+<p>Good behavior of all programs of a typed language and soundness of its type system mean the same thing.</p>
+</blockquote>
+<p>为了形式化<code>type system</code>并且证明<code>soundness theorem</code>我们需要在本质上讲整个语言都形式化。</p>
 <h3 id="the-language-of-type-systems">The language of type systems</h3>
 <h3 id="first-order-type-systems">First-order Type Systems</h3>
 <h3 id="first-order-type-systems-for-imperative-languages">First-order Type Systems for Imperative Languages</h3>
@@ -554,7 +623,7 @@
   <p><span>本文标题:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/">Type system, a Sketchy view.</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月15日 - 18:06</p>
-  <p><span>最后更新:</span>2022年03月17日 - 14:03</p>
+  <p><span>最后更新:</span>2022年03月17日 - 16:03</p>
   <p><span>原始链接:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/" title="Type system, a Sketchy view.">http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"  aria-label="复制成功！"></i></span>
   </p>
@@ -792,7 +861,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors"><span class="nav-number">2.1.</span> <span class="nav-text">Execution errors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#typed-and-untyped-languages"><span class="nav-number">2.2.</span> <span class="nav-text">Typed and untyped languages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors-and-safety"><span class="nav-number">2.3.</span> <span class="nav-text">Execution errors and safety</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors-and-well-behaved-programs"><span class="nav-number">2.4.</span> <span class="nav-text">Execution errors and well-behaved programs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lack-of-safety"><span class="nav-number">2.5.</span> <span class="nav-text">Lack of safety</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-language-of-type-systems"><span class="nav-number">3.</span> <span class="nav-text">The language of type systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-order-type-systems"><span class="nav-number">4.</span> <span class="nav-text">First-order Type Systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-order-type-systems-for-imperative-languages"><span class="nav-number">5.</span> <span class="nav-text">First-order Type Systems for Imperative Languages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#second-order-type-systems"><span class="nav-number">6.</span> <span class="nav-text">Second-order Type Systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subtyping"><span class="nav-number">7.</span> <span class="nav-text">SubTyping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#equivalence"><span class="nav-number">8.</span> <span class="nav-text">Equivalence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#summary-and-research-issues"><span class="nav-number">9.</span> <span class="nav-text">Summary and Research Issues</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors"><span class="nav-number">2.1.</span> <span class="nav-text">Execution errors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#typed-and-untyped-languages"><span class="nav-number">2.2.</span> <span class="nav-text">Typed and untyped languages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors-and-safety"><span class="nav-number">2.3.</span> <span class="nav-text">Execution errors and safety</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors-and-well-behaved-programs"><span class="nav-number">2.4.</span> <span class="nav-text">Execution errors and well-behaved programs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lack-of-safety"><span class="nav-number">2.5.</span> <span class="nav-text">Lack of safety</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#should-languages-be-safe"><span class="nav-number">2.6.</span> <span class="nav-text">Should languages be safe?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#should-languages-be-typed"><span class="nav-number">2.7.</span> <span class="nav-text">Should languages be typed?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#expected-properties-of-type-systems"><span class="nav-number">2.8.</span> <span class="nav-text">Expected properties of type systems</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-type-systems-are-formalized"><span class="nav-number">2.9.</span> <span class="nav-text">How type systems are formalized</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-language-of-type-systems"><span class="nav-number">3.</span> <span class="nav-text">The language of type systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-order-type-systems"><span class="nav-number">4.</span> <span class="nav-text">First-order Type Systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-order-type-systems-for-imperative-languages"><span class="nav-number">5.</span> <span class="nav-text">First-order Type Systems for Imperative Languages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#second-order-type-systems"><span class="nav-number">6.</span> <span class="nav-text">Second-order Type Systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subtyping"><span class="nav-number">7.</span> <span class="nav-text">SubTyping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#equivalence"><span class="nav-number">8.</span> <span class="nav-text">Equivalence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#summary-and-research-issues"><span class="nav-number">9.</span> <span class="nav-text">Summary and Research Issues</span></a></li></ol></div>
             
 
           </div>
