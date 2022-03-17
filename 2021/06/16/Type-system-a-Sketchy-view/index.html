@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当一套编程语言的所有运行时行为都能确保这种性质的">
+<meta name="description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当PL .aka. programming la">
 <meta name="keywords" content="PL,Type System">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Type system, a Sketchy view.">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当一套编程语言的所有运行时行为都能确保这种性质的">
+<meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当PL .aka. programming la">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-16T10:35:29.552Z">
+<meta property="og:updated_time" content="2022-03-17T06:45:46.691Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
-<meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当一套编程语言的所有运行时行为都能确保这种性质的">
+<meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement即非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type syatem很nontrivial的性质——当PL .aka. programming la">
 
 
 
@@ -378,7 +378,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-16T02:02:32+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-15T18:02:32Z">
                 2021-06-15
               </time>
             
@@ -401,8 +401,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/𝛌/" itemprop="url" rel="index">
-                    <span itemprop="name">𝛌</span>
+                  <a href="/categories/𝛌-calculus/" itemprop="url" rel="index">
+                    <span itemprop="name">𝛌-calculus</span>
                   </a>
                 </span>
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  484
+                  1.6k
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  6
                 </span>
               
             </div>
@@ -470,13 +470,70 @@
 
       
         <h3 id="abstract">Abstract</h3>
-<p><code>Type system</code>的基本目的是防止在程序运行时发生<code>execution error</code>。这种<code>Informal statement</code>即非形式化描述有很多内涵：首先该如何严格定义<code>execution error</code>；其次在这种定义下，描述<code>absence of execution error</code>也是<code>Type syatem</code>很<code>nontrivial</code>的性质——当一套编程语言的所有运行时行为都能确保这种性质的话，我们就说该语言是<code>type sound</code>的。事实证明为了更加没有歧义的描述编程语言的<code>type soundness</code>，需要做大量的分析和证明。因此针对<code>Type system</code>的分类，描述和研究过程逐渐演变成为一套<code>formal discipline</code>即形式化体系。 <span class="math display">\[
+<p><code>Type system</code>的基本目的是防止在程序运行时发生<code>execution error</code>。这种<code>Informal statement</code>即非形式化描述有很多内涵：首先该如何严格定义<code>execution error</code>；其次在这种定义下，描述<code>absence of execution error</code>也是<code>Type syatem</code>很<code>nontrivial</code>的性质——当<code>PL .aka. programming language</code>的所有运行时行为都能确保这种性质的话，我们就说该语言是<code>type sound</code>的。事实证明为了更加没有歧义的描述<code>PL</code>的<code>type soundness</code>，需要做大量的分析和证明。因此针对<code>Type system</code>的分类，描述和研究过程逐渐演变成为一套<code>formal discipline</code>即形式化体系。 <span class="math display">\[
 \frac{\Gamma_{1} \vdash \Im_{1}  ...  \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im}
 \]</span></p>
 <p><code>The formalization of Type system</code>需要一套精确的符号和定义系统，以便对这些形式属性进行严格的证明以确保其正确性。但是应该务实，直觉主义——即形式化的目的不能以牺牲<code>Type system</code>的易用性和流畅性为代价。这样的设计不仅可以避免各式各样的运行时陷阱，而且可以促进语言设计的<code>regularity</code>和<code>orthogonality</code>。</p>
-<p>一个<strong>严格正确</strong>的<code>Type system</code>可以对一门语言定义的各个重要性质进行<strong>完整</strong>的判断。而非形式化的描述甚至做不到完整概括语言的<code>type structure</code>则更谈不上实现上的唯一性。比如不同的编译器对于同一套语言<code>Type system</code>的实现往往不尽相同，甚至有一些<code>type unsound</code>的语言定义导致一段代码明明通过<code>typechecker</code>的检查但在运行时奔溃掉。理想情况下我们说<code>formal Type system</code>应该是所有<code>typed programming languages</code>内核定义的一部分。这样的话，<code>typechecking</code>算法就可以严格按照精确的类型<code>spec</code>执行，从某种程度上该语言可以看成是<code>Type sound</code>的。</p>
+<p>一个<strong>严格正确</strong>的<code>Type system</code>可以对语言定义的各个重要性质进行<strong>完整</strong>的判断。而非形式化的描述甚至做不到完整概括语言的<code>type structure</code>则更谈不上实现上的唯一性。比如不同的编译器对于同一套语言<code>Type system</code>的实现往往不尽相同，甚至有一些<code>type unsound</code>的语言定义导致一段代码明明通过<code>typechecker</code>的检查但在运行时奔溃掉。理想情况下我们说<code>formal Type system</code>应该是所有<code>typed programming languages</code>内核定义的一部分。这样的话，<code>typechecking</code>算法就可以严格按照精确的类型<code>spec</code>执行，从某种程度上该语言可以看成是<code>Type sound</code>的。</p>
 <a id="more"></a>
 <h3 id="introduction">Introduction</h3>
+<h4 id="execution-errors">Execution errors</h4>
+<p><code>execution error</code>发生比较明显的症状就是出现了意外的<code>software faults</code>比如<code>illegal instruction fault</code>或者<code>illegal memory reference fault</code>等。但是也存在<code>execution error</code>会没有预兆的发生从而导致数据错误。进一步的还存在像<code>divide by zero</code>，或者<code>derferencing nil</code>等<strong><code>Type system</code>无法避免</strong>的<code>sofeware faults</code>。尽管有这么多的运行时错误，但是有的<code>PL</code>甚至都没有<code>Type system</code>而像上面的<code>software faults</code>却不会发生。因此需要严格定义<code>type system</code>的每一个术语，从什么是<code>a type</code>开始。</p>
+<h4 id="typed-and-untyped-languages">Typed and untyped languages</h4>
+<p>程序变量在程序运行期间可以假定一系列的值。</p>
+<blockquote>
+<p>An upper bound of such a range is called a <strong>type</strong> of the variable.</p>
+</blockquote>
+<p>该变量的一个类型就是其值的一个<code>upper bound</code>。比如一个<code>Boolean</code>类型的变量在程序运行过程中只能是<code>true/false</code>，而<code>not(x)</code>在运行时也是有意义的。一门所有变量都有<code>nontrivial types</code>的语言称为<code>typed languages</code>（这里故意不使用<code>strong typing</code>等有歧义的描述，后面有严格的定义）。而没有限制变量范围的语言称为<code>untyped languages</code>——其变量没有<code>type</code>，或者说其变量都有一个<code>universal type</code>。对于<code>untyped languages</code>来说，程序行为<code>operation</code>很有可能应用到了错误的对象<code>arguments</code>上导致错误，异常等未指定的结果。<code>The pure 𝛌-calculus</code>是一个极端的例子——该语言是<code>untyped languages</code>但是却不会发生任何运行时错误(唯一的<code>opeerations</code>就是函数，而所有的<code>value</code>也是函数故不会奔溃)。</p>
+<p><code>Type system</code>是<code>type languages</code>的核心部分，用来跟踪<code>types of variables</code>，更普遍的用来跟踪<code>types of expression</code>。只有遵守<code>type system</code>的代码才可以成为该<code>type language</code>的合格程序。</p>
+<blockquote>
+<p>Type systems are used to determine whether programs are <strong>well behaved.</strong></p>
+</blockquote>
+<p><code>typed language</code>指的是有<code>type system</code>的语言，而<code>type system</code>可能不会在语言的语法中显式出现。</p>
+<ul>
+<li><code>Explicitly typed:</code> <code>types</code>是语法的一部分</li>
+<li><code>implicitly typed:</code> <code>types</code>不会显式出现在语法中</li>
+</ul>
+<p>目前还没有主流语言是<code>implicitly typed</code>，但是像<code>ML/Haskell</code>等语言支持写一些类型信息被省略的<code>program fragment</code>，其<code>type system</code>会自动将类型赋值给这些<code>program fragment</code>片段。</p>
+<h4 id="execution-errors-and-safety">Execution errors and safety</h4>
+<p>首先对<code>execution errors</code>进行分类：</p>
+<ul>
+<li><code>trapped errors:</code> 导致计算行为瞬间奔溃停止
+<ul>
+<li>除零错误</li>
+<li>内存非法访问</li>
+</ul></li>
+<li><code>untrapped errors:</code>刚开始不会很明显，但是后续会导致任意错误
+<ul>
+<li>没有运行时边界检查的数组越界</li>
+<li>引用错误地址</li>
+</ul></li>
+</ul>
+<blockquote>
+<p>A program fragment is <strong>safe</strong> if it does not cause <strong>untrapped errors</strong> to occur.</p>
+</blockquote>
+<p>所有程序都是<code>safe</code>的语言称为<code>safe languages</code>——因此<code>safe languages</code>是要能排除一切潜在错误。<code>untyped languages</code>通过<code>runtime checks</code>来达到<code>safety</code>——<code>typed languages</code>通过<code>static</code>静态(比如编译期)排除一切潜在错误行为来达到<code>safety</code>，其也可以同时采用<code>runtime</code>和<code>static</code>检查。</p>
+<h4 id="execution-errors-and-well-behaved-programs">Execution errors and well-behaved programs</h4>
+<p>针对通用编程语言，我们应该提炼出<code>execution errors</code>的一个子集作为<code>forbidden errors</code>。这个子集应该包含所有的<code>untrapped errors</code>，以及一部分<code>trapped errors</code>。</p>
+<blockquote>
+<p>A program fragment is said to have <strong>good behavior/well-behaved</strong>, if it doesn't cause any <strong>forbidden error</strong> to occur.</p>
+</blockquote>
+<p><strong>对比一下<code>safe</code>和<code>well-behaved</code>的定义就可以发现<code>well-behaved</code>的代码是<code>safe</code>的，但反之不然。</strong>所有代码都是<code>well-behaved</code>的语言被称为<code>strongly checked</code>。针对一个<code>Strongly checked</code>的语言的特征：</p>
+<ul>
+<li>不会出现<code>untrapped errors</code>（<code>safe</code>的保证）</li>
+<li>不会出现包含在<code>forbidden errors</code>中的部分<code>trapped errors</code></li>
+<li>其余的<code>trapped errors</code>发生也只会由于程序员的自身问题导致</li>
+</ul>
+<p><code>Typed languages</code>通过运行静态检查(比如编译期)来实现语言的<code>well-behaved</code>——这样的语言被称为是<code>staticlly checked</code>，整个检查过程被称为<code>typechecking</code>，执行该检查过程的算法被称为<code>type-checker</code>。一段经过<code>type-checker</code>检查的程序被称为<code>well-typed</code>。<code>staticlly checked languages</code>有<code>ML,Java,Pascal</code>等。</p>
+<p><code>Untyped languages</code>通过运行时检查<code>runtime checks</code>来排除所有的<code>forbidden errors</code>。比如它们会检查所有数组边界，所有除法操作，并在错误出现的时候触发异常。整个检查过程被称为<code>dynamic checking</code>。<code>LISP</code>就是这样一门语言，这样的语言尽管没有静态检查，没有类型系统，但却还是<code>strongly checked</code>。</p>
+<h4 id="lack-of-safety">Lack of safety</h4>
+<h3 id="the-language-of-type-systems">The language of type systems</h3>
+<h3 id="first-order-type-systems">First-order Type Systems</h3>
+<h3 id="first-order-type-systems-for-imperative-languages">First-order Type Systems for Imperative Languages</h3>
+<h3 id="second-order-type-systems">Second-order Type Systems</h3>
+<h3 id="subtyping">SubTyping</h3>
+<h3 id="equivalence">Equivalence</h3>
+<h3 id="summary-and-research-issues">Summary and Research Issues</h3>
 
       
     </div>
@@ -497,7 +554,7 @@
   <p><span>本文标题:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/">Type system, a Sketchy view.</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月15日 - 18:06</p>
-  <p><span>最后更新:</span>2022年03月16日 - 18:03</p>
+  <p><span>最后更新:</span>2022年03月17日 - 14:03</p>
   <p><span>原始链接:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/" title="Type system, a Sketchy view.">http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"  aria-label="复制成功！"></i></span>
   </p>
@@ -735,7 +792,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors"><span class="nav-number">2.1.</span> <span class="nav-text">Execution errors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#typed-and-untyped-languages"><span class="nav-number">2.2.</span> <span class="nav-text">Typed and untyped languages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors-and-safety"><span class="nav-number">2.3.</span> <span class="nav-text">Execution errors and safety</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors-and-well-behaved-programs"><span class="nav-number">2.4.</span> <span class="nav-text">Execution errors and well-behaved programs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lack-of-safety"><span class="nav-number">2.5.</span> <span class="nav-text">Lack of safety</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-language-of-type-systems"><span class="nav-number">3.</span> <span class="nav-text">The language of type systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-order-type-systems"><span class="nav-number">4.</span> <span class="nav-text">First-order Type Systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-order-type-systems-for-imperative-languages"><span class="nav-number">5.</span> <span class="nav-text">First-order Type Systems for Imperative Languages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#second-order-type-systems"><span class="nav-number">6.</span> <span class="nav-text">Second-order Type Systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subtyping"><span class="nav-number">7.</span> <span class="nav-text">SubTyping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#equivalence"><span class="nav-number">8.</span> <span class="nav-text">Equivalence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#summary-and-research-issues"><span class="nav-number">9.</span> <span class="nav-text">Summary and Research Issues</span></a></li></ol></div>
             
 
           </div>
