@@ -115,13 +115,13 @@
 
 
 
-<meta name="description" content="Abstract 最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。 分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performance">
+<meta name="description" content="Abstract最近终于有时间研究一下MIT的神课6.824。   这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。   分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performa">
 <meta name="keywords" content="Distributed System,MapReduce,MIT6.824">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MIT6.824(Spring 2021)-MapReduce">
 <meta property="og:url" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract 最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。 分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performance">
+<meta property="og:description" content="Abstract最近终于有时间研究一下MIT的神课6.824。   这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。   分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performa">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/2.png">
@@ -130,7 +130,7 @@
 <meta property="og:updated_time" content="2022-03-16T10:24:50.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT6.824(Spring 2021)-MapReduce">
-<meta name="twitter:description" content="Abstract 最近终于有时间研究一下MIT的神课6.824。 这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。 分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performance">
+<meta name="twitter:description" content="Abstract最近终于有时间研究一下MIT的神课6.824。   这门课教Distributed System，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。   分布式系统和单机相比，除了有很多高并发的Partial Failures，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——Performa">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2022/01/03/MIT6-824-Spring-2021-MapReduce/1.png">
 
 
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.7k
+                  2.6k
                 </span>
               
 
@@ -474,9 +474,8 @@
       
 
       
-        <h3 id="abstract">Abstract</h3>
-<p>最近终于有时间研究一下MIT的<a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener">神课</a><code>6.824</code>。</p>
-<p>这门课教<code>Distributed System</code>，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。</p>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>最近终于有时间研究一下MIT的<a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener">神课</a><code>6.824</code>。  </p>
+<p>这门课教<code>Distributed System</code>，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。  </p>
 <p><strong>分布式系统</strong>和单机相比，除了有很多高并发的<code>Partial Failures</code>，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——<strong><code>Performance</code>性能和<code>Fault Tolerance</code>容错</strong>是这门课的核心。</p>
 <p>课程共有20个<code>Lectures</code>和4个<code>labs</code>。和<code>6.828</code>一样重视实践——<strong>看论文，查资料，做<code>lab</code></strong>~简单粗暴。所以学习过程基本上就按照如下推进：</p>
 <ul>
@@ -487,43 +486,38 @@
 </ul>
 <p>之前做<code>6.828</code>的时候就发现我在做这种<strong>学习过程很长，思考内容又很深</strong>的课程训练时很容易钻牛角尖而让自己乱了节奏，思维如若不能放松下来效果肯定不会太好——希望这次能尽量调整过来。</p>
 <a id="more"></a>
-<h3 id="paper">Paper</h3>
-<p>论文<a href="https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf" target="_blank" rel="noopener">MapReduce:Simplified Data Processing on Large Clusters</a>是关于Google已经淘汰掉的<strong>大规模数据集处理编程架构<code>MapReduce</code></strong>。当时的Google面临在多台机器上的大规模数据集处理比如计算<code>PageRank</code>或者对所有文件进行<code>grep</code>等。</p>
+<h3 id="Paper"><a href="#Paper" class="headerlink" title="Paper"></a>Paper</h3><p>论文<a href="https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf" target="_blank" rel="noopener">MapReduce:Simplified Data Processing on Large Clusters</a>是关于Google已经淘汰掉的<strong>大规模数据集处理编程架构<code>MapReduce</code></strong>。当时的Google面临在多台机器上的大规模数据集处理比如计算<code>PageRank</code>或者对所有文件进行<code>grep</code>等。</p>
 <p>而统一化编程模型可以很好的抽象掉因为大规模集群导致的<strong>并行，网络，容错</strong>等问题——将这些细节隐藏起来，只留一个供程序员使用的编程接口可以大大提高开发效率。而工业级<code>MapReduce</code>的本质就是一个<strong>利用普通机器组成的大规模计算集群进行并行，高容错，高性能的大数据处理函数框架。</strong></p>
-<h4 id="理论模型">理论模型</h4>
-<p>理论模型借鉴于<code>Lisp</code>语言中的<code>map/reduce</code>函数。</p>
+<h4 id="理论模型"><a href="#理论模型" class="headerlink" title="理论模型"></a>理论模型</h4><p>理论模型借鉴于<code>Lisp</code>语言中的<code>map/reduce</code>函数。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">map</span><span class="params">(<span class="built_in">string</span> key, <span class="built_in">string</span> value)</span> </span>&#123;</span><br><span class="line"><span class="comment">//key:  文档名</span></span><br><span class="line"><span class="comment">//value: 文档内容</span></span><br><span class="line"><span class="keyword">for</span> each word w in value:</span><br><span class="line">	EmitIntermediate(w, <span class="string">"1"</span>);  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reduce</span> <span class="params">(<span class="built_in">string</span> key, Iterator values)</span> </span>&#123;</span><br><span class="line"><span class="comment">//key: 一个单词</span></span><br><span class="line">	<span class="comment">//value: 计数值列表</span></span><br><span class="line"><span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> each v in value:</span><br><span class="line">	result  += ParseInt(v);</span><br><span class="line">Emit(toString(result));  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里两个函数模型的类型分别是:</p>
 <ul>
-<li>map: (k1, v1) —&gt; list(k2, v2)</li>
-<li>reduce: (k2, list(v)) —&gt; list(v2)</li>
+<li>map:   (k1, v1)  —&gt;  list(k2, v2)</li>
+<li>reduce:   (k2, list(v)) —&gt; list(v2)</li>
 </ul>
 <p>对于一个<code>map</code>操作，将<code>key</code>文档中的内容按照一定方式读取，并统计其中的<code>w</code>项的频率<code>value</code>并输出到一个中间文件上。而<code>reduce</code>从中间文件中读取并迭代其<code>lists</code>，将对应的<code>key</code>项统计。</p>
-<p><img src="1.png" width="50%" height="50%" alt=""></p>
+<p> <img src="1.png" width="50%" height="50%" alt=""></p>
 <p>这一模型可以很好的处理并行化操作——<strong>因为<code>map</code>的过程可以在多台机器上并行完成而没有依赖。<code>reduce</code>过程也是。但是整体<code>reduce</code>和<code>map</code>之间存在着顺序依赖关系即必须是相应的<code>map</code>操作结束才可以唤醒<code>reduce</code>操作。</strong></p>
 <p>这样的话所有的依赖和协调过程都被隐藏在<code>map</code>和<code>reduce</code>函数的<strong>数据分发</strong>之间，而开发者可以完全不用考虑分布式细节而单独编写这两个函数以达到自己的目的。</p>
-<h4 id="实现">实现</h4>
-<p>从实现角度看系统的很多行为是由<code>MapReduce</code>内置的库完成的。这里有几个容易混淆的概念：</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>从实现角度看系统的很多行为是由<code>MapReduce</code>内置的库完成的。这里有几个容易混淆的概念：</p>
 <ul>
-<li><code>user program</code>：用户程序，会被多次<code>fork</code>成为<code>master</code>和<code>worker</code><br>
+<li><code>user program</code>：用户程序，会被多次<code>fork</code>成为<code>master</code>和<code>worker</code>  </li>
+<li><p><code>master</code>: 主节点，用来将<code>task</code>分配给相应的<code>worker</code>，记录工作节点的当前状态和声明周期</p>
 </li>
-<li><p><code>master</code>: 主节点，用来将<code>task</code>分配给相应的<code>worker</code>，记录工作节点的当前状态和声明周期</p></li>
-<li><code>task</code>：<code>map</code>任务或者<code>reduce</code>任务，由相应的<code>worker</code>完成</li>
+<li><p><code>task</code>：<code>map</code>任务或者<code>reduce</code>任务，由相应的<code>worker</code>完成</p>
+</li>
 <li><code>worker</code>: 工作节点，用来完成相应的<code>task</code></li>
-<li><p><code>user-defined map/reduce</code>: 开发者自定义的<code>map/reduce</code>函数</p></li>
-</ul>
+<li><p><code>user-defined map/reduce</code>: 开发者自定义的<code>map/reduce</code>函数</p>
 <p><img src="2.png" width="50%" height="50%" alt=""></p>
-<h5 id="输入预处理">输入预处理</h5>
-<p>首先库函数会将输入文件切分成<code>M</code>份，并在一个集群的若干台机器上启动程序的多个副本。副本中除了有一个作为主节点，其他都是工作节点。</p>
+</li>
+</ul>
+<h5 id="输入预处理"><a href="#输入预处理" class="headerlink" title="输入预处理"></a>输入预处理</h5><p>首先库函数会将输入文件切分成<code>M</code>份，并在一个集群的若干台机器上启动程序的多个副本。副本中除了有一个作为主节点，其他都是工作节点。  </p>
 <p>主节点将M个map任务R个reduce任务分配给空闲的工作节点（理解<code>task</code>在被分配给<code>worker</code>后两者是一个意思）。</p>
-<h5 id="map工作节点区分工作节点和用户函数">map工作节点（区分工作节点和用户函数）</h5>
-<p>每一个被分配map的工作节点需要读取相应内容并解析出<code>key/value</code>对，<strong>并将这些作为参数提供给用户自定义的map函数，</strong>而函数输出的中间结果缓存在内存中。</p>
+<h5 id="map工作节点（区分工作节点和用户函数）"><a href="#map工作节点（区分工作节点和用户函数）" class="headerlink" title="map工作节点（区分工作节点和用户函数）"></a>map工作节点（区分工作节点和用户函数）</h5><p>每一个被分配map的工作节点需要读取相应内容并解析出<code>key/value</code>对，<strong>并将这些作为参数提供给用户自定义的map函数，</strong>而函数输出的中间结果缓存在内存中。</p>
 <p>缓存的中间<code>key/value</code>对会被划分为R块并写入本地磁盘，而这些数据对在磁盘中的相应位置会被传回主节点——由主节点再传给相应的reduce工作节点。</p>
-<h5 id="reduce工作节点区分工作节点和用户函数">reduce工作节点（区分工作节点和用户函数）</h5>
-<p>保证map操作结束后，主节点唤醒reduce工作节点并告知其中间输出的磁盘位置。reduce工作节点使用RPC调用获取这些中间数据。<strong>当reduce读取完所有的数据，需要按照key对其进行排序，是为了最后迭代器统计计数提供前置条件。</strong>最后reduce工作节点迭代排好序的中间数据，并将每一个中间key和它关联一组中间value传递给用户定义的reduce函数。</p>
-<h5 id="shuffle过程核心状态机">shuffle过程（核心状态机）</h5>
-<p>整个map和reduce之间的数据shuffle是系统分布式的核心，关键就是map生成的中间文件及其命名。</p>
-<p><img src="3.png" width="50%" height="50%" alt=""></p>
+<h5 id="reduce工作节点（区分工作节点和用户函数）"><a href="#reduce工作节点（区分工作节点和用户函数）" class="headerlink" title="reduce工作节点（区分工作节点和用户函数）"></a>reduce工作节点（区分工作节点和用户函数）</h5><p>保证map操作结束后，主节点唤醒reduce工作节点并告知其中间输出的磁盘位置。reduce工作节点使用RPC调用获取这些中间数据。<strong>当reduce读取完所有的数据，需要按照key对其进行排序，是为了最后迭代器统计计数提供前置条件。</strong>最后reduce工作节点迭代排好序的中间数据，并将每一个中间key和它关联一组中间value传递给用户定义的reduce函数。</p>
+<h5 id="shuffle过程（核心状态机）"><a href="#shuffle过程（核心状态机）" class="headerlink" title="shuffle过程（核心状态机）"></a>shuffle过程（核心状态机）</h5><p>整个map和reduce之间的数据shuffle是系统分布式的核心，关键就是map生成的中间文件及其命名。</p>
+<p> <img src="3.png" width="50%" height="50%" alt=""></p>
 <p>如上图，假设有5个map工作节点和3个reduce工作节点。</p>
 <ul>
 <li>map工作节点的输出分为3类，分别由<code>R0</code>，<code>R1</code>和<code>R2</code>处理，<strong>当map的解析函数一致时，相同的key一定被分到了同一个中间文件中。</strong>即<code>0-0.txt</code>、<code>1-0.txt</code>和<code>0-2.txt</code>三个文件中<code>key</code>类型的交集是空集。</li>
@@ -536,59 +530,47 @@
 </ul>
 <p>比如R0调用<code>0-0.txt、1-0.txt、2-0.txt、3-0.txt、4-0.txt</code>。因为同一列中类型相同，所以只需要内部排序。</p>
 <p>所谓<code>shuffle</code>就是map/reduce对中间文件的行列操作，其结果是将中间文件进一步处理成为<code>&lt;value, list&lt;key&gt;&gt;</code>作为用户定义reduce函数的输入进行计数统计。</p>
-<h5 id="最终输出">最终输出</h5>
-<p>reduce工节点处理完计数后，将结果输出到磁盘上作为下一次<code>MapReduce</code>的输入。</p>
-<h4 id="工业级处理">工业级处理</h4>
-<p>在框架实现的过程中出现了很多的细节。Google在将<code>MapReduce</code>工业化落地的过程中也将这些影响系统<strong>性能</strong>和<strong>可靠性</strong>的主要因素进行了优化——而一个优秀的系统本身就是在实践中不断迭代出来的，这里简单概括一下，不做详细讨论。</p>
-<h5 id="容错">容错</h5>
-<p><strong>分布式容错的本质就是如何在不可靠的硬件上构建可靠的软件。</strong>因为是大规模集群，所以很难避免<code>Partial Failure</code>——从实现角度看就是各个节点的容错。</p>
+<h5 id="最终输出"><a href="#最终输出" class="headerlink" title="最终输出"></a>最终输出</h5><p>reduce工节点处理完计数后，将结果输出到磁盘上作为下一次<code>MapReduce</code>的输入。</p>
+<h4 id="工业级处理"><a href="#工业级处理" class="headerlink" title="工业级处理"></a>工业级处理</h4><p>在框架实现的过程中出现了很多的细节。Google在将<code>MapReduce</code>工业化落地的过程中也将这些影响系统<strong>性能</strong>和<strong>可靠性</strong>的主要因素进行了优化——而一个优秀的系统本身就是在实践中不断迭代出来的，这里简单概括一下，不做详细讨论。</p>
+<h5 id="容错"><a href="#容错" class="headerlink" title="容错"></a>容错</h5><p><strong>分布式容错的本质就是如何在不可靠的硬件上构建可靠的软件。</strong>因为是大规模集群，所以很难避免<code>Partial Failure</code>——从实现角度看就是各个节点的容错。</p>
 <ul>
 <li>主节点：主节点奔溃之后会coredump到一个恢复文件中，重启后可以从最近的恢复点重新执行MapReduce</li>
-<li>工作节点：奔溃后一般都要将当前的task重新分配到一个节点完成
-<ul>
+<li>工作节点：奔溃后一般都要将当前的task重新分配到一个节点完成<ul>
 <li>map：输出是一个中间文件所以符合原子提交即后面的任务会将文件覆盖</li>
 <li>reduce：其输出是一个持久性的文件所以需要重命名一个新的文件防止冲突</li>
-</ul></li>
 </ul>
-<h5 id="加速">加速</h5>
-<p>当出现大规模的机器节点时，很多性能问题会成为优化的方向。比如进一步优化网络和磁盘性能。</p>
+</li>
+</ul>
+<h5 id="加速"><a href="#加速" class="headerlink" title="加速"></a>加速</h5><p>当出现大规模的机器节点时，很多性能问题会成为优化的方向。比如进一步优化网络和磁盘性能。</p>
 <ul>
 <li>局部性：在分布式系统中，输入文件传到map节点，map中间文件传到reduce节点都需要网络带宽。可以考虑将map直接分配到本地磁盘上等操作增加并行性。</li>
 <li>任务粒度：M个map节点，R个reduce节点。分配太多节点导致网络带宽不够，分配太少导致并行度不够。</li>
 <li>负载均衡：不同的工作节点性能也不同，如果系统卡在最后几个节点导致负载过高花费时间过长，就会让整个系统处于不平衡的状态。</li>
 </ul>
-<h3 id="lecture12">Lecture1~2</h3>
-<h4 id="go语言环境配置">go语言环境配置</h4>
-<p>作为一个<code>VIM</code>重度用户我已经不用IDE很多年了。就自行配置了<code>Vim-Go</code>开发环境。</p>
-<h5 id="go安装配置">Go安装配置</h5>
-<p>我用<code>MacOs Catalina</code>环境，下载安装就不说了。主要关注<code>Go</code>环境变量，需要写入相应的<code>SHELL</code>配置文件中，我的在<code>.zshrc</code>中：</p>
+<h3 id="Lecture1-2"><a href="#Lecture1-2" class="headerlink" title="Lecture1~2"></a>Lecture1~2</h3><h4 id="go语言环境配置"><a href="#go语言环境配置" class="headerlink" title="go语言环境配置"></a>go语言环境配置</h4><p>作为一个<code>VIM</code>重度用户我已经不用IDE很多年了。就自行配置了<code>Vim-Go</code>开发环境。</p>
+<h5 id="Go安装配置"><a href="#Go安装配置" class="headerlink" title="Go安装配置"></a>Go安装配置</h5><p>我用<code>MacOs Catalina</code>环境，下载安装就不说了。主要关注<code>Go</code>环境变量，需要写入相应的<code>SHELL</code>配置文件中，我的在<code>.zshrc</code>中：</p>
 <ul>
 <li><code>GOROOT</code>: Go语言的安装目录，一般是<code>/usr/local/go</code></li>
-<li><code>GOPATH</code>: 工作区即写代码的目录，一般分为三个子目录：
-<ul>
-<li><code>src</code><br>
-</li>
+<li><code>GOPATH</code>: 工作区即写代码的目录，一般分为三个子目录：<ul>
+<li><code>src</code>  </li>
 <li><code>bin</code></li>
 <li><code>pkg</code></li>
-</ul></li>
+</ul>
+</li>
 <li><code>GOBIN</code>: 存放GO语言可执行文件的目录（这里的可执行文件主要指通过<code>go get</code>下载并编译好的库，供直接调用的）</li>
 <li><code>PATH</code>: 需要将当前的可执行文件目录放到PATH下面</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 注意&quot;&quot;的使用</span><br><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=~/go/golib:~/go/goproject    #这里设置了两个工作区</span><br><span class="line">export GOBIN=~/go/gobin</span><br><span class="line">export PATH=&quot;$GOROOT/bin:$GOBIN:$PATH&quot;</span><br></pre></td></tr></table></figure>
-<h5 id="镜像">镜像</h5>
-<p>因为Github和Go官网不太好用，所以使用镜像来下载需要的库比较方便。</p>
+<h5 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h5><p>因为Github和Go官网不太好用，所以使用镜像来下载需要的库比较方便。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Mac/Linux环境下</span><br><span class="line">export GO111MODULE=on</span><br><span class="line">export GOPROXY=https://goproxy.cn</span><br></pre></td></tr></table></figure>
-<h5 id="二进制工具">二进制工具</h5>
-<p><code>vim-go</code>是一个开发<code>go</code>的<code>vim</code>插件。我使用<code>vundle</code>包管理工具来管理<code>vim</code>插件。</p>
+<h5 id="二进制工具"><a href="#二进制工具" class="headerlink" title="二进制工具"></a>二进制工具</h5><p><code>vim-go</code>是一个开发<code>go</code>的<code>vim</code>插件。我使用<code>vundle</code>包管理工具来管理<code>vim</code>插件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 如何使用vundle自行Google</span><br><span class="line">Plugin &apos;fatih/vim-go&apos;</span><br></pre></td></tr></table></figure>
 <p>因为这个插件启动还需要一些和二进制工具，具体的列表可打开<code>&quot;~/.vim/bundle/vim-go/plugin/go.vim&quot;</code>如下：</p>
-<p><img src="4.png" width="50%" height="50%" alt=""></p>
+<p> <img src="4.png" width="50%" height="50%" alt=""></p>
 <p>常规做法是在<code>vim</code>命令行模式下面直接执行<code>:GoInstallBinaries</code>来自动安装。如果没有安装代理的话尽管有镜像还是很容易出错，所以我的做法是一个一个从官网上<code>go get</code>然后<code>go insatll</code>手动安装。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go get github.com/go-delve/delve/cmmd/dlv     #从官网上直接下载二进制工具</span><br><span class="line">$ go install github.com/go-delve/delve/cmmd/dlv@laatest   #使用go install手动安装</span><br></pre></td></tr></table></figure>
 <p>如果按照前面的方式配置好了环境变量，那这些二进制工具就会被安装在<code>~/go/gobin</code>目录下。验证方式就是打开<code>vim</code>之后不会有插件报错信息。</p>
-<h3 id="lab1">Lab1</h3>
-<h3 id="to-conclude">To conclude</h3>
-<p>在学习过程用到的资料列举如下:</p>
+<h3 id="Lab1"><a href="#Lab1" class="headerlink" title="Lab1"></a>Lab1</h3><h3 id="To-conclude"><a href="#To-conclude" class="headerlink" title="To conclude"></a>To conclude</h3><p>在学习过程用到的资料列举如下:</p>
 <p><a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-824/" target="_blank" rel="noopener">MIT6.824中文翻译</a></p>
 <p><a href="https://go-zh.org/doc/" target="_blank" rel="noopener">Go文档</a></p>
 <p><a href="https://book.itsfun.top/gopl-zh/" target="_blank" rel="noopener">Go语言圣经</a></p>
@@ -848,7 +830,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#输入预处理"><span class="nav-number">2.2.1.</span> <span class="nav-text">输入预处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map工作节点区分工作节点和用户函数"><span class="nav-number">2.2.2.</span> <span class="nav-text">map工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce工作节点区分工作节点和用户函数"><span class="nav-number">2.2.3.</span> <span class="nav-text">reduce工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shuffle过程核心状态机"><span class="nav-number">2.2.4.</span> <span class="nav-text">shuffle过程（核心状态机）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最终输出"><span class="nav-number">2.2.5.</span> <span class="nav-text">最终输出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级处理"><span class="nav-number">2.3.</span> <span class="nav-text">工业级处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.3.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.3.2.</span> <span class="nav-text">加速</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lecture12"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#go语言环境配置"><span class="nav-number">3.1.</span> <span class="nav-text">go语言环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#go安装配置"><span class="nav-number">3.1.1.</span> <span class="nav-text">Go安装配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#镜像"><span class="nav-number">3.1.2.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二进制工具"><span class="nav-number">3.1.3.</span> <span class="nav-text">二进制工具</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paper"><span class="nav-number">2.</span> <span class="nav-text">Paper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论模型"><span class="nav-number">2.1.</span> <span class="nav-text">理论模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#输入预处理"><span class="nav-number">2.2.1.</span> <span class="nav-text">输入预处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map工作节点（区分工作节点和用户函数）"><span class="nav-number">2.2.2.</span> <span class="nav-text">map工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce工作节点（区分工作节点和用户函数）"><span class="nav-number">2.2.3.</span> <span class="nav-text">reduce工作节点（区分工作节点和用户函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shuffle过程（核心状态机）"><span class="nav-number">2.2.4.</span> <span class="nav-text">shuffle过程（核心状态机）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最终输出"><span class="nav-number">2.2.5.</span> <span class="nav-text">最终输出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工业级处理"><span class="nav-number">2.3.</span> <span class="nav-text">工业级处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容错"><span class="nav-number">2.3.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#加速"><span class="nav-number">2.3.2.</span> <span class="nav-text">加速</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lecture1-2"><span class="nav-number">3.</span> <span class="nav-text">Lecture1~2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#go语言环境配置"><span class="nav-number">3.1.</span> <span class="nav-text">go语言环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Go安装配置"><span class="nav-number">3.1.1.</span> <span class="nav-text">Go安装配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#镜像"><span class="nav-number">3.1.2.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二进制工具"><span class="nav-number">3.1.3.</span> <span class="nav-text">二进制工具</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lab1"><span class="nav-number">4.</span> <span class="nav-text">Lab1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#To-conclude"><span class="nav-number">5.</span> <span class="nav-text">To conclude</span></a></li></ol></div>
             
 
           </div>
