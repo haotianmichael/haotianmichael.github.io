@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-17T15:30:28.709Z">
+<meta property="og:updated_time" content="2022-03-18T04:28:01.521Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
 <meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  4.2k
+                  4.4k
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  16
+                  17
                 </span>
               
             </div>
@@ -638,7 +638,19 @@
 <p><code>Type system</code>由一套特殊的形式化方法描述。下面开始讨论：</p>
 <p>首先引入一套形式化机制称作<code>judgments</code>: <span class="math display">\[
 \Gamma \vdash \Im  \qquad \text{ℑ is an assertion; the free variables of ℑ are declared in 𝚪}
-\]</span> 读作<code>𝚪</code>需要<code>ℑ</code>。<code>𝚪</code>是一个<code>static typing environment</code>;比如一切皆有可能。</p>
+\]</span> 读作<code>𝚪 entails ℑ</code>(𝚪包含ℑ)。</p>
+<p><code>𝚪</code>是一个<code>static typing environment</code>，比如一个由不同变量及其相应<code>type</code>组成的有序链表，通过∅, x<sub>1</sub>:A<sub>1</sub>, ..., x<sub>n</sub>:A<sub>n</sub>的形式。空环境记作∅，而在𝚪环境中声明的变量集合x<sub>1</sub>...x<sub>n</sub>记作<code>dom(𝚪)</code>——𝚪的<code>domain</code>值域。</p>
+<p>ℑ是一种断言，不同的<code>judgements</code>有不同的断言ℑ的形式，但是ℑ中的所有自由变量都必须声明在𝚪中。</p>
+<p>最重要的<code>judgement</code>是<code>typing judgement</code>，其断言为：对于在静态环境<code>𝚪</code>的自由变量<code>M</code>来说，项<code>M</code>有类型<code>A</code>。 <span class="math display">\[
+\Gamma \vdash M:A   \qquad \text{M has type A in 𝚪}
+\]</span> 比如举例如下： <span class="math display">\[
+\begin{aligned}
+&amp;\emptyset \vdash true:Bool &amp;&amp;\qquad \text{true has type Bool} \\
+&amp;\emptyset,x:Nat \vdash x+1:Nat &amp;&amp;\qquad \text{x+1 has type Nat, provided that x has type Nat}\\
+\end{aligned}
+\]</span> 其他类型的<code>judgement</code>也很常见，比如下面断言为<code>an environment is well-formed</code>: <span class="math display">\[
+\Gamma \vdash \diamond  \qquad \text{𝚪 is well-formed(i.e., it has been properly constructed)}
+\]</span> 有很多中方式对给定的<code>judgements</code>判断其<code>validity</code>。但是基于<code>type rules</code>的判断风格有助于描述和证明<code>type system</code>相关的技术引理和定理。而且<code>type rules</code>更加模块化：与单一的<code>typechecking</code>算法相比不同的<code>rules</code>可以分开写，因此也更加容易使用和理解。</p>
 <h4 id="type-rules">Type rules</h4>
 <h4 id="type-derivations">Type derivations</h4>
 <h4 id="well-typing-and-type-inference">Well typing and type inference</h4>
@@ -669,7 +681,7 @@
   <p><span>本文标题:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/">Type system, a Sketchy view.</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月15日 - 18:06</p>
-  <p><span>最后更新:</span>2022年03月17日 - 23:03</p>
+  <p><span>最后更新:</span>2022年03月18日 - 12:03</p>
   <p><span>原始链接:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/" title="Type system, a Sketchy view.">http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"  aria-label="复制成功！"></i></span>
   </p>
