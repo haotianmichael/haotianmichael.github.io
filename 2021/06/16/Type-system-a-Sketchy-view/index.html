@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-18T04:28:01.521Z">
+<meta property="og:updated_time" content="2022-03-18T07:07:19.208Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
 <meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  4.4k
+                  4.9k
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  17
+                  19
                 </span>
               
             </div>
@@ -637,7 +637,7 @@
 <h4 id="judgements">Judgements</h4>
 <p><code>Type system</code>由一套特殊的形式化方法描述。下面开始讨论：</p>
 <p>首先引入一套形式化机制称作<code>judgments</code>: <span class="math display">\[
-\Gamma \vdash \Im  \qquad \text{ℑ is an assertion; the free variables of ℑ are declared in 𝚪}
+\Gamma \vdash \Im  \qquad \text{ℑ is an assertion;the free variables of ℑ are declared in 𝚪}
 \]</span> 读作<code>𝚪 entails ℑ</code>(𝚪包含ℑ)。</p>
 <p><code>𝚪</code>是一个<code>static typing environment</code>，比如一个由不同变量及其相应<code>type</code>组成的有序链表，通过∅, x<sub>1</sub>:A<sub>1</sub>, ..., x<sub>n</sub>:A<sub>n</sub>的形式。空环境记作∅，而在𝚪环境中声明的变量集合x<sub>1</sub>...x<sub>n</sub>记作<code>dom(𝚪)</code>——𝚪的<code>domain</code>值域。</p>
 <p>ℑ是一种断言，不同的<code>judgements</code>有不同的断言ℑ的形式，但是ℑ中的所有自由变量都必须声明在𝚪中。</p>
@@ -652,6 +652,30 @@
 \Gamma \vdash \diamond  \qquad \text{𝚪 is well-formed(i.e., it has been properly constructed)}
 \]</span> 有很多中方式对给定的<code>judgements</code>判断其<code>validity</code>。但是基于<code>type rules</code>的判断风格有助于描述和证明<code>type system</code>相关的技术引理和定理。而且<code>type rules</code>更加模块化：与单一的<code>typechecking</code>算法相比不同的<code>rules</code>可以分开写，因此也更加容易使用和理解。</p>
 <h4 id="type-rules">Type rules</h4>
+<p><code>Type rules</code>：在<code>valid judgements</code>的前提下，断言<code>certain judgement</code>有效。一般都以某些本质上有效的<code>judgements</code>作为开始(常见的有：∅⊢◇,表示<code>empty environment is well-formed</code>)。 <span class="math display">\[
+\begin{aligned}
+&amp;\text{\small (Rule name)} \quad \quad \text{\small (Annotations)}    \\
+&amp;\frac{\Gamma_{1} \vdash \Im_{1}  \quad ... \quad \Gamma_{n} \vdash \Im_{n} \text{\small (Annotations)}}{\Gamma \vdash \Im}
+\end{aligned}
+\qquad \text{ General form of a type rule.}
+\]</span> 每一个<code>type rule</code>的格式：在水平线上面的是一系列<code>premise judgements</code>:𝚪<sub>i</sub> ⊢ ℑ<sub>i</sub>，而在水平线下面的是<code>conclusion judgements</code>: 𝚪⊢ℑ。当所有的<code>premise</code>都满足之后，<code>conclusion</code>一定成立。<code>premise</code>的数量可以为零。而且每一个<code>type rules</code>都有一个名字：根据惯例，名字的第一个单词是由<code>conclusion judgements</code>规定的~比如<code>conclusion</code>是一个<code>value typing judgement</code>的<code>type rules</code>的名字就会叫做<code>Val...</code>。必要的时候，限制<code>rule</code>的一些条件和需要用到的一些缩写都会在<code>typ rule</code>或者<code>premise</code>旁边进行批注。比如一下例子： <span class="math display">\[
+\begin{aligned}
+&amp;\text{\small (Val n) (n=0,1,...)} \\
+&amp;\frac{ \Gamma \vdash \diamond }{\Gamma \vdash n:Nat}
+\end{aligned} \qquad 
+\begin{aligned}
+&amp;\text{\small (Val+)} \\
+&amp;\frac{\Gamma \vdash M:Nat \qquad \Gamma \vdash N:Nat}{\Gamma \vdash \text{M+N:Nat}}
+\end{aligned}
+\]</span> 第一个<code>type rule</code>表示所有的<code>numeral</code>自然数都是<code>Nat</code>类型。第二个<code>type rule</code>表示两个<code>Nat</code>类型的表达式<code>M</code>和<code>N</code>可以构成一个更大的<code>Nat</code>类型的表达式，并且静态环境<code>𝚪</code>不仅包含并且<code>M</code>和<code>N</code>的类型，更包含<code>M+N</code>的类型。</p>
+<p>基本的规则表示<code>empty environment</code>是<code>well formed</code>的，不需要前提： <span class="math display">\[
+\text{(Env ∅} \qquad \frac{}{\emptyset \vdash \diamond}
+\]</span></p>
+<blockquote>
+<p>A collection of type rules is called a (formal) type system. Technically, type system fit into the general framework of <em>formal proof system</em>: collections of rules used to carry out step-by-step deductions.</p>
+<p><strong>The deductions carried out in type systems concern the typing of prorgams.</strong></p>
+</blockquote>
+<p>技术上讲，<code>type system</code>满足形式化证明系统<code>formal proof systems</code>的基本框架：一系列的<code>type rules</code>被用来执行一步一步的推理演绎。类型系统推理的过程就是程序中类型的概念。</p>
 <h4 id="type-derivations">Type derivations</h4>
 <h4 id="well-typing-and-type-inference">Well typing and type inference</h4>
 <h4 id="type-soundness">Type soundness</h4>
@@ -681,7 +705,7 @@
   <p><span>本文标题:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/">Type system, a Sketchy view.</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月15日 - 18:06</p>
-  <p><span>最后更新:</span>2022年03月18日 - 12:03</p>
+  <p><span>最后更新:</span>2022年03月18日 - 15:03</p>
   <p><span>原始链接:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/" title="Type system, a Sketchy view.">http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"  aria-label="复制成功！"></i></span>
   </p>
