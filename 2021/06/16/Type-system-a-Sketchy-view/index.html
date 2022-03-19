@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-18T08:41:59.160Z">
+<meta property="og:updated_time" content="2022-03-19T09:47:48.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
 <meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  5.8k
+                  7.2k
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  22
+                  29
                 </span>
               
             </div>
@@ -669,7 +669,7 @@
 \end{aligned}
 \]</span> 第一个<code>type rule</code>表示所有的<code>numeral</code>自然数都是<code>Nat</code>类型。第二个<code>type rule</code>表示两个<code>Nat</code>类型的表达式<code>M</code>和<code>N</code>可以构成一个更大的<code>Nat</code>类型的表达式，并且静态环境<code>𝚪</code>不仅包含并且<code>M</code>和<code>N</code>的类型，更包含<code>M+N</code>的类型。</p>
 <p>基本的规则表示<code>empty environment</code>是<code>well formed</code>的，不需要前提： <span class="math display">\[
-\text{(Env ∅} \qquad \frac{}{\emptyset \vdash \diamond}
+\text{(Env ∅)} \\ \frac{}{\emptyset \vdash \diamond}
 \]</span></p>
 <blockquote>
 <p>A collection of type rules is called a (formal) type system. Technically, type system fit into the general framework of <em>formal proof system</em>: collections of rules used to carry out step-by-step deductions.</p>
@@ -699,6 +699,105 @@
 <h4 id="type-soundness">Type soundness</h4>
 <p>最后需要注意的是，<code>type system</code>不是一系列任意的<code>type rules</code>的堆积。<code>well-typing</code>在语义层面对应着<code>good behavior</code>。通常通过证明<code>type soundness theorem</code>来检查类型系统内部的一致性——因此类型系统需要语义作为基础。对于<code>denotational semantics</code>来说如果<code>∅⊢M:A</code>是有效的，则〖M〗∊〖A〗(即M的值属于类型A所表示的集合)，对于<code>operational semantics</code>来说如果<code>∅⊢M:A</code>成立，并且M推导出M'，则<code>∅⊢M':A</code>成立。对于两个例子来说，<code>type soundness theorem</code>断言<code>well-typed</code>的程序不会在计算过程中出现<code>execution errors</code>。</p>
 <h3 id="first-order-type-systems">First-order Type Systems</h3>
+<p>在大多数过程间语言中实现的<code>type system</code>称为<code>first order</code>。在PLT行话中<code>first order</code>的意思是缺乏<code>type parameterization and type abstraction</code>——这些都是<code>second order</code>的特征。<code>First-order type system</code>包括<strong>高阶函数<code>higher order functions</code></strong>。<code>Pascal/Algo168</code>都有<code>rich first-order types system</code>，而<code>FORTRAN/Algo160</code>只有<code>poor</code>版本。</p>
+<p>最精简的<code>first-order type system</code>可以由<code>untyped 𝛌-calculus</code>表示，其中<code>𝛌-abstractions</code>形式为<code>𝛌x.M</code>代表一个有参数<code>x</code>和返回值<code>M</code>的匿名函数。对该𝛌进行类型化仅仅需要函数类型和一些基本类型。</p>
+<p><code>first-order typed 𝛌-calculus</code>被称为F<sub>1</sub>。它和<code>untyped 𝛌-calculus</code>不同的地方在于对<code>𝛌-abstractions</code>加上了类型信息——<code>𝛌x:A.M</code>其中<code>x</code>是参数，<code>A</code>是参数类型，而<code>M</code>是函数体。将<code>𝛌x.M</code>转化为<code>𝛌x:A.M</code>是将非类型语言进阶为类型语言的关键步骤：<code>bound variables</code>获取到了类型信息。</p>
+<p>F<sub>1</sub>是建立在函数类型基础上的，<code>A⟶B</code>是一个带有参数类型A和返回值类型B的函数类型。引入一些建立函数类型的基础概念：引入<code>Basic</code>表示该类型集合，引入<code>K∊Basic</code>表示任何一个该类型。</p>
+<table>
+<thead>
+<tr class="header">
+<th>A,B ::=</th>
+<th></th>
+<th></th>
+<th>Types</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>K</td>
+<td>K∊Basic</td>
+<td></td>
+<td>basic types</td>
+</tr>
+<tr class="even">
+<td>A⟶B</td>
+<td></td>
+<td></td>
+<td>function types</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>M,N ::=</th>
+<th></th>
+<th>Terms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>x</td>
+<td></td>
+<td>variable</td>
+</tr>
+<tr class="even">
+<td>𝛌x:A.M</td>
+<td></td>
+<td>function</td>
+</tr>
+<tr class="odd">
+<td>M N</td>
+<td></td>
+<td>application</td>
+</tr>
+</tbody>
+</table>
+<p>F<sub>1</sub>的语法如上图所示。这里有必要简单说明一下<code>typed language</code>的语法。对于<code>untyped language</code>来说<code>context-free syntax</code>就可以完整描述整个语言。而对于<code>typed language</code>来说却不够：</p>
+<blockquote>
+<p>For typed language, the task of describing the legal programs is taken over by the type system.</p>
+</blockquote>
+<p><code>typed language</code>不仅仅需要<code>type system</code>来完善程序语言的<code>legality</code>，还需要<code>context-free syntax</code>来表示定义<code>free/bound variable</code>概念——即定义程序语言的<code>scoping rules</code>。在作用域的基础上，只有<code>bound variable</code>不同的<code>term</code>被称为是语法上相同的<code>syntactically identical</code>比如<code>𝛌x:K.x</code>和<code>𝛌y:K.y</code>。<code>untyped 𝛌-calculus</code>中定义自由变量的方式和F<sub>1</sub>大体上是一样的，仅仅是忽略了类型信息。</p>
+<p>F<sub>1</sub>需要三个<code>judgements</code>如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>𝚪⊢◇</th>
+<th>𝚪 is a well-formed environment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>𝚪⊢A</td>
+<td>A is a well-formed type in 𝚪</td>
+</tr>
+<tr class="even">
+<td>𝚪⊢M:A</td>
+<td>M is a well-formed term of type A in 𝚪</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>𝚪⊢A</code>有点冗余，因为所有语法上正确的类型<code>A</code>在任何环境<code>𝚪</code>下都是<code>well-formed</code>的。而在<code>second-order</code>系统中，类型的<code>well-formed</code>就不单单取决于语法了，这时候<code>𝚪⊢A</code>就很重要了。证明这些<code>judgement</code>的有效性的<code>type rules</code>在下面表格中。 <span class="math display">\[
+\begin{aligned}
+&amp;\text{(Env ∅)} \qquad &amp;&amp;\text{(Env x)} \\ 
+&amp;\frac{}{\emptyset \vdash \diamond} \qquad &amp;&amp;\frac{\Gamma \vdash A \quad x\notin dom(\Gamma)}{\Gamma,x:A\vdash \diamond} \\ \\
+&amp;\text{(Type Const)}  &amp;&amp;\text{(Type Arrow)} \\
+&amp;\frac{\Gamma \vdash \diamond \quad K\in Basic}{\Gamma \vdash K} &amp;&amp;\frac{\Gamma \vdash A \quad \Gamma \vdash B}{\Gamma \vdash A\to B} \\ \\
+&amp;\text{(Val x)} &amp;&amp;\text{(Val fun)} &amp;&amp;&amp;\text{(Val Appl)} \\
+&amp;\frac{\Gamma^{&#39;},x:A,\Gamma^{&#39;&#39;}\vdash \diamond}{\Gamma^{&#39;},x:A,\Gamma^{&#39;&#39;}\vdash x:A} &amp;&amp;\frac{\Gamma, x:A\vdash M:B}{\Gamma \vdash \lambda x:A.M:A\to B} &amp;&amp;&amp;\frac{\Gamma \vdash M:A\to B \quad \Gamma \vdash N:A}{\Gamma \vdash MN:B}
+\end{aligned}
+\]</span> 其中规则<code>Env ∅</code>是唯一不需要前提的：空环境<code>empty environment</code>是有效的环境。规则<code>Env x</code>用来将环境<code>𝚪</code>扩展到范围更大的有效环境𝚪,<code>x:A</code>——前提是<code>A</code>在<code>𝚪</code>中是一个有效的类型。注意到对前提<code>𝚪⊢A</code>应用归纳原则就需要<code>𝚪</code>是合法的。也就是说必须由<code>𝚪⊢◇</code>推导出<code>𝚪⊢A</code>。另一个前提是变量<code>x</code>不能出现在环境<code>𝚪</code>的变量集合中。我们应该明确在环境中的所有不同变量，比如当<code>ValFun</code>规则中的前提<code>𝚪,x:A⊢M:B</code>被推导时（出现在水平线下面），<code>x</code>就不能出现在<code>dom(𝚪)</code>中。</p>
+<p>规则<code>Type Const</code>和<code>Type Arrorw</code>用来构建类型。规则<code>Val x</code>从环境中推导出前提：使用非正式的<code>𝚪',x:A,𝚪''</code>表示<code>x:A</code>在环境中的任意地方出现。规则<code>Val Fun</code>对函数<code>𝛌x:A.M</code>赋值了<code>A⟶B</code>类型，前提是首先参数有<code>A</code>类型之后，函数体被赋予了<code>B</code>类型。要注意该规则中<code>environment</code>是如何改变长度的。<code>Val Appl</code>规则将参数传给函数求值。下面展示了F<sub>1</sub>所有的<code>derivation</code>： <span class="math display">\[
+\begin{aligned}
+\dfrac{\dfrac{\dfrac{\dfrac{\dfrac{\dfrac{\dfrac{\dfrac{\dfrac{}{\empty \vdash \diamond}  \text{by (Env ∅)}}{\empty \vdash K}  \text{by (Type Const)}  \dfrac{\dfrac{}{\empty \vdash \diamond}  \text{by (Env ∅)}}{\empty \vdash K} \text{by (Type Const)}}{\empty \vdash K \to K}  \text{by (Type Arrow)}}{\empty,y:K \to K \vdash \diamond}  \text{by (Env x)}}{\emptyset,y:K\to K\vdash K}  \text{by (Type Const)}}{\emptyset,y:K\to K,z:K\vdash \diamond}  \text{by (Env x)}}{\empty,y:K \to K,z:K \vdash y: K \to K}  \text{by (Val x)} \qquad \dfrac{\dfrac{\dfrac{\dfrac{\dfrac{\dfrac{\dfrac{}{\empty \vdash \diamond} \text{by (Env ∅)}}{\empty \vdash K}\text{by (Type Const)} \quad \dfrac{\dfrac{}{\empty \vdash \diamond} \text{by (Env ∅)}}{\empty \vdash K}\text{by (Type Const)}}{\empty,\vdash K \to K} \text{by (Type Const)}}{\empty,y:K \to K \vdash \diamond} \text{by (Env x)}}{\empty,y:K\to K\vdash K}\text{by (Type Const)}}{\empty,y:K\to K,z:K\vdash \diamond} \text{by (Env x)}}{\emptyset,y:K\to K,z:K\vdash z:K}  \text{by (Val x)}}{\emptyset,y:K \to K,z:K\vdash y(z):K}  \text{by (Val Appl)}}{\emptyset,y:K\to K \vdash \lambda z:K.y(z):K \to K} \quad \text{by (Val Fun)}
+\end{aligned}
+\]</span> 现在既然了解过了简单的<code>first-order type system</code>，我们可以通过丰富其内容来将其打造成为一个现实语言的类型系统。我们要为每一个新添加的类型构造添加一组<code>rules</code>。我们首先引入一些基础类型：<code>Unit Type</code>其值就是常数<code>constant unit</code>；<code>Bool Type</code>其值就是<code>true or false</code>；<code>Nat Type</code>其值是自然数。</p>
+<p><code>Unit Type</code>经常用来填充一些空参数和结果比如某些语言中的<code>Void/Null</code>。该类型没有操作，所以我们只需要一条规则陈述<code>Unit</code>是合法的类型，值<code>unit</code>是类型<code>Unit</code>的合法值即可。 <span class="math display">\[
+\begin{aligned}
+&amp;\text{(Type Unit)} \quad &amp;&amp;\text{(Val Unit)} \\
+&amp;\frac{\Gamma \vdash \diamond}{\Gamma \vdash Unit} \quad &amp;&amp; \frac{\Gamma \vdash \diamond}{\Gamma \vdash unit:Unit}
+\end{aligned}
+\]</span></p>
 <h3 id="first-order-type-systems-for-imperative-languages">First-order Type Systems for Imperative Languages</h3>
 <h3 id="second-order-type-systems">Second-order Type Systems</h3>
 <h3 id="subtyping">SubTyping</h3>
@@ -724,7 +823,7 @@
   <p><span>本文标题:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/">Type system, a Sketchy view.</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月15日 - 18:06</p>
-  <p><span>最后更新:</span>2022年03月18日 - 16:03</p>
+  <p><span>最后更新:</span>2022年03月19日 - 17:03</p>
   <p><span>原始链接:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/" title="Type system, a Sketchy view.">http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"  aria-label="复制成功！"></i></span>
   </p>
