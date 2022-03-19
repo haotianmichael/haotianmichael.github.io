@@ -124,7 +124,7 @@
 <meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/1.png">
-<meta property="og:updated_time" content="2022-03-19T12:49:43.168Z">
+<meta property="og:updated_time" content="2022-03-19T13:49:09.235Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
 <meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  7.8k
+                  8.2k
                 </span>
               
 
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  31
+                  33
                 </span>
               
             </div>
@@ -815,16 +815,33 @@ $$
 &amp;\frac{\Gamma \vdash M:Nat}{\Gamma \vdash pred M:Nat} &amp;&amp;\frac{\Gamma \vdash M:Nat}{\Gamma \vdash isZero M:Bool}
 \end{aligned}
 \]</span> 既然我们有了一系列基本类型，我们可以考虑一些结构化类型，从<code>product Type</code>开始，一个<code>product Type</code> A<sub>1</sub>XA<sub>2</sub>表示两个分别是A<sub>1</sub>和A<sub>2</sub>的元素组成的值对<code>pairs of value</code>的类型。这两个元素可以分别被拆分成为<code>projections first</code>和<code>projections second</code>。或者我们可以使用<code>with</code>语句，将一个<code>pair M</code>分解，并将其两个元素绑定在作用域N下的两个变量v<sub>1</sub>和v<sub>2</sub>上。<strong><code>with</code>语句对应着<code>ML</code>语言中的<code>pattern matching</code>和<code>pascal</code>语言中的<code>with</code></strong>；</p>
-<p><code>product Type</code>还可以通过相对应的<code>projections</code>和<code>with</code>被用来构建<code>tuple Type</code>A<sub>1</sub>XA<sub>2</sub>...XA<sub>i</sub>。 <span class="math display">\[
+<code>product Type</code>还可以通过相对应的<code>projections</code>和<code>with</code>被用来构建<code>tuple Type</code>A<sub>1</sub>XA<sub>2</sub>...XA<sub>i</sub>。 <span class="math display">\[
 \begin{aligned}
 &amp;\text{(Type Product)} \quad &amp;&amp;\text{(Val Pair)} \\
 &amp;\frac{\Gamma \vdash A_1 \quad \Gamma \vdash A_2}{\Gamma \vdash A_1 \times A_2} &amp;&amp; \frac{\Gamma \vdash M_1:A_1 \quad \Gamma \vdash M_2:A_2}{\Gamma \vdash \langle M_1,M_2 \rangle:A_1 \times A_2} \\\\
 &amp;\text{(Val First)} \quad &amp;&amp;\text{(Val Second)} \\
 &amp;\frac{\Gamma \vdash M: A_1 \times A_2}{\Gamma \vdash firstM:A_1} &amp;&amp;\frac{\Gamma \vdash M:A_1 \times A_2}{\Gamma \vdash second M:A_2} \\\\
 &amp;\text{(Val  With)} \\
-&amp; \frac{\Gamma \vdash M:A_1 \times A_2 \quad \Gamma \vdash x_1:A_1,x_2:A_2\vdash N:B}{\Gamma \vdash (with(x_1:A_1,x_2:A_2):=M do N):B}
+&amp; \frac{\Gamma \vdash M:A_1 \times A_2 \quad \Gamma ,x_1:A_1,x_2:A_2\vdash N:B}{\Gamma \vdash (with(x_1:A_1,x_2:A_2):=M do N):B}
 \end{aligned}
-\]</span> <code>Type Union</code>经常被忽视，</p>
+\]</span> <code>Type Union</code>经常被忽视，但其和<code>product Type</code>一样重要。一个<code>union</code>:A<sub>1</sub>+A<sub>2</sub>的元素可以被看成是有左标记的A<sub>1</sub>类型（<code>tagged with a left token</code>），或者是一个有右标记的A<sub>2</sub>类型。这里的标记可以被<code>isLeft/isRight</code>检测其类型结果分别是<code>asLeft/asRight</code>。如果<code>asLeft</code>被错误的赋给<code>right-tagged</code>的值，那么<code>trapped error</code>就会发生。但是这个错误并不是<code>forbidden error</code>。因为假定<code>asLeft</code>有A<sub>1</sub>类型的情况都是<code>safe</code>的。规则<code>Val Case</code>表述了一种优雅的可以替换<code>isLeft/isRight/asLeft/asRight</code>的构造方式和其相应的<code>trapped errors</code>。其还消除了<code>union</code>对<code>Bool</code>类型的依赖。case构造根据M的标记执行两个分支中的一个，M的未标记内容分别绑定到N<sub>1</sub>或N<sub>2</sub>范围内的x<sub>1</sub>或x<sub>2</sub>。 $$
+<span class="math display">\[\begin{aligned}
+&amp;\text{(Type Union)} &amp;&amp; \text{(Val inLeft)} &amp;&amp;&amp;\text{(Val inRight)} \\
+&amp;\frac{\Gamma \vdash A_1 \quad \Gamma \vdash A_2}{\Gamma \vdash A_1+A_2} &amp;&amp; \frac{\Gamma \vdash M_1:A_1 \quad \Gamma \vdash A_2}{\Gamma \vdash inLeft_{A_{2}}M_1:A_1+A_2} &amp;&amp;&amp; \frac{\Gamma \vdash A_1 \quad \Gamma \vdash M_2:A_2}{\Gamma \vdash inRight_{A_{1}}M_2:A_1+A_2} \\\\
+
+&amp;\text{(Val isLeft)} &amp;&amp;\text{(Val isRight)} \\
+&amp;\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash isLeft M:Bool}
+&amp;&amp;\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash isRight M:Bool} \\\\
+
+&amp;\text{(Val asLeft)} &amp;&amp;\text{(Val asRight)} \\
+&amp;\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash asLeft M:A_1} 
+&amp;&amp;\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash asRight M:A_2} \\\\
+
+
+&amp;\text{(Val Case)} \\
+&amp;\frac{\Gamma \vdash M:A_1+A_2 \quad \Gamma,x_1:A_1 \vdash N_1:B \quad \Gamma,x_2:A_2\vdash N_2:B}{\Gamma \vdash (case_B Mofx_1:A_1 thenN_1|x_2:A_2thenN_2):B}
+\end{aligned}\]</span>
+<p>$$</p>
 <h3 id="first-order-type-systems-for-imperative-languages">First-order Type Systems for Imperative Languages</h3>
 <h3 id="second-order-type-systems">Second-order Type Systems</h3>
 <h3 id="subtyping">SubTyping</h3>
@@ -850,7 +867,7 @@ $$
   <p><span>本文标题:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/">Type system, a Sketchy view.</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月15日 - 18:06</p>
-  <p><span>最后更新:</span>2022年03月19日 - 20:03</p>
+  <p><span>最后更新:</span>2022年03月19日 - 21:03</p>
   <p><span>原始链接:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/" title="Type system, a Sketchy view.">http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"  aria-label="复制成功！"></i></span>
   </p>
