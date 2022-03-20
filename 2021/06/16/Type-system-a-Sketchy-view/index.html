@@ -124,7 +124,7 @@
 <meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/1.png">
-<meta property="og:updated_time" content="2022-03-20T17:23:33.608Z">
+<meta property="og:updated_time" content="2022-03-20T19:55:38.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
 <meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  7.2k
+                  7.9k
                 </span>
               
 
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  30
+                  33
                 </span>
               
             </div>
@@ -587,7 +587,7 @@
 <blockquote>
 <p>Scoping can be formally specified by defining the set of<font color="red"> free variables</font> of a program fragment (which involves specifying how variables are bound by declarations). The associated notion of substitution of types or terms for free variables can then be defined.</p>
 </blockquote>
-<p>对于作用域的形式化可以通过定义一个<code>program fragment</code>的一系列自由变量来实现。接着可以定义如何使用<code>types/terms</code>来替换这些变量。</p>
+<p>对于作用域的形式化可以定义一个<code>program fragment</code>的一系列<code>free variable</code>,接着可以定义如何使用<code>types/terms</code>来替换这些变量。</p>
 <ul>
 <li><font color="blue">scoping rules, binding locations, free variable</font></li>
 </ul>
@@ -661,7 +661,7 @@
 \end{aligned} \qquad 
 \begin{aligned}
 &amp;\text{ (Val+)} \\
-&amp;\frac{\Gamma \vdash M:Nat \qquad \Gamma \vdash N:Nat}{\Gamma \vdash \text{M+N:Nat}}
+&amp;\frac{\Gamma \vdash M:Nat \qquad \Gamma \vdash N:Nat}{\Gamma \vdash \text{M+N:Nat}} 
 \end{aligned}
 \]</span> 比如第一个<code>type rule</code>表示所有的<code>numeral</code>自然数都是<code>Nat</code>类型。<font color="red">第二个【结合<code>Typing Judgements</code>】</font><code>type rule</code>表示两个<code>Nat</code>类型的表达式<code>M</code>和<code>N</code>可以构成一个更大的<code>Nat</code>类型的表达式<code>M+N</code>，<font color="blue">Moreover, the environment 𝚪 for M and N, which declares the types of any free variable of M and N, carries over to M+N并且静态环境<code>𝚪</code>不仅声明了<code>M</code>和<code>N</code>的所有<code>free variable</code>的类型，更涵盖了<code>M+N</code>的类型。</font></p>
 <p><font color="orange">注释：首先<code>static typing environment</code>记录程序中<code>free variable</code>的类型信息-These are used to record the types of free variables during the processing of program fragments;   其次<code>typing judgements</code>是断言<code>term</code>有类型-It asserts that a term M has a type A with respect to a static typing environment for the free variables of M。</font></p>
@@ -674,7 +674,7 @@
 </blockquote>
 <p>技术上讲，<code>type system</code>满足形式化证明系统<code>formal proof systems</code>的基本框架：一系列的<code>type rules</code>被用来执行一步一步的推理演绎。类型系统推理的过程就是程序中类型的概念。</p>
 <h4 id="type-derivations">Type derivations</h4>
-<p><code>derivation</code>在<code>type system</code>中是以<code>judgements tree</code>的形式，上面是叶子，最后是跟——每一个<code>judgement</code>都可以从其上面的叶子部分根据一定规则推导得到。<code>type system</code>最基本的要求就是看其<code>derivation</code>是否是正确构建的。</p>
+<p><code>derivation</code>在<code>type system</code>中是以<code>judgements tree</code>的形式，上面是叶子，最后是根——每一个<code>judgement</code>都可以从其上面的叶子部分根据一定规则推导得到。<code>type system</code>最基本的要求就是看其<code>derivation</code>是否是正确构建的。</p>
 在一套<code>type system</code>中，能正确应用<code>type rules</code>推导出来的一定是<code>valid judgement</code>。比如下面： $$
 <span class="math display">\[\begin{aligned}
 \dfrac{\dfrac{\dfrac{}{\emptyset \vdash \diamond}  \text{by(Env ∅)}}{\emptyset \vdash 1:Nat}  \text{by(Val n)} \quad \dfrac{\dfrac{}{\emptyset \vdash \diamond}  \text{by(Env ∅)}}{\emptyset \vdash 2:Nat}  \text{by(Val n)}}{\emptyset \vdash 1+2:Nat}  \text{by(Val +)}
@@ -696,7 +696,7 @@
 <h4 id="type-soundness">Type soundness</h4>
 <p>最后需要注意的是，<code>type system</code>不是一系列任意的<code>type rules</code>的堆积。<code>well-typing</code>在语义层面对应着<code>good behavior</code>。通常通过证明<code>type soundness theorem</code>来检查类型系统内部的一致性——因此类型系统需要语义作为基础。对于<code>denotational semantics</code>来说如果<code>∅⊢M:A</code>是有效的，则〖M〗∊〖A〗(即M的值属于类型A所表示的集合)，对于<code>operational semantics</code>来说如果<code>∅⊢M:A</code>成立，并且M推导出M'，则<code>∅⊢M':A</code>成立。对于两个例子来说，<code>type soundness theorem</code>断言<code>well-typed</code>的程序不会在计算过程中出现<code>execution errors</code>。</p>
 <h3 id="first-order-type-systems">First-order Type Systems</h3>
-<p>在大多数过程间语言中实现的<code>type system</code>称为<code>first order</code>。核心就是包括<strong>高阶函数<code>higher order functions</code></strong>。最精简的<code>first-order type system</code>可以由<code>untyped 𝛌-calculus</code>表示，形式为<code>𝛌x.M</code>即有参数<code>x</code>和返回值<code>M</code>的匿名函数。对该𝛌进行类型化仅仅需要函数类型和一些基本类型。</p>
+<p>在大多数过程间语言中实现的<code>type system</code>称为<code>first order</code>。核心就是包括<strong>高阶函数<code>higher order functions</code></strong>。最精简的<code>first-order type system</code>可以由<code>untyped 𝛌-calculus</code>表示，形式为<code>𝛌x.M</code>即有参数<code>x</code>和返回值<code>M</code>的匿名函数。</p>
 <p><code>first-order typed 𝛌-calculus</code>被称为F<sub>1</sub>。它和<code>untyped 𝛌-calculus</code>不同的地方在于对<code>𝛌-abstractions</code>加上了类型信息——<code>𝛌x:A.M</code>其中<code>x</code>是参数，<code>A</code>是参数类型，而<code>M</code>是函数体。<strong>将<code>𝛌x.M</code>转化为<code>𝛌x:A.M</code>是将非类型语言进阶为类型语言的关键步骤：<code>bound variables</code>获取到了类型信息。</strong>因为F<sub>1</sub>是建立在函数基础上的，所以引入<code>A⟶B</code>带有参数类型A和返回值类型B的函数类型。介绍构建函数类型所需的基本类型：引入<code>Basic</code>表示该类型集合，引入<code>K∊Basic</code>表示集合中的任何一个该类型。</p>
 <h4 id="syntax-of-f1">Syntax of F<sub>1</sub></h4>
 <blockquote>
@@ -738,8 +738,8 @@
 &amp;\text{(Val x)} &amp;&amp;\text{(Val fun)} &amp;&amp;&amp;\text{(Val Appl)} \\
 &amp;\frac{\Gamma^{&#39;},x:A,\Gamma^{&#39;&#39;}\vdash \diamond}{\Gamma^{&#39;},x:A,\Gamma^{&#39;&#39;}\vdash x:A} &amp;&amp;\frac{\Gamma, x:A\vdash M:B}{\Gamma \vdash \lambda x:A.M:A\to B} &amp;&amp;&amp;\frac{\Gamma \vdash M:A\to B \quad \Gamma \vdash N:A}{\Gamma \vdash MN:B}
 \end{aligned}
-\]</span> 其中规则<code>Env ∅</code>是唯一不需要前提的：空环境<code>empty environment</code>是有效的环境。规则<code>Env x</code>用来将环境<code>𝚪</code>扩展到范围更大的有效环境𝚪,<code>x:A</code>——前提是<code>A</code>在<code>𝚪</code>中是一个有效的类型。注意到对前提<code>𝚪⊢A</code>应用归纳原则就需要<code>𝚪</code>是合法的。也就是说必须由<code>𝚪⊢◇</code>推导出<code>𝚪⊢A</code>。另一个前提是变量<code>x</code>不能出现在环境<code>𝚪</code>的变量集合中。我们应该明确在环境中的所有不同变量，比如当<code>ValFun</code>规则中的前提<code>𝚪,x:A⊢M:B</code>被推导时（出现在水平线下面），<code>x</code>就不能出现在<code>dom(𝚪)</code>中。</p>
-<p>规则<code>Type Const</code>和<code>Type Arrorw</code>用来构建类型。规则<code>Val x</code>从环境中推导出前提：使用非正式的<code>𝚪',x:A,𝚪''</code>表示<code>x:A</code>在环境中的任意地方出现。规则<code>Val Fun</code>对函数<code>𝛌x:A.M</code>赋值了<code>A⟶B</code>类型，前提是首先参数有<code>A</code>类型之后，函数体被赋予了<code>B</code>类型。要注意该规则中<code>environment</code>是如何改变长度的。<code>Val Appl</code>规则将参数传给函数求值。下面展示了F<sub>1</sub>所有的<code>derivation</code>：</p>
+\]</span> 其中规则<code>Env ∅</code>是唯一不需要前提的：空环境<code>empty environment</code>是有效的环境。规则<code>Env x</code>用来将环境<code>𝚪</code>扩展到范围更大的有效环境𝚪,<code>x:A</code>——前提是<code>A</code>在<code>𝚪</code>中是一个有效的类型。注意到对前提<code>𝚪⊢A</code>应用归纳原则就需要<code>𝚪</code>是合法的。也就是说必须由<code>𝚪⊢◇</code>推导出<code>𝚪⊢A</code>。另一个前提是变量<code>x</code>不能在环境<code>𝚪</code>中被使用<font color="blue">must not be defined.</font>。我们应该明确在环境中的所有不同变量，比如当<code>ValFun</code>规则中的前提<code>𝚪,x:A⊢M:B</code>被推导时（出现在水平线下面），<code>x</code>就不能出现在<code>dom(𝚪)</code>中。</p>
+<p>规则<code>Type Const</code>和<code>Type Arrorw</code>用来构建类型。规则<code>Val x</code>使用非正式的<code>𝚪',x:A,𝚪''</code>表示<code>x:A</code>在环境中的任意地方出现。规则<code>Val Fun</code>对函数<code>𝛌x:A.M</code>赋值了<code>A⟶B</code>类型，前提是首先参数有<code>A</code>类型之后，函数体被赋予了<code>B</code>类型。要注意该规则中<code>environment</code>是如何改变长度的。<code>Val Appl</code>规则将参数传给函数求值。下面展示了F<sub>1</sub>所有的<code>derivation</code>：</p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
 <h4 id="expansion-of-f1">Expansion of F<sub>1</sub></h4>
 <p>现在既然了解过了简单的<code>first-order type system</code>，我们可以通过丰富其内容来将其打造成为一个现实语言的类型系统。我们要为每一个新添加的类型构造添加一组<code>rules</code>。我们首先引入一些基础类型：<code>Unit Type</code>其值就是常数<code>constant unit</code>；<code>Bool Type</code>其值就是<code>true or false</code>；<code>Nat Type</code>其值是自然数。</p>
@@ -762,7 +762,7 @@ $$
 \end{aligned}\]</span>
 <p>$$ 规则<code>Val Cond</code>引出了一个在<code>typechecking</code>的时候需要用到的类型信息的问题。当遇到条件语句的时候，一般<code>typechecker</code>会分别推断N<sub>1</sub>和N<sub>2</sub>的类型，然后在找到一个和前面找到的两个类型兼容的类型A。在一些类型系统中这种推断不是很容易进行，因此为了解决这个问题，我们使用下标类型<code>suubstripted type</code>来表示额外增加的类型信息：if<sub>A</sub>就是<code>typechecker</code>的提示：最终类型可能是A，而从N<sub>1</sub>和N<sub>2</sub>推断出来的类型信息需要和其做比较。一般情况下我们都会使用下标类型来表示可能会有用的一些类型信息，但是目前比较成熟的<code>typechecker</code>都会自己合成该类型信息，因此其可以省略掉。</p>
 <h5 id="nat-type">Nat Type</h5>
-<p>自然数的类型，<code>Nat Type</code>有0和<code>succ</code>作为值。相似的，一条规则陈述所有的自然数都是<code>Nat</code>类型。在该类型上的操作通过<code>pred</code>和<code>isZero</code>(测试零值)原语变的可能。 <span class="math display">\[
+<p>自然数的类型<code>Nat Type</code>可以通过0和<code>succ</code>的规则都推导出来。在该类型上的操作通过<code>pred</code>和<code>isZero</code>(测试零值)原语变的可能。 <span class="math display">\[
 \begin{aligned}
 &amp;\text{(Type Nat)} \quad &amp;&amp;\text{(Val Zero)} \quad &amp;&amp;&amp;\text{(Val Succ)} \\
 &amp;\frac{\Gamma \vdash \diamond}{\Gamma \vdash Nat} &amp;&amp; \frac{\Gamma \vdash \diamond}{\Gamma \vdash 0:Nat} &amp;&amp;&amp;\frac{\Gamma \vdash M:Nat}{\Gamma \vdash succ M:Nat} \\\\
@@ -771,7 +771,7 @@ $$
 \end{aligned}
 \]</span></p>
 <h5 id="product-type">Product Type</h5>
-<p>既然我们有了一系列基本类型，我们可以考虑一些结构化类型，从<code>product Type</code>开始，一个<code>product Type</code> A<sub>1</sub>XA<sub>2</sub>表示两个分别是A<sub>1</sub>和A<sub>2</sub>的元素组成的值对<code>pairs of value</code>的类型。这两个元素可以分别被拆分成为<code>projections first</code>和<code>projections second</code>。或者我们可以使用<code>with</code>语句，将一个<code>pair M</code>分解，并将其两个元素绑定在作用域N下的两个变量v<sub>1</sub>和v<sub>2</sub>上。<strong><code>with</code>语句对应着<code>ML</code>语言中的<code>pattern matching</code>和<code>pascal</code>语言中的<code>with</code></strong>；</p>
+<p>既然我们有了一系列基本类型，我们可以考虑一些结构化类型，从<code>product Type</code>开始，一个<code>product Type</code> A<sub>1</sub>XA<sub>2</sub>表示两个类型分别是A<sub>1</sub>和A<sub>2</sub>的元素组成的值对的类型。这两个元素可以分别被投影为<code>projections first</code>和<code>projections second</code>。或者我们可以使用<code>with</code>语句，将一个<code>pair M</code>分解，并将其两个元素绑定在作用域N下的两个变量v<sub>1</sub>和v<sub>2</sub>上。<strong><code>with</code>语句对应着<code>ML</code>语言中的<code>pattern matching</code>和<code>pascal</code>语言中的<code>with</code></strong>；</p>
 <p><code>product Type</code>还可以通过相对应的<code>projections</code>和<code>with</code>被用来构建<code>tuple Type</code>A<sub>1</sub>XA<sub>2</sub>...XA<sub>i</sub>。 <span class="math display">\[
 \begin{aligned}
 &amp;\text{(Type Product)} \quad &amp;&amp;\text{(Val Pair)} \\
@@ -802,10 +802,41 @@ $$
 &amp;\text{(Val Case)} \\
 &amp;\frac{\Gamma \vdash M:A_1+A_2 \quad \Gamma,x_1:A_1 \vdash N_1:B \quad \Gamma,x_2:A_2\vdash N_2:B}{\Gamma \vdash (case_B Mofx_1:A_1 thenN_1|x_2:A_2thenN_2):B}
 \end{aligned}\]</span>
-<p>$$ 在程序表达方面而不是实现方面，注意<code>Bool Type</code>可以被定义为<code>Unit + Unit</code>，在这种情况下<code>case</code>的构造就会简化成为<code>condition</code>构造。</p>
+<p>$$ 在程序表达方面而不是实现方面，注意<code>Bool Type</code>可以被定义为<code>Unit + Unit</code>，在这种情况下<code>case</code>的构造就会简化成为<code>condition</code>构造。<code>Int Type</code>可以被定义为一个正数<code>Nat</code>类型加上一个负数<code>Nat</code>类型。</p>
 <h5 id="record-type">Record Type</h5>
+<p><code>Product Type</code>和<code>Union Type</code>类型可以进一步迭代成为<code>tuple Type</code>和<code>multiple unions Type</code>。但是这两种构造太复杂而且不太常出现在现代语言中。而另一中形式<code>labeld</code>的<code>product and union</code>经常被用到：<code>record Type</code>和<code>Variant Type</code>。 <span class="math display">\[
+\begin{aligned}
+&amp;\text{(Type Record)} (l_i \ distinct)  &amp;&amp; \text{(Val Record)} (l_i \ distinct) \\
+&amp;\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Record(l_1:A_1,...,l_n:A_N)} &amp;&amp;\frac{\Gamma \vdash M_1:A_1 \quad ... \quad \Gamma \vdash M_n:A_n}{\Gamma \vdash record(l_1=M_1,...,l_n=M_n):Record(l_1:A_1,...,l_n:A_n)} \\\\
+&amp;text{Val Record Select} \\
+&amp;\frac{\Gamma \vdash M:Record(l_1:A_1,...,l_n:A_n) \quad j\in 1...n}{\Gamma \vdash M.l_j:A_j} \\\\
+&amp;\text{Val Record With} \\
+&amp;\frac{\Gamma \vdash M:Record(l_1:A_1,...,l_n:A_n)  \qquad \Gamma,x_1:A_1,...x_n:A_n \vdash N:B}{\Gamma \vdash (with(l_1=x_1:A_1,...,l_n=x_n:A_n):MdoN):B}
+\end{aligned}
+\]</span> <code>record</code>类型可以通过名称来实现提取元素，基本上就是将多个<code>product</code>类型并起来。其规则都是从语法层面按照其元素各自的类型将其进行重组。一个<code>product</code>类型A<sub>1</sub>XA<sub>2</sub>可以被定义为<code>Record</code>类型(first:A<sub>1</sub>, second:A<sub>2</sub>)。</p>
 <h5 id="variant-type">Variant Type</h5>
+<p><code>Variant Type</code>就是复杂版的<code>Union Type</code>。 <span class="math display">\[
+\begin{aligned}
+&amp;\text{(Type Variant)} (l_i \ distinct) &amp;&amp;\text{(Val Variant)} (l_i \ distinct) \\
+&amp;\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Variant(l_1:A_1,...,l_n:A_n)}  &amp;&amp; \frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n \qquad \Gamma \vdash M_j:A_j \quad j\in1...n}{\Gamma \vdash variant_{l_1:A_1,...,l_n:A_n}(l_j=M_j):Variant(l_1:A_1,...,l_n:A_n)} \\\\
+&amp;\text{(Val Variant Is)} \\
+&amp;\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n) \qquad j\in1...n}{\Gamma \vdash M as l_j:A_j} \\\\
+&amp;\text{(Val Variant As)} \\
+&amp;\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n \qquad j\in1...n)}{\Gamma \vdash Misl_j:Bool} \\\\
+&amp;\text{Val Variant Case} \\
+&amp;\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n) \qquad \Gamma,x_1:A_1\vdash N_1:B \quad ... \quad \Gamma,x_n:A_n \vdash N_n:B}{\Gamma \vdash (case_B M of l_1=x_1:A_1 then N_1 | ...|l_n=x_n:A_nthen N_n):B}
+\end{aligned}
+\]</span> <code>Union Type</code>A<sub>1</sub>+A<sub>1</sub>可以被定义为<code>Variant</code>(left:A<sub>1</sub>,right:A<sub>2</sub>)。另外<code>Enumeration Types</code>比如<code>{red, green, blue}</code>可以被定义为<code>Variant</code>(red:Unit, green:Unit,blue:Unit)。其中<code>Is</code>规则是<code>isLeft/isRight</code>，，而<code>As</code>规则是<code>asLeft/asRight</code>，但是如果直接使用<code>union</code>规则的话就需要<code>case</code>处理多个分支。</p>
 <h5 id="reference-type">Reference Type</h5>
+<p><code>Reference Type</code>可以被用来处理命令式语言中的<code>mutable locations</code>的基本类型。<code>Ref(A)</code>的一个元素就是一个包含类型A的可变地址。新地址可以被<code>Val Ref</code>分配，或者被<code>Val Assign</code>规则更新，或者使用<code>Val Deref</code>进行解引用。 <span class="math display">\[
+\begin{aligned}
+&amp;\text{(Type Ref)}  &amp;&amp;\text{(Val Ref)}  \\
+&amp;\frac{\Gamma \vdash A}{\Gamma \vdash RefA} &amp;&amp; \frac{\Gamma \vdash M:A}{\Gamma \vdash refM:RefA} \\\\
+&amp;\text{(Val Deref)} &amp;&amp;\text{(Val Assign)} \\
+&amp;\frac{\Gamma \vdash M:RefA}{\Gamma \vdash derefM:A} &amp;&amp;\frac{\Gamma \vdash M:RefA \qquad \Gamma \vdash N:A}{\Gamma \vdash M:=N:Unit}
+\end{aligned}
+\]</span> <font color="red">因为赋值语句的目的是为了产生<code>side effect</code>，所以其值就必须是<code>unit</code>-. Since the main purpose of an assignment is to perform a side effect, its resulting value is chosen to be unit</font></p>
+<p>一些常规的<code>mutable</code>类型也可以从<code>Ref</code>类型中派生出来，比如<code>Mutable record types</code>就是一个包含着<code>Ref</code>类型的<code>record</code>类型。</p>
 <h5 id="array-type">Array Type</h5>
 <h5 id="recursive-type">Recursive Type</h5>
 <h5 id="list-type">List Type</h5>
@@ -836,7 +867,7 @@ $$
   <p><span>本文标题:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/">Type system, a Sketchy view.</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月15日 - 18:06</p>
-  <p><span>最后更新:</span>2022年03月21日 - 01:03</p>
+  <p><span>最后更新:</span>2022年03月21日 - 03:03</p>
   <p><span>原始链接:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/" title="Type system, a Sketchy view.">http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"  aria-label="复制成功！"></i></span>
   </p>
