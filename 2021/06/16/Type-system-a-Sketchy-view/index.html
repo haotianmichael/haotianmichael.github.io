@@ -124,7 +124,7 @@
 <meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/1.png">
-<meta property="og:updated_time" content="2022-03-20T19:55:38.263Z">
+<meta property="og:updated_time" content="2022-03-20T21:02:26.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
 <meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  7.9k
+                  8.8k
                 </span>
               
 
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  33
+                  38
                 </span>
               
             </div>
@@ -806,8 +806,8 @@ $$
 <h5 id="record-type">Record Type</h5>
 <p><code>Product Type</code>和<code>Union Type</code>类型可以进一步迭代成为<code>tuple Type</code>和<code>multiple unions Type</code>。但是这两种构造太复杂而且不太常出现在现代语言中。而另一中形式<code>labeld</code>的<code>product and union</code>经常被用到：<code>record Type</code>和<code>Variant Type</code>。 <span class="math display">\[
 \begin{aligned}
-&amp;\text{(Type Record)} (l_i \ distinct)  &amp;&amp; \text{(Val Record)} (l_i \ distinct) \\
-&amp;\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Record(l_1:A_1,...,l_n:A_N)} &amp;&amp;\frac{\Gamma \vdash M_1:A_1 \quad ... \quad \Gamma \vdash M_n:A_n}{\Gamma \vdash record(l_1=M_1,...,l_n=M_n):Record(l_1:A_1,...,l_n:A_n)} \\\\
+&amp;\text{(Type Record)} (l_i \ distinct)  \\
+&amp;\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Record(l_1:A_1,...,l_n:A_N)} \\\\&amp; \text{(Val Record)} (l_i \ distinct)   \\&amp;\frac{\Gamma \vdash M_1:A_1 \quad ... \quad \Gamma \vdash M_n:A_n}{\Gamma \vdash record(l_1=M_1,...,l_n=M_n):Record(l_1:A_1,...,l_n:A_n)} \\\\
 &amp;text{Val Record Select} \\
 &amp;\frac{\Gamma \vdash M:Record(l_1:A_1,...,l_n:A_n) \quad j\in 1...n}{\Gamma \vdash M.l_j:A_j} \\\\
 &amp;\text{Val Record With} \\
@@ -817,8 +817,8 @@ $$
 <h5 id="variant-type">Variant Type</h5>
 <p><code>Variant Type</code>就是复杂版的<code>Union Type</code>。 <span class="math display">\[
 \begin{aligned}
-&amp;\text{(Type Variant)} (l_i \ distinct) &amp;&amp;\text{(Val Variant)} (l_i \ distinct) \\
-&amp;\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Variant(l_1:A_1,...,l_n:A_n)}  &amp;&amp; \frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n \qquad \Gamma \vdash M_j:A_j \quad j\in1...n}{\Gamma \vdash variant_{l_1:A_1,...,l_n:A_n}(l_j=M_j):Variant(l_1:A_1,...,l_n:A_n)} \\\\
+&amp;\text{(Type Variant)} (l_i \ distinct)  \\
+&amp;\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Variant(l_1:A_1,...,l_n:A_n)} \\\\&amp;\text{(Val Variant)} (l_i \ distinct) \\&amp; \frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n \qquad \Gamma \vdash M_j:A_j \quad j\in1...n}{\Gamma \vdash variant_{l_1:A_1,...,l_n:A_n}(l_j=M_j):Variant(l_1:A_1,...,l_n:A_n)} \\\\
 &amp;\text{(Val Variant Is)} \\
 &amp;\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n) \qquad j\in1...n}{\Gamma \vdash M as l_j:A_j} \\\\
 &amp;\text{(Val Variant As)} \\
@@ -838,8 +838,58 @@ $$
 \]</span> <font color="red">因为赋值语句的目的是为了产生<code>side effect</code>，所以其值就必须是<code>unit</code>-. Since the main purpose of an assignment is to perform a side effect, its resulting value is chosen to be unit</font></p>
 <p>一些常规的<code>mutable</code>类型也可以从<code>Ref</code>类型中派生出来，比如<code>Mutable record types</code>就是一个包含着<code>Ref</code>类型的<code>record</code>类型。</p>
 <h5 id="array-type">Array Type</h5>
+<p><code>array</code>和<code>array</code>操作使用了一些<code>arithmetic primitives and local let declarations</code>等。比较复杂构造的规则可以通过简单构造的规则推导出来。下面给出<code>arrays</code>的实现过程： <span class="math display">\[
+\begin{aligned}
+Array&amp;(A) \quad \triangleq  &amp;&amp; \text{Array type} \\
+&amp;Nat \times(Nat\to Ref(A)) &amp;&amp;\text{a bound plus a map from indices} \text{less than the bound to refs} \\
+array_A&amp;(N,M) \triangleq  &amp;&amp; \text{Array constructor(for N refs initialized to M)} \\
+&amp;let \ cell_0:Ref(A) = \\ &amp;ref(M)and...and\ \\ &amp;cell_{N-1}:Ref(A)=ref(M).\\
+&amp;in \langle N,\lambda x:Nat.\ if\ x=0 \\
+&amp;\ then \ cell_0\ else\ if\ ...\ else\ \\ &amp;if\ x=N-1\ then\ cell_{N-1}\ \\&amp;else\ error_{Ref_{(A)}}.\rangle \\
+bound&amp;(M) \triangleq &amp;&amp; \text{Array bound} \\
+&amp;first \ M \\
+M[N]_A &amp;\triangleq &amp;&amp; \text{Array indexing} \\
+&amp;if\ N\ &lt;\ first\ M \\
+&amp;then\ deref\ ((second\ M)(N)) \\
+&amp;else \ error_A\\
+M[N]:&amp;=P\ \triangleq &amp;&amp;\text{Array update} \\
+&amp;if\ N\ &lt;\ first\ M \\
+&amp;then\ ((second\ M)(N)):=P \\
+&amp;else\ error_Unit
+\end{aligned}
+\]</span> 下面给出<code>Array</code>类型的规则： <span class="math display">\[
+\begin{aligned}
+&amp;\text{(Type Array)} \\
+&amp;\frac{\Gamma \vdash A}{\Gamma \vdash Array(A)} \\\\
+&amp;\text{(Val Array)} &amp;&amp;\text{(Val Array Bound)}\\
+&amp;\frac{\Gamma \vdash N:Nat \quad \Gamma \vdash M:A}{\Gamma \vdash array(N,M):Array(A)} &amp;&amp;\frac{\Gamma \vdash M:Array(A)}{\Gamma \vdash bound\ M:Nat} \\\\
+&amp;\text{(Val Array Index)} &amp;&amp;\text{(Val Array Update)} \\
+&amp;\frac{\Gamma \vdash N:Nat \quad \Gamma \vdash M:Array(A)}{\Gamma \vdash M[N]:A} &amp;&amp;\frac{\Gamma \vdash N:Nat \quad \Gamma \vdash M:Array(A) \quad \Gamma \vdash P:A}{\Gamma \vdash M[N]:=P:Unit}
+\end{aligned}
+\]</span></p>
 <h5 id="recursive-type">Recursive Type</h5>
+<p>在大多数编程语言中，类型可以被递归定义。<code>Recursive Types</code>让其他类型的构造变的更加有用，但是一般不会显式定义出来，故其形式化方式非常特殊。</p>
+<p>处理递归类型需要对F<sub>1</sub>基础部分做一些增加，<code>environments</code>需要加入<code>type variables X</code>。这个类型变量的形式是<code>𝛍X.A</code>，代表了对递归表达式<code>X=A(X may occur in A)</code>的一种抽象。<code>fold/unfold</code>操作分别映射递归类型及其同型<code>𝛍X.A/[𝛍X.A/X]A</code>（比如<code>[B/X]A</code>意为将在A中的自由出现的X都替换成为B）。这些操作并没有运行时花销，因此在语法中也经常被忽略，但是其存在使得形式化处理变得更加便捷。 <span class="math display">\[
+\begin{aligned}
+&amp;\text{(Env X)} &amp;&amp;\text{(Type Rec)} \\
+&amp;\frac{\Gamma \vdash \diamond \quad X \notin dom(\Gamma)}{\Gamma,X\vdash \diamond} &amp;&amp;\frac{\Gamma,X\vdash A}{\Gamma \vdash \mu X.A} \\\\
+&amp;\text{(Val Fold)} &amp;&amp;\text{(Val Unfold)} \\
+&amp;\frac{\Gamma \vdash M:\lbrack \mu X.A/X\rbrack A}{\Gamma \vdash fold_{\mu X.A}M:\mu X.A} &amp;&amp; \frac{\Gamma \vdash M:\mu X.A}{\Gamma \vdash unfold_{\mu X.A/X}M:\lbrack \mu X.A/X\rbrack A}
+\end{aligned}
+\]</span></p>
 <h5 id="list-type">List Type</h5>
+<p>递归类型的标准应用就是用来定义<code>list</code>和<code>tree</code>，甚至<code>product</code>和<code>union</code>类型。 <span class="math display">\[
+\begin{aligned}
+&amp;List_A  \qquad \triangleq \qquad \mu X.Unit+(A\times X) \\
+&amp;nil_A:List_A \triangleq \qquad fold(inLeft\ unit)\\
+&amp;cons_A:A\to List_A \to List_A \qquad \triangleq \qquad \lambda hd:A.\lambda tl:List_A.fold(inRight\langle hd.tl\rangle)\\
+&amp;listCase_{A,B}:List_A \to B \to (A\times List_A \to B) \to B \triangleq \\
+&amp;\lambda l:List_A.\lambda n:B. \lambda c:A \times List_A \to B \\
+&amp; case(unfold\ l) of \ unit:\ Unit\ then\ n| p:A\times List_A\ then\ c\ p
+\end{aligned}
+\]</span> <code>Recursive Type</code>可以和<code>Record Type and Variant Type</code>一起定能够以更加复杂的树结构比如<code>abstract syntax trees</code>。而<code>case/with</code>语句就可以被用来解析这些树结构。</p>
+<p>当和函数类型联合使用的时候，递归类型变的更加强大。<font color="blue">Via clever encodings, one can show that recursion at the value level is already implicit in recursive types: there is no need to introduce recursion as a separate construct.</font> 而且非k类型计算在<code>typed languages</code>中执行了-<font color="blue">More precisely, Table 18 shows how to define, for any type A, a divergent element A of that type, and a fixpoint operator A for that type. </font></p>
+<p>最后，<code>Type equivalence</code>在递归类型中显得更加有难度。</p>
 <h3 id="first-order-type-systems-for-imperative-languages">First-order Type Systems for Imperative Languages</h3>
 <h3 id="second-order-type-systems">Second-order Type Systems</h3>
 <h3 id="subtyping">SubTyping</h3>
@@ -867,7 +917,7 @@ $$
   <p><span>本文标题:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/">Type system, a Sketchy view.</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月15日 - 18:06</p>
-  <p><span>最后更新:</span>2022年03月21日 - 03:03</p>
+  <p><span>最后更新:</span>2022年03月21日 - 05:03</p>
   <p><span>原始链接:</span><a href="/2021/06/16/Type-system-a-Sketchy-view/" title="Type system, a Sketchy view.">http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/"  aria-label="复制成功！"></i></span>
   </p>
