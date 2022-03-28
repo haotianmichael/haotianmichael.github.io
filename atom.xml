@@ -58,7 +58,7 @@
     <link href="http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/"/>
     <id>http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/</id>
     <published>2021-06-26T23:34:38.000Z</published>
-    <updated>2022-03-28T15:51:34.950Z</updated>
+    <updated>2022-03-28T15:56:45.878Z</updated>
     
     <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><p>不是鲸书。</p><a id="more"></a><p>想尝试设计一套针对优化和程序分析的框架。 通常做程序分析有两条路子，一条是针对程序分析的专用分析器，单独作为一套框架使用。另一条是作为编译器的优化趟来实现。</p><p>想到哪里写到哪里。</p><ul><li>调试工具<code>LLDB+Voltron</code></li><li>写代码<code>Neovim+lsp</code><ul><li><code>ccls</code></li></ul></li></ul><p>针对常规的编译流程<code>Source</code>——<code>IR</code>——<code>CodeGen</code>。我目前还是倾向于<code>Clang</code>的设计，目前现打算研究其架构并简化出来一套适合的东西。其次要继续读<code>static analysis</code>方向的论文，复现其算法和原理。</p>]]></content>
     
