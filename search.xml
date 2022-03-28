@@ -26,8 +26,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
         <tag>Software-Analysis</tag>
         <tag>SSA</tag>
       </tags>
@@ -161,8 +161,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
       </tags>
   </entry>
   <entry>
@@ -173,8 +173,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
       </tags>
   </entry>
   <entry>
@@ -185,8 +185,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>LLVM</tag>
         <tag>Compiler</tag>
+        <tag>LLVM</tag>
         <tag>Linker</tag>
         <tag>Loader</tag>
       </tags>
@@ -199,8 +199,8 @@
         <category>Assembly</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>RISCV</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
