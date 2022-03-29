@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 不是鲸书。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-28T16:38:55.831Z">
+<meta property="og:updated_time" content="2022-03-29T07:48:15.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Advanced Compiler Design and Implementation">
 <meta name="twitter:description" content="Abstract 不是鲸书。">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  165
+                  541
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  1
+                  2
                 </span>
               
             </div>
@@ -482,7 +482,38 @@
 <li><code>ccls</code></li>
 </ul></li>
 </ul>
-<p>针对常规的编译流程<code>Source</code>——<code>IR</code>——<code>CodeGen</code>。我目前还是倾向于<code>Clang</code>的设计，目前现打算研究其架构并简化出来一套适合的东西。其次要继续读<code>static analysis</code>方向的论文，复现其算法和原理。</p>
+<p>针对常规的编译流程<code>Source</code>——<code>IR</code>——<code>CodeGen</code>。我目前还是倾向于<code>Clang</code>的设计，先打算研究其架构并简化出来一套适合的东西。其次要继续读<code>static analysis</code>方向的论文，复现其算法和原理。</p>
+<h3 id="others">Others</h3>
+<p>记录自己机器上一些和开发有关系的细节。</p>
+<h4 id="brew">brew</h4>
+<p><code>brew</code>是用的最多的，<strong>我机器上存在多个版本的软件比如<code>python/llvm/node...</code>，PATH里都是以<code>brew</code>版本为准(因为时间原因，可能<code>brew</code>自己构建其他软件的依赖也选择了不同的版本，可以使用<code>brew search xxx</code>来查看)。</strong>下面列出项目相关：</p>
+<ul>
+<li><code>llvm+clang:</code> 构建于<code>brew info llvm</code>，目前<code>-v = 13.0.1</code>
+<ul>
+<li><code>$CC/CXX</code> 用于<code>cmake</code>的默认编译器</li>
+<li><code>-LDFLAGS/CPPFLAGS</code> 用于<code>cmake</code>编译器编译选项</li>
+</ul></li>
+<li><p><code>NeoVim:</code> 构建于<code>brew info NeoVim</code>，目前版本<code>-v = 0.6.1</code>,依赖检查<code>: checkhealth</code></p></li>
+<li><code>Voltron:</code> 构建依赖<code>brew info python 3.10</code></li>
+<li><p><code>ccls:</code>构建依赖<code>brew info llvm</code></p></li>
+</ul>
+<h4 id="lsp">lsp</h4>
+<p>今年正式从<code>Vim+YCM</code>转到了<code>NeoVim+LSP</code>。<code>language server protocol</code>降低了由<code>M</code>家IDE厂商分别为<code>N</code>门语言做插件的复杂度。由<code>language server</code>(针对语言)和<code>language client</code>(针对IDE/Editor)两部分构成。我的配置是<code>server:ccls</code>+<code>client:coc.vim</code>.</p>
+<p>目前仅仅使用其<code>completion</code>和<code>go to def/ref</code>功能。</p>
+<h5 id="ccls">ccls</h5>
+<p><code>-DCMAKE_PREFIX_PATH</code>选项很重要，这是因为它将<code>clang/llvm</code>的头文件<code>include paths</code>和库<code>resourceDir</code>硬编码到<code>ccls</code>中以便索引。</p>
+<ul>
+<li><code>include paths:  clang -v -fsyntax-only -x c++ /dev/null</code><br>
+</li>
+<li><code>resourceDir:  clang -print-resource-dir</code></li>
+</ul>
+<p><code>ccls</code>使用<code>.ccls/ compile_command.json</code>来索引文件:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">% cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES</span><br><span class="line">% ln -s Debug/compile_commands.json .</span><br></pre></td></tr></table></figure>
+<h5 id="coc.vim">coc.vim</h5>
+<p>想要加其他语言的插件<code>:CocConfig</code>。</p>
+<h3 id="lldb">lldb</h3>
+<p>我用<code>voltron</code>做调试器前端，功能很全就是需要在自启动窗口。。有点麻烦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ voltron view register</span><br><span class="line">$ voltron view stack</span><br><span class="line">$ voltron view disasm</span><br><span class="line">$ voltron view backtrace</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -503,7 +534,7 @@
   <p><span>本文标题:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/">Advanced Compiler Design and Implementation</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月26日 - 23:06</p>
-  <p><span>最后更新:</span>2022年03月29日 - 00:03</p>
+  <p><span>最后更新:</span>2022年03月29日 - 15:03</p>
   <p><span>原始链接:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/" title="Advanced Compiler Design and Implementation">http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/"  aria-label="复制成功！"></i></span>
   </p>
@@ -745,7 +776,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture"><span class="nav-number">2.</span> <span class="nav-text">Architecture</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture"><span class="nav-number">2.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#others"><span class="nav-number">3.</span> <span class="nav-text">Others</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#brew"><span class="nav-number">3.1.</span> <span class="nav-text">brew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lsp"><span class="nav-number">3.2.</span> <span class="nav-text">lsp</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ccls"><span class="nav-number">3.2.1.</span> <span class="nav-text">ccls</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#coc.vim"><span class="nav-number">3.2.2.</span> <span class="nav-text">coc.vim</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lldb"><span class="nav-number">4.</span> <span class="nav-text">lldb</span></a></li></ol></div>
             
 
           </div>
