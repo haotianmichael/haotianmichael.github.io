@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 不是鲸书。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-29T07:49:00.070Z">
+<meta property="og:updated_time" content="2022-03-29T16:47:46.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Advanced Compiler Design and Implementation">
 <meta name="twitter:description" content="Abstract 不是鲸书。">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  541
+                  531
                 </span>
               
 
@@ -473,18 +473,10 @@
 <p>不是鲸书。</p>
 <a id="more"></a>
 <h3 id="architecture">Architecture</h3>
-<p>想尝试设计一套针对优化和程序分析的框架。 通常做程序分析有两条路子，一条是针对程序分析的专用分析器，单独作为一套框架使用。另一条是作为编译器的优化趟来实现。</p>
-<p>想到哪里写到哪里。</p>
-<ul>
-<li>调试工具<code>LLDB+Voltron</code></li>
-<li>写代码<code>Neovim+lsp</code>
-<ul>
-<li><code>ccls</code></li>
-</ul></li>
-</ul>
-<p>针对常规的编译流程<code>Source</code>——<code>IR</code>——<code>CodeGen</code>。我目前还是倾向于<code>Clang</code>的设计，先打算研究其架构并简化出来一套适合的东西。其次要继续读<code>static analysis</code>方向的论文，复现其算法和原理。</p>
-<h3 id="others">Others</h3>
-<p>记录自己机器上一些和开发有关系的细节。</p>
+<p>想尝试设计一套针对优化和程序分析的框架。 通常做程序分析有两条路子，一条是针对程序分析的专用分析器，单独作为一套框架使用;另一条是作为编译器的优化趟来实现， 想到哪里写到哪里。</p>
+<p>针对常规的编译流程<code>Source</code>——<code>IR</code>——<code>CodeGen</code>，我目前还是倾向于<code>Clang</code>的设计，先打算研究其架构并简化出来一套适合的东西。其次要继续读<code>static analysis</code>方向的论文，复现其算法和原理。</p>
+<h3 id="剑气">剑气</h3>
+<p>记录自己机器上和开发有关的些许细节。</p>
 <h4 id="brew">brew</h4>
 <p><code>brew</code>是用的最多的，<strong>我机器上存在多个版本的软件比如<code>python/llvm/node...</code>，PATH里都是以<code>brew</code>版本为准(因为时间原因，可能<code>brew</code>自己构建其他软件的依赖也选择了不同的版本，可以使用<code>brew search xxx</code>来查看)。</strong>下面列出项目相关：</p>
 <ul>
@@ -514,6 +506,8 @@
 <h4 id="lldb">lldb</h4>
 <p>我用<code>voltron</code>做调试器前端，功能很全就是需要在自启动窗口。。有点麻烦</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ voltron view register</span><br><span class="line">$ voltron view stack</span><br><span class="line">$ voltron view disasm</span><br><span class="line">$ voltron view backtrace</span><br></pre></td></tr></table></figure>
+<h3 id="clang">Clang</h3>
+<h3 id="analyzer">Analyzer</h3>
 
       
     </div>
@@ -534,7 +528,7 @@
   <p><span>本文标题:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/">Advanced Compiler Design and Implementation</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月26日 - 23:06</p>
-  <p><span>最后更新:</span>2022年03月29日 - 15:03</p>
+  <p><span>最后更新:</span>2022年03月30日 - 00:03</p>
   <p><span>原始链接:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/" title="Advanced Compiler Design and Implementation">http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/"  aria-label="复制成功！"></i></span>
   </p>
@@ -598,8 +592,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/01/03/MIT6-824-Spring-2021-MapReduce/" rel="prev" title="MIT6.824(Spring 2021)-MapReduce">
-                MIT6.824(Spring 2021)-MapReduce <i class="fa fa-chevron-right"></i>
+              <a href="/2021/06/30/Self-Designed-ADT-in-LLVM/" rel="prev" title="Self-Designed ADT in LLVM">
+                Self-Designed ADT in LLVM <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -677,7 +671,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -776,7 +770,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture"><span class="nav-number">2.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#others"><span class="nav-number">3.</span> <span class="nav-text">Others</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#brew"><span class="nav-number">3.1.</span> <span class="nav-text">brew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lsp"><span class="nav-number">3.2.</span> <span class="nav-text">lsp</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ccls"><span class="nav-number">3.2.1.</span> <span class="nav-text">ccls</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#coc.vim"><span class="nav-number">3.2.2.</span> <span class="nav-text">coc.vim</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lldb"><span class="nav-number">3.3.</span> <span class="nav-text">lldb</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture"><span class="nav-number">2.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#剑气"><span class="nav-number">3.</span> <span class="nav-text">剑气</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#brew"><span class="nav-number">3.1.</span> <span class="nav-text">brew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lsp"><span class="nav-number">3.2.</span> <span class="nav-text">lsp</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ccls"><span class="nav-number">3.2.1.</span> <span class="nav-text">ccls</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#coc.vim"><span class="nav-number">3.2.2.</span> <span class="nav-text">coc.vim</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lldb"><span class="nav-number">3.3.</span> <span class="nav-text">lldb</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clang"><span class="nav-number">4.</span> <span class="nav-text">Clang</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#analyzer"><span class="nav-number">5.</span> <span class="nav-text">Analyzer</span></a></li></ol></div>
             
 
           </div>
