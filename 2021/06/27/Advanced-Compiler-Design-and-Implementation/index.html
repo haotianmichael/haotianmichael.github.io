@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 不是鲸书。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-03-29T16:47:46.655Z">
+<meta property="og:updated_time" content="2022-03-31T15:25:09.980Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Advanced Compiler Design and Implementation">
 <meta name="twitter:description" content="Abstract 不是鲸书。">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  531
+                  665
                 </span>
               
 
@@ -491,7 +491,7 @@
 </ul>
 <h4 id="lsp">lsp</h4>
 <p>今年正式从<code>Vim+YCM</code>转到了<code>NeoVim+LSP</code>。<code>language server protocol</code>降低了由<code>M</code>家IDE厂商分别为<code>N</code>门语言做插件的复杂度。由<code>language server</code>(针对语言)和<code>language client</code>(针对IDE/Editor)两部分构成。我的配置是<code>server:ccls</code>+<code>client:coc.vim</code>.</p>
-<p>目前仅仅使用其<code>completion</code>和<code>go to def/ref</code>功能。</p>
+<p><strong>目前仅仅使用其<code>completion</code>和<code>go to def/ref</code>功能。</strong></p>
 <h5 id="ccls">ccls</h5>
 <p><code>-DCMAKE_PREFIX_PATH</code>选项很重要，这是因为它将<code>clang/llvm</code>的头文件<code>include paths</code>和库<code>resourceDir</code>硬编码到<code>ccls</code>中以便索引。</p>
 <ul>
@@ -507,6 +507,8 @@
 <p>我用<code>voltron</code>做调试器前端，功能很全就是需要在自启动窗口。。有点麻烦</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ voltron view register</span><br><span class="line">$ voltron view stack</span><br><span class="line">$ voltron view disasm</span><br><span class="line">$ voltron view backtrace</span><br></pre></td></tr></table></figure>
 <h3 id="clang">Clang</h3>
+<p>总结一些这几天看源码的成果，工业级编译器需要考虑很多兼容性功能和用户接口，从而有了<code>Driver</code>的概念。还有很多性能上的<code>trade-off</code>从而用很多<code>LLVM</code>自定义的数据结构。故其具体实现上也及其复杂繁琐。</p>
+<p><code>Clang</code>本质是一个<code>Driver</code>，而<code>-cc1</code>才是编译器前端。在命令行中敲下<code>clang a.cpp</code>之后，编译器默认会自带很多编译选项<code>-###</code>，其中就有<code>-cc1</code>来进入编译器前端。</p>
 <h3 id="analyzer">Analyzer</h3>
 
       
@@ -528,7 +530,7 @@
   <p><span>本文标题:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/">Advanced Compiler Design and Implementation</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月26日 - 23:06</p>
-  <p><span>最后更新:</span>2022年03月30日 - 00:03</p>
+  <p><span>最后更新:</span>2022年03月31日 - 23:03</p>
   <p><span>原始链接:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/" title="Advanced Compiler Design and Implementation">http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/"  aria-label="复制成功！"></i></span>
   </p>
