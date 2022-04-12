@@ -115,20 +115,20 @@
 
 
 
-<meta name="description" content="Absrtact旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
+<meta name="description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。 RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。 交叉编译工具链包括:  GCC编译器 C运行库  Glibc : gnu旗下的库，作为linux的标准库和内核打交道 Newlib： 在嵌入式中使用广泛  Buntils二进制套件 GDB调试器">
 <meta name="keywords" content="Compiler,RISCV">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GCC-RISCV交叉编译工具链">
 <meta property="og:url" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Absrtact旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
+<meta property="og:description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。 RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。 交叉编译工具链包括:  GCC编译器 C运行库  Glibc : gnu旗下的库，作为linux的标准库和内核打交道 Newlib： 在嵌入式中使用广泛  Buntils二进制套件 GDB调试器">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/2.png">
 <meta property="og:updated_time" content="2022-03-16T10:25:43.082Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GCC-RISCV交叉编译工具链">
-<meta name="twitter:description" content="Absrtact旨在x86平台上编译RISCV架构的可执行文件。   RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。       交叉编译工具链包括:  GCC编译器 C运行库 Glibc :    gnu旗下的库，作为linux的标准库和内核打交道 Newlib：  在嵌入式中使用广泛   Buntils二进制套件 GDB调试器">
+<meta name="twitter:description" content="Absrtact 旨在x86平台上编译RISCV架构的可执行文件。 RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在这里下载。 交叉编译工具链包括:  GCC编译器 C运行库  Glibc : gnu旗下的库，作为linux的标准库和内核打交道 Newlib： 在嵌入式中使用广泛  Buntils二进制套件 GDB调试器">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2020/02/16/Gcc-RISCV交叉编译工具链/1.png">
 
 
@@ -435,7 +435,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  650
+                  651
                 </span>
               
 
@@ -472,85 +472,89 @@
       
 
       
-        <h3 id="Absrtact"><a href="#Absrtact" class="headerlink" title="Absrtact"></a>Absrtact</h3><p>旨在x86平台上编译RISCV架构的可执行文件。  </p>
-<p>RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在<a href="https://github.com/riscv/riscv-gnu-toolchain" target="_blank" rel="noopener">这里</a>下载。      </p>
+        <h3 id="absrtact">Absrtact</h3>
+<p>旨在x86平台上编译RISCV架构的可执行文件。</p>
+<p>RISCV作为一款极具使命感的指令集，其软件栈也是非常完整的。交叉编译环境可以在<a href="https://github.com/riscv/riscv-gnu-toolchain" target="_blank" rel="noopener">这里</a>下载。</p>
 <p>交叉编译工具链包括:</p>
 <ul>
 <li><code>GCC</code>编译器</li>
-<li>C运行库<ul>
-<li><code>Glibc</code> :    <code>gnu</code>旗下的库，作为<code>linux</code>的标准库和内核打交道</li>
-<li><code>Newlib</code>：  在嵌入式中使用广泛</li>
-</ul>
-</li>
+<li>C运行库
+<ul>
+<li><code>Glibc</code> : <code>gnu</code>旗下的库，作为<code>linux</code>的标准库和内核打交道</li>
+<li><code>Newlib</code>： 在嵌入式中使用广泛</li>
+</ul></li>
 <li><code>Buntils</code>二进制套件</li>
 <li><code>GDB</code>调试器</li>
 </ul>
 <a id="more"></a>
-<h3 id="不同版本的工具链"><a href="#不同版本的工具链" class="headerlink" title="不同版本的工具链"></a>不同版本的工具链</h3><div class="table-container">
+<h3 id="不同版本的工具链">不同版本的工具链</h3>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>Version</th>
 <th>Note</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>Riscv-unknown-linux-gnu-gcc</td>
 <td><sup>1</sup>32位架构的<sup>2</sup><strong>Linux版本</strong></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Riscv-unknown-elf-gcc</td>
 <td>32位架构的<strong>非Linux版本</strong></td>
 </tr>
 </tbody>
 </table>
-</div>
 <ul>
 <li>每个版本都有32位架构和64位架构，这里的位数和运行本机的字长无关，<strong>指的是没有通过<code>-march=</code>和<code>-mabi=</code>选项指定RISCV架构的位宽</strong></li>
 <li><strong>Linux版本</strong>指的是<strong>该工具链使用Linux系统中运行的<code>Glibc</code>作为C运行库——</strong>另外的个版本则使用<code>Newlibc</code>库</li>
 </ul>
-<h3 id="交叉编译选项"><a href="#交叉编译选项" class="headerlink" title="交叉编译选项"></a>交叉编译选项</h3><h4 id="march"><a href="#march" class="headerlink" title="-march="></a>-march=</h4><p>​    由于$RISCV$为模块化指令，该选项支持不同的模块化指令集组合,关于$RISCV$模块见后面的介绍:</p>
+<h3 id="交叉编译选项">交叉编译选项</h3>
+<h4 id="march">-march=</h4>
+<p>​ 由于<span class="math inline">\(RISCV\)</span>为模块化指令，该选项支持不同的模块化指令集组合,关于<span class="math inline">\(RISCV\)</span>模块见后面的介绍:</p>
 <ul>
 <li><code>rv32i[m][a][f[d]][c]</code></li>
 <li><code>rv32g[c]</code></li>
 <li><code>rv64i[m][a][f[d]][c]</code></li>
 <li><code>rv64g[c]</code></li>
 </ul>
-<h4 id="mabi"><a href="#mabi" class="headerlink" title="-mabi="></a>-mabi=</h4><p>​    该选项选定了目标平台所支持的<code>ABI</code>函数调用:</p>
+<h4 id="mabi">-mabi=</h4>
+<p>​ 该选项选定了目标平台所支持的<code>ABI</code>函数调用:</p>
 <ul>
-<li><code>ilp32</code>，<code>ilp32f</code>，<code>ilp32d</code>     32位架构(int-32位   long-32位  long long-64位)</li>
-<li><code>lp64</code>，<code>lp64f</code>，<code>lp64d</code>    64位架构(int-32位    long-64位)</li>
+<li><code>ilp32</code>，<code>ilp32f</code>，<code>ilp32d</code> 32位架构(int-32位 long-32位 long long-64位)</li>
+<li><code>lp64</code>，<code>lp64f</code>，<code>lp64d</code> 64位架构(int-32位 long-64位)</li>
 </ul>
-<h4 id="后缀"><a href="#后缀" class="headerlink" title="后缀"></a>后缀</h4><div class="table-container">
+<h4 id="后缀">后缀</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>suffix</th>
 <th>Note</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>—</td>
+<tr class="odd">
+<td>--</td>
 <td>使用浮点类型操作直接使用RISCV浮点指令进行支持，但是当浮点数作为函数参数进行传递时，无论是单精度还是双精度均需要存储器中的堆栈进行传递</td>
 </tr>
-<tr>
+<tr class="even">
 <td>-f</td>
 <td>使用浮点类型操作直接使用RISCV浮点指令进行支持，但是当浮点数作为函数参数进行传递时，单精度通过寄存拿起传递，双精度通过内存堆栈传递</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>-d</td>
 <td>使用浮点类型操作直接使用RISCV浮点指令进行支持，但是当浮点数作为函数参数进行传递时，单/双精度均可通过寄存器传递</td>
 </tr>
 </tbody>
 </table>
-</div>
 <p><strong>只有<code>-march=</code>支持浮点扩展，(-mabi=)才允许加上<code>f/d</code>后缀以支持浮点运算。</strong></p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
-<h3 id="RISCV汇编语言简介"><a href="#RISCV汇编语言简介" class="headerlink" title="RISCV汇编语言简介"></a>RISCV汇编语言简介</h3><p><img src="2.png" width="50%" height="50%" alt=""></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>目前交叉编译平台主要有两部分:  <code>riscv32-unknown-elf-gcc</code>平台编译生成$RISCV$可执行文件，而<code>qemu-riscv32</code>平台运行<code>RISCV</code>可执行文件。  </p>
-<p><code>qemu</code>是一款很强大的虚拟机，分为系统模式和用户模式，用户模式运行可执行文件，而系统模式模拟特定指令集从而运行操作系统镜像文件。  </p>
+<h3 id="riscv汇编语言简介">RISCV汇编语言简介</h3>
+<p><img src="2.png" width="50%" height="50%" alt=""></p>
+<h3 id="总结">总结</h3>
+<p>目前交叉编译平台主要有两部分: <code>riscv32-unknown-elf-gcc</code>平台编译生成<span class="math inline">\(RISCV\)</span>可执行文件，而<code>qemu-riscv32</code>平台运行<code>RISCV</code>可执行文件。</p>
+<p><code>qemu</code>是一款很强大的虚拟机，分为系统模式和用户模式，用户模式运行可执行文件，而系统模式模拟特定指令集从而运行操作系统镜像文件。</p>
 
       
     </div>
@@ -809,7 +813,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Absrtact"><span class="nav-number">1.</span> <span class="nav-text">Absrtact</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同版本的工具链"><span class="nav-number">2.</span> <span class="nav-text">不同版本的工具链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉编译选项"><span class="nav-number">3.</span> <span class="nav-text">交叉编译选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#march"><span class="nav-number">3.1.</span> <span class="nav-text">-march=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mabi"><span class="nav-number">3.2.</span> <span class="nav-text">-mabi=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后缀"><span class="nav-number">3.3.</span> <span class="nav-text">后缀</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RISCV汇编语言简介"><span class="nav-number">4.</span> <span class="nav-text">RISCV汇编语言简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#absrtact"><span class="nav-number">1.</span> <span class="nav-text">Absrtact</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同版本的工具链"><span class="nav-number">2.</span> <span class="nav-text">不同版本的工具链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉编译选项"><span class="nav-number">3.</span> <span class="nav-text">交叉编译选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#march"><span class="nav-number">3.1.</span> <span class="nav-text">-march=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mabi"><span class="nav-number">3.2.</span> <span class="nav-text">-mabi=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后缀"><span class="nav-number">3.3.</span> <span class="nav-text">后缀</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#riscv汇编语言简介"><span class="nav-number">4.</span> <span class="nav-text">RISCV汇编语言简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
