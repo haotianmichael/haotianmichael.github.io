@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 不是鲸书。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2022-04-14T11:13:08.671Z">
+<meta property="og:updated_time" content="2022-04-16T13:38:54.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Advanced Compiler Design and Implementation">
 <meta name="twitter:description" content="Abstract 不是鲸书。">
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  695
+                  927
                 </span>
               
 
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  2
+                  3
                 </span>
               
             </div>
@@ -475,6 +475,18 @@
 <h3 id="architecture">Architecture</h3>
 <p>想尝试设计一套针对优化和程序分析的框架。 通常做程序分析有两条路子，一条是针对程序分析的专用分析器，单独作为一套框架使用;另一条是作为编译器的优化趟来实现， 想到哪里写到哪里。</p>
 <p>针对常规的编译流程<code>Source</code>——<code>IR</code>——<code>CodeGen</code>，我目前还是倾向于<code>Clang</code>的设计，先打算研究其架构并简化出来一套适合的东西。其次要继续读<code>static analysis</code>方向的论文，复现其算法和原理。</p>
+<h3 id="arvcc">arvcc</h3>
+<p>我准备在<a href="https://github.com/haotianmichael/arvcc" target="_blank" rel="noopener">arvcc</a>仓库里面实现新设计的编译框架，最近的工作主要是将<code>Clang</code>里面的架构简化出来然后加以利用。</p>
+<h4 id="option">Option</h4>
+<p><code>llvm</code>中所有的工具都会使用到选项<code>options</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> '-emit-llvm', '-S' and'test.cpp' are all options</span><br><span class="line"><span class="meta">$</span> clang -emit-llvm -S  test.cpp</span><br></pre></td></tr></table></figure>
+<p>所以<code>option</code>是一个根类，各个工具也有自己的选项子类比如<code>Driver</code>下面可以有自己的<code>DriverOption</code>。这些<code>XXXOption</code>都是各个工具<code>*.td/*.def文件</code>自定义，然后通过<code>TableGen</code>自动生成的。</p>
+<p><code>arvcc</code>聚焦了很少的功能，所以我打算将各自<code>Option</code>直接集成到不同工具目录下，比如<code>Driver</code>的话，就直接定义在<code>DriverOption.h</code>中，其中<code>DriverOption</code>类继承自<code>Option</code>类。</p>
+<h4 id="driver">Driver</h4>
+<p>工业级编译器需要考虑很多兼容性功能和用户接口，从而有了<code>Driver</code>的概念。还有很多性能上的<code>trade-off</code>从而用很多<code>LLVM</code>自定义的数据结构。故其具体实现上也及其复杂繁琐。</p>
+<p><code>Clang</code>本质是一个<code>Driver</code>，而<code>-cc1</code>才是编译器前端。在命令行中敲下<code>clang a.cpp</code>之后，编译器默认会自带很多编译选项<code>-###</code>，其中就有<code>-cc1</code>来进入编译器前端。</p>
+<h5 id="type">Type</h5>
+<p><code>Clang</code>通过定义各个<code>DriverOptions</code>的类型来映射整个编译流程，甚至精确到了选择指定的工具，编译步骤和输出格式。</p>
 <h3 id="剑气">剑气</h3>
 <p>记录自己机器上和开发有关的些许细节。</p>
 <h4 id="brew">brew</h4>
@@ -503,13 +515,12 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">% cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES</span><br><span class="line">% ln -s Debug/compile_commands.json .</span><br></pre></td></tr></table></figure>
 <h5 id="coc.vim">coc.vim</h5>
 <p>想要加其他语言的插件<code>:CocConfig</code>。</p>
+<p>有些硬编码的字符可以直接使用<code>grep</code>来过滤文本文件内容，<code>fzf/find</code>来查找指定目录下的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -r <span class="string">"ccc_print_phases"</span> llvm-src/clang/     <span class="comment"># 目录查找</span></span></span><br></pre></td></tr></table></figure>
 <h4 id="lldb">lldb</h4>
 <p>我用<code>voltron</code>做调试器前端，功能很全就是需要在自启动窗口。。有点麻烦</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ voltron view register</span><br><span class="line">$ voltron view stack</span><br><span class="line">$ voltron view disasm</span><br><span class="line">$ voltron view backtrace</span><br></pre></td></tr></table></figure>
-<h3 id="clang">Clang</h3>
-<p>我准备在<a href="https://github.com/haotianmichael/arvcc" target="_blank" rel="noopener">arvcc</a>仓库里面实现新设计的编译框架，最近的工作主要是将<code>Clang</code>里面的架构简化出来然后加以利用。</p>
-<p>工业级编译器需要考虑很多兼容性功能和用户接口，从而有了<code>Driver</code>的概念。还有很多性能上的<code>trade-off</code>从而用很多<code>LLVM</code>自定义的数据结构。故其具体实现上也及其复杂繁琐。</p>
-<p><code>Clang</code>本质是一个<code>Driver</code>，而<code>-cc1</code>才是编译器前端。在命令行中敲下<code>clang a.cpp</code>之后，编译器默认会自带很多编译选项<code>-###</code>，其中就有<code>-cc1</code>来进入编译器前端。</p>
+<h3 id="section"></h3>
 
       
     </div>
@@ -530,7 +541,7 @@
   <p><span>本文标题:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/">Advanced Compiler Design and Implementation</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月26日 - 23:06</p>
-  <p><span>最后更新:</span>2022年04月14日 - 19:04</p>
+  <p><span>最后更新:</span>2022年04月16日 - 21:04</p>
   <p><span>原始链接:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/" title="Advanced Compiler Design and Implementation">http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/"  aria-label="复制成功！"></i></span>
   </p>
@@ -673,7 +684,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -684,7 +695,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -695,7 +706,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -772,7 +783,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture"><span class="nav-number">2.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#剑气"><span class="nav-number">3.</span> <span class="nav-text">剑气</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#brew"><span class="nav-number">3.1.</span> <span class="nav-text">brew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lsp"><span class="nav-number">3.2.</span> <span class="nav-text">lsp</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ccls"><span class="nav-number">3.2.1.</span> <span class="nav-text">ccls</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#coc.vim"><span class="nav-number">3.2.2.</span> <span class="nav-text">coc.vim</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lldb"><span class="nav-number">3.3.</span> <span class="nav-text">lldb</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clang"><span class="nav-number">4.</span> <span class="nav-text">Clang</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture"><span class="nav-number">2.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arvcc"><span class="nav-number">3.</span> <span class="nav-text">arvcc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#option"><span class="nav-number">3.1.</span> <span class="nav-text">Option</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#driver"><span class="nav-number">3.2.</span> <span class="nav-text">Driver</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#type"><span class="nav-number">3.2.1.</span> <span class="nav-text">Type</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#剑气"><span class="nav-number">4.</span> <span class="nav-text">剑气</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#brew"><span class="nav-number">4.1.</span> <span class="nav-text">brew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lsp"><span class="nav-number">4.2.</span> <span class="nav-text">lsp</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ccls"><span class="nav-number">4.2.1.</span> <span class="nav-text">ccls</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#coc.vim"><span class="nav-number">4.2.2.</span> <span class="nav-text">coc.vim</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lldb"><span class="nav-number">4.3.</span> <span class="nav-text">lldb</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#section"><span class="nav-number">5.</span> <span class="nav-text"></span></a></li></ol></div>
             
 
           </div>
