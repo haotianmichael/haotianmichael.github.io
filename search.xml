@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[PKU软件分析]]></title>
     <url>%2F2021%2F07%2F19%2FPKU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%2F</url>
-    <content type="text"><![CDATA[Abstract Gödel Incompleteness Theorem从数学上证明了不存在完美的形式系统。而Alan Turing的停机问题则在可判定性上为Hilbert Plan画上句号——这才有了后面的Turing Machine和Program Language。 NJU课程深入讲解了基于抽象解释的程序分析方法。PKU的课程则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑的层面，我个人很喜欢这种学院派的味道。多一个角度学习也对分析理论和算法的细节有了新的认识，特地记录一下。]]></content>
+    <content type="text"><![CDATA[Abstract Gödel Incompleteness Theorem从数学上证明了不存在完美的形式系统。而Alan Turing的停机问题则在可判定性上为Hilbert Plan画上句号——这才有了后面的Turing Machine和Program Language。 NJU课程深入讲解了基于抽象解释的程序分析方法。PKU的课程则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑的层面，我个人很喜欢这种学院派的味道。多一个角度学习也对分析理论和算法的细节有了新的认识，特地记录一下。 may/must 其实may/must都是相对而言的，对于具体的程序分析问题会有不一样的约束。这里引入可判定性问题： Deciable Problem是一个判定问题，该问题存在一个算法使得对于该问题的每一个实例都能给出是/否的答案。 对于非判定问题，假设正确答案为集合S，则: must analysis: super of S may analysis: subset of S 比如确定程序有无内存泄漏就是一个不可判定问题。所以针对这个问题我们选择的算法就应该是may分析来保证Sound。 数据流分析 这个名称的来源？ 12345// 停机问题判定Haltvoid Evil() &#123; if(!Halt(Evil)) return; //Evil函数调用需要传递自己的栈给自己 else while(1);&#125; 程序可以看成是状态（数据）和状态之间的转移（控制）两部分，而根据停机问题中的核心——即if条件判断是会很复杂的判定。则将if忽略掉，即将控制部分忽略掉只剩下数据部分故称为数据流分析。]]></content>
       <categories>
         <category>Java</category>
       </categories>
