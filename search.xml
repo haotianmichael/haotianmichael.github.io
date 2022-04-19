@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[PKU软件分析]]></title>
+    <url>%2F2021%2F07%2F19%2FPKU%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%2F</url>
+    <content type="text"><![CDATA[Abstract Gödel Incompleteness Theorem从数学上证明了不存在完美的形式系统。而Alan Turing的停机问题则在可判定性上为Hilbert Plan画上句号——这才有了后面的Turing Machine和Program Language。 NJU课程深入讲解了基于抽象解释的程序分析方法。PKU的课程则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑的层面，我个人很喜欢这种学院派的味道。多一个角度学习也对分析理论和算法的细节有了新的认识，特地记录一下。]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Software-Analysis</tag>
+        <tag>PL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Self-Designed ADT in LLVM]]></title>
     <url>%2F2021%2F06%2F30%2FSelf-Designed-ADT-in-LLVM%2F</url>
     <content type="text"><![CDATA[Abstract]]></content>
