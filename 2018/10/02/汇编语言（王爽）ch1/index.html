@@ -115,20 +115,20 @@
 
 
 
-<meta name="description" content="第一部分:硬件模型 Abstract 硬件基础 全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。 CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
+<meta name="description" content="第一部分:硬件模型Abstract硬件基础全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta name="keywords" content="i386">
 <meta property="og:type" content="article">
 <meta property="og:title" content="汇编语言（王爽）ch1">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="第一部分:硬件模型 Abstract 硬件基础 全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。 CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
+<meta property="og:description" content="第一部分:硬件模型Abstract硬件基础全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/3.png">
 <meta property="og:updated_time" content="2022-03-16T09:48:22.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言（王爽）ch1">
-<meta name="twitter:description" content="第一部分:硬件模型 Abstract 硬件基础 全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。 CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
+<meta name="twitter:description" content="第一部分:硬件模型Abstract硬件基础全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————冯诺依曼结构。CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2018/10/02/汇编语言（王爽）ch1/2.png">
 
 
@@ -472,99 +472,75 @@
       
 
       
-        <h2 id="第一部分硬件模型">第一部分:硬件模型</h2>
-<h3 id="abstract">Abstract</h3>
-<h4 id="硬件基础">硬件基础</h4>
-<p>全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————<code>冯诺依曼结构</code>。<br>
-CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？</p>
-<a id="more"></a>
+        <h2 id="第一部分-硬件模型"><a href="#第一部分-硬件模型" class="headerlink" title="第一部分:硬件模型"></a>第一部分:硬件模型</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><h4 id="硬件基础"><a href="#硬件基础" class="headerlink" title="硬件基础"></a>硬件基础</h4><p>全书的核心在使用汇编语言进行编程，老师在第一章就抽象出了完整的编程模型供汇编程序员参考————<code>冯诺依曼结构</code>。<br>CPU只是一个运算单元，只有提供了数据和指令才可以正常运行，而数据和指令存储在内存中。那CPU和内存如何进行交互？  </p>
+<a id="more"></a>  
 <ul>
 <li>存储单元的地址（地址）</li>
 <li>读/写操作（控制）</li>
-<li>读/写的具体数据（数据）</li>
+<li>读/写的具体数据（数据）  </li>
 </ul>
-<p>答案是总线，地址总线决定了CPU的寻址能力；数据总线决定了CPU一次能够处理多少数据；控制总线决定了CPU对外部器件的控制能力。这里的外部器件指的是除内存外的其他存储单元比如VGA等。所以在模型内部实际上还有一层抽象————那就是由系统中所有的存储单元组成的统一的逻辑存储器。实际上CPU面向的就是这个逻辑存储器，书中叫它<code>内存地址空间</code>。</p>
-<p>以上就是整个书中抽象出来最简单的编程模型，王爽老师在一开始就定下这本书的基调————不是讲CPU和外设的物理结构<code>《微机原理和接口》</code>，也不是讲整个计算机系统的结构和功能<code>《组成原理》</code>。学习汇编语言是利用固有的硬件体系和特有的指令集进行编程从而对硬件系统进行控制。 固有的硬件体系指的是这套<code>CPU+RAM</code>的计算机模型是图灵，冯诺依曼这些先驱们总结出来的一套最适合的结构。而特有的指令集则是说<strong>不同的CPU有不同的汇编语言</strong>，用x86的汇编语言的原因主要是因为这套指令集只有14个寄存器和1MB(20位地址总线)寻址空间，比较容易掌握。</p>
-<h4 id="指令和数据">指令和数据</h4>
-<p>学习组成的时候就对这两个概念很模糊，但是做实验的过程中其实发现：其实CPU看到的东西就是一堆01而已，真正将这堆01赋予意义的还是我们。换句话说就是数据和指令只是一个应用上的概念，你将它放到PC中它就是地址，而将它放到另外一个寄存器中它可能就直接被用来运算了。 从原理上看，主要是不同的寄存器对这些数据赋予了不同的功能。CPU的工作用一句话来概括就是<code>从特定的寄存器中取出data1作为地址，然后把内存中这个地址相对应的data2作为指令进行计算</code>。但是如果我把<code>data1</code>和<code>data2</code>互换一下，其实也是可以的。但是需要考虑到的是<code>data2</code>所代表的地址是不是在内存地址空间的范围之内，我的理解是寄存器，总线，内存中存储数据的位数有可能都是不一样的。但是说到底它们只是来存储数据的，写错最坏的情况也就是CPU跑崩了。</p>
-<h4 id="寄存器">寄存器</h4>
-<p>8086CPU有14个寄存器，都是16位的。但是这16位的寄存器也可以独立作为两个8位的寄存器使用。<br>
-寄存器和内存是汇编程序猿眼中最直观的计算机样子。</p>
-<h5 id="汇编层面的cpu">汇编层面的CPU</h5>
-<ul>
+<p>答案是总线，地址总线决定了CPU的寻址能力；数据总线决定了CPU一次能够处理多少数据；控制总线决定了CPU对外部器件的控制能力。这里的外部器件指的是除内存外的其他存储单元比如VGA等。所以在模型内部实际上还有一层抽象————那就是由系统中所有的存储单元组成的统一的逻辑存储器。实际上CPU面向的就是这个逻辑存储器，书中叫它<code>内存地址空间</code>。  </p>
+<p>以上就是整个书中抽象出来最简单的编程模型，王爽老师在一开始就定下这本书的基调————不是讲CPU和外设的物理结构<code>《微机原理和接口》</code>，也不是讲整个计算机系统的结构和功能<code>《组成原理》</code>。学习汇编语言是利用固有的硬件体系和特有的指令集进行编程从而对硬件系统进行控制。<br>固有的硬件体系指的是这套<code>CPU+RAM</code>的计算机模型是图灵，冯诺依曼这些先驱们总结出来的一套最适合的结构。而特有的指令集则是说<strong>不同的CPU有不同的汇编语言</strong>，用x86的汇编语言的原因主要是因为这套指令集只有14个寄存器和1MB(20位地址总线)寻址空间，比较容易掌握。</p>
+<h4 id="指令和数据"><a href="#指令和数据" class="headerlink" title="指令和数据"></a>指令和数据</h4><p>学习组成的时候就对这两个概念很模糊，但是做实验的过程中其实发现：其实CPU看到的东西就是一堆01而已，真正将这堆01赋予意义的还是我们。换句话说就是数据和指令只是一个应用上的概念，你将它放到PC中它就是地址，而将它放到另外一个寄存器中它可能就直接被用来运算了。<br>从原理上看，主要是不同的寄存器对这些数据赋予了不同的功能。CPU的工作用一句话来概括就是<code>从特定的寄存器中取出data1作为地址，然后把内存中这个地址相对应的data2作为指令进行计算</code>。但是如果我把<code>data1</code>和<code>data2</code>互换一下，其实也是可以的。但是需要考虑到的是<code>data2</code>所代表的地址是不是在内存地址空间的范围之内，我的理解是寄存器，总线，内存中存储数据的位数有可能都是不一样的。但是说到底它们只是来存储数据的，写错最坏的情况也就是CPU跑崩了。</p>
+<h4 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h4><p>8086CPU有14个寄存器，都是16位的。但是这16位的寄存器也可以独立作为两个8位的寄存器使用。<br>寄存器和内存是汇编程序猿眼中最直观的计算机样子。</p>
+<h5 id="汇编层面的CPU"><a href="#汇编层面的CPU" class="headerlink" title="汇编层面的CPU"></a>汇编层面的CPU</h5><ul>
 <li>运算器进行信息处理</li>
 <li>寄存器进行信息存储</li>
 <li>控制器控制各种器件进行工作</li>
-<li>内部总线连接各种器件，在它们之间进行数据的传送</li>
+<li>内部总线连接各种器件，在它们之间进行数据的传送  </li>
 </ul>
-<h5 id="架构16位机">8086架构（16位机）</h5>
-<p>具体深究到物理实现就是《组成原理》知识了。<br>
-* 运算器一次最多可以处理16位数据<br>
-* 寄存器的最大宽度为16位<br>
-* 寄存器和运算器之间的通路为16位</p>
-<h5 id="汇编层面的内存">汇编层面的内存</h5>
-<p>CPU在访问内存单元的时候，需要知道内存单元的地址。所有的内存单元构成的存储空间是一个一维的线性空间，每一个内存空间在这个空间上都有唯一的地址，这个惟一的地址就叫做<code>物理地址</code>。<br>
-CPU首先在内部形成这个物理地址，然后通过地址总线送入存储器。这个地址一定是一个内存单元的物理地址。不同的CPU架构形成地址的方式不一样。</p>
-<h5 id="csip">CS:IP</h5>
-<p>前面提到了8086CPU内部需要形成物理地址，但是8086是16位机————只能处理和传输16位的地址，但是8086的地址总线有20位，所以需要两个16位来共同形成一个20位的地址。 14个寄存器中，CS是段寄存器，存放基地址。而IP存放偏移量。公式:<code>CSx16+IP</code>。</p>
-<p>首先需要明白的就是，一个内存单元是8位二进制也叫一个字节。而十六进制的一位可以表示成为二进制的4位。完全只是为了方便才写成16进制的。<strong>20位的地址（5位16进制）</strong>可以写成<code>4C780H</code>，后面的H表示16进制。<code>一个X进制的数据左移一位，相当于乘以X</code>。所以为了记起来方便一些可以记成<code>CS寄存器的数据左移一位+IP寄存器的值</code>。但是<strong>两个寄存器只有16位（4位16进制)</strong>，到后面计算的时候需要注意这两个前提，避免溢出。 书中特别强调了对<strong>段</strong>的理解。这里的段并不是指内存被物理上分成一段一段的。而是因为CPU在管理内存的时候，使用<code>CSx16+IP</code>的方式来进行管理。<strong>所以可以将地址连续，起始地址为16的倍数的一组内存单元看成是一个段。</strong>重点在于不是所有的起始地址都可以作为段地址————这是因为<code>CSx16</code>决定的。而且因为<code>IP</code>是16位的所以每一个段的长度最大为<code>64KB</code>。</p>
-<h5 id="执行过程">执行过程</h5>
-<p><strong>在8086机中，任意时刻CPU将CS:IP指向的内容当做指令执行。</strong>汇编中使用<code>jmp 段地址:偏移地址</code>对CS:IP进行修改。或者使用<code>jmp 寄存器</code>来修改IP的值。</p>
-<h6 id="的工作过程">8086的工作过程</h6>
-<blockquote>
+<h5 id="8086架构（16位机）"><a href="#8086架构（16位机）" class="headerlink" title="8086架构（16位机）"></a>8086架构（16位机）</h5><p>具体深究到物理实现就是《组成原理》知识了。  </p>
+<ul>
+<li>运算器一次最多可以处理16位数据  </li>
+<li>寄存器的最大宽度为16位      </li>
+<li>寄存器和运算器之间的通路为16位  </li>
+</ul>
+<h5 id="汇编层面的内存"><a href="#汇编层面的内存" class="headerlink" title="汇编层面的内存"></a>汇编层面的内存</h5><p>CPU在访问内存单元的时候，需要知道内存单元的地址。所有的内存单元构成的存储空间是一个一维的线性空间，每一个内存空间在这个空间上都有唯一的地址，这个惟一的地址就叫做<code>物理地址</code>。<br>CPU首先在内部形成这个物理地址，然后通过地址总线送入存储器。这个地址一定是一个内存单元的物理地址。不同的CPU架构形成地址的方式不一样。  </p>
+<h5 id="CS-IP"><a href="#CS-IP" class="headerlink" title="CS:IP"></a>CS:IP</h5><p>前面提到了8086CPU内部需要形成物理地址，但是8086是16位机————只能处理和传输16位的地址，但是8086的地址总线有20位，所以需要两个16位来共同形成一个20位的地址。<br>14个寄存器中，CS是段寄存器，存放基地址。而IP存放偏移量。公式:<code>CSx16+IP</code>。  </p>
+<p>首先需要明白的就是，一个内存单元是8位二进制也叫一个字节。而十六进制的一位可以表示成为二进制的4位。完全只是为了方便才写成16进制的。<strong>20位的地址（5位16进制）</strong>可以写成<code>4C780H</code>，后面的H表示16进制。<code>一个X进制的数据左移一位，相当于乘以X</code>。所以为了记起来方便一些可以记成<code>CS寄存器的数据左移一位+IP寄存器的值</code>。但是<strong>两个寄存器只有16位（4位16进制)</strong>，到后面计算的时候需要注意这两个前提，避免溢出。<br>书中特别强调了对<strong>段</strong>的理解。这里的段并不是指内存被物理上分成一段一段的。而是因为CPU在管理内存的时候，使用<code>CSx16+IP</code>的方式来进行管理。<strong>所以可以将地址连续，起始地址为16的倍数的一组内存单元看成是一个段。</strong>重点在于不是所有的起始地址都可以作为段地址————这是因为<code>CSx16</code>决定的。而且因为<code>IP</code>是16位的所以每一个段的长度最大为<code>64KB</code>。  </p>
+<h5 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h5><p><strong>在8086机中，任意时刻CPU将CS:IP指向的内容当做指令执行。</strong>汇编中使用<code>jmp 段地址:偏移地址</code>对CS:IP进行修改。或者使用<code>jmp 寄存器</code>来修改IP的值。  </p>
+<h6 id="8086的工作过程"><a href="#8086的工作过程" class="headerlink" title="8086的工作过程"></a>8086的工作过程</h6><blockquote>
 <ul>
 <li>从CS:IP指向的内存单元中读取指令，读取的指令进入指令缓存器。</li>
 <li>IP指向下一条指令。</li>
-<li>执行指令,从CS:IP中取指令，重复上面的过程。</li>
+<li>执行指令,从CS:IP中取指令，重复上面的过程。  </li>
 </ul>
 </blockquote>
-<h3 id="书中划线">书中划线</h3>
-<ul>
+<h3 id="书中划线"><a href="#书中划线" class="headerlink" title="书中划线"></a>书中划线</h3><ul>
 <li>汇编语言和机器语言的差别在于指令的表示方法上。</li>
 <li>微机存储器的容量是以<strong>字节</strong>为最小单位的来计算的。</li>
 <li>在内存和磁盘上，数据和指令没有任何区别。</li>
 <li>在汇编语言这门课中，我们所面对的是<strong>内存地址空间</strong>。CPU向这段地址中读写数据实际上就是向相应的物理存储器中读写数据。</li>
 <li>内存地址空间的大小受到CPU地址总线宽度的限制。</li>
 </ul>
-<h3 id="实验1-查看cpu和内存用机器指令和汇编指令编程">实验1 查看CPU和内存，用机器指令和汇编指令编程</h3>
-<h4 id="工具介绍">工具介绍</h4>
-<p>debug是DOS,Windows都提供的实模式（8086方式）程序的调试工具。下面是本次实验将会用到的参数:</p>
-<h5 id="r-读写寄存器">r (读写寄存器)</h5>
-<ul>
+<h3 id="实验1-查看CPU和内存，用机器指令和汇编指令编程"><a href="#实验1-查看CPU和内存，用机器指令和汇编指令编程" class="headerlink" title="实验1 查看CPU和内存，用机器指令和汇编指令编程"></a>实验1 查看CPU和内存，用机器指令和汇编指令编程</h3><h4 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h4><p>debug是DOS,Windows都提供的实模式（8086方式）程序的调试工具。下面是本次实验将会用到的参数:  </p>
+<h5 id="r-读写寄存器"><a href="#r-读写寄存器" class="headerlink" title="r (读写寄存器)"></a>r (读写寄存器)</h5><ul>
 <li><code>r</code>查看所有的寄存器的值</li>
 <li><code>r 寄存器名称</code>修改制定寄存器的值</li>
 </ul>
-<h5 id="d-读写内存">d （读写内存）</h5>
-<ul>
+<h5 id="d-（读写内存）"><a href="#d-（读写内存）" class="headerlink" title="d （读写内存）"></a>d （读写内存）</h5><ul>
 <li><code>d 段地址:偏移地址</code> 列出从指定内存单元开始的128个内存单元的内容</li>
 <li><code>d 段地址:起始偏移地址 结尾偏移地址</code>列出在偏移地址范围之内的内存单元的内容</li>
 </ul>
-<h5 id="e-读写内存">e （读写内存）</h5>
-<ul>
+<h5 id="e-（读写内存）"><a href="#e-（读写内存）" class="headerlink" title="e （读写内存）"></a>e （读写内存）</h5><ul>
 <li><code>e 段地址:偏移地址  data1  data2 data3……</code>从特定单元开始讲数据写入内存</li>
 <li><code>e 段地址:偏移地址 回车</code>表示挨个儿修改内存，空格表示默认不修改，回车表示修改结束</li>
 </ul>
-<h5 id="eut">e+u+t</h5>
-<ul>
+<h5 id="e-u-t"><a href="#e-u-t" class="headerlink" title="e+u+t"></a>e+u+t</h5><ul>
 <li>使用<code>e</code>参数向内存中写入机器码</li>
 <li>使用<code>u 段地址:偏移地址</code>可以将内存中机器码翻译成为汇编语言</li>
 <li><code>t</code>参数执行<code>CS:IP</code>指向的内存地址单元的任何指令，注意修改参数</li>
 </ul>
-<h5 id="a">a</h5>
-<ul>
+<h5 id="a"><a href="#a" class="headerlink" title="a"></a>a</h5><ul>
 <li><code>a 段地址:偏移地址</code>可以直接使用汇编的格式写入机器指令</li>
 </ul>
-<h4 id="实验任务">实验任务</h4>
-<p>一共有4个实验。写出来的都是我觉得很有意思且值得讨论的实验。</p>
-<h5 id="第二个实验">第二个实验</h5>
-<p>给出起始地址为<code>2000:0000</code>的三条指令，使用这三条指令计算2的8次方。</p>
+<h4 id="实验任务"><a href="#实验任务" class="headerlink" title="实验任务"></a>实验任务</h4><p>一共有4个实验。写出来的都是我觉得很有意思且值得讨论的实验。  </p>
+<h5 id="第二个实验"><a href="#第二个实验" class="headerlink" title="第二个实验"></a>第二个实验</h5><p>给出起始地址为<code>2000:0000</code>的三条指令，使用这三条指令计算2的8次方。  </p>
 <p><img src="2.png" width="50%" height="50%" alt=""></p>
 <p>有意思的是这个算法，a += a；如果这里的a是2的话，实际上<code>a+a</code>等于<code>ax2</code>所以可以2的8次方可以通过8次这样的加法完成，但是如果a是其他的值就不行了。</p>
-<h5 id="最后两个实验">最后两个实验</h5>
-<p>使用<code>e</code>参数对特定的内存单元进行读写。 <img src="3.png" width="50%" height="50%" alt=""></p>
-<p>这两个实验间接地证明了<strong>内存地址空间</strong>的存在。<br>
-我在向内存<code>B810:0000</code>中写数据的时候，发现显示器上会出现有颜色的字符和表情包，猜想这个地址应该是显存的物理地址。这也说明这里的内存不仅仅指的是主存储器，还有其他的和CPU直接相连的RAM。</p>
-<p>​</p>
+<h5 id="最后两个实验"><a href="#最后两个实验" class="headerlink" title="最后两个实验"></a>最后两个实验</h5><p>使用<code>e</code>参数对特定的内存单元进行读写。<br><img src="3.png" width="50%" height="50%" alt=""></p>
+<p>这两个实验间接地证明了<strong>内存地址空间</strong>的存在。<br>我在向内存<code>B810:0000</code>中写数据的时候，发现显示器上会出现有颜色的字符和表情包，猜想这个地址应该是显存的物理地址。这也说明这里的内存不仅仅指的是主存储器，还有其他的和CPU直接相连的RAM。</p>
+<p>​        </p>
 
       
     </div>
@@ -722,7 +698,7 @@ CPU首先在内部形成这个物理地址，然后通过地址总线送入存�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -733,7 +709,7 @@ CPU首先在内部形成这个物理地址，然后通过地址总线送入存�
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -744,7 +720,7 @@ CPU首先在内部形成这个物理地址，然后通过地址总线送入存�
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -821,7 +797,7 @@ CPU首先在内部形成这个物理地址，然后通过地址总线送入存�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分硬件模型"><span class="nav-number">1.</span> <span class="nav-text">第一部分:硬件模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件基础"><span class="nav-number">1.1.1.</span> <span class="nav-text">硬件基础</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指令和数据"><span class="nav-number">1.1.2.</span> <span class="nav-text">指令和数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寄存器"><span class="nav-number">1.1.3.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编层面的cpu"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">汇编层面的CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#架构16位机"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">8086架构（16位机）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编层面的内存"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">汇编层面的内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#csip"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">CS:IP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行过程"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#的工作过程"><span class="nav-number">1.1.3.5.1.</span> <span class="nav-text">8086的工作过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书中划线"><span class="nav-number">1.2.</span> <span class="nav-text">书中划线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验1-查看cpu和内存用机器指令和汇编指令编程"><span class="nav-number">1.3.</span> <span class="nav-text">实验1 查看CPU和内存，用机器指令和汇编指令编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工具介绍"><span class="nav-number">1.3.1.</span> <span class="nav-text">工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#r-读写寄存器"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">r (读写寄存器)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-读写内存"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">d （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-读写内存"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">e （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#eut"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">e+u+t</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">a</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验任务"><span class="nav-number">1.3.2.</span> <span class="nav-text">实验任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第二个实验"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">第二个实验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最后两个实验"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">最后两个实验</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分-硬件模型"><span class="nav-number">1.</span> <span class="nav-text">第一部分:硬件模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件基础"><span class="nav-number">1.1.1.</span> <span class="nav-text">硬件基础</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指令和数据"><span class="nav-number">1.1.2.</span> <span class="nav-text">指令和数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寄存器"><span class="nav-number">1.1.3.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编层面的CPU"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">汇编层面的CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8086架构（16位机）"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">8086架构（16位机）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#汇编层面的内存"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">汇编层面的内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CS-IP"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">CS:IP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行过程"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#8086的工作过程"><span class="nav-number">1.1.3.5.1.</span> <span class="nav-text">8086的工作过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书中划线"><span class="nav-number">1.2.</span> <span class="nav-text">书中划线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验1-查看CPU和内存，用机器指令和汇编指令编程"><span class="nav-number">1.3.</span> <span class="nav-text">实验1 查看CPU和内存，用机器指令和汇编指令编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工具介绍"><span class="nav-number">1.3.1.</span> <span class="nav-text">工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#r-读写寄存器"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">r (读写寄存器)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-（读写内存）"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">d （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-（读写内存）"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">e （读写内存）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-u-t"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">e+u+t</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">a</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验任务"><span class="nav-number">1.3.2.</span> <span class="nav-text">实验任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第二个实验"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">第二个实验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最后两个实验"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">最后两个实验</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

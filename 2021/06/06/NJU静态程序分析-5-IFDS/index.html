@@ -115,13 +115,13 @@
 
 
 
-<meta name="description" content="Abastract 在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill问">
+<meta name="description" content="Abastract在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill问题">
 <meta name="keywords" content="Software-Analysis,PL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(5-IFDS-And-Soundiness)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abastract 在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill问">
+<meta property="og:description" content="Abastract在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill问题">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/2.png">
@@ -131,7 +131,7 @@
 <meta property="og:updated_time" content="2022-03-16T09:57:13.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(5-IFDS-And-Soundiness)">
-<meta name="twitter:description" content="Abastract 在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill问">
+<meta name="twitter:description" content="Abastract在IFDS出现之前，经典intra-procedural analysis框架(D,L,F)对于程序分析问题的研究还停留在①多项式时间处理specific individual problem比如constant propagation/pointer analysis②多项式时间处理locally separable proble（经典bit-vector/gen-kill问题">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2021/06/06/NJU静态程序分析-5-IFDS/1.png">
 
 
@@ -438,7 +438,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.8k
+                  1.6k
                 </span>
               
 
@@ -454,7 +454,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  11
+                  6
                 </span>
               
             </div>
@@ -475,121 +475,107 @@
       
 
       
-        <h3 id="abastract">Abastract</h3>
-<p>在<code>IFDS</code>出现之前，经典<code>intra-procedural analysis</code>框架(<font color="red">D</font>,<font color="green">L</font>,<font color="blue">F</font>)对于程序分析问题的研究还停留在①多项式时间处理<code>specific individual problem</code>比如<code>constant propagation/pointer analysis</code>②多项式时间处理<code>locally separable proble</code>（经典<code>bit-vector/gen-kill</code>问题——<code>reaching definitions,available expressions,live variabl</code>的过程间分析）③对普遍分析问题提供<strong>非多项式时间</strong>的算法方案。</p>
-<p>随着<code>POPL'1995</code>发表的<a href="http://web.cs.ucla.edu/~harryxu/courses/253/sp2013/papers/popl95.pdf" target="_blank" rel="noopener">Precise Interprocedural Dataflow Analysis via Graph Reachability</a>通过将一类<code>inter-procedural analysis</code>问题转化为<code>a special kind of graph-reachability problem</code>图可达性问题——<font color="red"><code>IFDS</code></font>框架横空出世。<strong><code>IFDS</code>除了针对<code>separable problems</code>，还针对包括<code>truly-live variables,copy constant propagation,possibly-uninitialized variablestruly-live variables</code>在内的<code>non-separable problems</code>等一大类普遍性分析问题都提供了多项式时间的精确解决手段。</strong>由于<code>IFDS</code>本身的约束，作者在<code>Theoretical Computer Science'1996</code>上还发表过一篇<a href="https://pdf.sciencedirectassets.com/271538/1-s2.0-S0304397500X00448/1-s2.0-0304397596000722/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQDHEEjOJdEm0cLtUB%2BHaJKZnI%2BPN5tMP4ElOR%2FgbYtzIgIhAJLujFNrXghpU6i4dLJlbR4WmRz%2FBokVzMrouNR8thheKvoDCEMQBBoMMDU5MDAzNTQ2ODY1IgwWTLJMo41Prpn%2F%2FEgq1wPGTtVLFsiVIF9uO3Jqe%2Fc7DNIZ2aCoMKASRnKPldZG3DL%2Fkla1b4JCb1utfraGJZeeG8LZFHTKpNPPAfY8Ax4cYe2D2fM1efeJUEv%2FGD2v21Ge7INGhUegLgtSJXoz%2FTGqXHronY0wS56U4dQHPyuDJ9pJYu8tQi5bCN93m1E%2BvoIrIoPK1IBlinh9LCUHfggCjlfJcrUWdkz6FvAO9pGlBB2bSWVrDJQZhf6k8%2FEA5%2BXg3GaNvYrHvzSnNokhfIAooqmnr9POzK6%2B3%2Fx0h%2Bs4dh9hNMSBVThSuNZlmYyRaRKHAukdzlgx7Lu9cQrKYEbMA9sr6UbY1CBGWM0IkEQ7hmxoPj3%2BkLlagNcZRd2FVg7zQcCPjdYrEeuUM6FicieZyU64gwrF%2Fl2Jq9GQPaZpYcndiEruIB8ggW%2F6moNCZs2IDLW40fNnp3Hm32GGMPuJDgPa9Yg7iD9Rfrr7uPhjSB8oKcpFqUKwmYqMn4W6pM74elsDHPsbw%2FsaqXNJCU42md6tfWSTBmByS3IQHgs6NpJWs3QckjVDmQYfTXv%2FgpMfrR%2FVnq7q6gGUgGrsgttCWa9VagHvZlUoLrIsFwlkjVjx7LNyflLfYyQBjsMjVKKQ7qw9kLMwrfi2kQY6pAGC4F0%2Bu4eJObfe5rQlGYJgI2OFVr6PyiBiTn4XcTtHOC2fbkj4Rre9Pj4QydLxF0oSXJqJCXkBJhzxpC9ouKJpDzYffbmPkpIA6rzdujGyRGluGCeiM2cOu7JtFEx1nvPsB%2BLlMN8JJBJQL3QWxnV36yu6ycImjADRWzn2Oe1Hn59BdoZO9nzL8zTLFHgS9jRZeYlTJQnh6FZe4I4upbqHwxemIw%3D%3D&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Date=20220313T104326Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Expires=300&amp;X-Amz-Credential=ASIAQ3PHCVTY3WOOQG6M%2F20220313%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Signature=d189220faa10689b60977d689048eeee379847ff107227365fec1a7742463d7d&amp;hash=c12a21daeaec6fe0aaf5b9fb5ec0259bf755743c2eea8ab65f566cece9ee2d36&amp;host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&amp;pii=0304397596000722&amp;tid=spdf-17632b09-bb7d-4bc0-9605-080c373f0575&amp;sid=d0b19308547fc443ae8b53f5ca290b286a01gxrqa&amp;type=client&amp;ua=50040252510d525a5a05&amp;rr=6eb42b298d006da7" target="_blank" rel="noopener">Precise interprocedural dataflow analysis with applications to constant propagation</a>提出<code>IDE</code>框架来处理<code>interprocedural constant propagation</code>等<code>IFDS</code>框架处理不了的<code>non-distributive</code>问题。这两篇论文为程序分析领域引入新的血液。</p>
+        <h3 id="Abastract"><a href="#Abastract" class="headerlink" title="Abastract"></a>Abastract</h3><p>在<code>IFDS</code>出现之前，经典<code>intra-procedural analysis</code>框架(<font color="red">D</font>,<font color="green">L</font>,<font color="blue">F</font>)对于程序分析问题的研究还停留在①多项式时间处理<code>specific individual problem</code>比如<code>constant propagation/pointer analysis</code>②多项式时间处理<code>locally separable proble</code>（经典<code>bit-vector/gen-kill</code>问题——<code>reaching definitions,available expressions,live variabl</code>的过程间分析）③对普遍分析问题提供<strong>非多项式时间</strong>的算法方案。</p>
+<p>随着<code>POPL&#39;1995</code>发表的<a href="http://web.cs.ucla.edu/~harryxu/courses/253/sp2013/papers/popl95.pdf" target="_blank" rel="noopener">Precise Interprocedural Dataflow Analysis via Graph Reachability</a>通过将一类<code>inter-procedural analysis</code>问题转化为<code>a special kind of graph-reachability problem</code>图可达性问题——<font color="red"><code>IFDS</code></font>框架横空出世。<strong><code>IFDS</code>除了针对<code>separable problems</code>，还针对包括<code>truly-live variables,copy constant propagation,possibly-uninitialized variablestruly-live variables</code>在内的<code>non-separable problems</code>等一大类普遍性分析问题都提供了多项式时间的精确解决手段。</strong>由于<code>IFDS</code>本身的约束，作者在<code>Theoretical Computer Science&#39;1996</code>上还发表过一篇<a href="https://pdf.sciencedirectassets.com/271538/1-s2.0-S0304397500X00448/1-s2.0-0304397596000722/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQDHEEjOJdEm0cLtUB%2BHaJKZnI%2BPN5tMP4ElOR%2FgbYtzIgIhAJLujFNrXghpU6i4dLJlbR4WmRz%2FBokVzMrouNR8thheKvoDCEMQBBoMMDU5MDAzNTQ2ODY1IgwWTLJMo41Prpn%2F%2FEgq1wPGTtVLFsiVIF9uO3Jqe%2Fc7DNIZ2aCoMKASRnKPldZG3DL%2Fkla1b4JCb1utfraGJZeeG8LZFHTKpNPPAfY8Ax4cYe2D2fM1efeJUEv%2FGD2v21Ge7INGhUegLgtSJXoz%2FTGqXHronY0wS56U4dQHPyuDJ9pJYu8tQi5bCN93m1E%2BvoIrIoPK1IBlinh9LCUHfggCjlfJcrUWdkz6FvAO9pGlBB2bSWVrDJQZhf6k8%2FEA5%2BXg3GaNvYrHvzSnNokhfIAooqmnr9POzK6%2B3%2Fx0h%2Bs4dh9hNMSBVThSuNZlmYyRaRKHAukdzlgx7Lu9cQrKYEbMA9sr6UbY1CBGWM0IkEQ7hmxoPj3%2BkLlagNcZRd2FVg7zQcCPjdYrEeuUM6FicieZyU64gwrF%2Fl2Jq9GQPaZpYcndiEruIB8ggW%2F6moNCZs2IDLW40fNnp3Hm32GGMPuJDgPa9Yg7iD9Rfrr7uPhjSB8oKcpFqUKwmYqMn4W6pM74elsDHPsbw%2FsaqXNJCU42md6tfWSTBmByS3IQHgs6NpJWs3QckjVDmQYfTXv%2FgpMfrR%2FVnq7q6gGUgGrsgttCWa9VagHvZlUoLrIsFwlkjVjx7LNyflLfYyQBjsMjVKKQ7qw9kLMwrfi2kQY6pAGC4F0%2Bu4eJObfe5rQlGYJgI2OFVr6PyiBiTn4XcTtHOC2fbkj4Rre9Pj4QydLxF0oSXJqJCXkBJhzxpC9ouKJpDzYffbmPkpIA6rzdujGyRGluGCeiM2cOu7JtFEx1nvPsB%2BLlMN8JJBJQL3QWxnV36yu6ycImjADRWzn2Oe1Hn59BdoZO9nzL8zTLFHgS9jRZeYlTJQnh6FZe4I4upbqHwxemIw%3D%3D&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Date=20220313T104326Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Expires=300&amp;X-Amz-Credential=ASIAQ3PHCVTY3WOOQG6M%2F20220313%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Signature=d189220faa10689b60977d689048eeee379847ff107227365fec1a7742463d7d&amp;hash=c12a21daeaec6fe0aaf5b9fb5ec0259bf755743c2eea8ab65f566cece9ee2d36&amp;host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&amp;pii=0304397596000722&amp;tid=spdf-17632b09-bb7d-4bc0-9605-080c373f0575&amp;sid=d0b19308547fc443ae8b53f5ca290b286a01gxrqa&amp;type=client&amp;ua=50040252510d525a5a05&amp;rr=6eb42b298d006da7" target="_blank" rel="noopener">Precise interprocedural dataflow analysis with applications to constant propagation</a>提出<code>IDE</code>框架来处理<code>interprocedural constant propagation</code>等<code>IFDS</code>框架处理不了的<code>non-distributive</code>问题。这两篇论文为程序分析领域引入新的血液。</p>
 <p>近年<code>Sparse Value IFDS,Disk-Assisted IFDS</code>等课题一直是学术界的研究热点。在工业界比如<a href="https://linkspringer.53yu.com/content/pdf/10.1007%2F978-3-030-17465-1.pdf" target="_blank" rel="noopener">phasar</a>等程序分析工具中<code>IFDS/IDE</code>也有具体<a href="https://github.com/secure-software-engineering/phasar" target="_blank" rel="noopener">实现</a>。</p>
 <a id="more"></a>
-<h3 id="cfl-reachability">CFL-Reachability</h3>
-<p>首先介绍图可达性的概念。</p>
-<h4 id="feasible-and-realizable-paths">Feasible and Realizable Paths</h4>
-<p>过程间数据流分析真正用于工程落地之后的复杂度往往是很高的，即<code>ICFG</code>的边出现路劲爆炸导致分析速度变慢。究其根本原因，是因为在这些<code>edges</code>中有一些属于不可达边——<code>Infeasible paths</code>。</p>
+<h3 id="CFL-Reachability"><a href="#CFL-Reachability" class="headerlink" title="CFL-Reachability"></a>CFL-Reachability</h3><p>首先介绍图可达性的概念。</p>
+<h4 id="Feasible-and-Realizable-Paths"><a href="#Feasible-and-Realizable-Paths" class="headerlink" title="Feasible and Realizable Paths"></a>Feasible and Realizable Paths</h4><p>过程间数据流分析真正用于工程落地之后的复杂度往往是很高的，即<code>ICFG</code>的边出现路劲爆炸导致分析速度变慢。究其根本原因，是因为在这些<code>edges</code>中有一些属于不可达边——<code>Infeasible paths</code>。</p>
 <p>Paths in CFG that do not correspond to actual executions is Infeasible paths.</p>
-<p>如果我们能够尽可能的防止<code>CFG</code>被<code>Infeasible paths</code>所污染，让分析流图边的更加简洁，势必大大提升分析速度。<strong>但是实际情况下这种<code>infeasible paths</code>往往无法判定。</strong></p>
+<p>如果我们能够尽可能的防止<code>CFG</code>被<code>Infeasible paths</code>所污染，让分析流图边的更加简洁，势必大大提升分析速度。<strong>但是实际情况下这种<code>infeasible paths</code>往往无法判定。</strong>  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">foo(int age) &#123;    //age只会是Positive，所以一条分支肯定不会被执行</span><br><span class="line">	if(age &gt;= 0) </span><br><span class="line">		r = age;</span><br><span class="line">	else </span><br><span class="line">		r = -1;  //但是程序在静态时该条路径无法判定其可执行性</span><br><span class="line">	return r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="realizable-paths">Realizable Paths</h5>
-<p>The paths in which &quot;returns&quot; are matched with corresponding &quot;calls&quot;.</p>
+<h5 id="Realizable-Paths"><a href="#Realizable-Paths" class="headerlink" title="Realizable Paths"></a>Realizable Paths</h5><p>The paths in which “returns” are matched with corresponding “calls”.</p>
 <p>如果一条调用边，其return-edge可以正确匹配到其call-edge，则称这条边是<code>realizable</code>的。<strong>既然<code>infeasible</code>不可判定，便引入其子集——因为<code>realizable paths</code>可能不会被执行到，但是<code>unrealizable paths</code>则一定不会被执行到，而<code>unrealizable paths</code>则是可判定的。</strong></p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
 <p><strong>寻找这样的<code>realizable paths</code>来是<code>IFDS</code>顺利执行的前提，</strong>下面引入一种系统的方式识别<code>realizable paths</code>——<code>CFL-Reachability</code>。</p>
-<h4 id="cfl-reachabiligy">CFL-Reachabiligy</h4>
-<p>A path is considered to connect two nodes A and B, or<font color="red"> B is reachable from A</font>. Only if the concatenation of the labels on the edges of the path is a word in a specified <font color="red">context-free language</font>.</p>
+<h4 id="CFL-Reachabiligy"><a href="#CFL-Reachabiligy" class="headerlink" title="CFL-Reachabiligy"></a>CFL-Reachabiligy</h4><p>A path is considered to connect two nodes  A and B, or<font color="red"> B is reachable from A</font>. Only if the concatenation of the labels on the edges of the path is a word in a specified <font color="red">context-free language</font>.</p>
 <p>对于A和B两个<code>node</code>之间有一条<code>path</code>（一系列<code>edge</code>组成的，换句话说B可达A）并且这条<code>path</code>上的所有<code>edge</code>的<code>labels</code>构成的单词是<strong>由事先规定的context-free language定义好的合法单词的话，</strong>就说<font color="red">B is CFL-Reachable from A.</font></p>
-<h5 id="context-free-grammer">context-free grammer</h5>
-<p>上下文无关语言<code>context-free language</code>指的是由上下文无关文法<code>context-free grammer</code>产生的语言。</p>
+<h5 id="context-free-grammer"><a href="#context-free-grammer" class="headerlink" title="context-free grammer"></a>context-free grammer</h5><p>上下文无关语言<code>context-free language</code>指的是由上下文无关文法<code>context-free grammer</code>产生的语言。</p>
 <p>上下文无关文法是一种形式语言用于描述某种语法，它的主要形式就是：S ⟶ 𝞪. 这是一种产生式。S代表非终结符而𝞪代表一系列终结符或者空格。比如CFG的文法如下的话：</p>
 <ul>
 <li>S ⟶ aSb</li>
 <li>S ⟶ ℇ</li>
 </ul>
 <p>这里的𝞪就是<code>aSb/ℇ</code>，上下文无关<code>context-free</code>的意思就是说在<strong>任何出现S的地方</strong>都可以使用<code>aSb/ℇ</code>来替换。</p>
-<h5 id="partially-balanced-parenthesis-problem">Partially Balanced-Parenthesis Problem</h5>
-<p>将寻找<code>realizable paths</code>抽象成为典型的括号匹配问题。这里的<code>Partially</code>指的是)<sub>i</sub>一定会有一个(<sub>i</sub>匹配，换句话讲就是说对于每一个<code>return-edge</code>都有会有一个<code>call-edge</code>匹配，但是每一个<code>call-edge</code>却不一定有返回值（比如<code>realizable but not infeasiable paths</code>）。<strong>问题的整个建模过程为：对<code>control-flow graph</code>上的所有<code>edge</code>都加上一个<code>label</code>，对于一个<code>call</code>语句<code>i</code>，其<code>call-edge</code>被标记为(<sub>i</sub>其<code>return-edge</code>被标记为)<sub>i</sub>，而其余所有的<code>edge</code>都被标记为<code>e</code>。</strong></p>
-<p>A path is a realizable path if thee path' word is in the language L(realizable).比如</p>
+<h5 id="Partially-Balanced-Parenthesis-Problem"><a href="#Partially-Balanced-Parenthesis-Problem" class="headerlink" title="Partially Balanced-Parenthesis Problem"></a>Partially Balanced-Parenthesis Problem</h5><p>将寻找<code>realizable paths</code>抽象成为典型的括号匹配问题。这里的<code>Partially</code>指的是)<sub>i</sub>一定会有一个(<sub>i</sub>匹配，换句话讲就是说对于每一个<code>return-edge</code>都有会有一个<code>call-edge</code>匹配，但是每一个<code>call-edge</code>却不一定有返回值（比如<code>realizable but not infeasiable paths</code>）。<strong>问题的整个建模过程为：对<code>control-flow graph</code>上的所有<code>edge</code>都加上一个<code>label</code>，对于一个<code>call</code>语句<code>i</code>，其<code>call-edge</code>被标记为(<sub>i</sub>其<code>return-edge</code>被标记为)<sub>i</sub>，而其余所有的<code>edge</code>都被标记为<code>e</code>。</strong></p>
+<p>A path is a realizable path if thee path’ word is in the language L(realizable).比如</p>
 <ul>
-<li><font color="green">(<sub>1</sub>(<sub>2 </sub>e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub></font></li>
+<li><font color="green">(<sub>1</sub>(<sub>2 </sub>e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub></font></li>
 <li><font color="green">(<sub>1</sub>(<sub>2 </sub>e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub>(<sub>4</sub></font></li>
 <li><font color="green">(<sub>1</sub>(<sub>2 </sub>e e e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub>(<sub>4</sub></font></li>
-<li><font color="blue">e e</font><font color="green">(<sub>1</sub>(<sub>2 </sub>e e e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub>(<sub>4</sub></font> <font color="blue">e</font></li>
+<li><font color="blue">e e</font><font color="green">(<sub>1</sub>(<sub>2 </sub>e e e )<sub>2</sub>)<sub>1</sub></font><font color="red">(<sub>3 </sub>(<sub>4</sub></font> <font color="blue">e</font>
+
+</li>
 </ul>
 <p>则根据括号匹配设计的上下文无关文法如下：</p>
-<p><font color="blue">realizable</font> ⟶ <font color="green">mathched</font> <font color="blue">realizable</font></p>
-<p>​ ⟶ <font color="red">(<sub>i</sub></font> <font color="blue">realizable</font></p>
-<p>​ ⟶ <font color="blue">ℇ</font></p>
-<p><font color="green">mathched</font> ⟶ <font color="red">(<sub>i</sub></font> <font color="green">mathched</font> <font color="red">)<sub>i</sub></font></p>
-<p>​ ⟶ <font color="blue">e</font></p>
-<p>​ ⟶ <font color="blue">ℇ</font></p>
-<p>​ ⟶ <font color="green">mathched matched</font></p>
+<font color="blue">realizable</font>   ⟶ <font color="green">mathched</font>  <font color="blue">realizable</font>
+
+<p>​                    ⟶  <font color="red">(<sub>i</sub></font>     <font color="blue">realizable</font></p>
+<p>​                    ⟶   <font color="blue">ℇ</font></p>
+<font color="green">mathched</font>  ⟶ <font color="red">(<sub>i</sub></font>   <font color="green">mathched</font>  <font color="red">)<sub>i</sub></font>
+
+<p>​                    ⟶ <font color="blue">e</font></p>
+<p>​                    ⟶ <font color="blue">ℇ</font></p>
+<p>​                    ⟶ <font color="green">mathched matched</font> </p>
 <p><img src="2.png" width="50%" height="50%" alt=""></p>
-<h3 id="ifds">IFDS</h3>
-<p><code>IFDS</code>是<code>Interprocedural，Finite，Distributive，Subset Problems</code>的简称。总结来就说：IFDS is for interprocedural data flow analysis with <font color="red">distributive</font> flow functions over <font color="red">finite</font> domains.</p>
-<p><code>IFDS</code>将一大类数据流分析问题转化成为了图可达性问题进行处理，相比较于迭代数据流框架提供了多项式时间的精确处理。但是<code>IFDS</code>必须在一定的约束下才可以：</p>
-<p>很多普遍的数据流分析问题都是<code>subset problem</code>——集合的<code>union/intersection</code>等；而<code>Interprocedural</code>指的是全程序分析；<strong>而该分析问题还有必须有一个<code>distributive flow function</code>并且其<code>domains</code>还是<code>finite</code>才可以用<code>IFDS</code>来处理。</strong></p>
+<h3 id="IFDS"><a href="#IFDS" class="headerlink" title="IFDS"></a>IFDS</h3><p><code>IFDS</code>是<code>Interprocedural，Finite，Distributive，Subset Problems</code>的简称。总结来就说：IFDS is for interprocedural data flow analysis with <font color="red">distributive</font> flow functions over <font color="red">finite</font> domains.  </p>
+<p><code>IFDS</code>将一大类数据流分析问题转化成为了图可达性问题进行处理，相比较于迭代数据流框架提供了多项式时间的精确处理。但是<code>IFDS</code>必须在一定的约束下才可以：  </p>
+<p>很多普遍的数据流分析问题都是<code>subset problem</code>——集合的<code>union/intersection</code>等；而<code>Interprocedural</code>指的是全程序分析；<strong>而该分析问题还有必须有一个<code>distributive flow function</code>并且其<code>domains</code>还是<code>finite</code>才可以用<code>IFDS</code>来处理。</strong>  </p>
 <p>就比如<code>constant propagation</code>就不可以用<code>IFDS</code>处理，因为其<code>domains</code>是理论上所有的常数所以是<code>Infinite</code>，而且该分析本身也不是<code>Distributive</code>。</p>
-<h4 id="overview-of-ifds">Overview of IFDS</h4>
-<h5 id="mrp">MRP</h5>
-<p>跟<code>Intra-procedural analysis</code>使用<code>meet-over-all-paths</code>来衡量分析的精度一样，<code>IFDS</code>也使用<code>meet-over-all-realizable-paths</code>来衡量其分析精度。</p>
+<h4 id="Overview-of-IFDS"><a href="#Overview-of-IFDS" class="headerlink" title="Overview of IFDS"></a>Overview of IFDS</h4><h5 id="MRP"><a href="#MRP" class="headerlink" title="MRP"></a>MRP</h5><p>跟<code>Intra-procedural analysis</code>使用<code>meet-over-all-paths</code>来衡量分析的精度一样，<code>IFDS</code>也使用<code>meet-over-all-realizable-paths</code>来衡量其分析精度。  </p>
 <p>根据MOP<sub>n</sub> = ⊔<font color="green">(p∊Paths(start, n))</font>pf<sub>p</sub>(⊥)的定义，对于每一个<code>node</code>点n，MOP<sub>n</sub>表示在<code>CFG</code>上的<code>start</code>点到<code>node</code>点n所有的<code>paths</code>的<code>union/intersection</code>操作。</p>
 <p>而根据MRP<sub>n</sub> = ⊔<font color="green">(p∊RPaths(start, n))</font>pf<sub>p</sub>(⊥)的定义，对于每一个<code>node</code>点n，MRP<sub>n</sub>表示在<code>CFG</code>上的<code>start</code>点到<code>node</code>点n所有的<font color="red">realizable paths（这些paths的label构成的word符合<code>realizalble</code>语言的上下文无关文法）</font>的<code>union/intersection</code>操作。</p>
 <p>根据两个精度计算方式的定义可以看出，MRP<sub>n</sub>对那些<code>unrealizable paths</code>进行了剪枝优化，因此其结果也比MOP<sub>n</sub>更精确——MRP<sub>n</sub> ≼ MOP<sub>n</sub>。</p>
-<h5 id="algorithm">Algorithm</h5>
-<p>首先从总体上概括一下<code>IFDS</code>的算法框架：</p>
+<h5 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h5><p>首先从总体上概括一下<code>IFDS</code>的算法框架：</p>
 <p>输入：程序<code>P</code>，数据流分析问题<code>Q</code></p>
 <ul>
 <li>为程序<code>P</code>建立<code>superGraph G*</code>，并根据分析问题<code>Q</code>为<code>G*</code>的每一个<code>edge</code>定义<code>flow functions（使用𝛌表达式）</code>(可以对比<code>intra-procedural analysis</code>为每一个<code>node</code>建立<code>flow functinos</code>)</li>
 <li>通过将<code>flow functions</code>转化为<code>representation relations</code>（一种子图）的形式来建立程序<code>P</code>的<code>exploded supergraph G#</code></li>
 <li>最后在<code>G#</code>上应用<code>tabulations algorithm</code>就可以将程序<code>Q</code>的分析问题当做图可达性问题从而求解（找到<code>MRP solutions</code>）</li>
 </ul>
-<p><font color="purple">Let n be a program point, data fact d ∊ MRP<sub>n</sub>, iff there is a realizable path in G# from &lt;S<sub>main</sub>, 0&gt; to &lt;n, d&gt;.</font></p>
+<font color="purple">Let n be a program point, data fact d ∊ MRP<sub>n</sub>, iff there is a realizable path in G# from <s<sub>main, 0> to <n, d="">.</n,></s<sub></font>
+
 <p><img src="3.png" width="50%" height="50%" alt=""></p>
-<h4 id="supergraph-and-flow-functions">SuperGraph and Flow Functions</h4>
-<h5 id="supergraph">SuperGraph</h5>
-<p>引入<code>supergraph G* = (N*, E*)</code>， 对于过程间数据流分析，每一个<code>procedure</code>都是一个控制流图<code>G</code>，每一个<code>G</code>都有一个自己的<code>start node</code><font color="blue">s<sub>p </sub></font>和<code>exit node</code><font color="blue">e<sub>p</sub></font>。<code>IFDS</code>框架处理的全程序的<code>superGraph G*</code>就是这些控制流图的集合{G<sub>1</sub>, G<sub>2</sub>....}。</p>
+<h4 id="SuperGraph-and-Flow-Functions"><a href="#SuperGraph-and-Flow-Functions" class="headerlink" title="SuperGraph and Flow Functions"></a>SuperGraph and Flow Functions</h4><h5 id="SuperGraph"><a href="#SuperGraph" class="headerlink" title="SuperGraph"></a>SuperGraph</h5><p>引入<code>supergraph G* = (N*, E*)</code>， 对于过程间数据流分析，每一个<code>procedure</code>都是一个控制流图<code>G</code>，每一个<code>G</code>都有一个自己的<code>start node</code><font color="blue">s<sub>p </sub>&lt;/font &gt;和<code>exit node</code><font color="blue">e<sub>p</sub></font>。<code>IFDS</code>框架处理的全程序的<code>superGraph G*</code>就是这些控制流图的集合{G<sub>1</sub>, G<sub>2</sub>….}。</font></p>
 <p>过程间分析最重要的<code>procedure call</code>则需要一个<code>node</code>点<font color="red">Call<sub>p</sub></font>和一个<code>node</code>点 <font color="red">Ret<sub>p</sub></font>。<code>G*</code>对于每一个<code>procedure call</code>都需要三条边：</p>
 <ul>
-<li><code>intra-procedural call-to-return-site edge</code>：<font color="red">Call<sub>p </sub></font> ⟶ <font color="red">Ret<sub>p</sub></font></li>
-<li><code>inter-procedural call-to-start edge</code>: <font color="red">Call<sub>p </sub></font> ⟶ <font color="blue">s<sub>p </sub></font></li>
-<li><code>inter-procedural exit-to-return-site edge</code>: <font color="blue">e<sub>p</sub></font> ⟶ <font color="red">Ret<sub>p</sub></font></li>
+<li><code>intra-procedural call-to-return-site edge</code>：<font color="red">Call<sub>p </sub></font> ⟶ <font color="red">Ret<sub>p</sub></font></li>
+<li><code>inter-procedural call-to-start edge</code>:  <font color="red">Call<sub>p </sub></font> ⟶ <font color="blue">s<sub>p </sub>&lt;/font &gt;</font></li>
+<li><code>inter-procedural exit-to-return-site edge</code>:  <font color="blue">e<sub>p</sub></font> ⟶ <font color="red">Ret<sub>p</sub></font></li>
 </ul>
-<h5 id="flow-functions">Flow Functions</h5>
-<p>设计<code>flow function</code>是根据具体的程序分析问题，使用<code>𝛌-expression</code>表示的。</p>
-<h4 id="exploded-supergraph-and-tabulation-algorithm">Exploded Supergraph and Tabulation Algorithm</h4>
-<h5 id="exploded-supergraph">Exploded SuperGraph</h5>
-<p>通过将<code>flow function</code>转换成为<code>representation relations</code>子图来建造<code>exploded superGraph G#</code>。</p>
+<h5 id="Flow-Functions"><a href="#Flow-Functions" class="headerlink" title="Flow Functions"></a>Flow Functions</h5><p>设计<code>flow function</code>是根据具体的程序分析问题，使用<code>𝛌-expression</code>表示的。</p>
+<h4 id="Exploded-Supergraph-and-Tabulation-Algorithm"><a href="#Exploded-Supergraph-and-Tabulation-Algorithm" class="headerlink" title="Exploded Supergraph and Tabulation Algorithm"></a>Exploded Supergraph and Tabulation Algorithm</h4><h5 id="Exploded-SuperGraph"><a href="#Exploded-SuperGraph" class="headerlink" title="Exploded SuperGraph"></a>Exploded SuperGraph</h5><p>通过将<code>flow function</code>转换成为<code>representation relations</code>子图来建造<code>exploded superGraph G#</code>。</p>
 <p>每一个<code>flow function</code>被一个<code>2(D + 1)</code>个<code>node</code>组成的<code>Graph</code>代表，<font color="blue">其中<code>D</code>表示的是一个<code>dataflow facts</code>的<strong>有限集合</strong>。</font></p>
 <p><img src="4.png" width="50%" height="50%" alt=""></p>
 <p>这里的<code>representation relation</code>R<sub>f</sub> ⊆ (D ⋃ 0) X (D ⋃ 0)，符合如下规则：</p>
 <ul>
-<li>{0, 0} <code>Edge</code>: <font color="red">0 ⟶ 0</font></li>
-<li>{(0, y)|y∊f(∅)} <code>Edge:</code> <font color="red">0 ⟶ d<sub>1</sub></font></li>
-<li>{(x, y)| y∉f(∅) and y∊f({x})} <code>Edge</code>: <font color="red">d<sub>1</sub> ⟶ d<sub>2</sub></font></li>
+<li>{0, 0}  <code>Edge</code>: <font color="red">0 ⟶ 0</font></li>
+<li>{(0, y)|y∊f(∅)}  <code>Edge:</code> <font color="red">0 ⟶ d<sub>1</sub></font></li>
+<li>{(x, y)| y∉f(∅) and y∊f({x})}  <code>Edge</code>: <font color="red">d<sub>1</sub> ⟶ d<sub>2</sub></font></li>
 </ul>
 <p>其中<code>0</code>和<code>0</code>之间自动连一条边；如果在没有输入的情况下输出为<code>y</code>则自动连一条<code>0</code>到d<sub>1</sub>的边；如果输入为<code>x</code>而输出是<code>f</code>并且输入为∅的时候的输出不为<code>y</code>，则需要在两个<code>dataflow facts</code>之间连一条边。</p>
 <p>在将<code>superGraph G*</code>转化为<code>exploded superGraph G#</code>的过程中：和传统数据流分析不一样的是——其中的<code>edge</code>代表了一个<code>flow functino</code>。所以在转化时候<code>G*</code>的每一个<code>node</code>都被转化成为<code>D+1</code>个<code>nodes</code>，而一条<code>edge</code>分别连接的两个<code>D+1</code>个<code>nodes</code>（故一个<code>flow function</code>被转化为<code>2(D+1)个node</code>组成的子图）共同被转化成为<code>representation relation</code>子图。</p>
-<h5 id="edge-00">Edge 0⟶0</h5>
-<p>对于一个特定的数据流分析问题，它有<code>D</code>个<code>data facts</code>。但是在构造<code>exploded superGraph</code>的时候为什么一个<code>node</code>需要转换成为<code>D + 1</code>个<code>nodes</code>呢？</p>
+<h5 id="Edge-0⟶0"><a href="#Edge-0⟶0" class="headerlink" title="Edge 0⟶0"></a>Edge 0⟶0</h5><p>对于一个特定的数据流分析问题，它有<code>D</code>个<code>data facts</code>。但是在构造<code>exploded superGraph</code>的时候为什么一个<code>node</code>需要转换成为<code>D + 1</code>个<code>nodes</code>呢？</p>
 <p>回顾一下传统的数据流分析，如果想要确定一个<code>program point</code>是否还保持一个<code>data fact</code>比如<code>definition</code>是否是<code>reachable</code>的，我们需要判断从程序入口到该<code>program point</code>的流动中该<code>data fact</code>是否会传播到该点。</p>
 <p><img src="5.png" width="50%" height="50%" alt=""></p>
 <p>即OUT[p] = f4○f3○f2○f1(IN[n1])。准确的说<strong>Data facts are propagated via the composition of flow functions.</strong>——这里最重要的是一个<strong>composition</strong>的概念，实际上对于<code>IFDS</code>框架来说，如何在如图可达性问题中实现这种连接，否则会导致整个分析的结果无法沿着<code>edge</code>进行传播，而<code>Glue Edge:0⟶0</code>便解决了这个问题。</p>
-<h5 id="tabulation-algorithm">Tabulation Algorithm</h5>
-<p>最后一步在构建好<code>G#</code>之后，最终在其上应用<code>Tabulation</code>算法来寻找从&lt;S<sub>main</sub>, 0&gt;开始的所有<code>realizable paths</code>来决定该分析问题的所有<code>MRP solutions</code>。</p>
+<h5 id="Tabulation-Algorithm"><a href="#Tabulation-Algorithm" class="headerlink" title="Tabulation Algorithm"></a>Tabulation Algorithm</h5><p>最后一步在构建好<code>G#</code>之后，最终在其上应用<code>Tabulation</code>算法来寻找从<s<sub>main&lt;/sub&gt;, 0&gt;开始的所有<code>realizable paths</code>来决定该分析问题的所有<code>MRP solutions</code>。</s<sub></p>
 <p>理解一下整个算法的核心：</p>
-<p><font color="purple">Let n be a program point, data fact d ∊ MRP<sub>n</sub>, iff there is a realizable path in G# from &lt;S<sub>main</sub>, 0&gt; to &lt;n, d&gt;.</font></p>
-<p>首先解释&lt;S,d&gt;指的是在<code>program point</code>点S的一个<code>data fact</code>即<code>d</code>。如果对于一个<code>program point</code>点<code>n</code>，如果在<code>G#</code>上可以从&lt;S<sub>main</sub>, 0&gt;到&lt;<font color="red">n</font>,<font color="blue">d</font>&gt;有一条<code>realizable path</code>——则就说<code>data fact d</code>在<code>program point n</code>这一点是holds的。</p>
+<font color="purple">Let n be a program point, data fact d ∊ MRP<sub>n</sub>, iff there is a realizable path in G# from <s<sub>main, 0> to <n, d="">.</n,></s<sub></font>
+
+<p>首先解释<s,d>指的是在<code>program point</code>点S的一个<code>data fact</code>即<code>d</code>。如果对于一个<code>program point</code>点<code>n</code>，如果在<code>G#</code>上可以从<s<sub>main&lt;/sub&gt;, 0&gt;到&lt;<font color="red">n</font>,<font color="blue">d</font>&gt;有一条<code>realizable path</code>——则就说<code>data fact d</code>在<code>program point n</code>这一点是holds的。</s<sub></s,d></p>
 <p>关于该算法的核心暂时不深入理解。比如这里的<code>summary</code>思想也是为了处理同一个方法被冗余处理。</p>
-<h4 id="distributivity">Distributivity</h4>
-<p>这里我们了解一下<code>IFDS</code>的可分配性<code>Distributivity</code>：</p>
+<h4 id="Distributivity"><a href="#Distributivity" class="headerlink" title="Distributivity"></a>Distributivity</h4><p>这里我们了解一下<code>IFDS</code>的可分配性<code>Distributivity</code>：  </p>
 <ul>
 <li>F(X ^ Y) = F(X) ^ F(Y)</li>
 </ul>
-<p>而根据定义，对于处理<code>constant propagation</code>来说比如<code>z = x + y</code>，需要同时考虑两个输入，<strong>而<code>IFDS</code>一次只能处理一个输入:F(x)^F(y)。本质上每一个<code>representation relation</code>只能处理如果<code>x</code>存在则...，但是无法处理如果<code>x and y</code>同时存在则...。</strong>故常量传播是不可分配的。</p>
+<p>而根据定义，对于处理<code>constant propagation</code>来说比如<code>z = x + y</code>，需要同时考虑两个输入，<strong>而<code>IFDS</code>一次只能处理一个输入:F(x)^F(y)。本质上每一个<code>representation relation</code>只能处理如果<code>x</code>存在则…，但是无法处理如果<code>x and y</code>同时存在则…。</strong>故常量传播是不可分配的。</p>
 <p>In IFDS, each data fact(circle) and its propagation(edges) could be handled independently, and doing so will affect the correctness of the final results.</p>
 <p>就是说其<code>data fact</code>和<code>edge</code>都是可以分开处理，到最后一步才进行<code>union/intersection</code>——即可分配性。而<code>Pointer analysis</code>因为需要处理别名<code>alias</code>信息，这样的话需要考虑多个输入信息——故其本质上也不是可分配性的。</p>
-<h3 id="soundiness">Soundiness</h3>
-<p>虽然所有的程序分析算法都在强调其可以捕捉到所有的程序运行时行为。但是学术界和工业界的理论和工具在实际应用中都会产生<code>unsound</code>的结果。<strong>这是因为编程语言本身会有一些<code>Hard Feature</code>导致程序分析无法进行。</strong></p>
+<h3 id="Soundiness"><a href="#Soundiness" class="headerlink" title="Soundiness"></a>Soundiness</h3><p>虽然所有的程序分析算法都在强调其可以捕捉到所有的程序运行时行为。但是学术界和工业界的理论和工具在实际应用中都会产生<code>unsound</code>的结果。<strong>这是因为编程语言本身会有一些<code>Hard Feature</code>导致程序分析无法进行。</strong></p>
 <ul>
-<li>Java: Reflection，native code，dynamic class loading ...</li>
-<li>C/C++: Pointer arithmetic, function pointer...</li>
+<li>Java: Reflection，native code，dynamic class loading …</li>
+<li>C/C++:  Pointer arithmetic, function pointer…</li>
 </ul>
 <p>这些特性使得程序分析精度受损。故学术界引入一个新词<code>Soundiness</code>表示：</p>
 <p>A soundy analysis typically means that the analysis is mostly sound, with well-identified unsound treatments to hard/specific language features.</p>
@@ -752,7 +738,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -763,7 +749,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -774,7 +760,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -851,7 +837,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abastract"><span class="nav-number">1.</span> <span class="nav-text">Abastract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cfl-reachability"><span class="nav-number">2.</span> <span class="nav-text">CFL-Reachability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#feasible-and-realizable-paths"><span class="nav-number">2.1.</span> <span class="nav-text">Feasible and Realizable Paths</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#realizable-paths"><span class="nav-number">2.1.1.</span> <span class="nav-text">Realizable Paths</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cfl-reachabiligy"><span class="nav-number">2.2.</span> <span class="nav-text">CFL-Reachabiligy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#context-free-grammer"><span class="nav-number">2.2.1.</span> <span class="nav-text">context-free grammer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#partially-balanced-parenthesis-problem"><span class="nav-number">2.2.2.</span> <span class="nav-text">Partially Balanced-Parenthesis Problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifds"><span class="nav-number">3.</span> <span class="nav-text">IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#overview-of-ifds"><span class="nav-number">3.1.</span> <span class="nav-text">Overview of IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mrp"><span class="nav-number">3.1.1.</span> <span class="nav-text">MRP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#algorithm"><span class="nav-number">3.1.2.</span> <span class="nav-text">Algorithm</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#supergraph-and-flow-functions"><span class="nav-number">3.2.</span> <span class="nav-text">SuperGraph and Flow Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#supergraph"><span class="nav-number">3.2.1.</span> <span class="nav-text">SuperGraph</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flow-functions"><span class="nav-number">3.2.2.</span> <span class="nav-text">Flow Functions</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exploded-supergraph-and-tabulation-algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Exploded Supergraph and Tabulation Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#exploded-supergraph"><span class="nav-number">3.3.1.</span> <span class="nav-text">Exploded SuperGraph</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#edge-00"><span class="nav-number">3.3.2.</span> <span class="nav-text">Edge 0⟶0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tabulation-algorithm"><span class="nav-number">3.3.3.</span> <span class="nav-text">Tabulation Algorithm</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#distributivity"><span class="nav-number">3.4.</span> <span class="nav-text">Distributivity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#soundiness"><span class="nav-number">4.</span> <span class="nav-text">Soundiness</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abastract"><span class="nav-number">1.</span> <span class="nav-text">Abastract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CFL-Reachability"><span class="nav-number">2.</span> <span class="nav-text">CFL-Reachability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Feasible-and-Realizable-Paths"><span class="nav-number">2.1.</span> <span class="nav-text">Feasible and Realizable Paths</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Realizable-Paths"><span class="nav-number">2.1.1.</span> <span class="nav-text">Realizable Paths</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CFL-Reachabiligy"><span class="nav-number">2.2.</span> <span class="nav-text">CFL-Reachabiligy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#context-free-grammer"><span class="nav-number">2.2.1.</span> <span class="nav-text">context-free grammer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Partially-Balanced-Parenthesis-Problem"><span class="nav-number">2.2.2.</span> <span class="nav-text">Partially Balanced-Parenthesis Problem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IFDS"><span class="nav-number">3.</span> <span class="nav-text">IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Overview-of-IFDS"><span class="nav-number">3.1.</span> <span class="nav-text">Overview of IFDS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#MRP"><span class="nav-number">3.1.1.</span> <span class="nav-text">MRP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Algorithm"><span class="nav-number">3.1.2.</span> <span class="nav-text">Algorithm</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SuperGraph-and-Flow-Functions"><span class="nav-number">3.2.</span> <span class="nav-text">SuperGraph and Flow Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SuperGraph"><span class="nav-number">3.2.1.</span> <span class="nav-text">SuperGraph</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Flow-Functions"><span class="nav-number">3.2.2.</span> <span class="nav-text">Flow Functions</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Exploded-Supergraph-and-Tabulation-Algorithm"><span class="nav-number">3.3.</span> <span class="nav-text">Exploded Supergraph and Tabulation Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Exploded-SuperGraph"><span class="nav-number">3.3.1.</span> <span class="nav-text">Exploded SuperGraph</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Edge-0⟶0"><span class="nav-number">3.3.2.</span> <span class="nav-text">Edge 0⟶0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tabulation-Algorithm"><span class="nav-number">3.3.3.</span> <span class="nav-text">Tabulation Algorithm</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Distributivity"><span class="nav-number">3.4.</span> <span class="nav-text">Distributivity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Soundiness"><span class="nav-number">4.</span> <span class="nav-text">Soundiness</span></a></li></ol></div>
             
 
           </div>

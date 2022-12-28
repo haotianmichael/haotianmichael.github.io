@@ -115,19 +115,19 @@
 
 
 
-<meta name="description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
+<meta name="description" content="AbstractType system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lang">
 <meta name="keywords" content="PL,Type System">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Type system, a Sketchy view.">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
+<meta property="og:description" content="AbstractType system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lang">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/1.png">
 <meta property="og:updated_time" content="2022-03-20T21:39:18.045Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Type system, a Sketchy view.">
-<meta name="twitter:description" content="Abstract Type system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lan">
+<meta name="twitter:description" content="AbstractType system的基本目的是防止在程序运行时发生execution error。这种Informal statement非形式化描述有很多内涵：首先该如何严格定义execution error；其次在这种定义下，描述absence of execution error也是Type system很nontrivial的性质——当PL .aka. programming lang">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2021/06/16/Type-system-a-Sketchy-view/1.png">
 
 
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  8.9k
+                  7.9k
                 </span>
               
 
@@ -450,7 +450,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  39
+                  33
                 </span>
               
             </div>
@@ -471,37 +471,31 @@
       
 
       
-        <h3 id="abstract">Abstract</h3>
-<p><code>Type system</code>的基本目的是防止在程序运行时发生<code>execution error</code>。这种<code>Informal statement</code>非形式化描述有很多内涵：首先该如何严格定义<code>execution error</code>；其次在这种定义下，描述<code>absence of execution error</code>也是<code>Type system</code>很<code>nontrivial</code>的性质——当<code>PL .aka. programming language</code>的所有运行时行为都能确保这种性质的话，我们就说该语言是<code>type sound</code>的。事实证明为了更加没有歧义的描述<code>PL</code>的<code>type soundness</code>，需要做大量的分析和证明。因此针对<code>Type system</code>的分类，描述和研究过程逐渐演变成为一套<code>formal discipline</code>即形式化体系。 <span class="math display">\[
-\frac{\Gamma_{1} \vdash \Im_{1}  ...  \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im}
-\]</span></p>
-<p><code>The formalization of Type system</code>需要一套精确的符号和定义系统，一个<strong>严格正确</strong>的<code>Type system</code>可以对语言定义的各个重要性质进行<strong>完整</strong>的判断。而非形式化的描述甚至做不到完整概括语言的<code>type structure</code>则更谈不上实现上的唯一性。比如不同的编译器对于同一套语言<code>Type system</code>的实现往往不尽相同，甚至有一些<code>type unsound</code>的语言定义导致一段代码明明通过<code>typechecker</code>的检查但在运行时奔溃掉。理想情况下我们说<code>formal Type system</code>应该是所有<code>typed programming languages</code>内核定义的一部分。这样的话，<code>typechecking</code>算法就可以严格按照精确的类型<code>spec</code>执行，从某种程度上该语言可以看成是<code>Type sound</code>的。</p>
+        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p><code>Type system</code>的基本目的是防止在程序运行时发生<code>execution error</code>。这种<code>Informal statement</code>非形式化描述有很多内涵：首先该如何严格定义<code>execution error</code>；其次在这种定义下，描述<code>absence of execution error</code>也是<code>Type system</code>很<code>nontrivial</code>的性质——当<code>PL .aka. programming language</code>的所有运行时行为都能确保这种性质的话，我们就说该语言是<code>type sound</code>的。事实证明为了更加没有歧义的描述<code>PL</code>的<code>type soundness</code>，需要做大量的分析和证明。因此针对<code>Type system</code>的分类，描述和研究过程逐渐演变成为一套<code>formal discipline</code>即形式化体系。</p>
+<script type="math/tex; mode=display">
+\frac{\Gamma_{1} \vdash \Im_{1}  ...  \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im}</script><p><code>The formalization of Type system</code>需要一套精确的符号和定义系统，一个<strong>严格正确</strong>的<code>Type system</code>可以对语言定义的各个重要性质进行<strong>完整</strong>的判断。而非形式化的描述甚至做不到完整概括语言的<code>type structure</code>则更谈不上实现上的唯一性。比如不同的编译器对于同一套语言<code>Type system</code>的实现往往不尽相同，甚至有一些<code>type unsound</code>的语言定义导致一段代码明明通过<code>typechecker</code>的检查但在运行时奔溃掉。理想情况下我们说<code>formal Type system</code>应该是所有<code>typed programming languages</code>内核定义的一部分。这样的话，<code>typechecking</code>算法就可以严格按照精确的类型<code>spec</code>执行，从某种程度上该语言可以看成是<code>Type sound</code>的。</p>
 <a id="more"></a>
-<h3 id="introduction">Introduction</h3>
-<h4 id="execution-errors">Execution errors</h4>
-<p>比较典型的<code>execution error</code>就是系统出现了意外的<code>software faults</code>比如<code>illegal instruction fault</code>或者<code>illegal memory reference fault</code>等。但是也存在<code>execution error</code>会没有预兆的发生从而导致数据错误。进一步的还存在像<code>divide by zero</code>，或者<code>derferencing nil</code>等<strong><code>Type system</code>无法避免</strong>的<code>sofeware faults</code>。但是有的语言虽然没有<code>Type system</code>却也不会发生<code>software faults</code>。</p>
-<h5 id="safety">safety</h5>
-<p>首先对<code>execution errors</code>进行分类：</p>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><h4 id="Execution-errors"><a href="#Execution-errors" class="headerlink" title="Execution errors"></a>Execution errors</h4><p>比较典型的<code>execution error</code>就是系统出现了意外的<code>software faults</code>比如<code>illegal instruction fault</code>或者<code>illegal memory reference fault</code>等。但是也存在<code>execution error</code>会没有预兆的发生从而导致数据错误。进一步的还存在像<code>divide by zero</code>，或者<code>derferencing nil</code>等<strong><code>Type system</code>无法避免</strong>的<code>sofeware faults</code>。但是有的语言虽然没有<code>Type system</code>却也不会发生<code>software faults</code>。</p>
+<h5 id="safety"><a href="#safety" class="headerlink" title="safety"></a>safety</h5><p>首先对<code>execution errors</code>进行分类：</p>
 <ul>
-<li><code>trapped errors:</code> 导致计算行为瞬间奔溃停止
-<ul>
+<li><code>trapped errors:</code> 导致计算行为瞬间奔溃停止<ul>
 <li>除零错误</li>
 <li>内存非法访问</li>
-</ul></li>
-<li><code>untrapped errors:</code>刚开始不会很明显，但是后续会导致任意错误
-<ul>
+</ul>
+</li>
+<li><code>untrapped errors:</code>刚开始不会很明显，但是后续会导致任意错误<ul>
 <li>没有运行时边界检查的数组越界</li>
 <li>引用错误地址</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <blockquote>
-<p>A program fragment is <strong>safe</strong> if it does not cause <strong>untrapped errors</strong> to occur.</p>
+<p>A program fragment is <strong>safe</strong> if it does not cause <strong>untrapped  errors</strong> to occur.</p>
 </blockquote>
-<p>所有程序都是<code>safe</code>的语言称为<code>safe languages</code>——因此<code>safe languages</code>是要能排除一切潜在错误。<code>untyped languages</code>通过<code>runtime checks</code>来达到<code>safety</code>——<code>typed languages</code>通过<code>static</code>静态(比如编译期)排除一切潜在错误行为来达到<code>safety</code>，其也可以同时采用<code>runtime</code>和<code>static</code>检查。</p>
-<h5 id="well-behaved">well-behaved</h5>
-<p>针对通用编程语言，我们应该提炼出<code>execution errors</code>的一个子集作为<code>forbidden errors</code>。这个子集应该包含所有的<code>untrapped errors</code>，以及一部分<code>trapped errors</code>。</p>
+<p>所有程序都是<code>safe</code>的语言称为<code>safe languages</code>——因此<code>safe languages</code>是要能排除一切潜在错误。<code>untyped languages</code>通过<code>runtime checks</code>来达到<code>safety</code>——<code>typed languages</code>通过<code>static</code>静态(比如编译期)排除一切潜在错误行为来达到<code>safety</code>，其也可以同时采用<code>runtime</code>和<code>static</code>检查。  </p>
+<h5 id="well-behaved"><a href="#well-behaved" class="headerlink" title="well-behaved"></a>well-behaved</h5><p>针对通用编程语言，我们应该提炼出<code>execution errors</code>的一个子集作为<code>forbidden errors</code>。这个子集应该包含所有的<code>untrapped errors</code>，以及一部分<code>trapped errors</code>。</p>
 <blockquote>
-<p>A program fragment is said to have <strong>good behavior/well-behaved</strong>, if it doesn't cause any <strong>forbidden error</strong> to occur.</p>
+<p>A program fragment is said to have <strong>good behavior/well-behaved</strong>, if it doesn’t cause any <strong>forbidden error</strong> to occur.</p>
 </blockquote>
 <p><strong>对比一下<code>safe</code>和<code>well-behaved</code>的定义就可以发现<code>well-behaved</code>的代码是<code>safe</code>的，但反之不然。</strong>所有代码都是<code>well-behaved</code>的语言被称为<code>strongly checked</code>。针对一个<code>Strongly checked</code>的语言的特征：</p>
 <ul>
@@ -509,62 +503,62 @@
 <li>不会出现包含在<code>forbidden errors</code>中的部分<code>trapped errors</code></li>
 <li>其余的<code>trapped errors</code>发生也只会由于程序员的自身问题导致</li>
 </ul>
-<p><code>Typed languages</code>通过运行静态检查(比如编译期)来实现语言的<code>well-behaved</code>——这样的语言被称为是<code>staticlly checked</code>，整个检查过程被称为<code>typechecking</code>，执行该检查过程的算法被称为<code>type-checker</code>。一段经过<code>type-checker</code>检查的程序被称为<code>well-typed</code>。<code>staticlly checked languages</code>有<code>ML,Java,Pascal</code>等。</p>
-<p><code>Untyped languages</code>通过运行时检查<code>runtime checks</code>来排除所有的<code>forbidden errors</code>。比如它们会检查所有数组边界，所有除法操作，并在错误出现的时候触发异常。整个检查过程被称为<code>dynamic checking</code>。<code>LISP</code>就是这样一门语言，这样的语言尽管没有静态检查，没有类型系统，但却还是<code>strongly checked</code>。</p>
-<h5 id="safety-or-performance">safety or Performance</h5>
-<p><code>type system</code>的首要目标就是要通过排除所有程序运行时的<code>untrapped errors</code>来确保程序的<code>safety</code>。但是实际上很多静态语言都不能保证<code>safety</code>——它们的类型系统并没有完全排除掉运行时的<code>untrapped errors</code>。这些语言被称为是<code>weakly-typed</code>，而且其程度都各自不同。<code>C</code>在<code>pointer arithmetic</code>和<code>casting</code>上有大量<code>unsafe</code>的操作。</p>
+<p><code>Typed languages</code>通过运行静态检查(比如编译期)来实现语言的<code>well-behaved</code>——这样的语言被称为是<code>staticlly checked</code>，整个检查过程被称为<code>typechecking</code>，执行该检查过程的算法被称为<code>type-checker</code>。一段经过<code>type-checker</code>检查的程序被称为<code>well-typed</code>。<code>staticlly checked languages</code>有<code>ML,Java,Pascal</code>等。  </p>
+<p><code>Untyped languages</code>通过运行时检查<code>runtime checks</code>来排除所有的<code>forbidden errors</code>。比如它们会检查所有数组边界，所有除法操作，并在错误出现的时候触发异常。整个检查过程被称为<code>dynamic checking</code>。<code>LISP</code>就是这样一门语言，这样的语言尽管没有静态检查，没有类型系统，但却还是<code>strongly checked</code>。 </p>
+<h5 id="safety-or-Performance"><a href="#safety-or-Performance" class="headerlink" title="safety or Performance"></a>safety or Performance</h5><p><code>type system</code>的首要目标就是要通过排除所有程序运行时的<code>untrapped errors</code>来确保程序的<code>safety</code>。但是实际上很多静态语言都不能保证<code>safety</code>——它们的类型系统并没有完全排除掉运行时的<code>untrapped errors</code>。这些语言被称为是<code>weakly-typed</code>，而且其程度都各自不同。<code>C</code>在<code>pointer arithmetic</code>和<code>casting</code>上有大量<code>unsafe</code>的操作。</p>
 <p>大多数<code>untyped languages</code>都是<code>completely safe</code>的，否则程序既没有编译期检查又没有运行时检查一旦出错后果不堪设想。比如<code>Assembly</code>就属于这种语言范畴。</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>Typed</th>
 <th>Untyped</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Safe</td>
 <td>ML、Java</td>
 <td>LISP</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Unsafe</td>
 <td>C</td>
 <td>Assembly</td>
 </tr>
 </tbody>
 </table>
-<p>但程序语言的<code>safety</code>属性一般需要以牺牲性能为代价。但是究其优势：可以通过引入<code>garbage collection</code>来确保运行时结构的完整，最后其对于像<code>OS/web browsers</code>等应用的安全提供了保证。</p>
+</div>
+<p>但程序语言的<code>safety</code>属性一般需要以牺牲性能为代价。但是究其优势：可以通过引入<code>garbage collection</code>来确保运行时结构的完整，最后其对于像<code>OS/web browsers</code>等应用的安全提供了保证。  </p>
 <p>那实现<code>safety</code>是通过类型系统即静态还是运行时即动态:</p>
 <ul>
 <li><code>untyped languages</code>会导致大量<code>safety</code>问题</li>
 <li><code>untyped languages</code>比如<code>LISP</code>要比<code>weakly-typed languages</code>比如<code>C</code>更难维护</li>
 </ul>
-<h4 id="typed-and-untyped-languages">Typed and untyped languages</h4>
-<p>程序变量在程序运行期间可以假定一系列的值。</p>
+<h4 id="Typed-and-untyped-languages"><a href="#Typed-and-untyped-languages" class="headerlink" title="Typed and untyped languages"></a>Typed and untyped languages</h4><p>程序变量在程序运行期间可以假定一系列的值。  </p>
 <blockquote>
-<p><font color="red">An upper bound of such a range is called a <strong>type</strong> of the variable.</font></p>
+<font color="red">An upper bound of such a range is called a **type** of the variable.</font>  
+
 </blockquote>
 <p>该变量的一个类型就是其值的一个<code>upper bound</code>。比如一个<code>Boolean</code>类型的变量在程序运行过程中只能是<code>true/false</code>，而<code>not(x)</code>在运行时也是有意义的。一门所有变量都有<code>nontrivial types</code>的语言称为<code>typed languages</code>。而没有限制变量范围的语言称为<code>untyped languages</code>——其变量没有<code>type</code>，或者说其变量都有一个<code>universal type</code>。</p>
 <p><code>Type system</code>是<code>type languages</code>的核心部分，用来跟踪<code>types of variables</code>，更普遍的用来跟踪<code>types of expression</code>。只有遵守<code>type system</code>的代码才可以成为该<code>type language</code>的合格程序。而<code>type system</code>可能不会在语言的语法中显式出现。</p>
 <blockquote>
-<p><font color="red">Type systems are used to determine whether programs are <strong>well behaved.</strong></font></p>
+<font color="red">Type systems are used to determine whether programs are **well behaved.**</font>
+
 </blockquote>
 <ul>
 <li><code>Explicitly typed:</code> <code>types</code>是语法的一部分</li>
 <li><code>implicitly typed:</code> <code>types</code>不会显式出现在语法中</li>
 </ul>
-<h5 id="properties-of-type-systems">properties of type systems</h5>
-<p>我们在这里假设程序语言需要即<code>safe</code>又<code>type</code>，因此引入<code>type system</code>的讨论。</p>
+<h5 id="properties-of-type-systems"><a href="#properties-of-type-systems" class="headerlink" title="properties of type systems"></a>properties of type systems</h5><p>我们在这里假设程序语言需要即<code>safe</code>又<code>type</code>，因此引入<code>type system</code>的讨论。</p>
 <p><code>Types</code>，作为程序语言的一部分有着和其他<code>program annotations</code>编程标记更加实用的特征。总体上来说，对于程序语言行为的<code>annotations</code>涵盖了<code>informal comments</code>，<code>formal spec</code>，甚至<code>theorem proving</code>等。而<code>Types</code>就在几个范畴的中心地带——其比<code>comments</code>更加精确，但是比<code>formal spec</code>更加简洁和易用。总体来讲<code>type system</code>有如下属性：</p>
 <ul>
 <li><code>decidably verifiable:</code> 需要有算法(指的是<code>typechecker</code>)来确保程序是<code>well-behaved</code>的。<code>type system</code>的目的不仅仅是描述开发者的意图，更重要的是为了捕捉程序运行时错误。（<code>formal spec</code>只能进行描述）</li>
 <li><code>transparent:</code> 开发者对于<code>typechecker</code>的行为应该很易于上手。比如很容易看出某段代码是否可以通过类型测试，如果没有通过则问题一定是开发者自身（<code>automatic theorem proving</code>相比之下更晦涩难懂）</li>
 <li><code>enforceable:</code> <code>type declarations</code>应该被尽可能的完成静态/动态检查。类型声明和其对应程序之间的一致性应该符合验证。（<code>comments</code>无法做到这一点）</li>
 </ul>
-<h4 id="how-type-systems-are-formalized">How type systems are formalized</h4>
-<p>我们如何保证<code>well-typed</code>的程序确实是<code>well-behaved</code>的呢？</p>
+<h4 id="How-type-systems-are-formalized"><a href="#How-type-systems-are-formalized" class="headerlink" title="How type systems are formalized"></a>How type systems are formalized</h4><p>我们如何保证<code>well-typed</code>的程序确实是<code>well-behaved</code>的呢？</p>
 <blockquote>
 <p>这里的<code>well-typed</code>指的是通过人为设计的类型系统算法<code>typechecker</code>，而<code>well-behaved</code>指的是在运行时不会出现<code>forbidden errors</code>。</p>
 </blockquote>
@@ -576,335 +570,302 @@
 <blockquote>
 <p>Good behavior of all programs of a typed language and soundness of its type system mean the same thing.</p>
 </blockquote>
-<h5 id="type-and-term">type and term</h5>
-<p>为了形式化一门程序语言的<code>type system</code>并且证明<code>soundness theorem</code>，就需要在本质上将整个语言都形式化。首先要做的就是描述该语言的语法<code>syntax</code>。对于大多数语言来说这就意味着描述其<code>types and terms</code>的语法。</p>
+<h5 id="type-and-term"><a href="#type-and-term" class="headerlink" title="type and term"></a>type and term</h5><p>为了形式化一门程序语言的<code>type system</code>并且证明<code>soundness theorem</code>，就需要在本质上将整个语言都形式化。首先要做的就是描述该语言的语法<code>syntax</code>。对于大多数语言来说这就意味着描述其<code>types and terms</code>的语法。</p>
 <ul>
 <li><code>Types</code>描述程序的静态行为</li>
 <li><code>Terms(statements, expressions, and other program fragments)</code>描述算法的行为</li>
 </ul>
-<h5 id="scoping-rules">scoping rules</h5>
-<p>下一步是定义语言的<code>scoping</code>规则——该规则明确定义了<font color="red">标识符的作用域即标识符<code>binding locations</code>声明处和<code>occurrences</code>使用处的联系。<code>Typed languages</code>需要这种<code>scoping</code>是静态的，换句话讲就是说标识符的声明<code>binding locations</code>一定要在运行时之前。</font>而标识符的声明处<code>binding locations</code>往往是由语言语法决定的，因此<code>static scoping</code>也叫做<code>lexical scoping</code>。与之相反的就是<code>dynamic scoping</code>。</p>
+<h5 id="scoping-rules"><a href="#scoping-rules" class="headerlink" title="scoping rules"></a>scoping rules</h5><p>下一步是定义语言的<code>scoping</code>规则——该规则明确定义了<font color="red">标识符的作用域即标识符<code>binding locations</code>声明处和<code>occurrences</code>使用处的联系。<code>Typed languages</code>需要这种<code>scoping</code>是静态的，换句话讲就是说标识符的声明<code>binding locations</code>一定要在运行时之前。</font>而标识符的声明处<code>binding locations</code>往往是由语言语法决定的，因此<code>static scoping</code>也叫做<code>lexical scoping</code>。与之相反的就是<code>dynamic scoping</code>。</p>
 <blockquote>
 <p>Scoping can be formally specified by defining the set of<font color="red"> free variables</font> of a program fragment (which involves specifying how variables are bound by declarations). The associated notion of substitution of types or terms for free variables can then be defined.</p>
 </blockquote>
-<p>对于作用域的形式化可以定义一个<code>program fragment</code>的一系列<code>free variable</code>,接着可以定义如何使用<code>types/terms</code>来替换这些变量。</p>
+<p>对于作用域的形式化可以定义一个<code>program fragment</code>的一系列<code>free variable</code>,接着可以定义如何使用<code>types/terms</code>来替换这些变量。  </p>
 <ul>
-<li><font color="blue">scoping rules, binding locations, free variable</font></li>
+<li><font color="blue">scoping rules, binding locations, free variable</font>
+
+</li>
 </ul>
-<h5 id="type-rules">type rules</h5>
-<p>当这些搞定后，开始定义程序语言的<code>type rules</code>：其通过<code>M:A</code>的形式定义了<code>terms M</code>和<code>types A</code>之间的一种<code>has-type</code>关系。有些语言还通过<code>A&lt;:B</code>的形式定义<code>types</code>之间的<code>subtype-of</code>关系，还有通过<code>A=B</code>的形式定义<code>types</code>之间的<code>equal-type</code>关系。</p>
+<h5 id="type-rules"><a href="#type-rules" class="headerlink" title="type rules"></a>type rules</h5><p>当这些搞定后，开始定义程序语言的<code>type rules</code>：其通过<code>M:A</code>的形式定义了<code>terms M</code>和<code>types A</code>之间的一种<code>has-type</code>关系。有些语言还通过<code>A&lt;:B</code>的形式定义<code>types</code>之间的<code>subtype-of</code>关系，还有通过<code>A=B</code>的形式定义<code>types</code>之间的<code>equal-type</code>关系。</p>
 <blockquote>
 <p>The collection of type rules of a language forms its type system.</p>
 </blockquote>
-<h5 id="static-typing-environments">static typing environments</h5>
-<p>在形式化<code>type rules</code>之前还需要引入另一个不会显式出现在语法中的基本概念——<font color="red"><code>static typing environments</code>：其在处理<code>program fragments</code>的过程中记录<code>free variable</code>的<code>type</code>。</font>一般和编译器在处理<code>typechecking</code>趟时其符号表的内容相对应。</p>
+<h5 id="static-typing-environments"><a href="#static-typing-environments" class="headerlink" title="static typing environments"></a>static typing environments</h5><p>在形式化<code>type rules</code>之前还需要引入另一个不会显式出现在语法中的基本概念——<font color="red"><code>static typing environments</code>：其在处理<code>program fragments</code>的过程中记录<code>free variable</code>的<code>type</code>。</font>一般和编译器在处理<code>typechecking</code>趟时其符号表的内容相对应。</p>
 <blockquote>
-<p><font color="red">The type rules are always formulated with respect to a static environment for the fragment being typechecked.</font></p>
+<font color="red">The type rules are always formulated with respect to a static environment for the fragment being typechecked.</font>
+
 </blockquote>
-<p><font color="blue">比如一个<code>has-type</code>关系<code>M:A</code>，但是这个关系下<code>type A</code>和<code>term M</code>相关的<code>free variable</code>的信息在<code>static environment 𝚪</code>里面的</font>。故这个关系全称应该是<code>𝚪 ⊢ M:A</code>，意思是<strong>在静态环境𝚪下，M有A类型</strong>。</p>
-<h5 id="semantics">semantics</h5>
-<p>形式化程序语言的最后一步就是将其语义定义为一种<code>terms</code>和<code>results</code>之间的<code>relation</code>。该<code>relation</code>的形式很大程度上取决于所采用的语义学风格。语言的语义和<code>type system</code>是相互影响的——<code>term</code>的<code>type</code>和其<code>results</code>应该一样或正相关，这是<code>soundness theorem</code>的本质。</p>
-<blockquote>
-<p><font color="red">the types of a term and of itsresult should be the same (or appropriately related); this is the essence of the soundness theorem.</font></p>
-</blockquote>
+<font color="blue">比如一个`has-type`关系`M:A`，但是这个关系下`type A`和`term M`相关的`free variable`的信息在`static environment 𝚪`里面的</font>。故这个关系全称应该是`𝚪 ⊢ M:A`，意思是**在静态环境𝚪下，M有A类型**。
+
+##### semantics
+
+形式化程序语言的最后一步就是将其语义定义为一种`terms`和`results`之间的`relation`。该`relation`的形式很大程度上取决于所采用的语义学风格。语言的语义和`type system`是相互影响的——`term`的`type`和其`results`应该一样或正相关，这是`soundness theorem`的本质。  
+
+> <font color="red">the types of a term and of itsresult should be the same (or appropriately related); this is the essence of the soundness theorem.</font>
+
 <p><code>type system</code>的基本概念对几乎所有编程范式（函数式，命令式，并行）都是适用的。独立的<code>type rules</code>应用于不同的范式时基本不能改变。比如<code>call-by-name</code>和<code>call-by-value</code>的函数的基本语义是一样的。</p>
 <p>这章节我们讨论了独立于语义的<code>type system</code>。但是需要肯定的是，<code>type system</code>一定和一门语义以及该语义所带的<code>soundness</code>相关。</p>
 <blockquote>
 <p>The techniques of structrual operational semantics deal uniformly with a large collection of programming paradigms.</p>
 </blockquote>
-<h4 id="type-equivalence">Type equivalence</h4>
-<p>正向前文所说的，大多数<code>nontrivial type system</code>都会定义一种<code>equal type</code>的关系代表<code>type equivalence</code>。这一属性在定义一门编程语言时候异常重要：<strong>什么时候两个分别定义的<code>type expression</code>是一致的？</strong>比如两个由相似类型连接的不同<code>type names</code>：</p>
+<h4 id="Type-equivalence"><a href="#Type-equivalence" class="headerlink" title="Type equivalence"></a>Type equivalence</h4><p>正向前文所说的，大多数<code>nontrivial type system</code>都会定义一种<code>equal type</code>的关系代表<code>type equivalence</code>。这一属性在定义一门编程语言时候异常重要：<strong>什么时候两个分别定义的<code>type expression</code>是一致的？</strong>比如两个由相似类型连接的不同<code>type names</code>：</p>
 <blockquote>
 <p>type X = Bool.</p>
 <p>type Y = Bool.</p>
 </blockquote>
 <p>如果<code>type names</code>X和Y因为与相似类型关联而匹配，我们称为<code>structural equivalence</code>。如果由于<code>type names</code>不同而无法匹配（并没有参考相关联的类型），我们称为<code>by-name equivalence</code>。</p>
 <p>通常情况下大多数语言会使用<code>structural and by-name</code>的混合。<code>Pure structural equivalence</code>可以通过<code>type rules</code>精确定义，然而<code>by-name equivalence</code>更难确定。后续的讨论我们基本讨论<code>structural equivalence</code>，而<code>by-name equivalence</code>可以使用前者很好的进行模拟。</p>
-<h3 id="the-language-of-type-systems">The language of type systems</h3>
-<p><code>Type system</code>定义程序语言的<code>type rules</code>——独立于特定的<code>typechecking algorithms</code>。其和<code>formal grammar</code>定义程序语言的<code>syntax</code>但独立于特定的<code>parsing algorithms</code>是同样的道理。</p>
+<h3 id="The-language-of-type-systems"><a href="#The-language-of-type-systems" class="headerlink" title="The language of type systems"></a>The language of type systems</h3><p><code>Type system</code>定义程序语言的<code>type rules</code>——独立于特定的<code>typechecking algorithms</code>。其和<code>formal grammar</code>定义程序语言的<code>syntax</code>但独立于特定的<code>parsing algorithms</code>是同样的道理。  </p>
 <p>将<code>type system</code>和<code>typechecking algorithms</code>分离更加高效：<code>type system</code>属于语言定义<code>language definitions</code>，而<code>algorithms</code>属于编译器实现。通过<code>type system</code>映射语言的类型信息要比用编译器算法更加简洁。同一套<code>type system</code>在不同编译器上可能会有多种<code>typechecking</code>算法。</p>
-<h4 id="judgements">Judgements</h4>
-<p><code>Type system</code>由一套特殊的形式化方法描述。下面开始讨论：</p>
-<p>首先引入一套形式化机制称作<code>judgments</code>: <span class="math display">\[
-\Gamma \vdash \Im  \qquad \text{ℑ is an assertion;the free variables of ℑ are declared in 𝚪}
-\]</span> 读作<code>𝚪 entails ℑ</code>(𝚪包含ℑ)。</p>
-<p><code>𝚪</code>是一个<code>static typing environment</code>，比如一个由不同变量及其相应<code>type</code>组成的有序链表，通过∅, x<sub>1</sub>:A<sub>1</sub>, ..., x<sub>n</sub>:A<sub>n</sub>的形式。空环境记作∅，而在𝚪环境中声明的变量集合x<sub>1</sub>...x<sub>n</sub>记作<code>dom(𝚪)</code>——𝚪的<code>domain</code>值域。</p>
-<p><font color="red">ℑ是一种断言，其形式随着不同的<code>judgement</code>会变化，但是ℑ中的所有<code>free variables</code>都必须<strong>声明</strong>在𝚪中。</font></p>
+<h4 id="Judgements"><a href="#Judgements" class="headerlink" title="Judgements"></a>Judgements</h4><p><code>Type system</code>由一套特殊的形式化方法描述。下面开始讨论：</p>
+<p>首先引入一套形式化机制称作<code>judgments</code>:</p>
+<script type="math/tex; mode=display">
+\Gamma \vdash \Im  \qquad \text{ℑ is an assertion;the free variables of ℑ are declared in 𝚪}</script><p>读作<code>𝚪 entails ℑ</code>(𝚪包含ℑ)。  </p>
+<p><code>𝚪</code>是一个<code>static typing environment</code>，比如一个由不同变量及其相应<code>type</code>组成的有序链表，通过∅, x<sub>1</sub>:A<sub>1</sub>, …, x<sub>n</sub>:A<sub>n</sub>的形式。空环境记作∅，而在𝚪环境中声明的变量集合x<sub>1</sub>…x<sub>n</sub>记作<code>dom(𝚪)</code>——𝚪的<code>domain</code>值域。  </p>
+<font color="red">ℑ是一种断言，其形式随着不同的`judgement`会变化，但是ℑ中的所有`free variables`都必须**声明**在𝚪中。</font>
+
 <blockquote>
-<p><font color="blue"> a term M has a type A with respect to a static typing environment for the free variables of M.   最重要的<code>judgement</code>是<code>typing judgement</code>，其断言为：对于针对<code>M</code>中所有<code>free variable</code>的静态环境<code>𝚪</code>的来说，<code>term M</code>的类型是<code>A</code>。</font></p>
+<font color="blue"> a term M has a type A with respect to a static typing environment for the free variables of M.   最重要的`judgement`是`typing judgement`，其断言为：对于针对`M`中所有`free variable`的静态环境`𝚪`的来说，`term M`的类型是`A`。</font>
+
 </blockquote>
 <ul>
 <li>Term: statements, expressions, and other program fragments</li>
 </ul>
-<p><span class="math display">\[
-\Gamma \vdash M:A   \qquad \text{M has type A in 𝚪}
-\]</span></p>
-<p>比如举例如下： <span class="math display">\[
+<script type="math/tex; mode=display">
+\Gamma \vdash M:A   \qquad \text{M has type A in 𝚪}</script><p>比如举例如下：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\emptyset \vdash true:Bool &amp;&amp;\qquad \text{true has type Bool} \\
-&amp;\emptyset,x:Nat \vdash x+1:Nat &amp;&amp;\qquad \text{x+1 has type Nat, provided that x has type Nat}\\
+&\emptyset \vdash true:Bool &&\qquad \text{true has type Bool} \\
+&\emptyset,x:Nat \vdash x+1:Nat &&\qquad \text{x+1 has type Nat, provided that x has type Nat}\\
+\end{aligned}</script><p>其他类型的<code>judgement</code>也很常见，比如下面断言为<code>an environment is well-formed</code>:</p>
+<script type="math/tex; mode=display">
+\Gamma \vdash \diamond  \qquad \text{𝚪 is well-formed(i.e., it has been properly constructed)}</script><h4 id="Type-rules"><a href="#Type-rules" class="headerlink" title="Type rules"></a>Type rules</h4><p><code>Type rules</code>：在<code>valid judgements</code>的前提下，断言<code>certain judgement</code>有效。一般都以某些本质上有效的<code>judgements</code>作为开始(常见的有：∅⊢◇,表示<code>empty environment is well-formed</code>)。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\text{ (Rule name)} \quad \quad \text{ (Annotations)}    \\
+&\frac{\Gamma_{1} \vdash \Im_{1}  \quad ... \quad \Gamma_{n} \vdash \Im_{n} \text{ (Annotations)}}{\Gamma \vdash \Im}
 \end{aligned}
-\]</span> 其他类型的<code>judgement</code>也很常见，比如下面断言为<code>an environment is well-formed</code>: <span class="math display">\[
-\Gamma \vdash \diamond  \qquad \text{𝚪 is well-formed(i.e., it has been properly constructed)}
-\]</span></p>
-<h4 id="type-rules-1">Type rules</h4>
-<p><code>Type rules</code>：在<code>valid judgements</code>的前提下，断言<code>certain judgement</code>有效。一般都以某些本质上有效的<code>judgements</code>作为开始(常见的有：∅⊢◇,表示<code>empty environment is well-formed</code>)。 <span class="math display">\[
+\qquad \text{ General form of a type rule.}</script><p>每一个<code>type rule</code>的格式：在水平线上面的是一系列<code>premise judgements</code>:𝚪<sub>i</sub> ⊢ ℑ<sub>i</sub>，而在水平线下面的是<code>conclusion judgements</code>: 𝚪⊢ℑ。当所有的<code>premise</code>都满足之后，<code>conclusion</code>一定成立。<code>premise</code>的数量可以为零。而且每一个<code>type rules</code>都有一个名字：根据惯例，名字的第一个单词是由<code>conclusion judgements</code>规定的~比如<code>conclusion</code>是一个<code>value typing judgement</code>的<code>type rules</code>的名字就会叫做<code>Val...</code>。必要的时候，限制<code>rule</code>的一些条件和需要用到的一些缩写都会在<code>typ rule</code>或者<code>premise</code>旁边进行批注。比如一下例子：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{ (Rule name)} \quad \quad \text{ (Annotations)}    \\
-&amp;\frac{\Gamma_{1} \vdash \Im_{1}  \quad ... \quad \Gamma_{n} \vdash \Im_{n} \text{ (Annotations)}}{\Gamma \vdash \Im}
-\end{aligned}
-\qquad \text{ General form of a type rule.}
-\]</span> 每一个<code>type rule</code>的格式：在水平线上面的是一系列<code>premise judgements</code>:𝚪<sub>i</sub> ⊢ ℑ<sub>i</sub>，而在水平线下面的是<code>conclusion judgements</code>: 𝚪⊢ℑ。当所有的<code>premise</code>都满足之后，<code>conclusion</code>一定成立。<code>premise</code>的数量可以为零。而且每一个<code>type rules</code>都有一个名字：根据惯例，名字的第一个单词是由<code>conclusion judgements</code>规定的~比如<code>conclusion</code>是一个<code>value typing judgement</code>的<code>type rules</code>的名字就会叫做<code>Val...</code>。必要的时候，限制<code>rule</code>的一些条件和需要用到的一些缩写都会在<code>typ rule</code>或者<code>premise</code>旁边进行批注。比如一下例子： <span class="math display">\[
-\begin{aligned}
-&amp;\text{ (Val n) (n=0,1,...)} \\
-&amp;\frac{ \Gamma \vdash \diamond }{\Gamma \vdash n:Nat}
+&\text{ (Val n) (n=0,1,...)} \\
+&\frac{ \Gamma \vdash \diamond }{\Gamma \vdash n:Nat}
 \end{aligned} \qquad 
 \begin{aligned}
-&amp;\text{ (Val+)} \\
-&amp;\frac{\Gamma \vdash M:Nat \qquad \Gamma \vdash N:Nat}{\Gamma \vdash \text{M+N:Nat}} 
-\end{aligned}
-\]</span> 比如第一个<code>type rule</code>表示所有的<code>numeral</code>自然数都是<code>Nat</code>类型。<font color="red">第二个【结合<code>Typing Judgements</code>】</font><code>type rule</code>表示两个<code>Nat</code>类型的表达式<code>M</code>和<code>N</code>可以构成一个更大的<code>Nat</code>类型的表达式<code>M+N</code>，<font color="blue">Moreover, the environment 𝚪 for M and N, which declares the types of any free variable of M and N, carries over to M+N并且静态环境<code>𝚪</code>不仅声明了<code>M</code>和<code>N</code>的所有<code>free variable</code>的类型，更涵盖了<code>M+N</code>的类型。</font></p>
-<p><font color="orange">注释：首先<code>static typing environment</code>记录程序中<code>free variable</code>的类型信息-These are used to record the types of free variables during the processing of program fragments;   其次<code>typing judgements</code>是断言<code>term</code>有类型-It asserts that a term M has a type A with respect to a static typing environment for the free variables of M。</font></p>
-<p>基本的规则表示<code>empty environment</code>是<code>well formed</code>的，不需要前提： <span class="math display">\[
-\text{(Env ∅)} \\ \frac{}{\emptyset \vdash \diamond}
-\]</span></p>
-<blockquote>
-<p>A collection of type rules is called a (formal) type system. Technically, type system fit into the general framework of <em>formal proof system</em>: collections of rules used to carry out step-by-step deductions.</p>
+&\text{ (Val+)} \\
+&\frac{\Gamma \vdash M:Nat \qquad \Gamma \vdash N:Nat}{\Gamma \vdash \text{M+N:Nat}} 
+\end{aligned}</script><p> 比如第一个<code>type rule</code>表示所有的<code>numeral</code>自然数都是<code>Nat</code>类型。<font color="red">第二个【结合<code>Typing Judgements</code>】</font><code>type rule</code>表示两个<code>Nat</code>类型的表达式<code>M</code>和<code>N</code>可以构成一个更大的<code>Nat</code>类型的表达式<code>M+N</code>，<font color="blue">Moreover, the environment 𝚪 for M and N, which declares the types of any free variable of M and N, carries over to M+N并且静态环境<code>𝚪</code>不仅声明了<code>M</code>和<code>N</code>的所有<code>free variable</code>的类型，更涵盖了<code>M+N</code>的类型。</font>  </p>
+<font color="orange">注释：首先`static typing environment`记录程序中`free variable`的类型信息-These are used to record the types of free variables during the processing of program fragments;   其次`typing judgements`是断言`term`有类型-It asserts that a term M has a type A with respect to a static typing environment for the free variables of M。</font>
+
+<p>基本的规则表示<code>empty environment</code>是<code>well formed</code>的，不需要前提：</p>
+<script type="math/tex; mode=display">
+\text{(Env ∅)} \\ \frac{}{\emptyset \vdash \diamond}</script><blockquote>
+<p>A collection of type rules is called a (formal) type system. Technically, type system fit into the general framework of <em>formal proof system</em>:  collections of rules used to carry out step-by-step deductions.   </p>
 <p><strong>The deductions carried out in type systems concern the typing of prorgams.</strong></p>
 </blockquote>
 <p>技术上讲，<code>type system</code>满足形式化证明系统<code>formal proof systems</code>的基本框架：一系列的<code>type rules</code>被用来执行一步一步的推理演绎。类型系统推理的过程就是程序中类型的概念。</p>
-<h4 id="type-derivations">Type derivations</h4>
-<p><code>derivation</code>在<code>type system</code>中是以<code>judgements tree</code>的形式，上面是叶子，最后是根——每一个<code>judgement</code>都可以从其上面的叶子部分根据一定规则推导得到。<code>type system</code>最基本的要求就是看其<code>derivation</code>是否是正确构建的。</p>
-在一套<code>type system</code>中，能正确应用<code>type rules</code>推导出来的一定是<code>valid judgement</code>。比如下面： $$
-<span class="math display">\[\begin{aligned}
+<h4 id="Type-derivations"><a href="#Type-derivations" class="headerlink" title="Type derivations"></a>Type derivations</h4><p><code>derivation</code>在<code>type system</code>中是以<code>judgements tree</code>的形式，上面是叶子，最后是根——每一个<code>judgement</code>都可以从其上面的叶子部分根据一定规则推导得到。<code>type system</code>最基本的要求就是看其<code>derivation</code>是否是正确构建的。  </p>
+<p>在一套<code>type system</code>中，能正确应用<code>type rules</code>推导出来的一定是<code>valid judgement</code>。比如下面：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
 \dfrac{\dfrac{\dfrac{}{\emptyset \vdash \diamond}  \text{by(Env ∅)}}{\emptyset \vdash 1:Nat}  \text{by(Val n)} \quad \dfrac{\dfrac{}{\emptyset \vdash \diamond}  \text{by(Env ∅)}}{\emptyset \vdash 2:Nat}  \text{by(Val n)}}{\emptyset \vdash 1+2:Nat}  \text{by(Val +)}
 
-\end{aligned}\]</span>
-<p>$$ 根据前面给出的规则，我们可以构造出新的<code>derivation</code>即<code>∅⊢1+2:Nat</code>是<code>valid judgement</code>。其中每一步推导用到的规则都标记在右边。</p>
-<h4 id="well-typing-and-type-inference">Well typing and type inference</h4>
-<p>给定一个<code>type system</code>，如果存在一个类型<code>A</code>使得<code>𝚪⊢M:A</code>是有效的——那么对于环境<code>𝚪</code>来说<code>M is well typed</code>的，即<code>term M</code>被赋予某个类型。</p>
+\end{aligned}</script><p>根据前面给出的规则，我们可以构造出新的<code>derivation</code>即<code>∅⊢1+2:Nat</code>是<code>valid judgement</code>。其中每一步推导用到的规则都标记在右边。</p>
+<h4 id="Well-typing-and-type-inference"><a href="#Well-typing-and-type-inference" class="headerlink" title="Well typing and type inference"></a>Well typing and type inference</h4><p>给定一个<code>type system</code>，如果存在一个类型<code>A</code>使得<code>𝚪⊢M:A</code>是有效的——那么对于环境<code>𝚪</code>来说<code>M is well typed</code>的，即<code>term M</code>被赋予某个类型。</p>
 <blockquote>
 <p>The discovery of a derivation(and hence of a type) for a term is called the <strong>type inference</strong>.</p>
 </blockquote>
 <p>比如在一个简单的<code>type system</code>中，其有<code>rules(Env ∅),(Val n),(Val +)</code>，那么根据前面的推导，在空环境<code>empty environment</code>下的<code>term 1+2</code>可以被推导出Nat类型。假设我们给该类型系统加入<code>premise 𝚪⊢◇</code>和<code>conclusion 𝚪⊢true:Booll</code>，那么我们将无法对<code>term true+1</code>推导出任何类型，这是因为没有一个将<code>natural</code>和<code>boolean</code>类型相加的<code>rule</code>。因为无法推导出<code>1+true</code>的<code>derivations</code>，我们就说<code>1+true</code>是<code>not typeable</code>的，或者说其发生了<code>typing error</code>。我们继续给上述类型系统加入<code>premise 𝚪⊢M:Nat</code>和<code>conclusion 𝚪⊢N:Bool</code>和<code>conclusion 𝚪⊢M+N:Nat</code>（通过将true解释为整数1）。那么<code>term 1+true</code>将会被推导出一个<code>Nat</code>类型。</p>
-<p>可以看出，<code>type inference</code>非常依赖<code>type system</code>。一个类型推导算法可以很简单，也可以很难或者压根不可能实现。虽然类型系统通常是抽象表达设计，但是其实用性则完全取决于类型推导算法的可用性。</p>
-<p><code>explicitly typed languages</code>比如<code>pascal</code>的类型推导相对容易简单，而<code>implicitly typed languages</code>比如<code>ML</code>的类型推导相对更困难一些。类型推导的基本思路很清晰易懂，但是真正实际中的实现却相当复杂并且还在研究中。</p>
+<p>可以看出，<code>type inference</code>非常依赖<code>type system</code>。一个类型推导算法可以很简单，也可以很难或者压根不可能实现。虽然类型系统通常是抽象表达设计，但是其实用性则完全取决于类型推导算法的可用性。  </p>
+<p><code>explicitly typed languages</code>比如<code>pascal</code>的类型推导相对容易简单，而<code>implicitly typed languages</code>比如<code>ML</code>的类型推导相对更困难一些。类型推导的基本思路很清晰易懂，但是真正实际中的实现却相当复杂并且还在研究中。  </p>
 <blockquote>
 <p>Type inference problem becomes particularly hard in the presence of <strong>polymorphism.</strong></p>
 </blockquote>
-<p>对于<code>explicitly typed languages</code>比如<code>Ada, CLU, ML</code>等的<code>polymorphic features</code>的<code>type inference</code>在实践中得到了解决——是通过纯算法问题，而不是在引入相关<code>type system</code>的基础上解决的。<strong>而往往最纯粹，最普遍的针对多态的类型推导问题都是在𝛌演算中讨论的。</strong> 然而该问题的结局却依赖于不切实际的冗长的一些<code>typing annotations</code>。为了让该多态方案更加实际化一点，需要省略一些类型信息。这个领域依然是目前学术界的研究重点。</p>
-<h4 id="type-soundness">Type soundness</h4>
-<p>最后需要注意的是，<code>type system</code>不是一系列任意的<code>type rules</code>的堆积。<code>well-typing</code>在语义层面对应着<code>good behavior</code>。通常通过证明<code>type soundness theorem</code>来检查类型系统内部的一致性——因此类型系统需要语义作为基础。对于<code>denotational semantics</code>来说如果<code>∅⊢M:A</code>是有效的，则〖M〗∊〖A〗(即M的值属于类型A所表示的集合)，对于<code>operational semantics</code>来说如果<code>∅⊢M:A</code>成立，并且M推导出M'，则<code>∅⊢M':A</code>成立。对于两个例子来说，<code>type soundness theorem</code>断言<code>well-typed</code>的程序不会在计算过程中出现<code>execution errors</code>。</p>
-<h3 id="first-order-type-systems">First-order Type Systems</h3>
-<p>在大多数过程间语言中实现的<code>type system</code>称为<code>first order</code>。核心就是包括<strong>高阶函数<code>higher order functions</code></strong>。最精简的<code>first-order type system</code>可以由<code>untyped 𝛌-calculus</code>表示，形式为<code>𝛌x.M</code>即有参数<code>x</code>和返回值<code>M</code>的匿名函数。</p>
-<p><code>first-order typed 𝛌-calculus</code>被称为F<sub>1</sub>。它和<code>untyped 𝛌-calculus</code>不同的地方在于对<code>𝛌-abstractions</code>加上了类型信息——<code>𝛌x:A.M</code>其中<code>x</code>是参数，<code>A</code>是参数类型，而<code>M</code>是函数体。<strong>将<code>𝛌x.M</code>转化为<code>𝛌x:A.M</code>是将非类型语言进阶为类型语言的关键步骤：<code>bound variables</code>获取到了类型信息。</strong>因为F<sub>1</sub>是建立在函数基础上的，所以引入<code>A⟶B</code>带有参数类型A和返回值类型B的函数类型。介绍构建函数类型所需的基本类型：引入<code>Basic</code>表示该类型集合，引入<code>K∊Basic</code>表示集合中的任何一个该类型。</p>
-<h4 id="syntax-of-f1">Syntax of F<sub>1</sub></h4>
-<blockquote>
-<p>A,B ::= types</p>
-<p>​ K K∊Basic basic types</p>
-<p>​ A⟶B function types</p>
-<p>M,N ::= terms</p>
-<p>​ x variable</p>
-<p>​ 𝛌x:A.M function</p>
-<p>​ M N application</p>
+<p>对于<code>explicitly typed languages</code>比如<code>Ada, CLU, ML</code>等的<code>polymorphic features</code>的<code>type inference</code>在实践中得到了解决——是通过纯算法问题，而不是在引入相关<code>type system</code>的基础上解决的。<strong>而往往最纯粹，最普遍的针对多态的类型推导问题都是在𝛌演算中讨论的。</strong> 然而该问题的结局却依赖于不切实际的冗长的一些<code>typing annotations</code>。为了让该多态方案更加实际化一点，需要省略一些类型信息。这个领域依然是目前学术界的研究重点。  </p>
+<h4 id="Type-soundness"><a href="#Type-soundness" class="headerlink" title="Type soundness"></a>Type soundness</h4><p>最后需要注意的是，<code>type system</code>不是一系列任意的<code>type rules</code>的堆积。<code>well-typing</code>在语义层面对应着<code>good behavior</code>。通常通过证明<code>type soundness theorem</code>来检查类型系统内部的一致性——因此类型系统需要语义作为基础。对于<code>denotational semantics</code>来说如果<code>∅⊢M:A</code>是有效的，则〖M〗∊〖A〗(即M的值属于类型A所表示的集合)，对于<code>operational semantics</code>来说如果<code>∅⊢M:A</code>成立，并且M推导出M’，则<code>∅⊢M&#39;:A</code>成立。对于两个例子来说，<code>type soundness theorem</code>断言<code>well-typed</code>的程序不会在计算过程中出现<code>execution errors</code>。</p>
+<h3 id="First-order-Type-Systems"><a href="#First-order-Type-Systems" class="headerlink" title="First-order Type Systems"></a>First-order Type Systems</h3><p>在大多数过程间语言中实现的<code>type system</code>称为<code>first order</code>。核心就是包括<strong>高阶函数<code>higher order functions</code></strong>。最精简的<code>first-order type system</code>可以由<code>untyped 𝛌-calculus</code>表示，形式为<code>𝛌x.M</code>即有参数<code>x</code>和返回值<code>M</code>的匿名函数。</p>
+<p><code>first-order typed 𝛌-calculus</code>被称为F<sub>1</sub>。它和<code>untyped 𝛌-calculus</code>不同的地方在于对<code>𝛌-abstractions</code>加上了类型信息——<code>𝛌x:A.M</code>其中<code>x</code>是参数，<code>A</code>是参数类型，而<code>M</code>是函数体。<strong>将<code>𝛌x.M</code>转化为<code>𝛌x:A.M</code>是将非类型语言进阶为类型语言的关键步骤：<code>bound variables</code>获取到了类型信息。</strong>因为F<sub>1</sub>是建立在函数基础上的，所以引入<code>A⟶B</code>带有参数类型A和返回值类型B的函数类型。介绍构建函数类型所需的基本类型：引入<code>Basic</code>表示该类型集合，引入<code>K∊Basic</code>表示集合中的任何一个该类型。 </p>
+<h4 id="Syntax-of-F1"><a href="#Syntax-of-F1" class="headerlink" title="Syntax of F1"></a>Syntax of F<sub>1</sub></h4><blockquote>
+<p>A,B ::=                                types</p>
+<p>​        K     K∊Basic                 basic types</p>
+<p>​        A⟶B                            function types</p>
+<p>M,N ::=                                terms</p>
+<p>​        x                                      variable</p>
+<p>​        𝛌x:A.M                            function</p>
+<p>​        M N                                 application    </p>
 </blockquote>
-<p>F<sub>1</sub>的语法如上图所示。这里有必要简单说明一下<code>typed language</code>的语法。对于<code>untyped language</code>来说<code>context-free syntax</code>就可以完整描述整个语言。而对于<code>typed language</code>来说却不够；<font color="red"><code>typed language</code>不仅仅需要<code>type system</code>来完善程序语言的<code>legality</code>，还需要<code>context-free syntax</code>来表示定义<code>free/bound variable</code>概念——即定义程序语言的<code>scoping rules</code>。</font>在作用域的基础上，那些只有<code>bound variable</code>不同的<code>term</code>会被称为是语法上相同的<code>syntactically identical</code>比如<code>𝛌x:K.x</code>和<code>𝛌y:K.y</code>。</p>
-<h4 id="basic-of-f1">Basic of F<sub>1</sub></h4>
-<p>F<sub>1</sub>需要三个<code>judgements</code>如下：</p>
+<p>F<sub>1</sub>的语法如上图所示。这里有必要简单说明一下<code>typed language</code>的语法。对于<code>untyped language</code>来说<code>context-free syntax</code>就可以完整描述整个语言。而对于<code>typed language</code>来说却不够；<font color="red"><code>typed language</code>不仅仅需要<code>type system</code>来完善程序语言的<code>legality</code>，还需要<code>context-free syntax</code>来表示定义<code>free/bound variable</code>概念——即定义程序语言的<code>scoping rules</code>。</font>在作用域的基础上，那些只有<code>bound variable</code>不同的<code>term</code>会被称为是语法上相同的<code>syntactically identical</code>比如<code>𝛌x:K.x</code>和<code>𝛌y:K.y</code>。  </p>
+<h4 id="Basic-of-F1"><a href="#Basic-of-F1" class="headerlink" title="Basic of F1"></a>Basic of F<sub>1</sub></h4><p>F<sub>1</sub>需要三个<code>judgements</code>如下：</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>𝚪⊢◇</th>
 <th>𝚪 is a well-formed environment</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>𝚪⊢A</td>
 <td>A is a well-formed type in 𝚪</td>
 </tr>
-<tr class="even">
+<tr>
 <td>𝚪⊢M:A</td>
 <td>M is a well-formed term of type A in 𝚪</td>
 </tr>
 </tbody>
 </table>
-<p>其中<code>𝚪⊢A</code>有点冗余，因为所有语法上正确的类型<code>A</code>在任何环境<code>𝚪</code>下都是<code>well-formed</code>的。而在<code>second-order</code>系统中，类型的<code>well-formed</code>就不单单取决于语法了，这时候<code>𝚪⊢A</code>就很重要了。证明这些<code>judgement</code>的有效性的<code>type rules</code>在下面表格中。 <span class="math display">\[
+</div>
+<p>其中<code>𝚪⊢A</code>有点冗余，因为所有语法上正确的类型<code>A</code>在任何环境<code>𝚪</code>下都是<code>well-formed</code>的。而在<code>second-order</code>系统中，类型的<code>well-formed</code>就不单单取决于语法了，这时候<code>𝚪⊢A</code>就很重要了。证明这些<code>judgement</code>的有效性的<code>type rules</code>在下面表格中。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{(Env ∅)} \qquad &amp;&amp;\text{(Env x)} \\ 
-&amp;\frac{}{\emptyset \vdash \diamond} \qquad &amp;&amp;\frac{\Gamma \vdash A \quad x\notin dom(\Gamma)}{\Gamma,x:A\vdash \diamond} \\ \\
-&amp;\text{(Type Const)}  &amp;&amp;\text{(Type Arrow)} \\
-&amp;\frac{\Gamma \vdash \diamond \quad K\in Basic}{\Gamma \vdash K} &amp;&amp;\frac{\Gamma \vdash A \quad \Gamma \vdash B}{\Gamma \vdash A\to B} \\ \\
-&amp;\text{(Val x)} &amp;&amp;\text{(Val fun)} &amp;&amp;&amp;\text{(Val Appl)} \\
-&amp;\frac{\Gamma^{&#39;},x:A,\Gamma^{&#39;&#39;}\vdash \diamond}{\Gamma^{&#39;},x:A,\Gamma^{&#39;&#39;}\vdash x:A} &amp;&amp;\frac{\Gamma, x:A\vdash M:B}{\Gamma \vdash \lambda x:A.M:A\to B} &amp;&amp;&amp;\frac{\Gamma \vdash M:A\to B \quad \Gamma \vdash N:A}{\Gamma \vdash MN:B}
-\end{aligned}
-\]</span> 其中规则<code>Env ∅</code>是唯一不需要前提的：空环境<code>empty environment</code>是有效的环境。规则<code>Env x</code>用来将环境<code>𝚪</code>扩展到范围更大的有效环境𝚪,<code>x:A</code>——前提是<code>A</code>在<code>𝚪</code>中是一个有效的类型。注意到对前提<code>𝚪⊢A</code>应用归纳原则就需要<code>𝚪</code>是合法的。也就是说必须由<code>𝚪⊢◇</code>推导出<code>𝚪⊢A</code>。另一个前提是变量<code>x</code>不能在环境<code>𝚪</code>中被使用<font color="blue">must not be defined.</font>。我们应该明确在环境中的所有不同变量，比如当<code>ValFun</code>规则中的前提<code>𝚪,x:A⊢M:B</code>被推导时（出现在水平线下面），<code>x</code>就不能出现在<code>dom(𝚪)</code>中。</p>
-<p>规则<code>Type Const</code>和<code>Type Arrorw</code>用来构建类型。规则<code>Val x</code>使用非正式的<code>𝚪',x:A,𝚪''</code>表示<code>x:A</code>在环境中的任意地方出现。规则<code>Val Fun</code>对函数<code>𝛌x:A.M</code>赋值了<code>A⟶B</code>类型，前提是首先参数有<code>A</code>类型之后，函数体被赋予了<code>B</code>类型。要注意该规则中<code>environment</code>是如何改变长度的。<code>Val Appl</code>规则将参数传给函数求值。下面展示了F<sub>1</sub>所有的<code>derivation</code>：</p>
+&\text{(Env ∅)} \qquad &&\text{(Env x)} \\ 
+&\frac{}{\emptyset \vdash \diamond} \qquad &&\frac{\Gamma \vdash A \quad x\notin dom(\Gamma)}{\Gamma,x:A\vdash \diamond} \\ \\
+&\text{(Type Const)}  &&\text{(Type Arrow)} \\
+&\frac{\Gamma \vdash \diamond \quad K\in Basic}{\Gamma \vdash K} &&\frac{\Gamma \vdash A \quad \Gamma \vdash B}{\Gamma \vdash A\to B} \\ \\
+&\text{(Val x)} &&\text{(Val fun)} &&&\text{(Val Appl)} \\
+&\frac{\Gamma^{'},x:A,\Gamma^{''}\vdash \diamond}{\Gamma^{'},x:A,\Gamma^{''}\vdash x:A} &&\frac{\Gamma, x:A\vdash M:B}{\Gamma \vdash \lambda x:A.M:A\to B} &&&\frac{\Gamma \vdash M:A\to B \quad \Gamma \vdash N:A}{\Gamma \vdash MN:B}
+\end{aligned}</script><p>其中规则<code>Env ∅</code>是唯一不需要前提的：空环境<code>empty environment</code>是有效的环境。规则<code>Env x</code>用来将环境<code>𝚪</code>扩展到范围更大的有效环境𝚪,<code>x:A</code>——前提是<code>A</code>在<code>𝚪</code>中是一个有效的类型。注意到对前提<code>𝚪⊢A</code>应用归纳原则就需要<code>𝚪</code>是合法的。也就是说必须由<code>𝚪⊢◇</code>推导出<code>𝚪⊢A</code>。另一个前提是变量<code>x</code>不能在环境<code>𝚪</code>中被使用<font color="blue">must not be defined.</font>。我们应该明确在环境中的所有不同变量，比如当<code>ValFun</code>规则中的前提<code>𝚪,x:A⊢M:B</code>被推导时（出现在水平线下面），<code>x</code>就不能出现在<code>dom(𝚪)</code>中。  </p>
+<p>规则<code>Type Const</code>和<code>Type Arrorw</code>用来构建类型。规则<code>Val x</code>使用非正式的<code>𝚪&#39;,x:A,𝚪&#39;&#39;</code>表示<code>x:A</code>在环境中的任意地方出现。规则<code>Val Fun</code>对函数<code>𝛌x:A.M</code>赋值了<code>A⟶B</code>类型，前提是首先参数有<code>A</code>类型之后，函数体被赋予了<code>B</code>类型。要注意该规则中<code>environment</code>是如何改变长度的。<code>Val Appl</code>规则将参数传给函数求值。下面展示了F<sub>1</sub>所有的<code>derivation</code>：</p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
-<h4 id="expansion-of-f1">Expansion of F<sub>1</sub></h4>
-<p>现在既然了解过了简单的<code>first-order type system</code>，我们可以通过丰富其内容来将其打造成为一个现实语言的类型系统。我们要为每一个新添加的类型构造添加一组<code>rules</code>。我们首先引入一些基础类型：<code>Unit Type</code>其值就是常数<code>constant unit</code>；<code>Bool Type</code>其值就是<code>true or false</code>；<code>Nat Type</code>其值是自然数。</p>
-<h5 id="unit-type">Unit Type</h5>
-<p><code>Unit Type</code>经常用来填充一些空参数和结果比如某些语言中的<code>Void/Null</code>。该类型没有操作，所以我们只需要一条规则陈述<code>Unit</code>是合法的类型，值<code>unit</code>是类型<code>Unit</code>的合法值即可。 <span class="math display">\[
+<h4 id="Expansion-of-F1"><a href="#Expansion-of-F1" class="headerlink" title="Expansion of F1"></a>Expansion of F<sub>1</sub></h4><p>现在既然了解过了简单的<code>first-order type system</code>，我们可以通过丰富其内容来将其打造成为一个现实语言的类型系统。我们要为每一个新添加的类型构造添加一组<code>rules</code>。我们首先引入一些基础类型：<code>Unit Type</code>其值就是常数<code>constant unit</code>；<code>Bool Type</code>其值就是<code>true or false</code>；<code>Nat Type</code>其值是自然数。  </p>
+<h5 id="Unit-Type"><a href="#Unit-Type" class="headerlink" title="Unit Type"></a>Unit Type</h5><p><code>Unit Type</code>经常用来填充一些空参数和结果比如某些语言中的<code>Void/Null</code>。该类型没有操作，所以我们只需要一条规则陈述<code>Unit</code>是合法的类型，值<code>unit</code>是类型<code>Unit</code>的合法值即可。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{(Type Unit)} \quad &amp;&amp;\text{(Val Unit)} \\
-&amp;\frac{\Gamma \vdash \diamond}{\Gamma \vdash Unit} \quad &amp;&amp; \frac{\Gamma \vdash \diamond}{\Gamma \vdash unit:Unit}
-\end{aligned}
-\]</span></p>
-<h5 id="bool-type">Bool Type</h5>
-<code>Type Bool</code>也有相似结构的规则，不同的是<code>booleans</code>有一个实际操作——<code>condition</code>。在规则<code>Val Cond</code>中，其两个分支都必须有相同的类型，这是因为这两个都有可能成为结果所以需要保持一致。<br>
-$$
-<span class="math display">\[\begin{aligned}
-&amp;\text{(Type Bool)}  &amp;&amp;\text{(Val True)}  \\
-&amp;\frac{\Gamma \vdash \diamond}{\Gamma \vdash Bool} \quad &amp;&amp; \frac{\Gamma \vdash \diamond}{\Gamma \vdash true:Bool} \quad  \\\\
-
- &amp;\text{(Val False)} &amp;&amp;\text{(Val Cond)} \\
-&amp;\frac{\Gamma \vdash \diamond}{\Gamma  \vdash false:Bool} &amp;&amp; \frac{\Gamma \vdash M:Bool \quad \Gamma \vdash N_1:A \quad \Gamma \vdash N_2:A}{\Gamma \vdash (if_A \text{M then} N_1 \text{else} N_2):A}
-\end{aligned}\]</span>
-<p>$$ 规则<code>Val Cond</code>引出了一个在<code>typechecking</code>的时候需要用到的类型信息的问题。当遇到条件语句的时候，一般<code>typechecker</code>会分别推断N<sub>1</sub>和N<sub>2</sub>的类型，然后在找到一个和前面找到的两个类型兼容的类型A。在一些类型系统中这种推断不是很容易进行，因此为了解决这个问题，我们使用下标类型<code>suubstripted type</code>来表示额外增加的类型信息：if<sub>A</sub>就是<code>typechecker</code>的提示：最终类型可能是A，而从N<sub>1</sub>和N<sub>2</sub>推断出来的类型信息需要和其做比较。一般情况下我们都会使用下标类型来表示可能会有用的一些类型信息，但是目前比较成熟的<code>typechecker</code>都会自己合成该类型信息，因此其可以省略掉。</p>
-<h5 id="nat-type">Nat Type</h5>
-<p>自然数的类型<code>Nat Type</code>可以通过0和<code>succ</code>的规则都推导出来。在该类型上的操作通过<code>pred</code>和<code>isZero</code>(测试零值)原语变的可能。 <span class="math display">\[
+&\text{(Type Unit)} \quad &&\text{(Val Unit)} \\
+&\frac{\Gamma \vdash \diamond}{\Gamma \vdash Unit} \quad && \frac{\Gamma \vdash \diamond}{\Gamma \vdash unit:Unit}
+\end{aligned}</script><h5 id="Bool-Type"><a href="#Bool-Type" class="headerlink" title="Bool Type"></a>Bool Type</h5><p><code>Type Bool</code>也有相似结构的规则，不同的是<code>booleans</code>有一个实际操作——<code>condition</code>。在规则<code>Val Cond</code>中，其两个分支都必须有相同的类型，这是因为这两个都有可能成为结果所以需要保持一致。  </p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{(Type Nat)} \quad &amp;&amp;\text{(Val Zero)} \quad &amp;&amp;&amp;\text{(Val Succ)} \\
-&amp;\frac{\Gamma \vdash \diamond}{\Gamma \vdash Nat} &amp;&amp; \frac{\Gamma \vdash \diamond}{\Gamma \vdash 0:Nat} &amp;&amp;&amp;\frac{\Gamma \vdash M:Nat}{\Gamma \vdash succ M:Nat} \\\\
-&amp;\text{(Val Pred)} &amp;&amp;\text{(Val IsZero)} \\
-&amp;\frac{\Gamma \vdash M:Nat}{\Gamma \vdash pred M:Nat} &amp;&amp;\frac{\Gamma \vdash M:Nat}{\Gamma \vdash isZero M:Bool}
-\end{aligned}
-\]</span></p>
-<h5 id="product-type">Product Type</h5>
-<p>既然我们有了一系列基本类型，我们可以考虑一些结构化类型，从<code>product Type</code>开始，一个<code>product Type</code> A<sub>1</sub>XA<sub>2</sub>表示两个类型分别是A<sub>1</sub>和A<sub>2</sub>的元素组成的值对的类型。这两个元素可以分别被投影为<code>projections first</code>和<code>projections second</code>。或者我们可以使用<code>with</code>语句，将一个<code>pair M</code>分解，并将其两个元素绑定在作用域N下的两个变量v<sub>1</sub>和v<sub>2</sub>上。<strong><code>with</code>语句对应着<code>ML</code>语言中的<code>pattern matching</code>和<code>pascal</code>语言中的<code>with</code></strong>；</p>
-<p><code>product Type</code>还可以通过相对应的<code>projections</code>和<code>with</code>被用来构建<code>tuple Type</code>A<sub>1</sub>XA<sub>2</sub>...XA<sub>i</sub>。 <span class="math display">\[
+&\text{(Type Bool)}  &&\text{(Val True)}  \\
+&\frac{\Gamma \vdash \diamond}{\Gamma \vdash Bool} \quad && \frac{\Gamma \vdash \diamond}{\Gamma \vdash true:Bool} \quad  \\\\
+
+ &\text{(Val False)} &&\text{(Val Cond)} \\
+&\frac{\Gamma \vdash \diamond}{\Gamma  \vdash false:Bool} && \frac{\Gamma \vdash M:Bool \quad \Gamma \vdash N_1:A \quad \Gamma \vdash N_2:A}{\Gamma \vdash (if_A \text{M then} N_1 \text{else} N_2):A}
+\end{aligned}</script><p>规则<code>Val Cond</code>引出了一个在<code>typechecking</code>的时候需要用到的类型信息的问题。当遇到条件语句的时候，一般<code>typechecker</code>会分别推断N<sub>1</sub>和N<sub>2</sub>的类型，然后在找到一个和前面找到的两个类型兼容的类型A。在一些类型系统中这种推断不是很容易进行，因此为了解决这个问题，我们使用下标类型<code>suubstripted type</code>来表示额外增加的类型信息：if<sub>A</sub>就是<code>typechecker</code>的提示：最终类型可能是A，而从N<sub>1</sub>和N<sub>2</sub>推断出来的类型信息需要和其做比较。一般情况下我们都会使用下标类型来表示可能会有用的一些类型信息，但是目前比较成熟的<code>typechecker</code>都会自己合成该类型信息，因此其可以省略掉。</p>
+<h5 id="Nat-Type"><a href="#Nat-Type" class="headerlink" title="Nat Type"></a>Nat Type</h5><p>自然数的类型<code>Nat Type</code>可以通过0和<code>succ</code>的规则都推导出来。在该类型上的操作通过<code>pred</code>和<code>isZero</code>(测试零值)原语变的可能。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{(Type Product)} \quad &amp;&amp;\text{(Val Pair)} \\
-&amp;\frac{\Gamma \vdash A_1 \quad \Gamma \vdash A_2}{\Gamma \vdash A_1 \times A_2} &amp;&amp; \frac{\Gamma \vdash M_1:A_1 \quad \Gamma \vdash M_2:A_2}{\Gamma \vdash \langle M_1,M_2 \rangle:A_1 \times A_2} \\\\
-&amp;\text{(Val First)} \quad &amp;&amp;\text{(Val Second)} \\
-&amp;\frac{\Gamma \vdash M: A_1 \times A_2}{\Gamma \vdash firstM:A_1} &amp;&amp;\frac{\Gamma \vdash M:A_1 \times A_2}{\Gamma \vdash second M:A_2} \\\\
-&amp;\text{(Val  With)} \\
-&amp; \frac{\Gamma \vdash M:A_1 \times A_2 \quad \Gamma ,x_1:A_1,x_2:A_2\vdash N:B}{\Gamma \vdash (with(x_1:A_1,x_2:A_2):=M do N):B}
-\end{aligned}
-\]</span></p>
-<h5 id="union-type">Union Type</h5>
-<code>Type Union</code>经常被忽视，但其和<code>product Type</code>一样重要。一个<code>union</code>:A<sub>1</sub>+A<sub>2</sub>的元素可以被看成是有左标记的A<sub>1</sub>类型（<code>tagged with a left token</code>），或者是一个有右标记的A<sub>2</sub>类型。这里的标记可以被<code>isLeft/isRight</code>检测其类型结果分别是<code>asLeft/asRight</code>。如果<code>asLeft</code>被错误的赋给<code>right-tagged</code>的值，那么<code>trapped error</code>就会发生。但是这个错误并不是<code>forbidden error</code>。因为假定<code>asLeft</code>有A<sub>1</sub>类型的情况都是<code>safe</code>的。规则<code>Val Case</code>表述了一种优雅的可以替换<code>isLeft/isRight/asLeft/asRight</code>的构造方式和其相应的<code>trapped errors</code>。其还消除了<code>union</code>对<code>Bool</code>类型的依赖。case构造根据M的标记执行两个分支中的一个，M的未标记内容分别绑定到N<sub>1</sub>或N<sub>2</sub>范围内的x<sub>1</sub>或x<sub>2</sub>。 $$
-<span class="math display">\[\begin{aligned}
-&amp;\text{(Type Union)}  \\
-&amp;\frac{\Gamma \vdash A_1 \quad \Gamma \vdash A_2}{\Gamma \vdash A_1+A_2} \\\\
- &amp; \text{(Val inLeft)} &amp;&amp;\text{(Val inRight)} \\
-&amp; \frac{\Gamma \vdash M_1:A_1 \quad \Gamma \vdash A_2}{\Gamma \vdash inLeft_{A_{2}}M_1:A_1+A_2} &amp;&amp; \frac{\Gamma \vdash A_1 \quad  \Gamma \vdash M_2:A_2}{\Gamma \vdash inRight_{A_{1}}M_2:A_1+A_2} \\\\
+&\text{(Type Nat)} \quad &&\text{(Val Zero)} \quad &&&\text{(Val Succ)} \\
+&\frac{\Gamma \vdash \diamond}{\Gamma \vdash Nat} && \frac{\Gamma \vdash \diamond}{\Gamma \vdash 0:Nat} &&&\frac{\Gamma \vdash M:Nat}{\Gamma \vdash succ M:Nat} \\\\
+&\text{(Val Pred)} &&\text{(Val IsZero)} \\
+&\frac{\Gamma \vdash M:Nat}{\Gamma \vdash pred M:Nat} &&\frac{\Gamma \vdash M:Nat}{\Gamma \vdash isZero M:Bool}
+\end{aligned}</script><h5 id="Product-Type"><a href="#Product-Type" class="headerlink" title="Product Type"></a>Product Type</h5><p>既然我们有了一系列基本类型，我们可以考虑一些结构化类型，从<code>product Type</code>开始，一个<code>product Type</code> A<sub>1</sub>XA<sub>2</sub>表示两个类型分别是A<sub>1</sub>和A<sub>2</sub>的元素组成的值对的类型。这两个元素可以分别被投影为<code>projections first</code>和<code>projections second</code>。或者我们可以使用<code>with</code>语句，将一个<code>pair M</code>分解，并将其两个元素绑定在作用域N下的两个变量v<sub>1</sub>和v<sub>2</sub>上。<strong><code>with</code>语句对应着<code>ML</code>语言中的<code>pattern matching</code>和<code>pascal</code>语言中的<code>with</code></strong>；  </p>
+<p><code>product Type</code>还可以通过相对应的<code>projections</code>和<code>with</code>被用来构建<code>tuple Type</code>A<sub>1</sub>XA<sub>2</sub>…XA<sub>i</sub>。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\text{(Type Product)} \quad &&\text{(Val Pair)} \\
+&\frac{\Gamma \vdash A_1 \quad \Gamma \vdash A_2}{\Gamma \vdash A_1 \times A_2} && \frac{\Gamma \vdash M_1:A_1 \quad \Gamma \vdash M_2:A_2}{\Gamma \vdash \langle M_1,M_2 \rangle:A_1 \times A_2} \\\\
+&\text{(Val First)} \quad &&\text{(Val Second)} \\
+&\frac{\Gamma \vdash M: A_1 \times A_2}{\Gamma \vdash firstM:A_1} &&\frac{\Gamma \vdash M:A_1 \times A_2}{\Gamma \vdash second M:A_2} \\\\
+&\text{(Val  With)} \\
+& \frac{\Gamma \vdash M:A_1 \times A_2 \quad \Gamma ,x_1:A_1,x_2:A_2\vdash N:B}{\Gamma \vdash (with(x_1:A_1,x_2:A_2):=M do N):B}
+\end{aligned}</script><h5 id="Union-Type"><a href="#Union-Type" class="headerlink" title="Union Type"></a>Union Type</h5><p><code>Type Union</code>经常被忽视，但其和<code>product Type</code>一样重要。一个<code>union</code>:A<sub>1</sub>+A<sub>2</sub>的元素可以被看成是有左标记的A<sub>1</sub>类型（<code>tagged with a left token</code>），或者是一个有右标记的A<sub>2</sub>类型。这里的标记可以被<code>isLeft/isRight</code>检测其类型结果分别是<code>asLeft/asRight</code>。如果<code>asLeft</code>被错误的赋给<code>right-tagged</code>的值，那么<code>trapped error</code>就会发生。但是这个错误并不是<code>forbidden error</code>。因为假定<code>asLeft</code>有A<sub>1</sub>类型的情况都是<code>safe</code>的。规则<code>Val Case</code>表述了一种优雅的可以替换<code>isLeft/isRight/asLeft/asRight</code>的构造方式和其相应的<code>trapped errors</code>。其还消除了<code>union</code>对<code>Bool</code>类型的依赖。case构造根据M的标记执行两个分支中的一个，M的未标记内容分别绑定到N<sub>1</sub>或N<sub>2</sub>范围内的x<sub>1</sub>或x<sub>2</sub>。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\text{(Type Union)}  \\
+&\frac{\Gamma \vdash A_1 \quad \Gamma \vdash A_2}{\Gamma \vdash A_1+A_2} \\\\
+ & \text{(Val inLeft)} &&\text{(Val inRight)} \\
+& \frac{\Gamma \vdash M_1:A_1 \quad \Gamma \vdash A_2}{\Gamma \vdash inLeft_{A_{2}}M_1:A_1+A_2} && \frac{\Gamma \vdash A_1 \quad  \Gamma \vdash M_2:A_2}{\Gamma \vdash inRight_{A_{1}}M_2:A_1+A_2} \\\\
 
-&amp;\text{(Val isLeft)} &amp;&amp;\text{(Val isRight)} \\
-&amp;\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash isLeft M:Bool}
-&amp;&amp;\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash isRight M:Bool} \\\\
+&\text{(Val isLeft)} &&\text{(Val isRight)} \\
+&\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash isLeft M:Bool}
+&&\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash isRight M:Bool} \\\\
 
-&amp;\text{(Val asLeft)} &amp;&amp;\text{(Val asRight)} \\
-&amp;\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash asLeft M:A_1} 
-&amp;&amp;\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash asRight M:A_2} \\\\
+&\text{(Val asLeft)} &&\text{(Val asRight)} \\
+&\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash asLeft M:A_1} 
+&&\frac{\Gamma \vdash M:A_1+A_2}{\Gamma \vdash asRight M:A_2} \\\\
 
 
-&amp;\text{(Val Case)} \\
-&amp;\frac{\Gamma \vdash M:A_1+A_2 \quad \Gamma,x_1:A_1 \vdash N_1:B \quad \Gamma,x_2:A_2\vdash N_2:B}{\Gamma \vdash (case_B Mofx_1:A_1 thenN_1|x_2:A_2thenN_2):B}
-\end{aligned}\]</span>
-<p>$$ 在程序表达方面而不是实现方面，注意<code>Bool Type</code>可以被定义为<code>Unit + Unit</code>，在这种情况下<code>case</code>的构造就会简化成为<code>condition</code>构造。<code>Int Type</code>可以被定义为一个正数<code>Nat</code>类型加上一个负数<code>Nat</code>类型。</p>
-<h5 id="record-type">Record Type</h5>
-<p><code>Product Type</code>和<code>Union Type</code>类型可以进一步迭代成为<code>tuple Type</code>和<code>multiple unions Type</code>。但是这两种构造太复杂而且不太常出现在现代语言中。而另一中形式<code>labeld</code>的<code>product and union</code>经常被用到：<code>record Type</code>和<code>Variant Type</code>。 <span class="math display">\[
+&\text{(Val Case)} \\
+&\frac{\Gamma \vdash M:A_1+A_2 \quad \Gamma,x_1:A_1 \vdash N_1:B \quad \Gamma,x_2:A_2\vdash N_2:B}{\Gamma \vdash (case_B Mofx_1:A_1 thenN_1|x_2:A_2thenN_2):B}
+\end{aligned}</script><p>在程序表达方面而不是实现方面，注意<code>Bool Type</code>可以被定义为<code>Unit + Unit</code>，在这种情况下<code>case</code>的构造就会简化成为<code>condition</code>构造。<code>Int Type</code>可以被定义为一个正数<code>Nat</code>类型加上一个负数<code>Nat</code>类型。</p>
+<h5 id="Record-Type"><a href="#Record-Type" class="headerlink" title="Record Type"></a>Record Type</h5><p><code>Product Type</code>和<code>Union Type</code>类型可以进一步迭代成为<code>tuple Type</code>和<code>multiple unions Type</code>。但是这两种构造太复杂而且不太常出现在现代语言中。而另一中形式<code>labeld</code>的<code>product and union</code>经常被用到：<code>record Type</code>和<code>Variant Type</code>。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{(Type Record)} (l_i \ distinct)  \\
-&amp;\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Record(l_1:A_1,...,l_n:A_N)} \\\\&amp; \text{(Val Record)} (l_i \ distinct)   \\&amp;\frac{\Gamma \vdash M_1:A_1 \quad ... \quad \Gamma \vdash M_n:A_n}{\Gamma \vdash record(l_1=M_1,...,l_n=M_n):Record(l_1:A_1,...,l_n:A_n)} \\\\
-&amp;text{Val Record Select} \\
-&amp;\frac{\Gamma \vdash M:Record(l_1:A_1,...,l_n:A_n) \quad j\in 1...n}{\Gamma \vdash M.l_j:A_j} \\\\
-&amp;\text{Val Record With} \\
-&amp;\frac{\Gamma \vdash M:Record(l_1:A_1,...,l_n:A_n)  \qquad \Gamma,x_1:A_1,...x_n:A_n \vdash N:B}{\Gamma \vdash (with(l_1=x_1:A_1,...,l_n=x_n:A_n):MdoN):B}
-\end{aligned}
-\]</span> <code>record</code>类型可以通过名称来实现提取元素，基本上就是将多个<code>product</code>类型并起来。其规则都是从语法层面按照其元素各自的类型将其进行重组。一个<code>product</code>类型A<sub>1</sub>XA<sub>2</sub>可以被定义为<code>Record</code>类型(first:A<sub>1</sub>, second:A<sub>2</sub>)。</p>
-<h5 id="variant-type">Variant Type</h5>
-<p><code>Variant Type</code>就是复杂版的<code>Union Type</code>。 <span class="math display">\[
+&\text{(Type Record)} (l_i \ distinct)  \\
+&\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Record(l_1:A_1,...,l_n:A_N)} \\\\& \text{(Val Record)} (l_i \ distinct)   \\&\frac{\Gamma \vdash M_1:A_1 \quad ... \quad \Gamma \vdash M_n:A_n}{\Gamma \vdash record(l_1=M_1,...,l_n=M_n):Record(l_1:A_1,...,l_n:A_n)} \\\\
+&text{Val Record Select} \\
+&\frac{\Gamma \vdash M:Record(l_1:A_1,...,l_n:A_n) \quad j\in 1...n}{\Gamma \vdash M.l_j:A_j} \\\\
+&\text{Val Record With} \\
+&\frac{\Gamma \vdash M:Record(l_1:A_1,...,l_n:A_n)  \qquad \Gamma,x_1:A_1,...x_n:A_n \vdash N:B}{\Gamma \vdash (with(l_1=x_1:A_1,...,l_n=x_n:A_n):MdoN):B}
+\end{aligned}</script><p><code>record</code>类型可以通过名称来实现提取元素，基本上就是将多个<code>product</code>类型并起来。其规则都是从语法层面按照其元素各自的类型将其进行重组。一个<code>product</code>类型A<sub>1</sub>XA<sub>2</sub>可以被定义为<code>Record</code>类型(first:A<sub>1</sub>, second:A<sub>2</sub>)。</p>
+<h5 id="Variant-Type"><a href="#Variant-Type" class="headerlink" title="Variant Type"></a>Variant Type</h5><p><code>Variant Type</code>就是复杂版的<code>Union Type</code>。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{(Type Variant)} (l_i \ distinct)  \\
-&amp;\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Variant(l_1:A_1,...,l_n:A_n)} \\\\&amp;\text{(Val Variant)} (l_i \ distinct) \\&amp; \frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n \qquad \Gamma \vdash M_j:A_j \quad j\in1...n}{\Gamma \vdash variant_{l_1:A_1,...,l_n:A_n}(l_j=M_j):Variant(l_1:A_1,...,l_n:A_n)} \\\\
-&amp;\text{(Val Variant Is)} \\
-&amp;\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n) \qquad j\in1...n}{\Gamma \vdash M as l_j:A_j} \\\\
-&amp;\text{(Val Variant As)} \\
-&amp;\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n \qquad j\in1...n)}{\Gamma \vdash Misl_j:Bool} \\\\
-&amp;\text{Val Variant Case} \\
-&amp;\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n) \qquad \Gamma,x_1:A_1\vdash N_1:B \quad ... \quad \Gamma,x_n:A_n \vdash N_n:B}{\Gamma \vdash (case_B M of l_1=x_1:A_1 then N_1 | ...|l_n=x_n:A_nthen N_n):B}
-\end{aligned}
-\]</span> <code>Union Type</code>A<sub>1</sub>+A<sub>1</sub>可以被定义为<code>Variant</code>(left:A<sub>1</sub>,right:A<sub>2</sub>)。另外<code>Enumeration Types</code>比如<code>{red, green, blue}</code>可以被定义为<code>Variant</code>(red:Unit, green:Unit,blue:Unit)。其中<code>Is</code>规则是<code>isLeft/isRight</code>，，而<code>As</code>规则是<code>asLeft/asRight</code>，但是如果直接使用<code>union</code>规则的话就需要<code>case</code>处理多个分支。</p>
-<h5 id="reference-type">Reference Type</h5>
-<p><code>Reference Type</code>可以被用来处理命令式语言中的<code>mutable locations</code>的基本类型。<code>Ref(A)</code>的一个元素就是一个包含类型A的可变地址。新地址可以被<code>Val Ref</code>分配，或者被<code>Val Assign</code>规则更新，或者使用<code>Val Deref</code>进行解引用。 <span class="math display">\[
+&\text{(Type Variant)} (l_i \ distinct)  \\
+&\frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n}{\Gamma \vdash Variant(l_1:A_1,...,l_n:A_n)} \\\\&\text{(Val Variant)} (l_i \ distinct) \\& \frac{\Gamma \vdash A_1 \quad ... \quad \Gamma \vdash A_n \qquad \Gamma \vdash M_j:A_j \quad j\in1...n}{\Gamma \vdash variant_{l_1:A_1,...,l_n:A_n}(l_j=M_j):Variant(l_1:A_1,...,l_n:A_n)} \\\\
+&\text{(Val Variant Is)} \\
+&\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n) \qquad j\in1...n}{\Gamma \vdash M as l_j:A_j} \\\\
+&\text{(Val Variant As)} \\
+&\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n \qquad j\in1...n)}{\Gamma \vdash Misl_j:Bool} \\\\
+&\text{Val Variant Case} \\
+&\frac{\Gamma \vdash M:Variant(l_1:A_1,...,l_n:A_n) \qquad \Gamma,x_1:A_1\vdash N_1:B \quad ... \quad \Gamma,x_n:A_n \vdash N_n:B}{\Gamma \vdash (case_B M of l_1=x_1:A_1 then N_1 | ...|l_n=x_n:A_nthen N_n):B}
+\end{aligned}</script><p><code>Union Type</code>A<sub>1</sub>+A<sub>1</sub>可以被定义为<code>Variant</code>(left:A<sub>1</sub>,right:A<sub>2</sub>)。另外<code>Enumeration Types</code>比如<code>{red, green, blue}</code>可以被定义为<code>Variant</code>(red:Unit, green:Unit,blue:Unit)。其中<code>Is</code>规则是<code>isLeft/isRight</code>，，而<code>As</code>规则是<code>asLeft/asRight</code>，但是如果直接使用<code>union</code>规则的话就需要<code>case</code>处理多个分支。</p>
+<h5 id="Reference-Type"><a href="#Reference-Type" class="headerlink" title="Reference Type"></a>Reference Type</h5><p><code>Reference Type</code>可以被用来处理命令式语言中的<code>mutable locations</code>的基本类型。<code>Ref(A)</code>的一个元素就是一个包含类型A的可变地址。新地址可以被<code>Val Ref</code>分配，或者被<code>Val Assign</code>规则更新，或者使用<code>Val Deref</code>进行解引用。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{(Type Ref)}  &amp;&amp;\text{(Val Ref)}  \\
-&amp;\frac{\Gamma \vdash A}{\Gamma \vdash RefA} &amp;&amp; \frac{\Gamma \vdash M:A}{\Gamma \vdash refM:RefA} \\\\
-&amp;\text{(Val Deref)} &amp;&amp;\text{(Val Assign)} \\
-&amp;\frac{\Gamma \vdash M:RefA}{\Gamma \vdash derefM:A} &amp;&amp;\frac{\Gamma \vdash M:RefA \qquad \Gamma \vdash N:A}{\Gamma \vdash M:=N:Unit}
-\end{aligned}
-\]</span> <font color="red">因为赋值语句的目的是为了产生<code>side effect</code>，所以其值就必须是<code>unit</code>-. Since the main purpose of an assignment is to perform a side effect, its resulting value is chosen to be unit</font></p>
+&\text{(Type Ref)}  &&\text{(Val Ref)}  \\
+&\frac{\Gamma \vdash A}{\Gamma \vdash RefA} && \frac{\Gamma \vdash M:A}{\Gamma \vdash refM:RefA} \\\\
+&\text{(Val Deref)} &&\text{(Val Assign)} \\
+&\frac{\Gamma \vdash M:RefA}{\Gamma \vdash derefM:A} &&\frac{\Gamma \vdash M:RefA \qquad \Gamma \vdash N:A}{\Gamma \vdash M:=N:Unit}
+\end{aligned}</script><font color="red">因为赋值语句的目的是为了产生`side effect`，所以其值就必须是`unit`-. Since the main purpose of an assignment is to perform a side effect, its resulting value is chosen to be unit</font>  
+
 <p>一些常规的<code>mutable</code>类型也可以从<code>Ref</code>类型中派生出来，比如<code>Mutable record types</code>就是一个包含着<code>Ref</code>类型的<code>record</code>类型。</p>
-<h5 id="array-type">Array Type</h5>
-<p><code>array</code>和<code>array</code>操作使用了一些<code>arithmetic primitives and local let declarations</code>等。比较复杂构造的规则可以通过简单构造的规则推导出来。下面给出<code>arrays</code>的实现过程： <span class="math display">\[
+<h5 id="Array-Type"><a href="#Array-Type" class="headerlink" title="Array Type"></a>Array Type</h5><p><code>array</code>和<code>array</code>操作使用了一些<code>arithmetic primitives and local let declarations</code>等。比较复杂构造的规则可以通过简单构造的规则推导出来。下面给出<code>arrays</code>的实现过程：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-Array&amp;(A) \quad \triangleq  &amp;&amp; \text{Array type} \\
-&amp;Nat \times(Nat\to Ref(A)) &amp;&amp;\text{a bound plus a map from indices} \text{less than the bound to refs} \\
-array_A&amp;(N,M) \triangleq  &amp;&amp; \text{Array constructor(for N refs initialized to M)} \\
-&amp;let \ cell_0:Ref(A) = \\ &amp;ref(M)and...and\ \\ &amp;cell_{N-1}:Ref(A)=ref(M).\\
-&amp;in \langle N,\lambda x:Nat.\ if\ x=0 \\
-&amp;\ then \ cell_0\ else\ if\ ...\ else\ \\ &amp;if\ x=N-1\ then\ cell_{N-1}\ \\&amp;else\ error_{Ref_{(A)}}.\rangle \\
-bound&amp;(M) \triangleq &amp;&amp; \text{Array bound} \\
-&amp;first \ M \\
-M[N]_A &amp;\triangleq &amp;&amp; \text{Array indexing} \\
-&amp;if\ N\ &lt;\ first\ M \\
-&amp;then\ deref\ ((second\ M)(N)) \\
-&amp;else \ error_A\\
-M[N]:&amp;=P\ \triangleq &amp;&amp;\text{Array update} \\
-&amp;if\ N\ &lt;\ first\ M \\
-&amp;then\ ((second\ M)(N)):=P \\
-&amp;else\ error_Unit
-\end{aligned}
-\]</span> 下面给出<code>Array</code>类型的规则： <span class="math display">\[
+Array&(A) \quad \triangleq  && \text{Array type} \\
+&Nat \times(Nat\to Ref(A)) &&\text{a bound plus a map from indices} \text{less than the bound to refs} \\
+array_A&(N,M) \triangleq  && \text{Array constructor(for N refs initialized to M)} \\
+&let \ cell_0:Ref(A) = \\ &ref(M)and...and\ \\ &cell_{N-1}:Ref(A)=ref(M).\\
+&in \langle N,\lambda x:Nat.\ if\ x=0 \\
+&\ then \ cell_0\ else\ if\ ...\ else\ \\ &if\ x=N-1\ then\ cell_{N-1}\ \\&else\ error_{Ref_{(A)}}.\rangle \\
+bound&(M) \triangleq && \text{Array bound} \\
+&first \ M \\
+M[N]_A &\triangleq && \text{Array indexing} \\
+&if\ N\ <\ first\ M \\
+&then\ deref\ ((second\ M)(N)) \\
+&else \ error_A\\
+M[N]:&=P\ \triangleq &&\text{Array update} \\
+&if\ N\ <\ first\ M \\
+&then\ ((second\ M)(N)):=P \\
+&else\ error_Unit
+\end{aligned}</script><p>下面给出<code>Array</code>类型的规则：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{(Type Array)} \\
-&amp;\frac{\Gamma \vdash A}{\Gamma \vdash Array(A)} \\\\
-&amp;\text{(Val Array)} &amp;&amp;\text{(Val Array Bound)}\\
-&amp;\frac{\Gamma \vdash N:Nat \quad \Gamma \vdash M:A}{\Gamma \vdash array(N,M):Array(A)} &amp;&amp;\frac{\Gamma \vdash M:Array(A)}{\Gamma \vdash bound\ M:Nat} \\\\
-&amp;\text{(Val Array Index)} &amp;&amp;\text{(Val Array Update)} \\
-&amp;\frac{\Gamma \vdash N:Nat \quad \Gamma \vdash M:Array(A)}{\Gamma \vdash M[N]:A} &amp;&amp;\frac{\Gamma \vdash N:Nat \quad \Gamma \vdash M:Array(A) \quad \Gamma \vdash P:A}{\Gamma \vdash M[N]:=P:Unit}
-\end{aligned}
-\]</span></p>
-<h5 id="recursive-type">Recursive Type</h5>
-<p>在大多数编程语言中，类型可以被递归定义。<code>Recursive Types</code>让其他类型的构造变的更加有用，但是一般不会显式定义出来，故其形式化方式非常特殊。</p>
-<p>处理递归类型需要对F<sub>1</sub>基础部分做一些增加，<code>environments</code>需要加入<code>type variables X</code>。这个类型变量的形式是<code>𝛍X.A</code>，代表了对递归表达式<code>X=A(X may occur in A)</code>的一种抽象。<code>fold/unfold</code>操作分别映射递归类型及其同型<code>𝛍X.A/[𝛍X.A/X]A</code>（比如<code>[B/X]A</code>意为将在A中的自由出现的X都替换成为B）。这些操作并没有运行时花销，因此在语法中也经常被忽略，但是其存在使得形式化处理变得更加便捷。 <span class="math display">\[
+&\text{(Type Array)} \\
+&\frac{\Gamma \vdash A}{\Gamma \vdash Array(A)} \\\\
+&\text{(Val Array)} &&\text{(Val Array Bound)}\\
+&\frac{\Gamma \vdash N:Nat \quad \Gamma \vdash M:A}{\Gamma \vdash array(N,M):Array(A)} &&\frac{\Gamma \vdash M:Array(A)}{\Gamma \vdash bound\ M:Nat} \\\\
+&\text{(Val Array Index)} &&\text{(Val Array Update)} \\
+&\frac{\Gamma \vdash N:Nat \quad \Gamma \vdash M:Array(A)}{\Gamma \vdash M[N]:A} &&\frac{\Gamma \vdash N:Nat \quad \Gamma \vdash M:Array(A) \quad \Gamma \vdash P:A}{\Gamma \vdash M[N]:=P:Unit}
+\end{aligned}</script><h5 id="Recursive-Type"><a href="#Recursive-Type" class="headerlink" title="Recursive Type"></a>Recursive Type</h5><p>在大多数编程语言中，类型可以被递归定义。<code>Recursive Types</code>让其他类型的构造变的更加有用，但是一般不会显式定义出来，故其形式化方式非常特殊。  </p>
+<p>处理递归类型需要对F<sub>1</sub>基础部分做一些增加，<code>environments</code>需要加入<code>type variables X</code>。这个类型变量的形式是<code>𝛍X.A</code>，代表了对递归表达式<code>X=A(X may occur in A)</code>的一种抽象。<code>fold/unfold</code>操作分别映射递归类型及其同型<code>𝛍X.A/[𝛍X.A/X]A</code>（比如<code>[B/X]A</code>意为将在A中的自由出现的X都替换成为B）。这些操作并没有运行时花销，因此在语法中也经常被忽略，但是其存在使得形式化处理变得更加便捷。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;\text{(Env X)} &amp;&amp;\text{(Type Rec)} \\
-&amp;\frac{\Gamma \vdash \diamond \quad X \notin dom(\Gamma)}{\Gamma,X\vdash \diamond} &amp;&amp;\frac{\Gamma,X\vdash A}{\Gamma \vdash \mu X.A} \\\\
-&amp;\text{(Val Fold)} &amp;&amp;\text{(Val Unfold)} \\
-&amp;\frac{\Gamma \vdash M:\lbrack \mu X.A/X\rbrack A}{\Gamma \vdash fold_{\mu X.A}M:\mu X.A} &amp;&amp; \frac{\Gamma \vdash M:\mu X.A}{\Gamma \vdash unfold_{\mu X.A/X}M:\lbrack \mu X.A/X\rbrack A}
-\end{aligned}
-\]</span></p>
-<h5 id="list-type">List Type</h5>
-<p>递归类型的标准应用就是用来定义<code>list</code>和<code>tree</code>，甚至<code>product</code>和<code>union</code>类型。 <span class="math display">\[
+&\text{(Env X)} &&\text{(Type Rec)} \\
+&\frac{\Gamma \vdash \diamond \quad X \notin dom(\Gamma)}{\Gamma,X\vdash \diamond} &&\frac{\Gamma,X\vdash A}{\Gamma \vdash \mu X.A} \\\\
+&\text{(Val Fold)} &&\text{(Val Unfold)} \\
+&\frac{\Gamma \vdash M:\lbrack \mu X.A/X\rbrack A}{\Gamma \vdash fold_{\mu X.A}M:\mu X.A} && \frac{\Gamma \vdash M:\mu X.A}{\Gamma \vdash unfold_{\mu X.A/X}M:\lbrack \mu X.A/X\rbrack A}
+\end{aligned}</script><h5 id="List-Type"><a href="#List-Type" class="headerlink" title="List Type"></a>List Type</h5><p>递归类型的标准应用就是用来定义<code>list</code>和<code>tree</code>，甚至<code>product</code>和<code>union</code>类型。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;List_A  \qquad \triangleq \qquad \mu X.Unit+(A\times X) \\
-&amp;nil_A:List_A \triangleq \qquad fold(inLeft\ unit)\\
-&amp;cons_A:A\to List_A \to List_A \qquad \triangleq \qquad \lambda hd:A.\lambda tl:List_A.fold(inRight\langle hd.tl\rangle)\\
-&amp;listCase_{A,B}:List_A \to B \to (A\times List_A \to B) \to B \triangleq \\
-&amp;\lambda l:List_A.\lambda n:B. \lambda c:A \times List_A \to B \\
-&amp; case(unfold\ l) of \ unit:\ Unit\ then\ n| p:A\times List_A\ then\ c\ p
-\end{aligned}
-\]</span> <code>Recursive Type</code>可以和<code>Record Type and Variant Type</code>一起定能够以更加复杂的树结构比如<code>abstract syntax trees</code>。而<code>case/with</code>语句就可以被用来解析这些树结构。</p>
-<p>当和函数类型联合使用的时候，递归类型变的更加强大。<font color="blue">Via clever encodings, one can show that recursion at the value level is already implicit in recursive types: there is no need to introduce recursion as a separate construct.</font> 而且非k类型计算在<code>typed languages</code>中执行了-<font color="blue">More precisely, Table 18 shows how to define, for any type A, a divergent element A of that type, and a fixpoint operator A for that type. </font></p>
+&List_A  \qquad \triangleq \qquad \mu X.Unit+(A\times X) \\
+&nil_A:List_A \triangleq \qquad fold(inLeft\ unit)\\
+&cons_A:A\to List_A \to List_A \qquad \triangleq \qquad \lambda hd:A.\lambda tl:List_A.fold(inRight\langle hd.tl\rangle)\\
+&listCase_{A,B}:List_A \to B \to (A\times List_A \to B) \to B \triangleq \\
+&\lambda l:List_A.\lambda n:B. \lambda c:A \times List_A \to B \\
+& case(unfold\ l) of \ unit:\ Unit\ then\ n| p:A\times List_A\ then\ c\ p
+\end{aligned}</script><p><code>Recursive Type</code>可以和<code>Record Type and Variant Type</code>一起定能够以更加复杂的树结构比如<code>abstract syntax trees</code>。而<code>case/with</code>语句就可以被用来解析这些树结构。  </p>
+<p>当和函数类型联合使用的时候，递归类型变的更加强大。<font color="blue">Via clever encodings, one can show that recursion at the value level is already implicit in recursive types: there is no need to introduce recursion as a separate construct.</font> 而且非k类型计算在<code>typed languages</code>中执行了-<font color="blue">More precisely, Table 18 shows how to define, for any type A, a divergent element A of that type, and a fixpoint operator A for that type. </font>   </p>
 <p>最后，<code>Type equivalence</code>在递归类型中显得更加有难度。</p>
-<h3 id="advanced">Advanced</h3>
-<h4 id="first-order-type-systems-for-imperative-languages">First-order Type Systems for Imperative Languages</h4>
-<p><font color="orange">Imperative languages have a slightly different style of type systems, mostly because they distinguish commands, which do not produce values, from expressions, which do produce values</font>产生<code>side effect</code>?</p>
-<h4 id="second-order-type-systems">Second-order Type Systems</h4>
-<p><code>Type parameter</code>涵盖泛型，类，接口，模板(C++)等高级主题。</p>
-<h4 id="subtyping">SubTyping</h4>
-<p>针对面向对象。</p>
-<h4 id="equivalence">Equivalence</h4>
-<p>复杂情况下重构类型相等。</p>
-<h4 id="type-inference">Type inference</h4>
-<p>统筹类型推导。</p>
-<h4 id="暂时总结">暂时总结</h4>
-<p><a href="http://lucacardelli.name/papers/typesystems.pdf" target="_blank" rel="noopener">本片论文</a>对类型系统做了全范围的综述，进一步深入还需要一些基础。TODO:)</p>
-<h4 id="参考">参考</h4>
-<p><a href="https://opendsa-server.cs.vt.edu/OpenDSA/Books/PL/html/FreeBoundVariables.html" target="_blank" rel="noopener">free/bound variables</a></p>
+<h3 id="Advanced"><a href="#Advanced" class="headerlink" title="Advanced"></a>Advanced</h3><h4 id="First-order-Type-Systems-for-Imperative-Languages"><a href="#First-order-Type-Systems-for-Imperative-Languages" class="headerlink" title="First-order Type Systems for Imperative Languages"></a>First-order Type Systems for Imperative Languages</h4><p><font color="orange">Imperative languages have a slightly different style of type systems, mostly because they distinguish commands, which do not produce values, from expressions, which do produce values</font>产生<code>side effect</code>?</p>
+<h4 id="Second-order-Type-Systems"><a href="#Second-order-Type-Systems" class="headerlink" title="Second-order Type Systems"></a>Second-order Type Systems</h4><p><code>Type parameter</code>涵盖泛型，类，接口，模板(C++)等高级主题。</p>
+<h4 id="SubTyping"><a href="#SubTyping" class="headerlink" title="SubTyping"></a>SubTyping</h4><p>针对面向对象。</p>
+<h4 id="Equivalence"><a href="#Equivalence" class="headerlink" title="Equivalence"></a>Equivalence</h4><p>复杂情况下重构类型相等。</p>
+<h4 id="Type-inference"><a href="#Type-inference" class="headerlink" title="Type inference"></a>Type inference</h4><p>统筹类型推导。</p>
+<h4 id="暂时总结"><a href="#暂时总结" class="headerlink" title="暂时总结"></a>暂时总结</h4><p><a href="http://lucacardelli.name/papers/typesystems.pdf" target="_blank" rel="noopener">本片论文</a>对类型系统做了全范围的综述，进一步深入还需要一些基础。TODO:)</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://opendsa-server.cs.vt.edu/OpenDSA/Books/PL/html/FreeBoundVariables.html" target="_blank" rel="noopener">free/bound variables</a></p>
 
       
     </div>
@@ -1064,7 +1025,7 @@ M[N]:&amp;=P\ \triangleq &amp;&amp;\text{Array update} \\
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1075,7 +1036,7 @@ M[N]:&amp;=P\ \triangleq &amp;&amp;\text{Array update} \\
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1086,7 +1047,7 @@ M[N]:&amp;=P\ \triangleq &amp;&amp;\text{Array update} \\
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -1163,7 +1124,7 @@ M[N]:&amp;=P\ \triangleq &amp;&amp;\text{Array update} \\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#execution-errors"><span class="nav-number">2.1.</span> <span class="nav-text">Execution errors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#safety"><span class="nav-number">2.1.1.</span> <span class="nav-text">safety</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#well-behaved"><span class="nav-number">2.1.2.</span> <span class="nav-text">well-behaved</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#safety-or-performance"><span class="nav-number">2.1.3.</span> <span class="nav-text">safety or Performance</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#typed-and-untyped-languages"><span class="nav-number">2.2.</span> <span class="nav-text">Typed and untyped languages</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#properties-of-type-systems"><span class="nav-number">2.2.1.</span> <span class="nav-text">properties of type systems</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#how-type-systems-are-formalized"><span class="nav-number">2.3.</span> <span class="nav-text">How type systems are formalized</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#type-and-term"><span class="nav-number">2.3.1.</span> <span class="nav-text">type and term</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#scoping-rules"><span class="nav-number">2.3.2.</span> <span class="nav-text">scoping rules</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#type-rules"><span class="nav-number">2.3.3.</span> <span class="nav-text">type rules</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#static-typing-environments"><span class="nav-number">2.3.4.</span> <span class="nav-text">static typing environments</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#semantics"><span class="nav-number">2.3.5.</span> <span class="nav-text">semantics</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#type-equivalence"><span class="nav-number">2.4.</span> <span class="nav-text">Type equivalence</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-language-of-type-systems"><span class="nav-number">3.</span> <span class="nav-text">The language of type systems</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#judgements"><span class="nav-number">3.1.</span> <span class="nav-text">Judgements</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#type-rules-1"><span class="nav-number">3.2.</span> <span class="nav-text">Type rules</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#type-derivations"><span class="nav-number">3.3.</span> <span class="nav-text">Type derivations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#well-typing-and-type-inference"><span class="nav-number">3.4.</span> <span class="nav-text">Well typing and type inference</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#type-soundness"><span class="nav-number">3.5.</span> <span class="nav-text">Type soundness</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-order-type-systems"><span class="nav-number">4.</span> <span class="nav-text">First-order Type Systems</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#syntax-of-f1"><span class="nav-number">4.1.</span> <span class="nav-text">Syntax of F1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#basic-of-f1"><span class="nav-number">4.2.</span> <span class="nav-text">Basic of F1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#expansion-of-f1"><span class="nav-number">4.3.</span> <span class="nav-text">Expansion of F1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#unit-type"><span class="nav-number">4.3.1.</span> <span class="nav-text">Unit Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bool-type"><span class="nav-number">4.3.2.</span> <span class="nav-text">Bool Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nat-type"><span class="nav-number">4.3.3.</span> <span class="nav-text">Nat Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#product-type"><span class="nav-number">4.3.4.</span> <span class="nav-text">Product Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#union-type"><span class="nav-number">4.3.5.</span> <span class="nav-text">Union Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#record-type"><span class="nav-number">4.3.6.</span> <span class="nav-text">Record Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#variant-type"><span class="nav-number">4.3.7.</span> <span class="nav-text">Variant Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reference-type"><span class="nav-number">4.3.8.</span> <span class="nav-text">Reference Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#array-type"><span class="nav-number">4.3.9.</span> <span class="nav-text">Array Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#recursive-type"><span class="nav-number">4.3.10.</span> <span class="nav-text">Recursive Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-type"><span class="nav-number">4.3.11.</span> <span class="nav-text">List Type</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#advanced"><span class="nav-number">5.</span> <span class="nav-text">Advanced</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#first-order-type-systems-for-imperative-languages"><span class="nav-number">5.1.</span> <span class="nav-text">First-order Type Systems for Imperative Languages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#second-order-type-systems"><span class="nav-number">5.2.</span> <span class="nav-text">Second-order Type Systems</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#subtyping"><span class="nav-number">5.3.</span> <span class="nav-text">SubTyping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#equivalence"><span class="nav-number">5.4.</span> <span class="nav-text">Equivalence</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#type-inference"><span class="nav-number">5.5.</span> <span class="nav-text">Type inference</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暂时总结"><span class="nav-number">5.6.</span> <span class="nav-text">暂时总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">5.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Execution-errors"><span class="nav-number">2.1.</span> <span class="nav-text">Execution errors</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#safety"><span class="nav-number">2.1.1.</span> <span class="nav-text">safety</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#well-behaved"><span class="nav-number">2.1.2.</span> <span class="nav-text">well-behaved</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#safety-or-Performance"><span class="nav-number">2.1.3.</span> <span class="nav-text">safety or Performance</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Typed-and-untyped-languages"><span class="nav-number">2.2.</span> <span class="nav-text">Typed and untyped languages</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#properties-of-type-systems"><span class="nav-number">2.2.1.</span> <span class="nav-text">properties of type systems</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-type-systems-are-formalized"><span class="nav-number">2.3.</span> <span class="nav-text">How type systems are formalized</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#type-and-term"><span class="nav-number">2.3.1.</span> <span class="nav-text">type and term</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#scoping-rules"><span class="nav-number">2.3.2.</span> <span class="nav-text">scoping rules</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#type-rules"><span class="nav-number">2.3.3.</span> <span class="nav-text">type rules</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#static-typing-environments"><span class="nav-number">2.3.4.</span> <span class="nav-text">static typing environments</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Type-equivalence"><span class="nav-number">2.4.</span> <span class="nav-text">Type equivalence</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-language-of-type-systems"><span class="nav-number">3.</span> <span class="nav-text">The language of type systems</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Judgements"><span class="nav-number">3.1.</span> <span class="nav-text">Judgements</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Type-rules"><span class="nav-number">3.2.</span> <span class="nav-text">Type rules</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Type-derivations"><span class="nav-number">3.3.</span> <span class="nav-text">Type derivations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Well-typing-and-type-inference"><span class="nav-number">3.4.</span> <span class="nav-text">Well typing and type inference</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Type-soundness"><span class="nav-number">3.5.</span> <span class="nav-text">Type soundness</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#First-order-Type-Systems"><span class="nav-number">4.</span> <span class="nav-text">First-order Type Systems</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Syntax-of-F1"><span class="nav-number">4.1.</span> <span class="nav-text">Syntax of F1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic-of-F1"><span class="nav-number">4.2.</span> <span class="nav-text">Basic of F1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Expansion-of-F1"><span class="nav-number">4.3.</span> <span class="nav-text">Expansion of F1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Unit-Type"><span class="nav-number">4.3.1.</span> <span class="nav-text">Unit Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bool-Type"><span class="nav-number">4.3.2.</span> <span class="nav-text">Bool Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Nat-Type"><span class="nav-number">4.3.3.</span> <span class="nav-text">Nat Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Product-Type"><span class="nav-number">4.3.4.</span> <span class="nav-text">Product Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Union-Type"><span class="nav-number">4.3.5.</span> <span class="nav-text">Union Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Record-Type"><span class="nav-number">4.3.6.</span> <span class="nav-text">Record Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Variant-Type"><span class="nav-number">4.3.7.</span> <span class="nav-text">Variant Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Reference-Type"><span class="nav-number">4.3.8.</span> <span class="nav-text">Reference Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Array-Type"><span class="nav-number">4.3.9.</span> <span class="nav-text">Array Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Recursive-Type"><span class="nav-number">4.3.10.</span> <span class="nav-text">Recursive Type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#List-Type"><span class="nav-number">4.3.11.</span> <span class="nav-text">List Type</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advanced"><span class="nav-number">5.</span> <span class="nav-text">Advanced</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#First-order-Type-Systems-for-Imperative-Languages"><span class="nav-number">5.1.</span> <span class="nav-text">First-order Type Systems for Imperative Languages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Second-order-Type-Systems"><span class="nav-number">5.2.</span> <span class="nav-text">Second-order Type Systems</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SubTyping"><span class="nav-number">5.3.</span> <span class="nav-text">SubTyping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Equivalence"><span class="nav-number">5.4.</span> <span class="nav-text">Equivalence</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Type-inference"><span class="nav-number">5.5.</span> <span class="nav-text">Type inference</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暂时总结"><span class="nav-number">5.6.</span> <span class="nav-text">暂时总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">5.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
 
           </div>
