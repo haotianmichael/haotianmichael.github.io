@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化(活跃变量分析，常量传播分析，死代码检测) 基础程序分析(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用(污点分析)  做实验的过程中我对课程上学到的理论有了更具体的理解；也遇到了各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。这里复">
+<meta name="description" content="Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化-(活跃变量分析，常量传播分析，死代码检测) 基础程序分析-(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用-(污点分析)  这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。">
 <meta name="keywords" content="Software-Analysis,PL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(6-Tai-e实验复盘)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2023/01/18/NJU静态程序分析-6-Tai-e实验复盘/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化(活跃变量分析，常量传播分析，死代码检测) 基础程序分析(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用(污点分析)  做实验的过程中我对课程上学到的理论有了更具体的理解；也遇到了各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。这里复">
+<meta property="og:description" content="Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化-(活跃变量分析，常量传播分析，死代码检测) 基础程序分析-(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用-(污点分析)  这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-01-18T02:32:01.889Z">
+<meta property="og:updated_time" content="2023-01-18T02:34:42.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(6-Tai-e实验复盘)">
-<meta name="twitter:description" content="Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化(活跃变量分析，常量传播分析，死代码检测) 基础程序分析(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用(污点分析)  做实验的过程中我对课程上学到的理论有了更具体的理解；也遇到了各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。这里复">
+<meta name="twitter:description" content="Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化-(活跃变量分析，常量传播分析，死代码检测) 基础程序分析-(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用-(污点分析)  这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  179
+                  143
                 </span>
               
 
@@ -472,11 +472,11 @@
         <h3 id="abstract">Abstract</h3>
 <p><code>Tai-e</code>是一个程序分析<a href="https://tai-e.pascal-lab.net/" target="_blank" rel="noopener">框架</a> By谭添老师。共有8个实验，包括：</p>
 <ul>
-<li>编译优化(活跃变量分析，常量传播分析，死代码检测)</li>
-<li>基础程序分析(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析)</li>
-<li>程序分析在软件安全性领域的应用(污点分析)</li>
+<li>编译优化-(<strong>活跃变量分析</strong>，<strong>常量传播分析</strong>，<strong>死代码检测</strong>)</li>
+<li>基础程序分析-(<strong>程序调用图构建</strong>，<strong>非上下文敏感指针分析</strong>，<strong>各类经典上下文敏感指针分析</strong>)</li>
+<li>程序分析在软件安全性领域的应用-(<strong>污点分析</strong>)</li>
 </ul>
-<p>做实验的过程中我对课程上学到的理论有了更具体的理解；也遇到了各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。这里复盘一下在实验中遇到的各种问题。</p>
+<p>这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。</p>
 <a id="more"></a>
 <h3 id="lab1-live-variable-analysis">Lab1-Live Variable Analysis</h3>
 
