@@ -115,13 +115,13 @@
 
 
 
-<meta name="description" content="HW:ShellAbstract6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要阅">
+<meta name="description" content="HW:Shell Abstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需">
 <meta name="keywords" content="MIT 6.828,OS,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Shell">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="HW:ShellAbstract6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要阅">
+<meta property="og:description" content="HW:Shell Abstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/27.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/28.png">
@@ -134,7 +134,7 @@
 <meta property="og:updated_time" content="2022-03-16T10:32:54.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Shell">
-<meta name="twitter:description" content="HW:ShellAbstract6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需要阅">
+<meta name="twitter:description" content="HW:Shell Abstract 6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW需要实现一个小型的Shell，需">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2018/11/17/Mit6-828-Fall-2018-Shell/27.png">
 
 
@@ -478,65 +478,86 @@
       
 
       
-        <h2 id="HW-Shell"><a href="#HW-Shell" class="headerlink" title="HW:Shell"></a>HW:Shell</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW<strong>需要实现一个小型的Shell</strong>，需要阅读的Readings有:    </p>
+        <h2 id="hwshell">HW:Shell</h2>
+<h3 id="abstract">Abstract</h3>
+<p>6.828除了Lab之外还有针对小型操作系统XV-6的Readings和HomeWork。整个6.828也是围绕这两条线（Lab和HW）在走。Lab1让我适应了JOS的实验环境和调试技巧，但是Shell和System Calls才是真正属于操作系统的知识。关于XV-6的HomeWork都是建立在Readings基础之上的，本次HW<strong>需要实现一个小型的Shell</strong>，需要阅读的Readings有:</p>
 <ul>
 <li>XV-6.Chapter.0（重点资料）</li>
-<li>man  fork, (3)exec，open， close</li>
+<li>man fork, (3)exec，open， close</li>
 <li>TCPL</li>
 </ul>
-<p>学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————<a href="http://vim-taglist.sourceforge.net/manual.html#taglist-using" target="_blank" rel="noopener">Taglist</a>。  </p>
+<p>学习过程中最有意思的当属斩获新技能和新工具了:)介绍一个新的vim插件神器————<a href="http://vim-taglist.sourceforge.net/manual.html#taglist-using" target="_blank" rel="noopener">Taglist</a>。</p>
 <p><img src="27.png" width="50%" height="50%" alt=""></p>
 <a id="more"></a>
-<p>简单来讲，它以目录树的形式列出当前文件中的symbol:函数名，宏定义和变量。帮助我们从宏观上快速了解源码。本身支持跳转。安装manual中讲的很清楚，就不再赘述了。下面是我的配置: </p>
+<p>简单来讲，它以目录树的形式列出当前文件中的symbol:函数名，宏定义和变量。帮助我们从宏观上快速了解源码。本身支持跳转。安装manual中讲的很清楚，就不再赘述了。下面是我的配置:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nnoremap &lt;silent&gt; &lt;F8&gt; :TlistToggle&lt;CR&gt;&lt;CR&gt;   &quot;按f8开启Taglist</span><br><span class="line">let Tlist_Show_One_File=0                    </span><br><span class="line">let Tlist_Exit_OnlyWindow=1                  </span><br><span class="line">let Tlist_Use_Left_Window=1                 </span><br><span class="line">let Tlist_File_Fold_Auto_Close=1             </span><br><span class="line"></span><br><span class="line">     add the above Configs to your ~/.vimrc</span><br></pre></td></tr></table></figure>
-<h3 id="操作系统调用——System-Calls"><a href="#操作系统调用——System-Calls" class="headerlink" title="操作系统调用——System Calls"></a>操作系统调用——System Calls</h3><p>操作系统的工作总结起来就是<strong>抽象</strong>和<strong>资源分配</strong>。<br>资源有内存分配，CPU调度等。而抽象指的就是系统调用。实验需要实现Shell中的命令，重定向和管道。每一个功能都是使用系统调用来实现的，所以将System Calls称为操作系统的接口一点都不过分。</p>
-<h3 id="Executing-Simple-Commands"><a href="#Executing-Simple-Commands" class="headerlink" title="Executing Simple Commands"></a>Executing Simple Commands</h3><h4 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h4><p><code>fork</code>系统调用创建一个子进程，对于父进程返回子进程的pid，对于子进程返回0。见下面代码:  </p>
+<h3 id="操作系统调用system-calls">操作系统调用——System Calls</h3>
+<p>操作系统的工作总结起来就是<strong>抽象</strong>和<strong>资源分配</strong>。<br>
+资源有内存分配，CPU调度等。而抽象指的就是系统调用。实验需要实现Shell中的命令，重定向和管道。每一个功能都是使用系统调用来实现的，所以将System Calls称为操作系统的接口一点都不过分。</p>
+<h3 id="executing-simple-commands">Executing Simple Commands</h3>
+<h4 id="fork">fork</h4>
+<p><code>fork</code>系统调用创建一个子进程，对于父进程返回子进程的pid，对于子进程返回0。见下面代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int pid = fork(); //创建了子进程</span><br><span class="line">if(pid == 0) &#123;   //父子进程都从这里开始执行，唯一区别就是pid不一样</span><br><span class="line">   printf(&quot;child: existing!\n&quot;);</span><br><span class="line">   exit();</span><br><span class="line">&#125;else if(pid &gt; 0) &#123;</span><br><span class="line">	printf(&quot;parent: %d&quot;, pid);</span><br><span class="line">	wait();  //父进程等待</span><br><span class="line">	printf(&quot;child is done\n&quot;);</span><br><span class="line">&#125;else &#123;</span><br><span class="line">	fprintf(stdeer, &quot;fork error!\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>其中<code>wait()</code>系统调用返回一个退出的子进程。</strong>上面这段代码其实就是整个Shell执行指令的原理:<strong>Shell提示符由父进程提供，然后创建一个子进程执行真正的命令，而父进程则<code>wait()</code>直到子进程返回,然后父进程等待下一条命令。</strong><br>执行效果如下:  </p>
+<p><strong>其中<code>wait()</code>系统调用返回一个退出的子进程。</strong>上面这段代码其实就是整个Shell执行指令的原理:<strong>Shell提示符由父进程提供，然后创建一个子进程执行真正的命令，而父进程则<code>wait()</code>直到子进程返回,然后父进程等待下一条命令。</strong><br>
+执行效果如下:</p>
 <p><img src="28.png" width="50%" height="50%" alt=""></p>
 <p>回到Shell中来，我们需要修改子进程中的代码，能够正确执行简单的命令。涉及到<code>exec()</code>函数族。</p>
-<h4 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h4><p>exec提供了在一个进程中执行另一个进程的方法: 根据参数提供的文件路径和名称找到可执行文件，并执行。执行结束之后原调用进程的内容除进程号之外其他的全部被替换。<strong>通常和fork一起联合实现进程中执行程序。</strong><code>exec</code>函数族是由6个以exec开头的函数构成的，这6个函数的用法根据名称的不同会有些微的区别:  </p>
+<h4 id="exec">exec</h4>
+<p>exec提供了在一个进程中执行另一个进程的方法: 根据参数提供的文件路径和名称找到可执行文件，并执行。执行结束之后原调用进程的内容除进程号之外其他的全部被替换。<strong>通常和fork一起联合实现进程中执行程序。</strong><code>exec</code>函数族是由6个以exec开头的函数构成的，这6个函数的用法根据名称的不同会有些微的区别:</p>
 <p><img src="29.png" width="50%" height="50%" alt=""></p>
-<h5 id="查找可执行文件的方式"><a href="#查找可执行文件的方式" class="headerlink" title="查找可执行文件的方式"></a>查找可执行文件的方式</h5><p>其中<code>execlp</code>，<code>execvp</code>在查找可执行文件的时候不用写文件的<strong>绝对路径</strong>，系统会自动根据环境变量“$PATH”查找。<code>env</code>命令可以列出系统中当前的$PATH。</p>
-<h5 id="参数传递方式"><a href="#参数传递方式" class="headerlink" title="参数传递方式"></a>参数传递方式</h5><p>其中<code>execlp</code>,<code>execl</code>,<code>execle</code>这三个第五个字母是<code>l</code>的函数参数只能分别列出来————<code>const char *argv...</code>。而<code>execv</code>,<code>execve</code>,<code>execvp</code>这三个第五个字母是<code>v</code>的函数参数可以整体构造数组传递————<code>char *const argv[]</code>。<strong>所有的参数都应该以<code>NULL</code>结尾</strong>。</p>
-<h5 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h5><p>其中<code>execle</code>和<code>execle</code>可以在使用指定的环境变量。通过在参数末尾加上<code>char *const envp[]</code>的方法。</p>
-<p>总结见下图: </p>
+<h5 id="查找可执行文件的方式">查找可执行文件的方式</h5>
+<p>其中<code>execlp</code>，<code>execvp</code>在查找可执行文件的时候不用写文件的<strong>绝对路径</strong>，系统会自动根据环境变量“<span class="math inline">\(PATH”查找。`env`命令可以列出系统中当前的\)</span>PATH。</p>
+<h5 id="参数传递方式">参数传递方式</h5>
+<p>其中<code>execlp</code>,<code>execl</code>,<code>execle</code>这三个第五个字母是<code>l</code>的函数参数只能分别列出来————<code>const char *argv...</code>。而<code>execv</code>,<code>execve</code>,<code>execvp</code>这三个第五个字母是<code>v</code>的函数参数可以整体构造数组传递————<code>char *const argv[]</code>。<strong>所有的参数都应该以<code>NULL</code>结尾</strong>。</p>
+<h5 id="环境变量">环境变量</h5>
+<p>其中<code>execle</code>和<code>execle</code>可以在使用指定的环境变量。通过在参数末尾加上<code>char *const envp[]</code>的方法。</p>
+<p>总结见下图:</p>
 <p><img src="30.png" width="50%" height="50%" alt=""></p>
-<h5 id="exec函数族使用注意事项"><a href="#exec函数族使用注意事项" class="headerlink" title="exec函数族使用注意事项"></a>exec函数族使用注意事项</h5><ul>
+<h5 id="exec函数族使用注意事项">exec函数族使用注意事项</h5>
+<ul>
 <li>因为exec函数经常调用失败，所以需要加上判断语句</li>
-<li>最后参数一定用<code>NULL</code>结尾<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int exec() &#123;</span><br><span class="line">	int ret;</span><br><span class="line">	if( fork() == 0 )&#123;</span><br><span class="line">		if((ret = execlp(&quot;ls&quot;, &quot;ls&quot;, &quot;-al&quot;, NULL)) &lt; 0)  //参数以NULL结束</span><br><span class="line">			fprintf(stderror, &quot;execlp error!\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>最后参数一定用<code>NULL</code>结尾 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int exec() &#123;</span><br><span class="line">	int ret;</span><br><span class="line">	if( fork() == 0 )&#123;</span><br><span class="line">		if((ret = execlp(&quot;ls&quot;, &quot;ls&quot;, &quot;-al&quot;, NULL)) &lt; 0)  //参数以NULL结束</span><br><span class="line">			fprintf(stderror, &quot;execlp error!\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="实现命令"><a href="#实现命令" class="headerlink" title="实现命令"></a>实现命令</h4><p><a href="https://pdos.csail.mit.edu/6.828/2018/homework/sh.c" target="_blank" rel="noopener">Shell代码</a>分为两个部分:词法分析和命令执行；<br>实验需要修改<code>runcmd()</code>函数代码，实现具体的EXEC。需要关注函数类型，参数两个细节。根据调试知道<code>&#39; &#39;</code>为EXEC，而<code>execcmd</code>结构体中argv[0]中存储的是命令的名称，所以我们使用<code>execvp</code>来实现，<code>execvp</code>函数的第一个参数是可执行文件的名称，往后的参数可以用数组表示，这样可以保证该命令的可变参数得到实现。代码如下:  </p>
+<h4 id="实现命令">实现命令</h4>
+<p><a href="https://pdos.csail.mit.edu/6.828/2018/homework/sh.c" target="_blank" rel="noopener">Shell代码</a>分为两个部分:词法分析和命令执行；<br>
+实验需要修改<code>runcmd()</code>函数代码，实现具体的EXEC。需要关注函数类型，参数两个细节。根据调试知道<code>' '</code>为EXEC，而<code>execcmd</code>结构体中argv[0]中存储的是命令的名称，所以我们使用<code>execvp</code>来实现，<code>execvp</code>函数的第一个参数是可执行文件的名称，往后的参数可以用数组表示，这样可以保证该命令的可变参数得到实现。代码如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">case &apos; &apos;:</span><br><span class="line">           ecmd = (struct execcmd*)cmd;</span><br><span class="line">           if(ecmd-&gt;argv[0] == 0)</span><br><span class="line">               _exit(0);</span><br><span class="line">           int pid, ret;</span><br><span class="line">           if ((pid = fork()) == 0) &#123;</span><br><span class="line">               if((ret = execvp(ecmd-&gt;argv[0], ecmd-&gt;argv)) &lt; 0) &#123;</span><br><span class="line">                   fprintf(stderr, &quot;Bash: command not found:%s\n&quot;, ecmd-&gt;argv[0]);</span><br><span class="line">                   exit(-1);</span><br><span class="line">               &#125;</span><br><span class="line">               exit(0);</span><br><span class="line">           &#125; else if (pid &gt; 0) &#123;</span><br><span class="line">               wait(0);</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">           break;</span><br></pre></td></tr></table></figure>
-<p>注意因为是多线程编程，所以调试的时候会出现很多不可思议的现象。<strong>可以先将fork()部分注释掉，进入执行函数看一下现象，然后输出调试。</strong>执行效果如下:  </p>
+<p>注意因为是多线程编程，所以调试的时候会出现很多不可思议的现象。<strong>可以先将fork()部分注释掉，进入执行函数看一下现象，然后输出调试。</strong>执行效果如下:</p>
 <p><img src="31.png" width="50%" height="50%" alt=""></p>
-<h3 id="I-O-Redirection"><a href="#I-O-Redirection" class="headerlink" title="I/O Redirection"></a>I/O Redirection</h3><h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><p>文件描述符是很重要的概念，它使得重定向成为可能。<code>File Descriptor</code>是一个整数，常常把其指向的对象称为文件。本实验中需要了解<code>open</code>，<code>creat</code>，<code>close</code>，<code>dup2</code>等系统调用返回值就是一个文件描述符。<strong>我们需要做的就是将Shell本身的文件描述符指向其他的文件描述符，从而实现重定向。</strong>Shell保证在任何时候都有3个打开的文件描述符————<code>0-标准输入</code>,<code>1-标准输出</code>,<code>2-错误输出</code>。<br>下面是会用到的几个系统调用: </p>
+<h3 id="io-redirection">I/O Redirection</h3>
+<h4 id="文件描述符">文件描述符</h4>
+<p>文件描述符是很重要的概念，它使得重定向成为可能。<code>File Descriptor</code>是一个整数，常常把其指向的对象称为文件。本实验中需要了解<code>open</code>，<code>creat</code>，<code>close</code>，<code>dup2</code>等系统调用返回值就是一个文件描述符。<strong>我们需要做的就是将Shell本身的文件描述符指向其他的文件描述符，从而实现重定向。</strong>Shell保证在任何时候都有3个打开的文件描述符————<code>0-标准输入</code>,<code>1-标准输出</code>,<code>2-错误输出</code>。<br>
+下面是会用到的几个系统调用:</p>
 <ul>
 <li><code>open(&quot;file_name&quot;, O_RDWR):</code> 打开文件，打开成功返回值最小的文件描述符————标准输入0，打开失败返回-1</li>
 <li><code>create(&quot;file_name&quot;, 0777):</code> 创建文件，返回值同open</li>
 <li><code>close(fd):</code> 释放一个文件描述符</li>
-<li><code>dup2(oldfd, newfd):</code> 将oldfd复制给newfd  </li>
+<li><code>dup2(oldfd, newfd):</code> 将oldfd复制给newfd</li>
 </ul>
-<p>重定向不需要考虑子进程的问题，但还是需要深入了解<code>fork</code>函数的机理，<strong>一旦fork，父进程拥有和子进程一模一样的文件描述符</strong>。而重定向需要考虑的是在子进程中将标准输入（输出）定向到其他文件即可。  </p>
-<h4 id="lt-输入重定向"><a href="#lt-输入重定向" class="headerlink" title="&lt; 输入重定向"></a>&lt; 输入重定向</h4><p>较简单，一旦文件不存在直接报错: </p>
+<p>重定向不需要考虑子进程的问题，但还是需要深入了解<code>fork</code>函数的机理，<strong>一旦fork，父进程拥有和子进程一模一样的文件描述符</strong>。而重定向需要考虑的是在子进程中将标准输入（输出）定向到其他文件即可。</p>
+<h4 id="输入重定向">&lt; 输入重定向</h4>
+<p>较简单，一旦文件不存在直接报错:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">case &apos;&lt;&apos;:</span><br><span class="line">           rcmd = (struct redircmd*)cmd;</span><br><span class="line">           close(0);//关掉父进程的标准输入</span><br><span class="line">           if(open(rcmd-&gt;file, O_RDONLY) &lt; 0) &#123;</span><br><span class="line">               fprintf(stderr, &quot;Bash: No such file or directory:  %s\n&quot;, rcmd-&gt;file);  //输入不存在直接报错</span><br><span class="line">           &#125;else &#123;</span><br><span class="line">			//一旦open函数执行成功，它返回得文件描述符就是0，所以这时候该文件就变成了输入,定向成功</span><br><span class="line">               runcmd(rcmd-&gt;cmd);  //这里就是执行EXEC部分，所以fork的时候标准输入也是关闭的（和父进程一样close）</span><br><span class="line">           &#125;</span><br><span class="line">           break;</span><br></pre></td></tr></table></figure>
-<h4 id="gt-输出重定向"><a href="#gt-输出重定向" class="headerlink" title="&gt; 输出重定向"></a>&gt; 输出重定向</h4><p>如果文件不存在。创建新的文件时需要注意文件的权限。<code>creat</code>函数的参数0777权限为<code>-rwx rwx rwx</code>。关于umask的知识见<a href="https://my.oschina.net/alphajay/blog/112428" target="_blank" rel="noopener">这里</a>。</p>
+<h4 id="输出重定向">&gt; 输出重定向</h4>
+<p>如果文件不存在。创建新的文件时需要注意文件的权限。<code>creat</code>函数的参数0777权限为<code>-rwx rwx rwx</code>。关于umask的知识见<a href="https://my.oschina.net/alphajay/blog/112428" target="_blank" rel="noopener">这里</a>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">case &apos;&gt;&apos;:</span><br><span class="line">rcmd = (struct redircmd*)cmd;</span><br><span class="line">int fd;</span><br><span class="line">if((fd = open(rcmd-&gt;file, O_RDWR)) &lt; 0) &#123;  //fd为新打开文件的文件描述符</span><br><span class="line">	if((fd = creat(rcmd-&gt;file, 0777)) &lt; 0 ) &#123;</span><br><span class="line">		fprintf(stderr, &quot;Bash: No such file or directory:  %s\n&quot;, rcmd-&gt;file);</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		dup2(fd, 1);   //将标准输出指向到新打开的文件fd上，所以输出就到了该文件上（实现了重定向）</span><br><span class="line">		runcmd(rcmd-&gt;cmd);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;else &#123;</span><br><span class="line">	dup2(fd, 1);</span><br><span class="line">	runcmd(rcmd-&gt;cmd);</span><br><span class="line">&#125;</span><br><span class="line">	break;</span><br></pre></td></tr></table></figure>
-<p>执行效果如下: </p>
+<p>执行效果如下:</p>
 <p><img src="32.png" width="50%" height="50%" alt=""></p>
-<h3 id="Implement-pipes"><a href="#Implement-pipes" class="headerlink" title="Implement pipes"></a>Implement pipes</h3><p>管道是一个小小的内和缓冲区，它以<strong>文件描述符对</strong>的形式提供给进程，从管道的一端写数据可以从管道的另一端读取。系统调用<code>pipe</code>将数组<code>int p[2]</code>初始化为管道的文件描述符。接下来做的无非就是重定向了。</p>
+<h3 id="implement-pipes">Implement pipes</h3>
+<p>管道是一个小小的内和缓冲区，它以<strong>文件描述符对</strong>的形式提供给进程，从管道的一端写数据可以从管道的另一端读取。系统调用<code>pipe</code>将数组<code>int p[2]</code>初始化为管道的文件描述符。接下来做的无非就是重定向了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> case &apos;|&apos;:</span><br><span class="line">pcmd = (struct pipecmd*)cmd;</span><br><span class="line">int p[2];</span><br><span class="line">pipe(p);    //管道初始化</span><br><span class="line">if(fork() == 0) &#123;    </span><br><span class="line">	dup2(p[0], 0);   //将标准输入重定向到管道的输入p[0]上</span><br><span class="line">	close(p[0]);</span><br><span class="line">	close(p[1]);</span><br><span class="line">	runcmd(pcmd-&gt;right);</span><br><span class="line">&#125;else &#123;</span><br><span class="line">	dup2(p[1], 1);  //讲标注输出重定向奥管道额输出p[1]上</span><br><span class="line">	runcmd(pcmd-&gt;left);  </span><br><span class="line">	close(p[0]);</span><br><span class="line">	close(p[1]);</span><br><span class="line">&#125;</span><br><span class="line">break;</span><br></pre></td></tr></table></figure>
-<p>执行效果如下:   </p>
+<p>执行效果如下:</p>
 <p><img src="33.png" width="50%" height="50%" alt=""></p>
-<h3 id="Make-grade"><a href="#Make-grade" class="headerlink" title="Make grade"></a>Make grade</h3><p>6.828对于HW的测试是直接在主机上测试的，编译Shell文件:<code>gcc Shell</code>得到<code>a.out</code>。已知该文件t.sh: </p>
+<h3 id="make-grade">Make grade</h3>
+<p>6.828对于HW的测试是直接在主机上测试的，编译Shell文件:<code>gcc Shell</code>得到<code>a.out</code>。已知该文件t.sh:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ls &gt; y</span><br><span class="line">cat &lt; y | sort | uniq | wc &gt; y1</span><br><span class="line">cat y1</span><br><span class="line">rm y1</span><br><span class="line">ls |  sort | uniq | wc</span><br><span class="line">rm y</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>在主机上，执行<code>./a.out &lt; t.sh</code>与在主机Shell上执行<code>source t.sh</code>对比结果，如下: </p>
+<p>在主机上，执行<code>./a.out &lt; t.sh</code>与在主机Shell上执行<code>source t.sh</code>对比结果，如下:</p>
 </blockquote>
 <p><img src="34.png" width="50%" height="50%" alt=""></p>
 <blockquote>
-<p>本次实验的源代码在<a href="https://github.com/haotianmichael/JOS/tree/master/Shell" target="_blank" rel="noopener">Github</a>上。<br>第一次接触Linux系统编程，很多零碎的知识和细节学起来很是吃力。不过在独立搞懂Shell的机制之后又觉得很爽，还是很期待之后的挑战:)</p>
+<p>本次实验的源代码在<a href="https://github.com/haotianmichael/JOS/tree/master/Shell" target="_blank" rel="noopener">Github</a>上。<br>
+第一次接触Linux系统编程，很多零碎的知识和细节学起来很是吃力。不过在独立搞懂Shell的机制之后又觉得很爽，还是很期待之后的挑战:)</p>
 </blockquote>
 
       
@@ -798,7 +819,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HW-Shell"><span class="nav-number">1.</span> <span class="nav-text">HW:Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统调用——System-Calls"><span class="nav-number">1.2.</span> <span class="nav-text">操作系统调用——System Calls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Executing-Simple-Commands"><span class="nav-number">1.3.</span> <span class="nav-text">Executing Simple Commands</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fork"><span class="nav-number">1.3.1.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exec"><span class="nav-number">1.3.2.</span> <span class="nav-text">exec</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查找可执行文件的方式"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">查找可执行文件的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参数传递方式"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">参数传递方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#环境变量"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#exec函数族使用注意事项"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">exec函数族使用注意事项</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现命令"><span class="nav-number">1.3.3.</span> <span class="nav-text">实现命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O-Redirection"><span class="nav-number">1.4.</span> <span class="nav-text">I/O Redirection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.4.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-输入重定向"><span class="nav-number">1.4.2.</span> <span class="nav-text">&lt; 输入重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gt-输出重定向"><span class="nav-number">1.4.3.</span> <span class="nav-text">&gt; 输出重定向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Implement-pipes"><span class="nav-number">1.5.</span> <span class="nav-text">Implement pipes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Make-grade"><span class="nav-number">1.6.</span> <span class="nav-text">Make grade</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hwshell"><span class="nav-number">1.</span> <span class="nav-text">HW:Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统调用system-calls"><span class="nav-number">1.2.</span> <span class="nav-text">操作系统调用——System Calls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#executing-simple-commands"><span class="nav-number">1.3.</span> <span class="nav-text">Executing Simple Commands</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fork"><span class="nav-number">1.3.1.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exec"><span class="nav-number">1.3.2.</span> <span class="nav-text">exec</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查找可执行文件的方式"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">查找可执行文件的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参数传递方式"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">参数传递方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#环境变量"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#exec函数族使用注意事项"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">exec函数族使用注意事项</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现命令"><span class="nav-number">1.3.3.</span> <span class="nav-text">实现命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#io-redirection"><span class="nav-number">1.4.</span> <span class="nav-text">I/O Redirection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.4.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入重定向"><span class="nav-number">1.4.2.</span> <span class="nav-text">&lt; 输入重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出重定向"><span class="nav-number">1.4.3.</span> <span class="nav-text">&gt; 输出重定向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement-pipes"><span class="nav-number">1.5.</span> <span class="nav-text">Implement pipes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make-grade"><span class="nav-number">1.6.</span> <span class="nav-text">Make grade</span></a></li></ol></li></ol></div>
             
 
           </div>
