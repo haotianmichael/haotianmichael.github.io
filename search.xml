@@ -3,7 +3,14 @@
   <entry>
     <title><![CDATA[NJU静态程序分析(6-Tai-e实验复盘)]]></title>
     <url>%2F2023%2F01%2F18%2FNJU%E9%9D%99%E6%80%81%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90-6-Tai-e%E5%AE%9E%E9%AA%8C%E5%A4%8D%E7%9B%98%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <content type="text"><![CDATA[Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括： 编译优化(活跃变量分析，常量传播分析，死代码检测) 基础程序分析(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用(污点分析) 做实验的过程中我对课程上学到的理论有了更具体的理解；也遇到了各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。这里复盘一下在实验中遇到的各种问题。 Lab1-Live Variable Analysis]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Software-Analysis</tag>
+        <tag>PL</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[MIT6.824(Spring 2022)-MapReduce]]></title>
