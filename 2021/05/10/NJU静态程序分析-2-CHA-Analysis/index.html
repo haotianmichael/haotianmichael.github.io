@@ -126,7 +126,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析-2-CHA-Analysis/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析-2-CHA-Analysis/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析-2-CHA-Analysis/3.png">
-<meta property="og:updated_time" content="2022-03-16T10:12:10.822Z">
+<meta property="og:updated_time" content="2023-02-04T06:20:58.254Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(2-CHA-Analysis)">
 <meta name="twitter:description" content="Abstract 根据safe-approximation，过程内数据流分析Intraprocedural对所有的函数调用method call做出过度保守的假设——即所有分析结果必须safe，而根据Lattice理论这种处理会使must和may分析都变的less precise。所以引入过程间数据流分析Interprocedural Analysis，通过Call Graph来实现过程间的数据流">
@@ -436,7 +436,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.9k
+                  2.2k
                 </span>
               
 
@@ -452,7 +452,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  7
+                  9
                 </span>
               
             </div>
@@ -559,7 +559,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Resolve(cs) &#123;</span><br><span class="line">	T = &#123;&#125;</span><br><span class="line">	m = method signature at cs</span><br><span class="line">	if cs is a static call then</span><br><span class="line">		T = &#123;m&#125;</span><br><span class="line">	if cs is special call then</span><br><span class="line">		c_m = class type of m</span><br><span class="line">		T = &#123;Dispatch(c_m, m)&#125;</span><br><span class="line">	if cs is a virtual call then</span><br><span class="line">		c = declared type of receiver variable at cs</span><br><span class="line">		foreach c&apos; that is a subclass of c or c itself do</span><br><span class="line">			add Dispatch(c&apos;, m) to T</span><br><span class="line">	return T</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里对<code>Java</code>的三种调用类型都做了解析，参数<code>cs</code>是程序中的调用点——即每一种调用实际发生的地方。<code>static call</code>可以直接根据函数签名得到目标函数；对于<code>special call</code>由于进行<code>super-call</code>调用的时候需要进一步解析父类中的函数（还不能保证父类一定存在函数需要进一步上升）所以使用了<code>Dispatch</code>函数。</p>
 <p><strong>虚函数调用只需要拿到在<code>call-site</code>处<code>receiver variable</code>的声明类型，然后对该类型以及该类型的所有子类对象做Dispatch解析即可。</strong></p>
-<p>该算法只考虑调用点处<code>reveriver variable</code>的类型和它的继承链而忽略了其他数据流和控制流信息，因此速度上非常快，但是精度一般。故其主要应用就是IDE的补全上，满足速度快贴合需求但是精度也保持在一个很好的接受范围内。</p>
+<p>整个<code>CHA</code>算法实际上构造了关于当前函数的一个继承链。给定<code>declared type</code>和<code>signature</code>并无法确定其运行时绑定到的具体函数，比如<code>A a = new B()</code>中<code>B</code>才是真正的类型而<code>A</code>就是<code>declared type</code>。<strong>这时候<code>Resolve</code>函数根据<code>declared type</code>明确了该函数一定是由<code>declared type</code>以及其子类实现的。故需要去遍历其子类</strong>。而针对么一个具体的类<strong>其是否实现了该函数其实不一定，如果当前类并没有实现该函数，则需要去它的父类中寻找</strong>。</p>
+<p>需要搞清楚的是，<strong>运行时绑定的函数一定是该类以及该类的父类实现的</strong>。比如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>&#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="title">extends</span> <span class="title">A</span>&#123;</span>&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="title">extends</span> <span class="title">B</span>&#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="title">extends</span> <span class="title">B</span>&#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  C c = ...;</span><br><span class="line">  c.foo();   <span class="comment">// Resolve(c.foo()) = &#123;C.foo()&#125;</span></span><br><span class="line">  </span><br><span class="line">  A a = ...;</span><br><span class="line">  a.foo();  <span class="comment">// Resolve(a.foo()) = &#123;A.foo(), B.foo(), C.foo()&#125;</span></span><br><span class="line">  </span><br><span class="line">  B b = ...;</span><br><span class="line">  b.foo();  <span class="comment">// Resolve(b.foo()) = &#123;A.foo(), C.foo(), D.foo()&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，根据<code>a.foo</code>只能得到运行时可能绑定在<code>A</code>以及它的子类<code>B,C,D</code>上。而<code>b.foo</code>得到运行时可能绑定在<code>B</code>和它的子类<code>C,D</code>上，但是因为<code>B</code>本身并没有实现<code>foo</code>故<code>Dispatch</code>函数中需要继续寻找它的父类<code>A</code>来确定如果运行时绑定到<code>B</code>类型，那应该得到的正确结果——及<code>B b = new B(); b.foo()</code>中调用的是<code>A.foo()</code>。</p>
+<p>最后，该算法只考虑调用点处<code>reveriver variable</code>的类型和它的继承链而忽略了其他数据流和控制流信息，因此速度上非常快，但是精度一般。故其主要应用就是IDE的补全上，满足速度快贴合需求但是精度也保持在一个很好的接受范围内。</p>
 <h4 id="call-graph-construction">Call Graph Construction</h4>
 <p>在CHA分析的基础上，我们可以设计出构造调用图<code>Call Graph</code>的完整算法，该算法应用<code>BFS</code>的思路从<code>entry</code>出发对每一个<code>method</code>，解析该函数在所有调用点<code>cs</code>的目标方法<code>Resolve(cs)</code>直到所有的<code>method</code>都完成解析。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">BuildCallGraph(m_entry) &#123;</span><br><span class="line">	WL = [m_entry], CG = &#123;&#125;, RM = &#123;&#125;</span><br><span class="line">	while WL is not empty do</span><br><span class="line">		remove m from WL</span><br><span class="line">		if m ∉ RM then</span><br><span class="line">			add m to RM</span><br><span class="line">			foreach call-site cs in th m do     // Resolve target methods via CHA</span><br><span class="line">				T = Resolve(cs)</span><br><span class="line">				foreach traget method m&apos; in T do</span><br><span class="line">					add cs ⟶ m&apos; to CG    // Add call edges to call graph</span><br><span class="line">					add m&apos; to WL</span><br><span class="line">		return CG</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -636,7 +640,7 @@
   <p><span>本文标题:</span><a href="/2021/05/10/NJU静态程序分析-2-CHA-Analysis/">NJU静态程序分析(2-CHA-Analysis)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年05月10日 - 10:05</p>
-  <p><span>最后更新:</span>2022年03月16日 - 18:03</p>
+  <p><span>最后更新:</span>2023年02月04日 - 14:02</p>
   <p><span>原始链接:</span><a href="/2021/05/10/NJU静态程序分析-2-CHA-Analysis/" title="NJU静态程序分析(2-CHA-Analysis)">http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析-2-CHA-Analysis/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/05/10/NJU静态程序分析-2-CHA-Analysis/"  aria-label="复制成功！"></i></span>
   </p>
