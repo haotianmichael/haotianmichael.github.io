@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract 操作系统控制硬件资源并完成底层抽象。 UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。 这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对API的封装">
+<meta name="description" content="Abstract操作系统控制硬件资源并完成底层抽象。   UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。     这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对A">
 <meta name="keywords" content="OS,UNIX,Syscall">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从syscall的角度理解操作系统">
 <meta property="og:url" content="http://haotianmcihael.github.io/2019/06/25/从syscall的角度理解操作系统/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract 操作系统控制硬件资源并完成底层抽象。 UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。 这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对API的封装">
+<meta property="og:description" content="Abstract操作系统控制硬件资源并完成底层抽象。   UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。     这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对A">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2022-03-16T09:53:19.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从syscall的角度理解操作系统">
-<meta name="twitter:description" content="Abstract 操作系统控制硬件资源并完成底层抽象。 UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。 这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对API的封装">
+<meta name="twitter:description" content="Abstract操作系统控制硬件资源并完成底层抽象。   UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种标准化工作对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——ISO-C，IEEE-POSIX以及Single UNIX Specification等等。     这些标准本质上是应用程序和操作系统接口的子集。一个操作系统的具体实现除了内核之外，最重要的就是对A">
 
 
 
@@ -469,21 +469,18 @@
       
 
       
-        <h1 id="abstract">Abstract</h1>
-<p>操作系统控制硬件资源并完成底层抽象。</p>
-<p>UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种<strong>标准化工作</strong>对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——<strong>ISO-C，IEEE-POSIX以及Single UNIX Specification</strong>等等。</p>
-<p><strong>这些标准本质上是应用程序和操作系统接口的子集。</strong>一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。<strong>UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。</strong></p>
-<p>个人觉得从<strong>系统编程和内存</strong>的角度去理解<strong>文件系统</strong>和<strong>进程/线程</strong>等OS核心概念会比较有趣。</p>
+        <h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>操作系统控制硬件资源并完成底层抽象。  </p>
+<p>UNIX和C的发展一脉相承。20世纪80年代以来，针对UNIX的各种<strong>标准化工作</strong>对其实现提供了具体的限制以此来完善系统不同实现之间的可移植性——<strong>ISO-C，IEEE-POSIX以及Single UNIX Specification</strong>等等。    </p>
+<p><strong>这些标准本质上是应用程序和操作系统接口的子集。</strong>一个操作系统的具体实现除了内核之外，最重要的就是对API的封装。<strong>UNIX一般通过系统调用和运行库的方式来完成应用程序接口，比如GNU为Linux开发的Gblic就支持ISO-C和IEEE-POSIX等核心标准。</strong>  </p>
+<p>个人觉得从<strong>系统编程和内存</strong>的角度去理解<strong>文件系统</strong>和<strong>进程/线程</strong>等OS核心概念会比较有趣。  </p>
 <a id="more"></a>
-<h1 id="文件系统">文件系统</h1>
-<p>文件系统是一种持久性存储的系统抽象。并涉及到<strong>磁盘空间</strong>和<strong>内存空间</strong>的IO操作，比较难理解：</p>
+<h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p>文件系统是一种持久性存储的系统抽象。并涉及到<strong>磁盘空间</strong>和<strong>内存空间</strong>的IO操作，比较难理解：</p>
 <ul>
 <li><strong>文件描述符表</strong>，<strong>打开文件表</strong>，<strong>i节点</strong>是文件存储的本质，而<strong>文件长度</strong>，<strong>文件偏移量</strong>，<strong>文件所占磁盘空间</strong>，<strong>文件用户权限</strong>是文件的重要属性。可以从<code>dup</code>，<code>lseek</code>，<code>stat/chmod</code>等函数理解</li>
 <li><strong>理解内核获取文件的过程是最核心的</strong>。这涉及到<strong>内核页高速缓存</strong>，<strong>用户区间缓冲区</strong>，<strong>标准IO缓冲区</strong>等核心概念。可以从<code>read/write</code>，<code>fgets/fputs</code>，<code>sync/flush</code>函数理解</li>
 <li>从<strong>用户时间</strong>和<strong>CPU时间</strong>理解标准IO函数和<code>read/write</code>等系统调用。<strong>系统调用的开销要大于函数调用。</strong>而这一切都取决于双方缓冲区的选择</li>
 </ul>
-<h1 id="进程">进程</h1>
-<p>进程是独立功能的程序在数据集合上的一次动态执行过程。</p>
+<h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>进程是独立功能的程序在数据集合上的一次动态执行过程。  </p>
 <ul>
 <li>准备</li>
 <li>就绪</li>
@@ -498,13 +495,12 @@
 <li>实际ID，有效ID，设置ID</li>
 <li>存储映像</li>
 </ul>
-<h1 id="线程">线程</h1>
-<p>每个线程都包含又表示执行环境所必需的信息，其中包括进程中表示线程的线程ID，一组寄存器值，栈，调度优先级和策略，信号屏蔽字，errno变量以及线程私有数据。<strong>一个进程的的所有信息对该进程的所有线程都是共享的，包括可执行程序的代码，程序的全局内存和堆内存，栈以及文件描述符。</strong></p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>每个线程都包含又表示执行环境所必需的信息，其中包括进程中表示线程的线程ID，一组寄存器值，栈，调度优先级和策略，信号屏蔽字，errno变量以及线程私有数据。<strong>一个进程的的所有信息对该进程的所有线程都是共享的，包括可执行程序的代码，程序的全局内存和堆内存，栈以及文件描述符。</strong>  </p>
 <ul>
 <li>进程是资源分配单位</li>
 <li>线程是CPU调度单位</li>
 </ul>
-<p><strong>多线程切换因为相同那那个的地址空间——页表，因此切换更快。</strong></p>
+<p><strong>多线程切换因为相同那那个的地址空间——页表，因此切换更快。</strong>  </p>
 
       
     </div>
@@ -688,7 +684,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -765,7 +761,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件系统"><span class="nav-number">2.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程"><span class="nav-number">3.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程"><span class="nav-number">4.</span> <span class="nav-text">线程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件系统"><span class="nav-number">2.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程"><span class="nav-number">3.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程"><span class="nav-number">4.</span> <span class="nav-text">线程</span></a></li></ol></div>
             
 
           </div>
