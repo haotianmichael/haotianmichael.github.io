@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="AbstractGödel Incompleteness Theorem从数学上证明了不存在完美的形式系统。而Alan Turing的停机问题则在可判定性上为Hilbert Plan画上句号——这才有了后面的Turing Machine和Program Language。 NJU课程深入讲解了基于抽象解释的程序分析方法。PKU的课程则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑的">
+<meta name="description" content="Abstract Gödel Incompleteness Theorem从数学上证明了不存在完美的形式系统。而Alan Turing的停机问题则在可判定性上为Hilbert Plan画上句号——这才有了后面的Turing Machine和Program Language。 NJU课程深入讲解了基于抽象解释的程序分析方法。PKU的课程则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑">
 <meta name="keywords" content="Software-Analysis,PL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PKU软件分析">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/07/19/PKU软件分析/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="AbstractGödel Incompleteness Theorem从数学上证明了不存在完美的形式系统。而Alan Turing的停机问题则在可判定性上为Hilbert Plan画上句号——这才有了后面的Turing Machine和Program Language。 NJU课程深入讲解了基于抽象解释的程序分析方法。PKU的课程则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑的">
+<meta property="og:description" content="Abstract Gödel Incompleteness Theorem从数学上证明了不存在完美的形式系统。而Alan Turing的停机问题则在可判定性上为Hilbert Plan画上句号——这才有了后面的Turing Machine和Program Language。 NJU课程深入讲解了基于抽象解释的程序分析方法。PKU的课程则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2022-04-19T09:05:59.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PKU软件分析">
-<meta name="twitter:description" content="AbstractGödel Incompleteness Theorem从数学上证明了不存在完美的形式系统。而Alan Turing的停机问题则在可判定性上为Hilbert Plan画上句号——这才有了后面的Turing Machine和Program Language。 NJU课程深入讲解了基于抽象解释的程序分析方法。PKU的课程则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑的">
+<meta name="twitter:description" content="Abstract Gödel Incompleteness Theorem从数学上证明了不存在完美的形式系统。而Alan Turing的停机问题则在可判定性上为Hilbert Plan画上句号——这才有了后面的Turing Machine和Program Language。 NJU课程深入讲解了基于抽象解释的程序分析方法。PKU的课程则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  438
+                  440
                 </span>
               
 
@@ -469,12 +469,14 @@
       
 
       
-        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p><code>Gödel Incompleteness Theorem</code>从数学上证明了不存在完美的形式系统。而<code>Alan Turing</code>的<strong>停机问题</strong>则在<strong>可判定性</strong>上为<code>Hilbert Plan</code>画上句号——这才有了后面的<code>Turing Machine</code>和<code>Program Language</code>。</p>
+        <h3 id="abstract">Abstract</h3>
+<p><code>Gödel Incompleteness Theorem</code>从数学上证明了不存在完美的形式系统。而<code>Alan Turing</code>的<strong>停机问题</strong>则在<strong>可判定性</strong>上为<code>Hilbert Plan</code>画上句号——这才有了后面的<code>Turing Machine</code>和<code>Program Language</code>。</p>
 <p><code>NJU</code>课程深入讲解了基于抽象解释的程序分析方法。<code>PKU</code>的<a href="https://xiongyingfei.github.io/SA/2020/main.htm" target="_blank" rel="noopener">课程</a>则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑的层面，我个人很喜欢这种学院派的味道。多一个角度学习也对分析理论和算法的细节有了新的认识，特地记录一下。</p>
 <a id="more"></a>
-<h3 id="may-must"><a href="#may-must" class="headerlink" title="may/must"></a>may/must</h3><p>其实<code>may/must</code>都是相对而言的，对于具体的程序分析问题会有不一样的约束。这里引入<strong>可判定性问题</strong>：</p>
+<h3 id="maymust">may/must</h3>
+<p>其实<code>may/must</code>都是相对而言的，对于具体的程序分析问题会有不一样的约束。这里引入<strong>可判定性问题</strong>：</p>
 <blockquote>
-<p><code>Deciable Problem</code>是一个判定问题，该问题存在一个算法使得对于该问题的每一个实例都能给出是/否的答案。  </p>
+<p><code>Deciable Problem</code>是一个判定问题，该问题存在一个算法使得对于该问题的每一个实例都能给出是/否的答案。</p>
 </blockquote>
 <p>对于<strong>非判定问题</strong>，假设正确答案为集合<code>S</code>，则:</p>
 <ul>
@@ -482,7 +484,8 @@
 <li><code>may analysis</code>: subset of S</li>
 </ul>
 <p>比如确定程序有无内存泄漏就是一个不可判定问题。所以针对这个问题我们选择的算法就应该是<code>may</code>分析来保证<code>Sound</code>。</p>
-<h3 id="数据流分析"><a href="#数据流分析" class="headerlink" title="数据流分析"></a>数据流分析</h3><p>这个名称的来源？  </p>
+<h3 id="数据流分析">数据流分析</h3>
+<p>这个名称的来源？</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 停机问题判定Halt</span><br><span class="line">void Evil() &#123;</span><br><span class="line">	if(!Halt(Evil)) return;   //Evil函数调用需要传递自己的栈给自己</span><br><span class="line">  else	while(1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>程序可以看成是状态（数据）和状态之间的转移（控制）两部分</strong>，而根据停机问题中的核心——即<code>if</code>条件判断是会很复杂的判定。则将<code>if</code>忽略掉，即将控制部分忽略掉只剩下数据部分故称为数据流分析。</p>
 
@@ -655,7 +658,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -666,7 +669,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -743,7 +746,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#may-must"><span class="nav-number">2.</span> <span class="nav-text">may/must</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据流分析"><span class="nav-number">3.</span> <span class="nav-text">数据流分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maymust"><span class="nav-number">2.</span> <span class="nav-text">may/must</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据流分析"><span class="nav-number">3.</span> <span class="nav-text">数据流分析</span></a></li></ol></div>
             
 
           </div>

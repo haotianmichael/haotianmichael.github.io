@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="AbstractTai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化-(活跃变量分析，常量传播分析，死代码检测) 基础程序分析-(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用-(污点分析)  这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。">
+<meta name="description" content="Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化-(活跃变量分析，常量传播分析，死代码检测) 基础程序分析-(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用-(污点分析)  这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。">
 <meta name="keywords" content="Software-Analysis,PL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NJU静态程序分析(6-Tai-e实验复盘)">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/06/08/NJU静态程序分析-6-Tai-e实验复盘/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="AbstractTai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化-(活跃变量分析，常量传播分析，死代码检测) 基础程序分析-(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用-(污点分析)  这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。">
+<meta property="og:description" content="Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化-(活跃变量分析，常量传播分析，死代码检测) 基础程序分析-(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用-(污点分析)  这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2023-04-11T03:10:58.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJU静态程序分析(6-Tai-e实验复盘)">
-<meta name="twitter:description" content="AbstractTai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化-(活跃变量分析，常量传播分析，死代码检测) 基础程序分析-(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用-(污点分析)  这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。">
+<meta name="twitter:description" content="Abstract Tai-e是一个程序分析框架 By谭添老师。共有8个实验，包括：  编译优化-(活跃变量分析，常量传播分析，死代码检测) 基础程序分析-(程序调用图构建，非上下文敏感指针分析，各类经典上下文敏感指针分析) 程序分析在软件安全性领域的应用-(污点分析)  这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  142
+                  143
                 </span>
               
 
@@ -469,7 +469,8 @@
       
 
       
-        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p><code>Tai-e</code>是一个程序分析<a href="https://tai-e.pascal-lab.net/" target="_blank" rel="noopener">框架</a> By谭添老师。共有8个实验，包括：</p>
+        <h3 id="abstract">Abstract</h3>
+<p><code>Tai-e</code>是一个程序分析<a href="https://tai-e.pascal-lab.net/" target="_blank" rel="noopener">框架</a> By谭添老师。共有8个实验，包括：</p>
 <ul>
 <li>编译优化-(<strong>活跃变量分析</strong>，<strong>常量传播分析</strong>，<strong>死代码检测</strong>)</li>
 <li>基础程序分析-(<strong>程序调用图构建</strong>，<strong>非上下文敏感指针分析</strong>，<strong>各类经典上下文敏感指针分析</strong>)</li>
@@ -477,7 +478,8 @@
 </ul>
 <p>这里复盘实验中遇到的各种坑，包括对分析算法实现细节上的理解，甚至Java语言本身的特性。</p>
 <a id="more"></a>
-<h3 id="Lab1-Live-Variable-Analysis"><a href="#Lab1-Live-Variable-Analysis" class="headerlink" title="Lab1-Live Variable Analysis"></a>Lab1-Live Variable Analysis</h3>
+<h3 id="lab1-live-variable-analysis">Lab1-Live Variable Analysis</h3>
+
       
     </div>
     
@@ -647,7 +649,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -658,7 +660,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -735,7 +737,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lab1-Live-Variable-Analysis"><span class="nav-number">2.</span> <span class="nav-text">Lab1-Live Variable Analysis</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lab1-live-variable-analysis"><span class="nav-number">2.</span> <span class="nav-text">Lab1-Live Variable Analysis</span></a></li></ol></div>
             
 
           </div>

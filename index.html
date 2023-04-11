@@ -391,6 +391,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CUDA/" itemprop="url" rel="index">
+                    <span itemprop="name">CUDA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -412,7 +434,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  0
+                  233
                 </span>
               
 
@@ -450,9 +472,18 @@
 
       
         
-          
-            
-          
+          <h3 id="abstract">Abstract</h3>
+<p>上周的研究生复试终于结束了，想起来真是做梦一样。</p>
+<p>准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。</p>
+<p><code>PPCG</code>和<code>Pluto</code>都是面向<code>polyhedral</code>模型的<code>source-to-sourcee</code>编译器，前者支持<code>OpenMP/CUDA/OpenCL</code>代码生成，后者支持<code>OpenMP</code>代码生成。我不知怎么的就得出结论——想搞好编译器就要学好并行计算，那搞编译器的人是不是可以归到体系结构<code>HPC</code>这一波？我觉得差不多吧。</p>
+<p>现阶段的<code>HPC</code>离不开<code>CUDA</code>，就像西方离不开耶路撒冷。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2023/04/11/GPU编程（CUDA）/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -589,7 +620,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2.6k
+                  2.7k
                 </span>
               
 
@@ -627,8 +658,9 @@
 
       
         
-          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>最近终于有时间研究一下MIT的<a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener">神课</a><code>6.824</code>。  </p>
-<p>这门课教<code>Distributed System</code>，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。  </p>
+          <h3 id="abstract">Abstract</h3>
+<p>最近终于有时间研究一下MIT的<a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener">神课</a><code>6.824</code>。</p>
+<p>这门课教<code>Distributed System</code>，即多台物理隔离的计算机通过网络来协调，共同完成一致性任务，可以是计算任务，也可以是存储任务。</p>
 <p><strong>分布式系统</strong>和单机相比，除了有很多高并发的<code>Partial Failures</code>，更多的是硬件老化，断电，网卡失灵等这种现实问题。因此设计低成本高性能系统以及处理并发和网络问题——<strong><code>Performance</code>性能和<code>Fault Tolerance</code>容错</strong>是这门课的核心。</p>
 <p>课程共有20个<code>Lectures</code>和4个<code>labs</code>。和<code>6.828</code>一样重视实践——<strong>看论文，查资料，做<code>lab</code></strong>~简单粗暴。所以学习过程基本上就按照如下推进：</p>
 <ul>
@@ -781,7 +813,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  438
+                  440
                 </span>
               
 
@@ -819,7 +851,8 @@
 
       
         
-          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p><code>Gödel Incompleteness Theorem</code>从数学上证明了不存在完美的形式系统。而<code>Alan Turing</code>的<strong>停机问题</strong>则在<strong>可判定性</strong>上为<code>Hilbert Plan</code>画上句号——这才有了后面的<code>Turing Machine</code>和<code>Program Language</code>。</p>
+          <h3 id="abstract">Abstract</h3>
+<p><code>Gödel Incompleteness Theorem</code>从数学上证明了不存在完美的形式系统。而<code>Alan Turing</code>的<strong>停机问题</strong>则在<strong>可判定性</strong>上为<code>Hilbert Plan</code>画上句号——这才有了后面的<code>Turing Machine</code>和<code>Program Language</code>。</p>
 <p><code>NJU</code>课程深入讲解了基于抽象解释的程序分析方法。<code>PKU</code>的<a href="https://xiongyingfei.github.io/SA/2020/main.htm" target="_blank" rel="noopener">课程</a>则更倾向于涵盖所有的程序分析派别——将程序分析上升到了数学和逻辑的层面，我个人很喜欢这种学院派的味道。多一个角度学习也对分析理论和算法的细节有了新的认识，特地记录一下。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1003,7 +1036,8 @@
       
         
           
-            <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3>
+            <h3 id="abstract">Abstract</h3>
+
           
         
       
@@ -1141,7 +1175,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  923
+                  928
                 </span>
               
 
@@ -1179,7 +1213,8 @@
 
       
         
-          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>不是鲸书。  </p>
+          <h3 id="abstract">Abstract</h3>
+<p>不是鲸书。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/#more" rel="contents">
@@ -1323,7 +1358,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  7.9k
+                  8.9k
                 </span>
               
 
@@ -1339,7 +1374,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  33
+                  39
                 </span>
               
             </div>
@@ -1361,9 +1396,11 @@
 
       
         
-          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p><code>Type system</code>的基本目的是防止在程序运行时发生<code>execution error</code>。这种<code>Informal statement</code>非形式化描述有很多内涵：首先该如何严格定义<code>execution error</code>；其次在这种定义下，描述<code>absence of execution error</code>也是<code>Type system</code>很<code>nontrivial</code>的性质——当<code>PL .aka. programming language</code>的所有运行时行为都能确保这种性质的话，我们就说该语言是<code>type sound</code>的。事实证明为了更加没有歧义的描述<code>PL</code>的<code>type soundness</code>，需要做大量的分析和证明。因此针对<code>Type system</code>的分类，描述和研究过程逐渐演变成为一套<code>formal discipline</code>即形式化体系。</p>
-<script type="math/tex; mode=display">
-\frac{\Gamma_{1} \vdash \Im_{1}  ...  \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im}</script><p><code>The formalization of Type system</code>需要一套精确的符号和定义系统，一个<strong>严格正确</strong>的<code>Type system</code>可以对语言定义的各个重要性质进行<strong>完整</strong>的判断。而非形式化的描述甚至做不到完整概括语言的<code>type structure</code>则更谈不上实现上的唯一性。比如不同的编译器对于同一套语言<code>Type system</code>的实现往往不尽相同，甚至有一些<code>type unsound</code>的语言定义导致一段代码明明通过<code>typechecker</code>的检查但在运行时奔溃掉。理想情况下我们说<code>formal Type system</code>应该是所有<code>typed programming languages</code>内核定义的一部分。这样的话，<code>typechecking</code>算法就可以严格按照精确的类型<code>spec</code>执行，从某种程度上该语言可以看成是<code>Type sound</code>的。</p>
+          <h3 id="abstract">Abstract</h3>
+<p><code>Type system</code>的基本目的是防止在程序运行时发生<code>execution error</code>。这种<code>Informal statement</code>非形式化描述有很多内涵：首先该如何严格定义<code>execution error</code>；其次在这种定义下，描述<code>absence of execution error</code>也是<code>Type system</code>很<code>nontrivial</code>的性质——当<code>PL .aka. programming language</code>的所有运行时行为都能确保这种性质的话，我们就说该语言是<code>type sound</code>的。事实证明为了更加没有歧义的描述<code>PL</code>的<code>type soundness</code>，需要做大量的分析和证明。因此针对<code>Type system</code>的分类，描述和研究过程逐渐演变成为一套<code>formal discipline</code>即形式化体系。 <span class="math display">\[
+\frac{\Gamma_{1} \vdash \Im_{1}  ...  \Gamma_{n} \vdash \Im_{n}}{\Gamma \vdash \Im}
+\]</span></p>
+<p><code>The formalization of Type system</code>需要一套精确的符号和定义系统，一个<strong>严格正确</strong>的<code>Type system</code>可以对语言定义的各个重要性质进行<strong>完整</strong>的判断。而非形式化的描述甚至做不到完整概括语言的<code>type structure</code>则更谈不上实现上的唯一性。比如不同的编译器对于同一套语言<code>Type system</code>的实现往往不尽相同，甚至有一些<code>type unsound</code>的语言定义导致一段代码明明通过<code>typechecker</code>的检查但在运行时奔溃掉。理想情况下我们说<code>formal Type system</code>应该是所有<code>typed programming languages</code>内核定义的一部分。这样的话，<code>typechecking</code>算法就可以严格按照精确的类型<code>spec</code>执行，从某种程度上该语言可以看成是<code>Type sound</code>的。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/06/16/Type-system-a-Sketchy-view/#more" rel="contents">
@@ -1507,7 +1544,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  142
+                  143
                 </span>
               
 
@@ -1545,7 +1582,8 @@
 
       
         
-          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p><code>Tai-e</code>是一个程序分析<a href="https://tai-e.pascal-lab.net/" target="_blank" rel="noopener">框架</a> By谭添老师。共有8个实验，包括：</p>
+          <h3 id="abstract">Abstract</h3>
+<p><code>Tai-e</code>是一个程序分析<a href="https://tai-e.pascal-lab.net/" target="_blank" rel="noopener">框架</a> By谭添老师。共有8个实验，包括：</p>
 <ul>
 <li>编译优化-(<strong>活跃变量分析</strong>，<strong>常量传播分析</strong>，<strong>死代码检测</strong>)</li>
 <li>基础程序分析-(<strong>程序调用图构建</strong>，<strong>非上下文敏感指针分析</strong>，<strong>各类经典上下文敏感指针分析</strong>)</li>
@@ -1695,7 +1733,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.6k
+                  2.8k
                 </span>
               
 
@@ -1711,7 +1749,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  6
+                  11
                 </span>
               
             </div>
@@ -1733,8 +1771,9 @@
 
       
         
-          <h3 id="Abastract"><a href="#Abastract" class="headerlink" title="Abastract"></a>Abastract</h3><p>在<code>IFDS</code>出现之前，经典<code>intra-procedural analysis</code>框架(<font color="red">D</font>,<font color="green">L</font>,<font color="blue">F</font>)对于程序分析问题的研究还停留在①多项式时间处理<code>specific individual problem</code>比如<code>constant propagation/pointer analysis</code>②多项式时间处理<code>locally separable proble</code>（经典<code>bit-vector/gen-kill</code>问题——<code>reaching definitions,available expressions,live variabl</code>的过程间分析）③对普遍分析问题提供<strong>非多项式时间</strong>的算法方案。</p>
-<p>随着<code>POPL&#39;1995</code>发表的<a href="http://web.cs.ucla.edu/~harryxu/courses/253/sp2013/papers/popl95.pdf" target="_blank" rel="noopener">Precise Interprocedural Dataflow Analysis via Graph Reachability</a>通过将一类<code>inter-procedural analysis</code>问题转化为<code>a special kind of graph-reachability problem</code>图可达性问题——<font color="red"><code>IFDS</code></font>框架横空出世。<strong><code>IFDS</code>除了针对<code>separable problems</code>，还针对包括<code>truly-live variables,copy constant propagation,possibly-uninitialized variablestruly-live variables</code>在内的<code>non-separable problems</code>等一大类普遍性分析问题都提供了多项式时间的精确解决手段。</strong>由于<code>IFDS</code>本身的约束，作者在<code>Theoretical Computer Science&#39;1996</code>上还发表过一篇<a href="https://pdf.sciencedirectassets.com/271538/1-s2.0-S0304397500X00448/1-s2.0-0304397596000722/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQDHEEjOJdEm0cLtUB%2BHaJKZnI%2BPN5tMP4ElOR%2FgbYtzIgIhAJLujFNrXghpU6i4dLJlbR4WmRz%2FBokVzMrouNR8thheKvoDCEMQBBoMMDU5MDAzNTQ2ODY1IgwWTLJMo41Prpn%2F%2FEgq1wPGTtVLFsiVIF9uO3Jqe%2Fc7DNIZ2aCoMKASRnKPldZG3DL%2Fkla1b4JCb1utfraGJZeeG8LZFHTKpNPPAfY8Ax4cYe2D2fM1efeJUEv%2FGD2v21Ge7INGhUegLgtSJXoz%2FTGqXHronY0wS56U4dQHPyuDJ9pJYu8tQi5bCN93m1E%2BvoIrIoPK1IBlinh9LCUHfggCjlfJcrUWdkz6FvAO9pGlBB2bSWVrDJQZhf6k8%2FEA5%2BXg3GaNvYrHvzSnNokhfIAooqmnr9POzK6%2B3%2Fx0h%2Bs4dh9hNMSBVThSuNZlmYyRaRKHAukdzlgx7Lu9cQrKYEbMA9sr6UbY1CBGWM0IkEQ7hmxoPj3%2BkLlagNcZRd2FVg7zQcCPjdYrEeuUM6FicieZyU64gwrF%2Fl2Jq9GQPaZpYcndiEruIB8ggW%2F6moNCZs2IDLW40fNnp3Hm32GGMPuJDgPa9Yg7iD9Rfrr7uPhjSB8oKcpFqUKwmYqMn4W6pM74elsDHPsbw%2FsaqXNJCU42md6tfWSTBmByS3IQHgs6NpJWs3QckjVDmQYfTXv%2FgpMfrR%2FVnq7q6gGUgGrsgttCWa9VagHvZlUoLrIsFwlkjVjx7LNyflLfYyQBjsMjVKKQ7qw9kLMwrfi2kQY6pAGC4F0%2Bu4eJObfe5rQlGYJgI2OFVr6PyiBiTn4XcTtHOC2fbkj4Rre9Pj4QydLxF0oSXJqJCXkBJhzxpC9ouKJpDzYffbmPkpIA6rzdujGyRGluGCeiM2cOu7JtFEx1nvPsB%2BLlMN8JJBJQL3QWxnV36yu6ycImjADRWzn2Oe1Hn59BdoZO9nzL8zTLFHgS9jRZeYlTJQnh6FZe4I4upbqHwxemIw%3D%3D&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Date=20220313T104326Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Expires=300&amp;X-Amz-Credential=ASIAQ3PHCVTY3WOOQG6M%2F20220313%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Signature=d189220faa10689b60977d689048eeee379847ff107227365fec1a7742463d7d&amp;hash=c12a21daeaec6fe0aaf5b9fb5ec0259bf755743c2eea8ab65f566cece9ee2d36&amp;host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&amp;pii=0304397596000722&amp;tid=spdf-17632b09-bb7d-4bc0-9605-080c373f0575&amp;sid=d0b19308547fc443ae8b53f5ca290b286a01gxrqa&amp;type=client&amp;ua=50040252510d525a5a05&amp;rr=6eb42b298d006da7" target="_blank" rel="noopener">Precise interprocedural dataflow analysis with applications to constant propagation</a>提出<code>IDE</code>框架来处理<code>interprocedural constant propagation</code>等<code>IFDS</code>框架处理不了的<code>non-distributive</code>问题。这两篇论文为程序分析领域引入新的血液。</p>
+          <h3 id="abastract">Abastract</h3>
+<p>在<code>IFDS</code>出现之前，经典<code>intra-procedural analysis</code>框架(<font color="red">D</font>,<font color="green">L</font>,<font color="blue">F</font>)对于程序分析问题的研究还停留在①多项式时间处理<code>specific individual problem</code>比如<code>constant propagation/pointer analysis</code>②多项式时间处理<code>locally separable proble</code>（经典<code>bit-vector/gen-kill</code>问题——<code>reaching definitions,available expressions,live variabl</code>的过程间分析）③对普遍分析问题提供<strong>非多项式时间</strong>的算法方案。</p>
+<p>随着<code>POPL'1995</code>发表的<a href="http://web.cs.ucla.edu/~harryxu/courses/253/sp2013/papers/popl95.pdf" target="_blank" rel="noopener">Precise Interprocedural Dataflow Analysis via Graph Reachability</a>通过将一类<code>inter-procedural analysis</code>问题转化为<code>a special kind of graph-reachability problem</code>图可达性问题——<font color="red"><code>IFDS</code></font>框架横空出世。<strong><code>IFDS</code>除了针对<code>separable problems</code>，还针对包括<code>truly-live variables,copy constant propagation,possibly-uninitialized variablestruly-live variables</code>在内的<code>non-separable problems</code>等一大类普遍性分析问题都提供了多项式时间的精确解决手段。</strong>由于<code>IFDS</code>本身的约束，作者在<code>Theoretical Computer Science'1996</code>上还发表过一篇<a href="https://pdf.sciencedirectassets.com/271538/1-s2.0-S0304397500X00448/1-s2.0-0304397596000722/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQDHEEjOJdEm0cLtUB%2BHaJKZnI%2BPN5tMP4ElOR%2FgbYtzIgIhAJLujFNrXghpU6i4dLJlbR4WmRz%2FBokVzMrouNR8thheKvoDCEMQBBoMMDU5MDAzNTQ2ODY1IgwWTLJMo41Prpn%2F%2FEgq1wPGTtVLFsiVIF9uO3Jqe%2Fc7DNIZ2aCoMKASRnKPldZG3DL%2Fkla1b4JCb1utfraGJZeeG8LZFHTKpNPPAfY8Ax4cYe2D2fM1efeJUEv%2FGD2v21Ge7INGhUegLgtSJXoz%2FTGqXHronY0wS56U4dQHPyuDJ9pJYu8tQi5bCN93m1E%2BvoIrIoPK1IBlinh9LCUHfggCjlfJcrUWdkz6FvAO9pGlBB2bSWVrDJQZhf6k8%2FEA5%2BXg3GaNvYrHvzSnNokhfIAooqmnr9POzK6%2B3%2Fx0h%2Bs4dh9hNMSBVThSuNZlmYyRaRKHAukdzlgx7Lu9cQrKYEbMA9sr6UbY1CBGWM0IkEQ7hmxoPj3%2BkLlagNcZRd2FVg7zQcCPjdYrEeuUM6FicieZyU64gwrF%2Fl2Jq9GQPaZpYcndiEruIB8ggW%2F6moNCZs2IDLW40fNnp3Hm32GGMPuJDgPa9Yg7iD9Rfrr7uPhjSB8oKcpFqUKwmYqMn4W6pM74elsDHPsbw%2FsaqXNJCU42md6tfWSTBmByS3IQHgs6NpJWs3QckjVDmQYfTXv%2FgpMfrR%2FVnq7q6gGUgGrsgttCWa9VagHvZlUoLrIsFwlkjVjx7LNyflLfYyQBjsMjVKKQ7qw9kLMwrfi2kQY6pAGC4F0%2Bu4eJObfe5rQlGYJgI2OFVr6PyiBiTn4XcTtHOC2fbkj4Rre9Pj4QydLxF0oSXJqJCXkBJhzxpC9ouKJpDzYffbmPkpIA6rzdujGyRGluGCeiM2cOu7JtFEx1nvPsB%2BLlMN8JJBJQL3QWxnV36yu6ycImjADRWzn2Oe1Hn59BdoZO9nzL8zTLFHgS9jRZeYlTJQnh6FZe4I4upbqHwxemIw%3D%3D&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Date=20220313T104326Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Expires=300&amp;X-Amz-Credential=ASIAQ3PHCVTY3WOOQG6M%2F20220313%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Signature=d189220faa10689b60977d689048eeee379847ff107227365fec1a7742463d7d&amp;hash=c12a21daeaec6fe0aaf5b9fb5ec0259bf755743c2eea8ab65f566cece9ee2d36&amp;host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&amp;pii=0304397596000722&amp;tid=spdf-17632b09-bb7d-4bc0-9605-080c373f0575&amp;sid=d0b19308547fc443ae8b53f5ca290b286a01gxrqa&amp;type=client&amp;ua=50040252510d525a5a05&amp;rr=6eb42b298d006da7" target="_blank" rel="noopener">Precise interprocedural dataflow analysis with applications to constant propagation</a>提出<code>IDE</code>框架来处理<code>interprocedural constant propagation</code>等<code>IFDS</code>框架处理不了的<code>non-distributive</code>问题。这两篇论文为程序分析领域引入新的血液。</p>
 <p>近年<code>Sparse Value IFDS,Disk-Assisted IFDS</code>等课题一直是学术界的研究热点。在工业界比如<a href="https://linkspringer.53yu.com/content/pdf/10.1007%2F978-3-030-17465-1.pdf" target="_blank" rel="noopener">phasar</a>等程序分析工具中<code>IFDS/IDE</code>也有具体<a href="https://github.com/secure-software-engineering/phasar" target="_blank" rel="noopener">实现</a>。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1879,7 +1918,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  2k
+                  2.2k
                 </span>
               
 
@@ -1895,7 +1934,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  7
+                  8
                 </span>
               
             </div>
@@ -1917,8 +1956,9 @@
 
       
         
-          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>同符号执行一样，<code>Taint-Analysis</code>也是分析代码安全漏洞，检测攻击方式的重要手段。对于<code>Web</code>应用程序中存在着的大量安全漏洞,如跨站脚本攻击，<code>SQL</code>注入等~污点分析都可以进行有效地检测。而污点传播技术是当前<code>Taint-Analysis</code>领域的重要课题，<strong>通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结果。</strong>  </p>
-<p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(call sinks).  </p>
+          <h3 id="abstract">Abstract</h3>
+<p>同符号执行一样，<code>Taint-Analysis</code>也是分析代码安全漏洞，检测攻击方式的重要手段。对于<code>Web</code>应用程序中存在着的大量安全漏洞,如跨站脚本攻击，<code>SQL</code>注入等~污点分析都可以进行有效地检测。而污点传播技术是当前<code>Taint-Analysis</code>领域的重要课题，<strong>通过和静态程序分析技术相结合，在不运行代码且不修改代码的前提下通过分析程序变量之间的相互依赖关系以此获得更高效，更精确的分析结果。</strong></p>
+<p>Taint analysis tracks how tainted data flow through the program and observes if they can flow to locations of interest(call sinks).</p>
 <p>比如通过利用静态指针分析算法完成简化的显式流<code>explicit flow</code>分析，不讨论<a href="https://www.k0rz3n.com/2019/03/01/%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/" target="_blank" rel="noopener">路径爆炸</a>和其他动态漏洞分析技术。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -2063,7 +2103,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  4.3k
+                  7k
                 </span>
               
 
@@ -2079,7 +2119,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  17
+                  28
                 </span>
               
             </div>
@@ -2101,8 +2141,9 @@
 
       
         
-          <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL&#39;1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。  </p>
-<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.  </p>
+          <h3 id="abstract">Abstract</h3>
+<p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL'1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。</p>
+<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.</p>
 <p>指针分析除了可以构建<code>Call Graph</code>等程序基本信息之外，还可以用于编译优化，程序鲁棒性和安全等各个领域，是最基础的静态分析算法之一——比如流行的别名分析<code>Alias Analysis</code>就是从指针分析中派生出来的:Alias information can be derived from points-to relations.在指针分析的输出指向关系中是否有两个指针可以指向同一个对象。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -2210,7 +2251,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -2221,7 +2262,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
