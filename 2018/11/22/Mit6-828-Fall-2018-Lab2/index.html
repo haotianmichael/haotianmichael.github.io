@@ -115,13 +115,13 @@
 
 
 
-<meta name="description" content="Lab2Before LabLab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:    Lab1完成时整个JOS内存布局如下图:  切换合并Git分支的时候可能会出现冲">
+<meta name="description" content="Lab2 Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:  Lab1完成时整个JOS内存布局如下图:  切换合并Git分支的时候可能会出现冲">
 <meta name="keywords" content="MIT 6.828,OS,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mit6.828(Fall 2018) Lab2">
 <meta property="og:url" content="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Lab2Before LabLab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:    Lab1完成时整个JOS内存布局如下图:  切换合并Git分支的时候可能会出现冲">
+<meta property="og:description" content="Lab2 Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:  Lab1完成时整个JOS内存布局如下图:  切换合并Git分支的时候可能会出现冲">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/9.png">
@@ -144,7 +144,7 @@
 <meta property="og:updated_time" content="2022-03-16T10:32:07.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mit6.828(Fall 2018) Lab2">
-<meta name="twitter:description" content="Lab2Before LabLab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:    Lab1完成时整个JOS内存布局如下图:  切换合并Git分支的时候可能会出现冲">
+<meta name="twitter:description" content="Lab2 Before Lab Lab2的主要内容:Physical Page Management,Virtual Memroy,Kernel Address Space;代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:  Lab1完成时整个JOS内存布局如下图:  切换合并Git分支的时候可能会出现冲">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2018/11/22/Mit6-828-Fall-2018-Lab2/1.png">
 
 
@@ -488,65 +488,93 @@
       
 
       
-        <h2 id="Lab2"><a href="#Lab2" class="headerlink" title="Lab2"></a>Lab2</h2><h3 id="Before-Lab"><a href="#Before-Lab" class="headerlink" title="Before Lab"></a>Before Lab</h3><p>Lab2的主要内容:<code>Physical Page Management</code>,<code>Virtual Memroy</code>,<code>Kernel Address Space</code>;<strong>代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。</strong>和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:  </p>
+        <h2 id="lab2">Lab2</h2>
+<h3 id="before-lab">Before Lab</h3>
+<p>Lab2的主要内容:<code>Physical Page Management</code>,<code>Virtual Memroy</code>,<code>Kernel Address Space</code>;<strong>代码实现JOS中的内存分页管理功能，有页面管理和页表管理两部分。</strong>和理论相比，代码实现需要考虑的细节真是太多。实验最终的目的是通过几个检测函数:</p>
 <p><img src="1.png" width="50%" height="50%" alt=""></p>
 <p>Lab1完成时整个JOS内存布局如下图:</p>
 <p><img src="9.png" width="50%" height="50%" alt=""></p>
-<p>切换合并Git分支的时候可能会出现冲突，需要手动注释掉Lab1中的一些测试代码来解决，这里不再赘述。<br><a id="more"></a></p>
-<h3 id="memlayout-h和pmap-h"><a href="#memlayout-h和pmap-h" class="headerlink" title="memlayout.h和pmap.h"></a>memlayout.h和pmap.h</h3><p>掌握这两个文件中的函数是完成Lab2必不可少的条件，在此进行总结。  </p>
-<h4 id="pmap-h"><a href="#pmap-h" class="headerlink" title="pmap.h"></a>pmap.h</h4><p>Lab2中需要重点关注的对象有三个:物理内存，虚拟内存，空闲链表<strong><code>struct PageInfo</code></strong>。该头文件中的函数实现了三者之间的相互转化。  </p>
+<p>切换合并Git分支的时候可能会出现冲突，需要手动注释掉Lab1中的一些测试代码来解决，这里不再赘述。 <a id="more"></a></p>
+<h3 id="memlayout.h和pmap.h">memlayout.h和pmap.h</h3>
+<p>掌握这两个文件中的函数是完成Lab2必不可少的条件，在此进行总结。</p>
+<h4 id="pmap.h">pmap.h</h4>
+<p>Lab2中需要重点关注的对象有三个:物理内存，虚拟内存，空闲链表<strong><code>struct PageInfo</code></strong>。该头文件中的函数实现了三者之间的相互转化。</p>
 <p><img src="2.png" width="50%" height="50%" alt=""></p>
-<p>另外还有几个外部变量也需要重点关注一下: </p>
+<p>另外还有几个外部变量也需要重点关注一下:</p>
 <ul>
 <li><code>bootstack</code> 内核栈</li>
 <li><code>pages</code> 所有物理内存按照4KB划分的对应映射数组</li>
 <li><code>npage</code> 数组元素个数</li>
 <li><code>kern_pgdir</code> 页目录</li>
 </ul>
-<p><strong>注意pages不是空闲链表，仅仅只是一个数组而已。而pages数组索引就是所有页式物理内存的索引。</strong>所以<code>struct PageInfo *pp</code>和物理内存关系很紧密：<strong>(pp-pages)*4KB就是该数组元素对应的物理页面page的物理地址</strong>，这也是<code>page2pa</code>函数的原型。</p>
-<h4 id="memlayout-h"><a href="#memlayout-h" class="headerlink" title="memlayout.h"></a>memlayout.h</h4><p>介绍了JOS虚拟内存的详细布局，定义了所有需要使用的宏。<strong>在Lab2中，我们需要完成的是内核部分虚拟地址到物理的映射。所以重点关注的是UTOP之上的布局.</strong>当然需要注意的细节就很多了，比如大小，权限，每一部分内存的作用等。  </p>
+<p><strong>注意pages不是空闲链表，仅仅只是一个数组而已。而pages数组索引就是所有页式物理内存的索引。</strong>所以<code>struct PageInfo *pp</code>和物理内存关系很紧密：**(pp-pages)*4KB就是该数组元素对应的物理页面page的物理地址**，这也是<code>page2pa</code>函数的原型。</p>
+<h4 id="memlayout.h">memlayout.h</h4>
+<p>介绍了JOS虚拟内存的详细布局，定义了所有需要使用的宏。<strong>在Lab2中，我们需要完成的是内核部分虚拟地址到物理的映射。所以重点关注的是UTOP之上的布局.</strong>当然需要注意的细节就很多了，比如大小，权限，每一部分内存的作用等。</p>
 <p><img src="3.png" width="50%" height="50%" alt=""></p>
-<p>上图只是一个简化图，结合源码看会好很多，比如一些和大小有关的宏定义: </p>
+<p>上图只是一个简化图，结合源码看会好很多，比如一些和大小有关的宏定义:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#define PGSIZE          4096            // bytes mapped by a page</span><br><span class="line">#define KSTKSIZE        (8*PGSIZE)              // size of a kernel stack</span><br><span class="line">#define PTSIZE          (PGSIZE*NPTENTRIES) // bytes mapped by a page directory entry</span><br><span class="line">#define NPTENTRIES      1024            // page table entries per page table</span><br></pre></td></tr></table></figure>
 <p>其中阴影部分指的是<code>page_init()</code>函数之前已经初始化好的。这是因为在<code>page_init()</code>函数之前分页机制还没有建立好，所以只能用字节分配的方法分配物理内存。这些阴影部分的物理内存都是<code>boot_alloc(uing32_t n)</code>函数分配的；而<code>page_init()</code>函数之后，所有的物理内存分配都是以页<strong>Page</strong>为单位，所以字节分配函数<code>boot_alloc()</code>也被禁用了。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>我觉得整个Lab2就是在实现两种映射：<strong>物理内存到空闲链表的映射</strong>和<strong>虚拟内存到物理内存的映射</strong>。而上述的两个头文件基本讲清楚了映射需要实现的步骤和原理，应该反复阅读。初此之外还应该对C语言的<strong>强转</strong>，<strong>指针</strong>，<strong>位运算</strong>有一个很深的了解，最好先看一下TCPL。</p>
-<h3 id="Physical-Page-Management"><a href="#Physical-Page-Management" class="headerlink" title="Physical Page Management"></a>Physical Page Management</h3><p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。页面管理分析如下:<br>从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。而第一部分物理内存就是完成将物理内存映射到空闲链表上。<br>PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。<br>基本上需要实现的代码都在<code>pmap.c</code>中。我们用Taglist统筹一下该文件中所有的函数和宏定义: </p>
+<h4 id="总结">总结</h4>
+<p>我觉得整个Lab2就是在实现两种映射：<strong>物理内存到空闲链表的映射</strong>和<strong>虚拟内存到物理内存的映射</strong>。而上述的两个头文件基本讲清楚了映射需要实现的步骤和原理，应该反复阅读。初此之外还应该对C语言的<strong>强转</strong>，<strong>指针</strong>，<strong>位运算</strong>有一个很深的了解，最好先看一下TCPL。</p>
+<h3 id="physical-page-management">Physical Page Management</h3>
+<p>理论课很大的一部分缺失就是没有对物理内存布局进行讲解。而没有物理内存的基础，映射（Mapping）根本无从谈起。页面管理分析如下:<br>
+从代码角度看，Lab2接上Lab1中<code>kern/entry.S</code>跳转到<code>kern/init.c</code>中的<code>i386_init()</code>开始执行。可以发现<code>mem_init()</code>函数，整个Lab2就是完善这个内存函数的过程。而第一部分物理内存就是完成将物理内存映射到空闲链表上。<br>
+PartOne需要<strong>完成物理内存的管理，并实现物理内存的布局。</strong>这里的布局指的是对空闲链表的管理。所以<strong>我们首先要创建空闲链表，然后用空闲链表对这一整块物理内存进行管理，当然管理的单位是Page（4K）</strong>。<br>
+基本上需要实现的代码都在<code>pmap.c</code>中。我们用Taglist统筹一下该文件中所有的函数和宏定义:</p>
 <p><img src="4.png" width="50%" height="50%" alt=""></p>
-<h4 id="boot-alloc"><a href="#boot-alloc" class="headerlink" title="boot_alloc"></a>boot_alloc</h4><p>彼时<code>mem_init()</code>函数中还只有一个函数————<code>i386_detect_memory()</code>。用来检测物理内存的硬件状态及其参数，其中有几个比较重要的变量: </p>
+<h4 id="boot_alloc">boot_alloc</h4>
+<p>彼时<code>mem_init()</code>函数中还只有一个函数————<code>i386_detect_memory()</code>。用来检测物理内存的硬件状态及其参数，其中有几个比较重要的变量:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npages: 未分配</span><br><span class="line">npages_basemem: 160</span><br><span class="line">kern_pgdir: 未分配</span><br><span class="line">basemem: 640KB</span><br></pre></td></tr></table></figure>
-<p>其中<code>basemem=640K</code>是因为在<code>inc/memlayout.h</code>中定义过一个宏:<code>#define IOPHYSMEM 0xA0000</code>。在Lab1的内存布局中有详细的分布，在这个宏定义的地址往上是 实模式下IDT和第一部分bootsector。所以将宏定义以下到<code>0x00000000</code>的内存称为base_mem。而这部分需要被映射到空闲链表中，所以按照页式单位可以映射640K/4K=160个pages。<br>接下来就是实现代码。因为代码太多不打算贴出来，主要是做Lab的思路并分享一些完善内存布局过程中画的草稿。<br>从<code>mem_init()</code>的进度来看，首先需要实现<code>boot_alloc()</code>函数，然后用该函数直接分配物理内存给<code>kern_pgdir</code>和<code>pages</code>两个数据结构。而<code>boot_alloc</code>中值得一提就是<code>extern char end[]</code>和对齐函数<code>ROUNDUP(a, n)</code>。<strong>在Lab1完成之后，我们将内核放到<code>0x10000000</code>这个位置直到<code>end</code>结束，所以<code>end</code>是链接器做链接时内核加载结束的地址。</strong>而<code>ROUNDUP(a, n)</code>的功能是向上对齐。因为我们的操作都是4KB对齐的，所以需要在<code>end</code>后面进行对齐操作。详细见Lab1的内存布局。<strong>最后函数返回的是已分配内存的虚拟首地址。</strong><br>指导书中推荐使用断言<strong>assert</strong>进行调试的方法。不过我一般使用输出调试<strong>cprintf+return</strong>。当分配好<code>kern_pgdir</code>和<code>pages</code>之后，我们使用输出调试看一下这两个数据结构的虚拟地址:</p>
+<p>其中<code>basemem=640K</code>是因为在<code>inc/memlayout.h</code>中定义过一个宏:<code>#define IOPHYSMEM 0xA0000</code>。在Lab1的内存布局中有详细的分布，在这个宏定义的地址往上是 实模式下IDT和第一部分bootsector。所以将宏定义以下到<code>0x00000000</code>的内存称为base_mem。而这部分需要被映射到空闲链表中，所以按照页式单位可以映射640K/4K=160个pages。<br>
+接下来就是实现代码。因为代码太多不打算贴出来，主要是做Lab的思路并分享一些完善内存布局过程中画的草稿。<br>
+从<code>mem_init()</code>的进度来看，首先需要实现<code>boot_alloc()</code>函数，然后用该函数直接分配物理内存给<code>kern_pgdir</code>和<code>pages</code>两个数据结构。而<code>boot_alloc</code>中值得一提就是<code>extern char end[]</code>和对齐函数<code>ROUNDUP(a, n)</code>。<strong>在Lab1完成之后，我们将内核放到<code>0x10000000</code>这个位置直到<code>end</code>结束，所以<code>end</code>是链接器做链接时内核加载结束的地址。</strong>而<code>ROUNDUP(a, n)</code>的功能是向上对齐。因为我们的操作都是4KB对齐的，所以需要在<code>end</code>后面进行对齐操作。详细见Lab1的内存布局。<strong>最后函数返回的是已分配内存的虚拟首地址。</strong><br>
+指导书中推荐使用断言<strong>assert</strong>进行调试的方法。不过我一般使用输出调试<strong>cprintf+return</strong>。当分配好<code>kern_pgdir</code>和<code>pages</code>之后，我们使用输出调试看一下这两个数据结构的虚拟地址:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void boot_alloc() &#123;</span><br><span class="line">	cprintf(&quot;before allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">	/*</span><br><span class="line">	address allocator</span><br><span class="line">	*/</span><br><span class="line">	cprintf(&quot;after allocating nextfree is %x\n&quot;, nextfree);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看一下输出结果: </p>
+<p>看一下输出结果:</p>
 <p><img src="5.png" width="50%" height="50%" alt=""></p>
-<p>然后就是实现<code>page_init()</code>函数。<strong>此时我们已经建立了一个和全部物理内存相对应的数组pages</strong>。这为接下来空闲链表的实现奠定了基础:<strong><code>page_init()</code>函数就是按照Hints中提示的物理内存的基本布局，找到那些空闲的物理内存并将其对应的pages数组元素链接起来形成一个链表。</strong>可能不好理解，直接上图:  </p>
+<p>然后就是实现<code>page_init()</code>函数。<strong>此时我们已经建立了一个和全部物理内存相对应的数组pages</strong>。这为接下来空闲链表的实现奠定了基础:<strong><code>page_init()</code>函数就是按照Hints中提示的物理内存的基本布局，找到那些空闲的物理内存并将其对应的pages数组元素链接起来形成一个链表。</strong>可能不好理解，直接上图:</p>
 <p><img src="6.jpeg" width="50%" height="50%" alt=""></p>
-<p>这个功能是由下面简单的几句C语言实现的： </p>
+<p>这个功能是由下面简单的几句C语言实现的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Part of the code:</span><br><span class="line"></span><br><span class="line"> for (i = 1; i &lt; npages_basemem; i++) &#123;</span><br><span class="line">                pages[i].pp_ref = 0;</span><br><span class="line">                pages[i].pp_link = page_free_list;</span><br><span class="line">                page_free_list = &amp;pages[i];</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p><code>page_init</code>函数实现了空闲链表。至此内存的布局已经很清楚了：  </p>
+<p><code>page_init</code>函数实现了空闲链表。至此内存的布局已经很清楚了：</p>
 <p><img src="8.jpeg" width="50%" height="50%" alt=""></p>
-<h4 id="page-alloc"><a href="#page-alloc" class="headerlink" title="page_alloc"></a>page_alloc</h4><p><code>page_alloc</code>函数实现物理内存的页式分配————分配一页空闲的物理内存。根据上面的思路:<strong>pages数组就是全部物理内存的映射，而page_free_list是空闲物理内存的映射所以是部分pages元素链成的。</strong>所以我们实际上可以通过<code>page_free_list</code>指针来确定具体的物理地址:<strong>(page_free_list-pages)*4K</strong>。<br>实现很简单，当中需要注意的细节初始化函数<code>memset(void *v, int c, size_t n)</code>中需要的地址是虚拟地址。这里先参考一下<code>kern_pgdir</code>的实现和初始化。  </p>
+<h4 id="page_alloc">page_alloc</h4>
+<p><code>page_alloc</code>函数实现物理内存的页式分配————分配一页空闲的物理内存。根据上面的思路:<strong>pages数组就是全部物理内存的映射，而page_free_list是空闲物理内存的映射所以是部分pages元素链成的。</strong>所以我们实际上可以通过<code>page_free_list</code>指针来确定具体的物理地址:**(page_free_list-pages)*4K**。<br>
+实现很简单，当中需要注意的细节初始化函数<code>memset(void *v, int c, size_t n)</code>中需要的地址是虚拟地址。这里先参考一下<code>kern_pgdir</code>的实现和初始化。</p>
 <p><img src="7.png" width="50%" height="50%" alt=""></p>
 <p>所以在实现中<strong>需要将page_free_list指向的pages元素映射到具体的物理地址<code>page2pa</code>, 然后将物理地址转化为虚拟地址<code>PADDR</code></strong>并返回。</p>
-<h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><p>至此物理映射到空闲链表的过程已经实现。<code>boot_alloc</code>和<code>page_alloc</code>最终返回的都是<strong>虚拟地址</strong>。还有一些宏定义和函数比如<code>PGNUM(la)</code>，<code>memset(void *v, int c, size_t n)</code>的参数也是虚拟地址。在Lab2中一个核心问题就是区分<strong>物理地址</strong>还是<strong>虚拟地址</strong>。<br>因为mmu的缘故，访问内存的时候会进行一次线性地址到物理地址的转换。所不能直接使用物理地址。<strong>我们索性所有自定义用到地址的地方都使用虚拟地址，如果需要物理地址再使用<code>PADDR(la)</code>转化。</strong></p>
-<h3 id="Virtual-Memory"><a href="#Virtual-Memory" class="headerlink" title="Virtual Memory"></a>Virtual Memory</h3><h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><p>首先区分<strong>逻辑地址</strong>，<strong>线性地址</strong>和<strong>物理地址</strong>的概念。Lab2屏蔽了逻辑地址到线性地址的转化，也就是GDT段式存储管理。直接从线性地址开始。<br>指导书中重点讲解了虚拟内存，物理内存和指针这几个概念。觉得有一些意思，就把翻译贴上了:  </p>
+<h4 id="细节">细节</h4>
+<p>至此物理映射到空闲链表的过程已经实现。<code>boot_alloc</code>和<code>page_alloc</code>最终返回的都是<strong>虚拟地址</strong>。还有一些宏定义和函数比如<code>PGNUM(la)</code>，<code>memset(void *v, int c, size_t n)</code>的参数也是虚拟地址。在Lab2中一个核心问题就是区分<strong>物理地址</strong>还是<strong>虚拟地址</strong>。<br>
+因为mmu的缘故，访问内存的时候会进行一次线性地址到物理地址的转换。所不能直接使用物理地址。<strong>我们索性所有自定义用到地址的地方都使用虚拟地址，如果需要物理地址再使用<code>PADDR(la)</code>转化。</strong></p>
+<h3 id="virtual-memory">Virtual Memory</h3>
+<h4 id="question">Question</h4>
+<p>首先区分<strong>逻辑地址</strong>，<strong>线性地址</strong>和<strong>物理地址</strong>的概念。Lab2屏蔽了逻辑地址到线性地址的转化，也就是GDT段式存储管理。直接从线性地址开始。<br>
+指导书中重点讲解了虚拟内存，物理内存和指针这几个概念。觉得有一些意思，就把翻译贴上了:</p>
 <p><img src="10.png" width="50%" height="50%" alt=""></p>
 <p>另外，在之后的Lab中会遇到很多<strong>一个物理页面同时被映射到好几块虚拟内存中</strong>的情况。JOS使用<code>struct PageInfo-&gt;pp_ref</code>来管理页目录对页表页的引用的数量。见下面代码:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mystery_t x;</span><br><span class="line">char* value = return_a_pointer();</span><br><span class="line">*value = 10;</span><br><span class="line">x = (mystery_t) value;</span><br></pre></td></tr></table></figure>
 <p>根据上面的分析，指针<code>value</code>是虚拟地址。而对value进行强转并赋值的只能是虚拟地址了。</p>
-<h4 id="pgdir-walk"><a href="#pgdir-walk" class="headerlink" title="pgdir_walk"></a>pgdir_walk</h4><p>在实现下面的代码之前，默认熟悉<code>inc/mmu.h</code>中的所有内容。<br>该函数的作用很关键。<strong>给定一个虚拟地址，pgdir_walk函数返回一个指向该地址对应页表项的指针。而这个函数主要是为完成一部分虚拟地址到一部分物理地址的映射函数<code>boot_map_region</code>做准备的。所以只需要定位到页表项就可以，而不需要加上后12位偏移量。</strong>JOS的页目录（表）项<strong>PDE&amp;PTE</strong>的格式见下:  </p>
+<h4 id="pgdir_walk">pgdir_walk</h4>
+<p>在实现下面的代码之前，默认熟悉<code>inc/mmu.h</code>中的所有内容。<br>
+该函数的作用很关键。<strong>给定一个虚拟地址，pgdir_walk函数返回一个指向该地址对应页表项的指针。而这个函数主要是为完成一部分虚拟地址到一部分物理地址的映射函数<code>boot_map_region</code>做准备的。所以只需要定位到页表项就可以，而不需要加上后12位偏移量。</strong>JOS的页目录（表）项<strong>PDE&amp;PTE</strong>的格式见下:</p>
 <p><img src="11.png" width="50%" height="50%" alt=""></p>
-<p>该函数的分析如下: </p>
+<p>该函数的分析如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">pte_t *</span><br><span class="line">pgdir_walk(pde_t *pgdir, const void *va, int create)</span><br><span class="line">&#123;</span><br><span class="line">        uintptr_t ptIndex = PTX(va);    //PTX取出页表项的偏移量</span><br><span class="line">        struct  PageInfo * newAlloc;     //空闲链表指针</span><br><span class="line">        if(!(pgdir[PDX(va)] &amp; PTE_P)) &#123;   //&amp;位运算是取出PTE_P这一位，看页表是否存在</span><br><span class="line">                if(create) &#123;</span><br><span class="line">                        if((newAlloc = page_alloc(1)) == NULL)</span><br><span class="line">                                return NULL;</span><br><span class="line">                        newAlloc-&gt;pp_ref++;</span><br><span class="line">	// |位运算是合并位； 【20】+【12】分别为页目录项（注意不是页表项）20位的地址，后12位的标志位						</span><br><span class="line">                        pgdir[PDX(va)] = page2pa(newAlloc) | PTE_P | PTE_U | PTE_W;             </span><br><span class="line">                &#125;else &#123;</span><br><span class="line">                        return NULL;</span><br><span class="line">                &#125;       </span><br><span class="line">        &#125;</span><br><span class="line">        pte_t * pdPtr = KADDR(PTE_ADDR(pgdir[PDX(va)])); //取出页目录项的前20位</span><br><span class="line">        return pdPtr + ptIndex;   //具体的指向具体页表项的指针</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中对页表项进行重新映射是关键的操作，便于理解还可以先取出前20位地址然后再加上标志位: </p>
+<p>其中对页表项进行重新映射是关键的操作，便于理解还可以先取出前20位地址然后再加上标志位:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">	if(create) &#123;</span><br><span class="line">                        if((newAlloc = page_alloc(1)) == NULL)</span><br><span class="line">                                return NULL;</span><br><span class="line">	                  newAlloc-&gt;pp_ref++;</span><br><span class="line">                      pgdir[PDX(va)] = page2pa(newAlloc);   </span><br><span class="line">                      test = KADDR(pgdir[PDX(va)]);   //先取出20位</span><br><span class="line">					  pgdir[PDX(va)] = page2pa(newAlloc) | PTE_P | PTE_U | PTE_W;</span><br><span class="line">                      return test + ptIndex;//直接返回</span><br><span class="line">                &#125;else &#123;</span><br><span class="line">                        return NULL;</span><br><span class="line">                &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>分页机制原理见下图，而<code>pgdir_walk</code>函数完成的是前两部分的，最后的<code>offset</code>并不在其中:  </p>
+<p>分页机制原理见下图，而<code>pgdir_walk</code>函数完成的是前两部分的，最后的<code>offset</code>并不在其中:</p>
 <p><img src="12.png" width="50%" height="50%" alt=""></p>
-<h4 id="boot-map-region"><a href="#boot-map-region" class="headerlink" title="boot_map_region"></a>boot_map_region</h4><p>接上<code>pgdir_walk</code>函数返回虚拟地址相对应的页表项指针。注意该函数的参数中有一项是权限<code>perm</code>是和<code>PTE_P</code>一起的，一旦映射就存在了。因为是页表项所以是4KB对齐的（因为屏蔽掉后12位）。我们使用页表项完成虚地址到物理地址的映射: </p>
+<h4 id="boot_map_region">boot_map_region</h4>
+<p>接上<code>pgdir_walk</code>函数返回虚拟地址相对应的页表项指针。注意该函数的参数中有一项是权限<code>perm</code>是和<code>PTE_P</code>一起的，一旦映射就存在了。因为是页表项所以是4KB对齐的（因为屏蔽掉后12位）。我们使用页表项完成虚地址到物理地址的映射:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static void</span><br><span class="line">boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)</span><br><span class="line">&#123;</span><br><span class="line">	    int i;</span><br><span class="line">        for(i=0; i&lt;size/PGSIZE; i++, va+=PGSIZE, pa+=PGSIZE) &#123;  //4K 对齐</span><br><span class="line">                pte_t *pte = pgdir_walk(pgdir,(void*)va, 1);   </span><br><span class="line">                if(pte == NULL) panic(&quot;boot_map_region panic : out of memory!\n&quot;);</span><br><span class="line">                *pte = pa | perm | PTE_P;    //完成映射，并设置标志位来确定页表权限</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后面几个函数实现都很简单，不再赘述。<br>至此，我们实现了内存页式管理的页表管理部分。</p>
-<h3 id="Kernel-Address-Space"><a href="#Kernel-Address-Space" class="headerlink" title="Kernel Address Space"></a>Kernel Address Space</h3><h4 id="Mapping"><a href="#Mapping" class="headerlink" title="Mapping"></a>Mapping</h4><p>关于学习JOS对虚拟内存空间的整体布局。JOS是32位的操作系统，一共有4G的虚拟空间。<strong>以<code>ULIM</code>为分界线，界限以下为用户空间，以上为内核空间。</strong>其中从<code>ULIM</code>到<code>KERNBASE</code>部分作为内核的系统栈共4M空间。对于内存详细的布局可以从<code>inc/memlayout.h</code>中看到，这里的重点是因为内核和用户空间同时被映射到物理内存中，所以需要一种方式来避免两者之间相互读写。<strong>而且JOS和其他现代操作系统不同的是，整个OS只有一个页目录<code>kern_pgdir</code>（应该是每一个进程有一套完整的页表系统）。</strong><br>方法是权限位:</p>
+<p>后面几个函数实现都很简单，不再赘述。<br>
+至此，我们实现了内存页式管理的页表管理部分。</p>
+<h3 id="kernel-address-space">Kernel Address Space</h3>
+<h4 id="mapping">Mapping</h4>
+<p>关于学习JOS对虚拟内存空间的整体布局。JOS是32位的操作系统，一共有4G的虚拟空间。<strong>以<code>ULIM</code>为分界线，界限以下为用户空间，以上为内核空间。</strong>其中从<code>ULIM</code>到<code>KERNBASE</code>部分作为内核的系统栈共4M空间。对于内存详细的布局可以从<code>inc/memlayout.h</code>中看到，这里的重点是因为内核和用户空间同时被映射到物理内存中，所以需要一种方式来避免两者之间相互读写。<strong>而且JOS和其他现代操作系统不同的是，整个OS只有一个页目录<code>kern_pgdir</code>（应该是每一个进程有一套完整的页表系统）。</strong><br>
+方法是权限位:</p>
 <p><img src="13.png" width="50%" height="50%" alt=""></p>
-<p>当一个程序试图访问一个虚拟地址的数据的时候，x86系统的保护机制运行为: </p>
+<p>当一个程序试图访问一个虚拟地址的数据的时候，x86系统的保护机制运行为:</p>
 <ul>
 <li>先检查短权限位DPL，不过和页式分配无关</li>
 <li>再检查页目录相应表项的访问权限，如果不过也产生异常</li>
@@ -554,22 +582,31 @@
 </ul>
 <p>x86对权限的原则是<strong>不在页目录这一环节限制太多，让最终的访问控制在二级页表这一环节上在设置。</strong>实际上Intel手册上给出了一个页目录加页表的访问控制的组合控制效果:</p>
 <p><img src="15.png" width="50%" height="50%" alt=""></p>
-<p>实现<code>mem_init</code>函数的最后一部分内容，实现JOS的虚拟映射:<br>首先我们将虚拟地址中<strong>[UPAGES, sizeof(pages)]</strong>部分映射到物理地址<strong>[pages, sizeof(pages)]</strong>上。<br>然后我们将虚拟地址中<strong>[KSTACKTOP-KSTKSIZE, KSTACKTOP]</strong>部分映射到<strong>[bootstack, KSTKSIZE]</strong>上。<br>最后将<code>KERNBASE</code>以上的虚拟地址映射到所有物理地址上。<br>这里注意一下一个细节:</p>
+<p>实现<code>mem_init</code>函数的最后一部分内容，实现JOS的虚拟映射:<br>
+首先我们将虚拟地址中<strong>[UPAGES, sizeof(pages)]</strong>部分映射到物理地址<strong>[pages, sizeof(pages)]</strong>上。<br>
+然后我们将虚拟地址中<strong>[KSTACKTOP-KSTKSIZE, KSTACKTOP]</strong>部分映射到<strong>[bootstack, KSTKSIZE]</strong>上。<br>
+最后将<code>KERNBASE</code>以上的虚拟地址映射到所有物理地址上。 这里注意一下一个细节:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">void mem_init() &#123;</span><br><span class="line">	...</span><br><span class="line">	// Permissions: kernel R, user R</span><br><span class="line">	kern_pgdir[PDX(UVPT)] = PADDR(kern_pgdir) | PTE_U | PTE_P;</span><br><span class="line">    ... </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这是在<code>mem_init</code>函数申请<code>kern_pgdir</code>之后就发生的映射，而这句代码本质上就是映射函数<code>boot_map_region</code>。目的很简单————<strong>完成<code>kern_pgdir</code>自身到<code>UVPT</code>的映射</strong>。我们不难明白，整个JOS只有一个页目录。Lab基本结束，这时候的JOS内存整体布局如下: </p>
+<p>这是在<code>mem_init</code>函数申请<code>kern_pgdir</code>之后就发生的映射，而这句代码本质上就是映射函数<code>boot_map_region</code>。目的很简单————<strong>完成<code>kern_pgdir</code>自身到<code>UVPT</code>的映射</strong>。我们不难明白，整个JOS只有一个页目录。Lab基本结束，这时候的JOS内存整体布局如下:</p>
 <p><img src="14.png" width="50%" height="50%" alt=""></p>
-<h4 id="Question-1"><a href="#Question-1" class="headerlink" title="Question"></a>Question</h4><p>第一个问题上面刚回答过了，就是映射的细节问题。<br>在映射的时候设置了<code>PTE_U</code>的用户才有读写权限。<br>我们的<code>UPAGES</code>有4MB的空间，一个<code>struct PageInfo</code>大小8B。所以能管理的物理块为<strong>4MB/8*4KB = 2GB</strong>。<br>管理内存的开销一共有<strong>物理映射pages</strong>,<strong>页目录</strong>,<strong>页表</strong>。如果第三个问题成立也就是说物理内存最大一共有2G的话，那pages大小一共有2G/4K*8=4M。而页目录<code>kern_pgdir</code>一共有4KB大小；相应的页表是4MB。一共有8MB+4KB。</p>
-<h5 id="entry-S"><a href="#entry-S" class="headerlink" title="entry.S"></a>entry.S</h5><p>这部分是在Lab1的时候遗留下来的问题，因为在系统刚启动的时候初始化过一个页目录<code>entry_pgdir</code>。关于细节可以参看<code>kern/entrypgdir.c</code>和<code>kern/entry.S</code>。这里介绍一些QEMU的新用法来进行调试（其实也在Lab2中是要求掌握的）: </p>
+<h4 id="question-1">Question</h4>
+<p>第一个问题上面刚回答过了，就是映射的细节问题。<br>
+在映射的时候设置了<code>PTE_U</code>的用户才有读写权限。<br>
+我们的<code>UPAGES</code>有4MB的空间，一个<code>struct PageInfo</code>大小8B。所以能管理的物理块为**4MB/8*4KB = 2GB<strong>。<br>
+管理内存的开销一共有</strong>物理映射pages<strong>,</strong>页目录<strong>,</strong>页表**。如果第三个问题成立也就是说物理内存最大一共有2G的话，那pages大小一共有2G/4K*8=4M。而页目录<code>kern_pgdir</code>一共有4KB大小；相应的页表是4MB。一共有8MB+4KB。</p>
+<h5 id="entry.s">entry.S</h5>
+<p>这部分是在Lab1的时候遗留下来的问题，因为在系统刚启动的时候初始化过一个页目录<code>entry_pgdir</code>。关于细节可以参看<code>kern/entrypgdir.c</code>和<code>kern/entry.S</code>。这里介绍一些QEMU的新用法来进行调试（其实也在Lab2中是要求掌握的）:</p>
 <ul>
 <li><code>xp/Nx paddr</code> 输出从paddr物理地址开始的N个字节的值</li>
 <li><code>info register</code> 输出当前寄存器的状态</li>
 <li><code>info mem</code> 输出当前完成映射的虚拟地址和对应权限</li>
 <li><code>info pg</code> 输出当前页表，页目录和页表项是分开的</li>
 </ul>
-<p>其实我们从Lab1的时候已经调试过，<code>movl    %eax,%cr0</code>执行结束的时候<strong>打开分页机制</strong>。但是这次可以直接看到分页的结果和映射的结果还是很爽的，结合<code>kern/entrypgdir.c</code>来看一下便很容易回答最后一个问题: </p>
+<p>其实我们从Lab1的时候已经调试过，<code>movl    %eax,%cr0</code>执行结束的时候<strong>打开分页机制</strong>。但是这次可以直接看到分页的结果和映射的结果还是很爽的，结合<code>kern/entrypgdir.c</code>来看一下便很容易回答最后一个问题:</p>
 <p><img src="16.png" width="50%" height="50%" alt=""></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// The entry.S page directory maps the first 4MB of physical memory</span><br><span class="line">// starting at virtual address KERNBASE (that is, it maps virtual</span><br><span class="line">// addresses [KERNBASE, KERNBASE+4MB) to physical addresses [0, 4MB)).</span><br><span class="line">// We choose 4MB because that&apos;s how much we can map with one page</span><br><span class="line">// table and it&apos;s enough to get us through early boot.  We also map</span><br><span class="line">// virtual addresses [0, 4MB) to physical addresses [0, 4MB); this</span><br><span class="line">// region is critical for a few instructions in entry.S and then we</span><br><span class="line">// never use it again.</span><br><span class="line">//</span><br><span class="line">// Page directories (and page tables), must start on a page boundary,</span><br><span class="line">// hence the &quot;__aligned__&quot; attribute.  Also, because of restrictions</span><br><span class="line">// related to linking and static initializers, we use &quot;x + PTE_P&quot;</span><br><span class="line">// here, rather than the more standard &quot;x | PTE_P&quot;.  Everywhere else</span><br><span class="line">// you should use &quot;|&quot; to combine flags.</span><br><span class="line">__attribute__((__aligned__(PGSIZE)))</span><br><span class="line">pde_t entry_pgdir[NPDENTRIES] = &#123;</span><br><span class="line">        // Map VA&apos;s [0, 4MB) to PA&apos;s [0, 4MB)</span><br><span class="line">        [0]</span><br><span class="line">                = ((uintptr_t)entry_pgtable - KERNBASE) + PTE_P,</span><br><span class="line">        // Map VA&apos;s [KERNBASE, KERNBASE+4MB) to PA&apos;s [0, 4MB)</span><br><span class="line">        [KERNBASE&gt;&gt;PDXSHIFT]</span><br><span class="line">                = ((uintptr_t)entry_pgtable - KERNBASE) + PTE_P + PTE_W</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>不难发现其实在<code>entry_pgdir</code>中已经完成了<code>0x00000000-0x00400000</code>到<code>0xf0000000-0xf0400000</code>和到<code>0x00000000-0x00400000</code>的映射。而实现映射的方式也是直接讲地址写到页表项<code>entry_pgdir</code>中。<br>通过调试，发现两次页目录的创建过程中，映射的地址都不一样: </p>
+<p>不难发现其实在<code>entry_pgdir</code>中已经完成了<code>0x00000000-0x00400000</code>到<code>0xf0000000-0xf0400000</code>和到<code>0x00000000-0x00400000</code>的映射。而实现映射的方式也是直接讲地址写到页表项<code>entry_pgdir</code>中。<br>
+通过调试，发现两次页目录的创建过程中，映射的地址都不一样:</p>
 <p><img src="17.png" width="50%" height="50%" alt=""></p>
 <p>至此Lab2完成，Challenge时间关系不做了。这是<a href="https://github.com/haotianmichael/JOS" target="_blank" rel="noopener">源代码</a>.</p>
 <p><img src="18.png" width="50%" height="50%" alt=""></p>
@@ -734,7 +771,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -833,7 +870,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lab2"><span class="nav-number">1.</span> <span class="nav-text">Lab2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Before-Lab"><span class="nav-number">1.1.</span> <span class="nav-text">Before Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memlayout-h和pmap-h"><span class="nav-number">1.2.</span> <span class="nav-text">memlayout.h和pmap.h</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pmap-h"><span class="nav-number">1.2.1.</span> <span class="nav-text">pmap.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#memlayout-h"><span class="nav-number">1.2.2.</span> <span class="nav-text">memlayout.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Physical-Page-Management"><span class="nav-number">1.3.</span> <span class="nav-text">Physical Page Management</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#boot-alloc"><span class="nav-number">1.3.1.</span> <span class="nav-text">boot_alloc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#page-alloc"><span class="nav-number">1.3.2.</span> <span class="nav-text">page_alloc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#细节"><span class="nav-number">1.3.3.</span> <span class="nav-text">细节</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Memory"><span class="nav-number">1.4.</span> <span class="nav-text">Virtual Memory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Question"><span class="nav-number">1.4.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pgdir-walk"><span class="nav-number">1.4.2.</span> <span class="nav-text">pgdir_walk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#boot-map-region"><span class="nav-number">1.4.3.</span> <span class="nav-text">boot_map_region</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernel-Address-Space"><span class="nav-number">1.5.</span> <span class="nav-text">Kernel Address Space</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Mapping"><span class="nav-number">1.5.1.</span> <span class="nav-text">Mapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Question-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#entry-S"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">entry.S</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#lab2"><span class="nav-number">1.</span> <span class="nav-text">Lab2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#before-lab"><span class="nav-number">1.1.</span> <span class="nav-text">Before Lab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memlayout.h和pmap.h"><span class="nav-number">1.2.</span> <span class="nav-text">memlayout.h和pmap.h</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pmap.h"><span class="nav-number">1.2.1.</span> <span class="nav-text">pmap.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#memlayout.h"><span class="nav-number">1.2.2.</span> <span class="nav-text">memlayout.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#physical-page-management"><span class="nav-number">1.3.</span> <span class="nav-text">Physical Page Management</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#boot_alloc"><span class="nav-number">1.3.1.</span> <span class="nav-text">boot_alloc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#page_alloc"><span class="nav-number">1.3.2.</span> <span class="nav-text">page_alloc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#细节"><span class="nav-number">1.3.3.</span> <span class="nav-text">细节</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual-memory"><span class="nav-number">1.4.</span> <span class="nav-text">Virtual Memory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#question"><span class="nav-number">1.4.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pgdir_walk"><span class="nav-number">1.4.2.</span> <span class="nav-text">pgdir_walk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#boot_map_region"><span class="nav-number">1.4.3.</span> <span class="nav-text">boot_map_region</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kernel-address-space"><span class="nav-number">1.5.</span> <span class="nav-text">Kernel Address Space</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mapping"><span class="nav-number">1.5.1.</span> <span class="nav-text">Mapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#question-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#entry.s"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">entry.S</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

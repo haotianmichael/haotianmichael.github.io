@@ -115,18 +115,18 @@
 
 
 
-<meta name="description" content="Abstract不是鲸书。">
+<meta name="description" content="Abstract 不是鲸书。">
 <meta name="keywords" content="LLVM,Compiler,Software-Analysis,Polyhedral Model,SSA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Advanced Compiler Design and Implementation">
 <meta property="og:url" content="http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/index.html">
 <meta property="og:site_name" content="CodeSaw">
-<meta property="og:description" content="Abstract不是鲸书。">
+<meta property="og:description" content="Abstract 不是鲸书。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-03-02T06:03:47.458Z">
+<meta property="og:updated_time" content="2023-03-02T08:20:52.833Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Advanced Compiler Design and Implementation">
-<meta name="twitter:description" content="Abstract不是鲸书。">
+<meta name="twitter:description" content="Abstract 不是鲸书。">
 
 
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  924
+                  928
                 </span>
               
 
@@ -469,47 +469,56 @@
       
 
       
-        <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>不是鲸书。  </p>
+        <h3 id="abstract">Abstract</h3>
+<p>不是鲸书。</p>
 <a id="more"></a>
-<h3 id="arvcc"><a href="#arvcc" class="headerlink" title="arvcc"></a>arvcc</h3><p>想尝试设计一套针对优化和程序分析的框架。<br>通常做程序分析有两条路子，一条是针对程序分析的专用分析器，单独作为一套框架使用;另一条是作为编译器的优化趟来实现， 想到哪里写到哪里。</p>
+<h3 id="arvcc">arvcc</h3>
+<p>想尝试设计一套针对优化和程序分析的框架。 通常做程序分析有两条路子，一条是针对程序分析的专用分析器，单独作为一套框架使用;另一条是作为编译器的优化趟来实现， 想到哪里写到哪里。</p>
 <p>针对常规的编译流程<code>Source</code>——<code>IR</code>——<code>CodeGen</code>，我目前还是倾向于<code>Clang</code>的设计，先打算研究其架构并简化出来一套适合的东西。其次要继续读<code>static analysis</code>方向的论文，复现其算法和原理。</p>
 <p>我准备在<a href="https://github.com/haotianmichael/arvcc" target="_blank" rel="noopener">arvcc</a>仓库里面实现新设计的编译框架，最近的工作主要是将<code>Clang</code>里面的架构简化出来然后加以利用。</p>
-<h4 id="Option"><a href="#Option" class="headerlink" title="Option"></a>Option</h4><p><code>llvm</code>中所有的工具都会使用到选项<code>options</code>：</p>
+<h4 id="option">Option</h4>
+<p><code>llvm</code>中所有的工具都会使用到选项<code>options</code>：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> '-emit-llvm', '-S' and'test.cpp' are all options</span><br><span class="line"><span class="meta">$</span> clang -emit-llvm -S  test.cpp</span><br></pre></td></tr></table></figure>
-<p> 所以<code>option</code>是一个根类，各个工具也有自己的选项子类比如<code>Driver</code>下面可以有自己的<code>DriverOption</code>。这些<code>XXXOption</code>都是各个工具<code>*.td/*.def文件</code>自定义，然后通过<code>TableGen</code>自动生成的。  </p>
+<p>所以<code>option</code>是一个根类，各个工具也有自己的选项子类比如<code>Driver</code>下面可以有自己的<code>DriverOption</code>。这些<code>XXXOption</code>都是各个工具<code>*.td/*.def文件</code>自定义，然后通过<code>TableGen</code>自动生成的。</p>
 <p><code>arvcc</code>聚焦了很少的功能，所以我打算将各自<code>Option</code>直接集成到不同工具目录下，比如<code>Driver</code>的话，就直接定义在<code>DriverOption.h</code>中，其中<code>DriverOption</code>类继承自<code>Option</code>类。</p>
-<h4 id="Driver"><a href="#Driver" class="headerlink" title="Driver"></a>Driver</h4><p>工业级编译器需要考虑很多兼容性功能和用户接口，从而有了<code>Driver</code>的概念。还有很多性能上的<code>trade-off</code>从而用很多<code>LLVM</code>自定义的数据结构。故其具体实现上也及其复杂繁琐。</p>
-<p><code>Clang</code>本质是一个<code>Driver</code>，而<code>-cc1</code>才是编译器前端。在命令行中敲下<code>clang a.cpp</code>之后，编译器默认会自带很多编译选项<code>-###</code>，其中就有<code>-cc1</code>来进入编译器前端。  </p>
-<h5 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h5><p><code>Clang</code>通过定义各个<code>DriverOptions</code>的类型来映射整个编译流程，甚至精确到了选择指定的工具，编译步骤和输出格式。</p>
-<h4 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h4><p>记录自己机器上和开发有关的些许细节。</p>
-<h5 id="brew"><a href="#brew" class="headerlink" title="brew"></a>brew</h5><p><code>brew</code>是用的最多的，<strong>我机器上存在多个版本的软件比如<code>python/llvm/node...</code>，PATH里都是以<code>brew</code>版本为准(因为时间原因，可能<code>brew</code>自己构建其他软件的依赖也选择了不同的版本，可以使用<code>brew search xxx</code>来查看)。</strong>下面列出项目相关：</p>
+<h4 id="driver">Driver</h4>
+<p>工业级编译器需要考虑很多兼容性功能和用户接口，从而有了<code>Driver</code>的概念。还有很多性能上的<code>trade-off</code>从而用很多<code>LLVM</code>自定义的数据结构。故其具体实现上也及其复杂繁琐。</p>
+<p><code>Clang</code>本质是一个<code>Driver</code>，而<code>-cc1</code>才是编译器前端。在命令行中敲下<code>clang a.cpp</code>之后，编译器默认会自带很多编译选项<code>-###</code>，其中就有<code>-cc1</code>来进入编译器前端。</p>
+<h5 id="type">Type</h5>
+<p><code>Clang</code>通过定义各个<code>DriverOptions</code>的类型来映射整个编译流程，甚至精确到了选择指定的工具，编译步骤和输出格式。</p>
+<h4 id="开发环境">开发环境</h4>
+<p>记录自己机器上和开发有关的些许细节。</p>
+<h5 id="brew">brew</h5>
+<p><code>brew</code>是用的最多的，<strong>我机器上存在多个版本的软件比如<code>python/llvm/node...</code>，PATH里都是以<code>brew</code>版本为准(因为时间原因，可能<code>brew</code>自己构建其他软件的依赖也选择了不同的版本，可以使用<code>brew search xxx</code>来查看)。</strong>下面列出项目相关：</p>
 <ul>
-<li><code>llvm+clang:</code> 构建于<code>brew info llvm</code>，目前<code>-v = 13.0.1</code><ul>
-<li><code>$CC/CXX</code>  用于<code>cmake</code>的默认编译器</li>
+<li><code>llvm+clang:</code> 构建于<code>brew info llvm</code>，目前<code>-v = 13.0.1</code>
+<ul>
+<li><code>$CC/CXX</code> 用于<code>cmake</code>的默认编译器</li>
 <li><code>-LDFLAGS/CPPFLAGS</code> 用于<code>cmake</code>编译器编译选项</li>
+</ul></li>
+<li><p><code>NeoVim:</code> 构建于<code>brew info NeoVim</code>，目前版本<code>-v = 0.6.1</code>,依赖检查<code>: checkhealth</code></p></li>
+<li><code>Voltron:</code> 构建依赖<code>brew info python 3.10</code></li>
+<li><p><code>ccls:</code>构建依赖<code>brew info llvm</code></p></li>
 </ul>
-</li>
-<li><p><code>NeoVim:</code> 构建于<code>brew info NeoVim</code>，目前版本<code>-v = 0.6.1</code>,依赖检查<code>: checkhealth</code></p>
-</li>
-<li><p><code>Voltron:</code> 构建依赖<code>brew info python 3.10</code></p>
-</li>
-<li><code>ccls:</code>构建依赖<code>brew info llvm</code></li>
-</ul>
-<h5 id="lsp"><a href="#lsp" class="headerlink" title="lsp"></a>lsp</h5><p>今年正式从<code>Vim+YCM</code>转到了<code>NeoVim+LSP</code>。<code>language server protocol</code>降低了由<code>M</code>家IDE厂商分别为<code>N</code>门语言做插件的复杂度。由<code>language server</code>(针对语言)和<code>language client</code>(针对IDE/Editor)两部分构成。我的配置是<code>server:ccls</code>+<code>client:coc.vim</code>.  </p>
+<h5 id="lsp">lsp</h5>
+<p>今年正式从<code>Vim+YCM</code>转到了<code>NeoVim+LSP</code>。<code>language server protocol</code>降低了由<code>M</code>家IDE厂商分别为<code>N</code>门语言做插件的复杂度。由<code>language server</code>(针对语言)和<code>language client</code>(针对IDE/Editor)两部分构成。我的配置是<code>server:ccls</code>+<code>client:coc.vim</code>.</p>
 <p><strong>目前仅仅使用其<code>completion</code>和<code>go to def/ref</code>功能。</strong></p>
-<h5 id="ccls"><a href="#ccls" class="headerlink" title="ccls"></a>ccls</h5><p><code>-DCMAKE_PREFIX_PATH</code>选项很重要，这是因为它将<code>clang/llvm</code>的头文件<code>include paths</code>和库<code>resourceDir</code>硬编码到<code>ccls</code>中以便索引。</p>
+<h5 id="ccls">ccls</h5>
+<p><code>-DCMAKE_PREFIX_PATH</code>选项很重要，这是因为它将<code>clang/llvm</code>的头文件<code>include paths</code>和库<code>resourceDir</code>硬编码到<code>ccls</code>中以便索引。</p>
 <ul>
-<li><code>include paths:  clang -v -fsyntax-only -x c++ /dev/null</code>  </li>
-<li><code>resourceDir:  clang -print-resource-dir</code> </li>
+<li><code>include paths:  clang -v -fsyntax-only -x c++ /dev/null</code><br>
+</li>
+<li><code>resourceDir:  clang -print-resource-dir</code></li>
 </ul>
 <p><code>ccls</code>使用<code>.ccls/ compile_command.json</code>来索引文件:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">% cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES</span><br><span class="line">% ln -s Debug/compile_commands.json .</span><br></pre></td></tr></table></figure>
-<h5 id="coc-vim"><a href="#coc-vim" class="headerlink" title="coc.vim"></a>coc.vim</h5><p>想要加其他语言的插件<code>:CocConfig</code>。  </p>
-<p>有些硬编码的字符可以直接使用<code>grep</code>来过滤文本文件内容，<code>fzf/find</code>来查找指定目录下的文件。  </p>
+<h5 id="coc.vim">coc.vim</h5>
+<p>想要加其他语言的插件<code>:CocConfig</code>。</p>
+<p>有些硬编码的字符可以直接使用<code>grep</code>来过滤文本文件内容，<code>fzf/find</code>来查找指定目录下的文件。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> grep -r <span class="string">"ccc_print_phases"</span> llvm-src/clang/     <span class="comment"># 目录查找</span></span></span><br></pre></td></tr></table></figure>
-<h5 id="lldb"><a href="#lldb" class="headerlink" title="lldb"></a>lldb</h5><p>我用<code>voltron</code>做调试器前端，功能很全就是需要在自启动窗口。。有点麻烦</p>
+<h5 id="lldb">lldb</h5>
+<p>我用<code>voltron</code>做调试器前端，功能很全就是需要在自启动窗口。。有点麻烦</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ voltron view register</span><br><span class="line">$ voltron view stack</span><br><span class="line">$ voltron view disasm</span><br><span class="line">$ voltron view backtrace</span><br></pre></td></tr></table></figure>
-<p>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</p>
 
       
     </div>
@@ -530,7 +539,7 @@
   <p><span>本文标题:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/">Advanced Compiler Design and Implementation</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2021年06月26日 - 23:06</p>
-  <p><span>最后更新:</span>2023年03月02日 - 14:03</p>
+  <p><span>最后更新:</span>2023年03月02日 - 16:03</p>
   <p><span>原始链接:</span><a href="/2021/06/27/Advanced-Compiler-Design-and-Implementation/" title="Advanced Compiler Design and Implementation">http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2021/06/27/Advanced-Compiler-Design-and-Implementation/"  aria-label="复制成功！"></i></span>
   </p>
@@ -675,7 +684,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -774,7 +783,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arvcc"><span class="nav-number">2.</span> <span class="nav-text">arvcc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Option"><span class="nav-number">2.1.</span> <span class="nav-text">Option</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Driver"><span class="nav-number">2.2.</span> <span class="nav-text">Driver</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Type"><span class="nav-number">2.2.1.</span> <span class="nav-text">Type</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开发环境"><span class="nav-number">2.3.</span> <span class="nav-text">开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#brew"><span class="nav-number">2.3.1.</span> <span class="nav-text">brew</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#lsp"><span class="nav-number">2.3.2.</span> <span class="nav-text">lsp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ccls"><span class="nav-number">2.3.3.</span> <span class="nav-text">ccls</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#coc-vim"><span class="nav-number">2.3.4.</span> <span class="nav-text">coc.vim</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#lldb"><span class="nav-number">2.3.5.</span> <span class="nav-text">lldb</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arvcc"><span class="nav-number">2.</span> <span class="nav-text">arvcc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#option"><span class="nav-number">2.1.</span> <span class="nav-text">Option</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#driver"><span class="nav-number">2.2.</span> <span class="nav-text">Driver</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#type"><span class="nav-number">2.2.1.</span> <span class="nav-text">Type</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开发环境"><span class="nav-number">2.3.</span> <span class="nav-text">开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#brew"><span class="nav-number">2.3.1.</span> <span class="nav-text">brew</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#lsp"><span class="nav-number">2.3.2.</span> <span class="nav-text">lsp</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ccls"><span class="nav-number">2.3.3.</span> <span class="nav-text">ccls</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#coc.vim"><span class="nav-number">2.3.4.</span> <span class="nav-text">coc.vim</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#lldb"><span class="nav-number">2.3.5.</span> <span class="nav-text">lldb</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
