@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2023-04-11T03:47:20.229Z</updated>
+  <updated>2023-04-11T10:06:10.446Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>GPU编程（CUDA）</title>
-    <link href="http://haotianmcihael.github.io/2023/04/11/GPU%E7%BC%96%E7%A8%8B%EF%BC%88CUDA%EF%BC%89/"/>
-    <id>http://haotianmcihael.github.io/2023/04/11/GPU编程（CUDA）/</id>
+    <title>并行计算（0-CUDA编程）</title>
+    <link href="http://haotianmcihael.github.io/2023/04/11/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%EF%BC%880-CUDA%E7%BC%96%E7%A8%8B%EF%BC%89/"/>
+    <id>http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/</id>
     <published>2023-04-11T11:13:01.000Z</published>
-    <updated>2023-04-11T03:47:20.229Z</updated>
+    <updated>2023-04-11T10:06:10.446Z</updated>
     
     <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><p>上周的研究生复试终于结束了，想起来真是做梦一样。</p><p>准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。</p><p><code>PPCG</code>和<code>Pluto</code>都是面向<code>polyhedral</code>模型的<code>source-to-sourcee</code>编译器，前者支持<code>OpenMP/CUDA/OpenCL</code>代码生成，后者支持<code>OpenMP</code>代码生成。我不知怎么的就得出结论——想搞好编译器就要学好并行计算，那搞编译器的人是不是可以归到体系结构<code>HPC</code>这一波？我觉得差不多吧。</p><p>现阶段的<code>HPC</code>离不开<code>CUDA</code>，就像西方离不开耶路撒冷。</p><a id="more"></a>]]></content>
     
@@ -38,9 +38,9 @@
       <category term="CUDA" scheme="http://haotianmcihael.github.io/categories/CUDA/"/>
     
     
-      <category term="HPC" scheme="http://haotianmcihael.github.io/tags/HPC/"/>
-    
       <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
+    
+      <category term="HPC" scheme="http://haotianmcihael.github.io/tags/HPC/"/>
     
       <category term="Architect" scheme="http://haotianmcihael.github.io/tags/Architect/"/>
     
@@ -131,9 +131,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -156,9 +156,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
       <category term="Software-Analysis" scheme="http://haotianmcihael.github.io/tags/Software-Analysis/"/>
     
@@ -519,9 +519,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -551,9 +551,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -585,9 +585,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
       <category term="Linker" scheme="http://haotianmcihael.github.io/tags/Linker/"/>
     

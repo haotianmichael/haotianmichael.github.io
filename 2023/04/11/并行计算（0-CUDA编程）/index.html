@@ -97,7 +97,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="HPC,Compiler,Architect," />
+  <meta name="keywords" content="Compiler,HPC,Architect," />
 
 
 
@@ -116,16 +116,16 @@
 
 
 <meta name="description" content="Abstract 上周的研究生复试终于结束了，想起来真是做梦一样。 准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。 PPCG和Pluto都是面向polyhedral模型的source-to-sourcee编译器，前者支持Ope">
-<meta name="keywords" content="HPC,Compiler,Architect">
+<meta name="keywords" content="Compiler,HPC,Architect">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GPU编程（CUDA）">
-<meta property="og:url" content="http://haotianmcihael.github.io/2023/04/11/GPU编程（CUDA）/index.html">
+<meta property="og:title" content="并行计算（0-CUDA编程）">
+<meta property="og:url" content="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 上周的研究生复试终于结束了，想起来真是做梦一样。 准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。 PPCG和Pluto都是面向polyhedral模型的source-to-sourcee编译器，前者支持Ope">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2023-04-11T03:47:20.229Z">
+<meta property="og:updated_time" content="2023-04-11T10:06:10.446Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GPU编程（CUDA）">
+<meta name="twitter:title" content="并行计算（0-CUDA编程）">
 <meta name="twitter:description" content="Abstract 上周的研究生复试终于结束了，想起来真是做梦一样。 准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。 PPCG和Pluto都是面向polyhedral模型的source-to-sourcee编译器，前者支持Ope">
 
 
@@ -155,14 +155,14 @@
 
 
 
-  <link rel="canonical" href="http://haotianmcihael.github.io/2023/04/11/GPU编程（CUDA）/"/>
+  <link rel="canonical" href="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/"/>
 
 
 
 
 
 
-  <title>GPU编程（CUDA） | CodeSaw</title>
+  <title>并行计算（0-CUDA编程） | CodeSaw</title>
   
 
 
@@ -349,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2023/04/11/GPU编程（CUDA）/">
+    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HaotianMichael">
@@ -366,7 +366,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">GPU编程（CUDA）</h1>
+          <h1 class="post-title" itemprop="name headline">并行计算（0-CUDA编程）</h1>
         
 
         <div class="post-meta">
@@ -492,12 +492,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2023/04/11/GPU编程（CUDA）/">GPU编程（CUDA）</a></p>
+  <p><span>本文标题:</span><a href="/2023/04/11/并行计算（0-CUDA编程）/">并行计算（0-CUDA编程）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2023年04月11日 - 11:04</p>
-  <p><span>最后更新:</span>2023年04月11日 - 11:04</p>
-  <p><span>原始链接:</span><a href="/2023/04/11/GPU编程（CUDA）/" title="GPU编程（CUDA）">http://haotianmcihael.github.io/2023/04/11/GPU编程（CUDA）/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2023/04/11/GPU编程（CUDA）/"  aria-label="复制成功！"></i></span>
+  <p><span>最后更新:</span>2023年04月11日 - 18:04</p>
+  <p><span>原始链接:</span><a href="/2023/04/11/并行计算（0-CUDA编程）/" title="并行计算（0-CUDA编程）">http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -530,9 +530,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HPC/" rel="tag"><i class="fa fa-tag"></i> HPC</a>
-          
             <a href="/tags/Compiler/" rel="tag"><i class="fa fa-tag"></i> Compiler</a>
+          
+            <a href="/tags/HPC/" rel="tag"><i class="fa fa-tag"></i> HPC</a>
           
             <a href="/tags/Architect/" rel="tag"><i class="fa fa-tag"></i> Architect</a>
           

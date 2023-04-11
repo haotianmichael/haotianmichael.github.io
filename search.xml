@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[GPU编程（CUDA）]]></title>
-    <url>%2F2023%2F04%2F11%2FGPU%E7%BC%96%E7%A8%8B%EF%BC%88CUDA%EF%BC%89%2F</url>
+    <title><![CDATA[并行计算（0-CUDA编程）]]></title>
+    <url>%2F2023%2F04%2F11%2F%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%EF%BC%880-CUDA%E7%BC%96%E7%A8%8B%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Abstract 上周的研究生复试终于结束了，想起来真是做梦一样。 准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。 PPCG和Pluto都是面向polyhedral模型的source-to-sourcee编译器，前者支持OpenMP/CUDA/OpenCL代码生成，后者支持OpenMP代码生成。我不知怎么的就得出结论——想搞好编译器就要学好并行计算，那搞编译器的人是不是可以归到体系结构HPC这一波？我觉得差不多吧。 现阶段的HPC离不开CUDA，就像西方离不开耶路撒冷。]]></content>
       <categories>
         <category>CUDA</category>
       </categories>
       <tags>
-        <tag>HPC</tag>
         <tag>Compiler</tag>
+        <tag>HPC</tag>
         <tag>Architect</tag>
       </tags>
   </entry>
@@ -46,8 +46,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
@@ -58,8 +58,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
         <tag>Software-Analysis</tag>
         <tag>Polyhedral Model</tag>
         <tag>SSA</tag>
@@ -206,8 +206,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
@@ -218,8 +218,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
       </tags>
   </entry>
   <entry>
@@ -230,8 +230,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Compiler</tag>
         <tag>LLVM</tag>
+        <tag>Compiler</tag>
         <tag>Linker</tag>
         <tag>Loader</tag>
       </tags>
