@@ -349,6 +349,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2023/04/14/并行计算-MPI-OpenMP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HaotianMichael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CodeSaw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/04/14/并行计算-MPI-OpenMP/" itemprop="url">并行计算-MPI/OpenMP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-04-14T10:07:19Z">
+                2023-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CUDA/" itemprop="url" rel="index">
+                    <span itemprop="name">CUDA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  168
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="abstract">Abstract</h3>
+<p>对一个并行编程模型做优化，其约束应该怎么处理呢？</p>
+<p>比如<code>openMP</code>只是共享内存下的<code>SIMT</code>模型——在合适的地方加上<code>#pragma</code>，其他的交给编译器来做即可。编译器检测代码和数据之间的依赖关系，然后做线程级别的并行化，但他不会检测线程之间的<code>data-race condition</code>，故很大程度上取决于你的coding能力。</p>
+<p>再比如<code>MPI</code>则是靠进程间通信<code>IPC</code>来完成数据交换，对于一个分布式系统来说，<strong>通信开销和节点之间的<code>data locality</code>是一个很值得考虑的优化选项</strong>。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2023/04/14/并行计算-MPI-OpenMP/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    
+
+    <div>
+      
+   </div>	 
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -368,7 +553,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2023/04/11/并行计算（0-CUDA编程）/" itemprop="url">并行计算（0-CUDA编程）</a></h1>
+                <a class="post-title-link" href="/2023/04/11/并行计算（0-CUDA编程）/" itemprop="url">并行计算-CUDA编程</a></h1>
         
 
         <div class="post-meta">
@@ -434,7 +619,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.5k
+                  2.3k
                 </span>
               
 
@@ -450,7 +635,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  5
+                  8
                 </span>
               
             </div>
@@ -475,7 +660,7 @@
           <h3 id="abstract">Abstract</h3>
 <p>上周的研究生复试终于结束了，想起来真是做梦一样。</p>
 <p>准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。</p>
-<p><code>PPCG</code>和<code>Pluto</code>都是面向<code>polyhedral</code>模型的<code>source-to-sourcee</code>编译器，前者支持<code>OpenMP/CUDA/OpenCL</code>代码生成，后者支持<code>OpenMP</code>代码生成。我不知怎么的就得出结论——想搞好编译器就要学好并行计算，那搞编译器的人是不是可以归到体系结构<code>HPC</code>这一波？我觉得差不多吧。</p>
+<p><code>PPCG</code>和<code>Pluto</code>都是面向<code>polyhedral</code>模型的<code>source-to-sourcee</code>编译器，前者支持<code>OpenMP/CUDA/OpenCL</code>代码生成，后者支持<code>OpenMP</code>代码生成。我不知怎么的就得出结论——<strong>想搞好编译器就要学好并行计算，那搞编译器的人是不是可以归到体系结构<code>HPC</code>这一波？我觉得差不多吧。</strong></p>
 <p>现阶段的<code>HPC</code>离不开<code>CUDA</code>，就像西方离不开耶路撒冷。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -2005,191 +2190,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://haotianmcihael.github.io/2021/05/14/NJU静态程序分析-3-Pointer-Analysis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HaotianMichael">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CodeSaw">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/14/NJU静态程序分析-3-Pointer-Analysis/" itemprop="url">NJU静态程序分析(3-Pointer-Analysis)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-05-13T17:34:59Z">
-                2021-05-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article</span>
-                
-                <span title="Words count in article">
-                  7k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time</span>
-                
-                <span title="Reading time">
-                  28
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="abstract">Abstract</h3>
-<p>过程间分析需要基于程序的<code>Call Graph</code>来完成。由于<code>CHA Analysis</code>过度追求速度造成误报——而<code>false positive</code>对于常量传播这样的<code>must</code>分析来说是不可接受的。因此指针分析在<code>POPL'1980</code>被第一次提出<a href="https://static.aminer.org/pdf/PDF/000/546/844/interprocedural_data_flow_analysis_in_the_presence_of_pointers_procedure.pdf" target="_blank" rel="noopener">Interprocedural Data Flow Analysis in the Presence of Pointers, Procedure Variables, and Label Variables</a>。</p>
-<p>Pointer Analysis computes an over-approximation of the set of which memory-locations(objects) a pointer can point to.</p>
-<p>指针分析除了可以构建<code>Call Graph</code>等程序基本信息之外，还可以用于编译优化，程序鲁棒性和安全等各个领域，是最基础的静态分析算法之一——比如流行的别名分析<code>Alias Analysis</code>就是从指针分析中派生出来的:Alias information can be derived from points-to relations.在指针分析的输出指向关系中是否有两个指针可以指向同一个对象。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/14/NJU静态程序分析-3-Pointer-Analysis/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    
-
-    <div>
-      
-   </div>	 
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2240,7 +2240,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

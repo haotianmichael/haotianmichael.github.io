@@ -118,7 +118,7 @@
 <meta name="description" content="Abstract 上周的研究生复试终于结束了，想起来真是做梦一样。 准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。 PPCG和Pluto都是面向polyhedral模型的source-to-sourcee编译器，前者支持Ope">
 <meta name="keywords" content="Compiler,HPC,Architect">
 <meta property="og:type" content="article">
-<meta property="og:title" content="并行计算（0-CUDA编程）">
+<meta property="og:title" content="并行计算-CUDA编程">
 <meta property="og:url" content="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/index.html">
 <meta property="og:site_name" content="CodeSaw">
 <meta property="og:description" content="Abstract 上周的研究生复试终于结束了，想起来真是做梦一样。 准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。 PPCG和Pluto都是面向polyhedral模型的source-to-sourcee编译器，前者支持Ope">
@@ -127,9 +127,10 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/3.png">
-<meta property="og:updated_time" content="2023-04-12T07:28:22.954Z">
+<meta property="og:image" content="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/5.png">
+<meta property="og:updated_time" content="2023-04-14T02:10:21.052Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="并行计算（0-CUDA编程）">
+<meta name="twitter:title" content="并行计算-CUDA编程">
 <meta name="twitter:description" content="Abstract 上周的研究生复试终于结束了，想起来真是做梦一样。 准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。 PPCG和Pluto都是面向polyhedral模型的source-to-sourcee编译器，前者支持Ope">
 <meta name="twitter:image" content="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/4.png">
 
@@ -167,7 +168,7 @@
 
 
 
-  <title>并行计算（0-CUDA编程） | CodeSaw</title>
+  <title>并行计算-CUDA编程 | CodeSaw</title>
   
 
 
@@ -371,7 +372,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">并行计算（0-CUDA编程）</h1>
+          <h1 class="post-title" itemprop="name headline">并行计算-CUDA编程</h1>
         
 
         <div class="post-meta">
@@ -437,7 +438,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  1.5k
+                  2.3k
                 </span>
               
 
@@ -453,7 +454,7 @@
                   <span class="post-meta-item-text">Reading time</span>
                 
                 <span title="Reading time">
-                  5
+                  8
                 </span>
               
             </div>
@@ -477,7 +478,7 @@
         <h3 id="abstract">Abstract</h3>
 <p>上周的研究生复试终于结束了，想起来真是做梦一样。</p>
 <p>准备复试的过程中一直在看赵博士的《多面体编译理论与深度学习实践》这本书，两个月看完。发现自己对并行计算和编译器在并行性局部性挖掘方面的理解又深入了一点点。好处是终于有大把的时间来做想做的事情，又很担心学过的东西不成体系。</p>
-<p><code>PPCG</code>和<code>Pluto</code>都是面向<code>polyhedral</code>模型的<code>source-to-sourcee</code>编译器，前者支持<code>OpenMP/CUDA/OpenCL</code>代码生成，后者支持<code>OpenMP</code>代码生成。我不知怎么的就得出结论——想搞好编译器就要学好并行计算，那搞编译器的人是不是可以归到体系结构<code>HPC</code>这一波？我觉得差不多吧。</p>
+<p><code>PPCG</code>和<code>Pluto</code>都是面向<code>polyhedral</code>模型的<code>source-to-sourcee</code>编译器，前者支持<code>OpenMP/CUDA/OpenCL</code>代码生成，后者支持<code>OpenMP</code>代码生成。我不知怎么的就得出结论——<strong>想搞好编译器就要学好并行计算，那搞编译器的人是不是可以归到体系结构<code>HPC</code>这一波？我觉得差不多吧。</strong></p>
 <p>现阶段的<code>HPC</code>离不开<code>CUDA</code>，就像西方离不开耶路撒冷。</p>
 <a id="more"></a>
 <h3 id="基本架构与计算">基本架构与计算</h3>
@@ -508,7 +509,7 @@
 <li>（增加）吞吐量：单位时间内成功处理的运算数量，一般用<code>gflops（十亿次浮点计算）</code>表示</li>
 </ul>
 <p>其中吞吐量和延迟有一定关系，都是反应计算速度的。一个是时间除以运算次数——得到单位次数用的时间（延迟）。一个是运算次数除以时间，得到的是单位时间执行次数（吞吐量）。</p>
-<h3 id="异构计算与cuda">异构计算与CUDA</h3>
+<h3 id="cuda编程模型">CUDA编程模型</h3>
 <p>一个异构应用包括两种以上架构：</p>
 <ul>
 <li>主机代码（CPU）</li>
@@ -566,6 +567,66 @@
 </ul>
 <p>从host的串行到调用核函数，<strong>核函数被调用后控制马上归还主机线程</strong>，也就是在第一个并行代码执行时，很有可能第二段host代码已经开始同步执行了。</p>
 <p>故要写好<code>CUDA</code>程序，要重点关注<strong>核函数编写</strong>，<strong>线程层次</strong>和<strong>内存模型</strong>。</p>
+<h4 id="cuda核函数kernel">CUDA核函数(Kernel)</h4>
+<p>核函数就是在<code>CUDA</code>模型上诸多线程中运行的那段串行代码，这段代码在设备上运行，用<code>NVCC</code>编译，产生<code>GPU</code>机器码。<strong>所以我们写CUDA程序就是写核函数</strong>，第一步要确保核函数正确运行，<strong>第二步优化CUDA程序，无论是优化算法还是调整内存结构，线程结构都是要调整核函数内的代码来完成这些优化的。</strong></p>
+<ul>
+<li>首先考虑启动一个核函数 （核函数是同时复制到多个线程上执行的）。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 其中grid,block对内核中线程的数目和布局进行配置</span><br><span class="line">kernel_name&lt;&lt;&lt;grid, block&gt;&gt;&gt;(argument list);</span><br></pre></td></tr></table></figure>
+<p>当主机启动了核函数，控制权马上回到主机，而不是主机等待设备完成核函数的运行——<strong>所有CUDA核函数的启动都是异步的</strong>。</p>
+<ul>
+<li>考虑编写一个核函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">	Kernel函数编写的限制：</span><br><span class="line">	1. 只能访问设备内存</span><br><span class="line">	2. 必须返回void</span><br><span class="line">	3. 不支持可变数量的参数</span><br><span class="line">	4. 不支持静态变量</span><br><span class="line">	5. 显式异步行为</span><br><span class="line">*/</span><br><span class="line">__global__ void kernel_name(argument list);</span><br></pre></td></tr></table></figure>
+<p>除此之外，<code>CUDA</code>定义了一些限定符：</p>
+<table>
+<thead>
+<tr class="header">
+<th>限定符</th>
+<th>执行</th>
+<th>调用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>__global__</td>
+<td>设备端执行</td>
+<td>可以从主机调用也可以从计算能力3以上的设备调用</td>
+<td>必须返回void</td>
+</tr>
+<tr class="even">
+<td>__device__</td>
+<td>设备端执行</td>
+<td>设备端调用</td>
+<td>--</td>
+</tr>
+<tr class="odd">
+<td>__host__</td>
+<td>主机端执行</td>
+<td>主机调用</td>
+<td>--</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>验证一个核函数</li>
+<li>错误处理</li>
+</ul>
+<h4 id="核函数计时">核函数计时</h4>
+<p>对核函数计时有利于量化程序性能从而更好的优化。需要注意的是核函数运行之后，控制权会回到主机线程。故需要使用<code>cudaDeviceSynchronize()</code>来同步等待核函数执行完毕。下面是需要测试的时间间隔：</p>
+<p><img src="5.png" width="50%" height="50%" alt=""></p>
+<p>也可使用<code>nvprof</code>工具测试性能。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvprof [nvprof_args] &lt;application&gt;[application_args]</span><br></pre></td></tr></table></figure>
+<p>优化的时候需要知道<code>GPU</code>的理论峰值计算方式比如：</p>
+<ul>
+<li>Tesla K10 单精度峰值浮点数计算次数：745MHz核心频率 x 2GPU/芯片 x（8个多处理器 x 192个浮点计算单元 x 32 核心/多处理器） x 2 OPS/周期 =4.58 TFLOPS</li>
+<li>Tesla K10 内存带宽峰值： 2GPU/芯片 x 256 位 x 2500 MHz内存时钟 x 2 DDR/8位/字节 = 320 GB/s</li>
+</ul>
+<h4 id="设备参数">设备参数</h4>
+<p>CUDA驱动版本，设备计算能力编号，全局内存大小（1.95G），GPU主频，GPU带宽，L2缓存大小，纹理维度最大值，不同维度下的，层叠纹理维度最大值，常量内存大小，块内共享内存大小，块内寄存器大小，线程束大小，每个处理器硬件处理的最大线程数，每个块处理的最大线程数，块的最大尺寸，网格的最大尺寸，最大连续线性内存</p>
+<h3 id="cuda执行模型">CUDA执行模型</h3>
+<p>写CUDA就是为了优化，而理解体系结构以及量化方法才能真正搞懂性能优化。从此走上了<code>Arch</code>的不归路。。</p>
 
       
     </div>
@@ -583,11 +644,11 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2023/04/11/并行计算（0-CUDA编程）/">并行计算（0-CUDA编程）</a></p>
+  <p><span>本文标题:</span><a href="/2023/04/11/并行计算（0-CUDA编程）/">并行计算-CUDA编程</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 HaotianMichael 的个人博客">HaotianMichael</a></p>
   <p><span>发布时间:</span>2023年04月11日 - 11:04</p>
-  <p><span>最后更新:</span>2023年04月12日 - 15:04</p>
-  <p><span>原始链接:</span><a href="/2023/04/11/并行计算（0-CUDA编程）/" title="并行计算（0-CUDA编程）">http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/</a>
+  <p><span>最后更新:</span>2023年04月14日 - 10:04</p>
+  <p><span>原始链接:</span><a href="/2023/04/11/并行计算（0-CUDA编程）/" title="并行计算-CUDA编程">http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://haotianmcihael.github.io/2023/04/11/并行计算（0-CUDA编程）/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -647,6 +708,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/04/14/并行计算-MPI-OpenMP/" rel="prev" title="并行计算-MPI/OpenMP">
+                并行计算-MPI/OpenMP <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -723,7 +788,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -822,7 +887,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本架构与计算"><span class="nav-number">2.</span> <span class="nav-text">基本架构与计算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flynns-taxonomy"><span class="nav-number">2.1.</span> <span class="nav-text">Flynn&#39;s Taxonomy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存模型"><span class="nav-number">2.2.</span> <span class="nav-text">内存模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评价指标"><span class="nav-number">2.3.</span> <span class="nav-text">评价指标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异构计算与cuda"><span class="nav-number">3.</span> <span class="nav-text">异构计算与CUDA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cuda线程层次"><span class="nav-number">3.1.</span> <span class="nav-text">CUDA线程层次</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#抽象层次"><span class="nav-number">3.1.1.</span> <span class="nav-text">抽象层次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码层次"><span class="nav-number">3.1.2.</span> <span class="nav-text">代码层次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬件层次"><span class="nav-number">3.1.3.</span> <span class="nav-text">硬件层次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程索引"><span class="nav-number">3.1.4.</span> <span class="nav-text">线程索引</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cuda执行"><span class="nav-number">3.2.</span> <span class="nav-text">CUDA执行</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本架构与计算"><span class="nav-number">2.</span> <span class="nav-text">基本架构与计算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flynns-taxonomy"><span class="nav-number">2.1.</span> <span class="nav-text">Flynn&#39;s Taxonomy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存模型"><span class="nav-number">2.2.</span> <span class="nav-text">内存模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评价指标"><span class="nav-number">2.3.</span> <span class="nav-text">评价指标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cuda编程模型"><span class="nav-number">3.</span> <span class="nav-text">CUDA编程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cuda线程层次"><span class="nav-number">3.1.</span> <span class="nav-text">CUDA线程层次</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#抽象层次"><span class="nav-number">3.1.1.</span> <span class="nav-text">抽象层次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码层次"><span class="nav-number">3.1.2.</span> <span class="nav-text">代码层次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬件层次"><span class="nav-number">3.1.3.</span> <span class="nav-text">硬件层次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程索引"><span class="nav-number">3.1.4.</span> <span class="nav-text">线程索引</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cuda执行"><span class="nav-number">3.2.</span> <span class="nav-text">CUDA执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cuda核函数kernel"><span class="nav-number">3.3.</span> <span class="nav-text">CUDA核函数(Kernel)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#核函数计时"><span class="nav-number">3.4.</span> <span class="nav-text">核函数计时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设备参数"><span class="nav-number">3.5.</span> <span class="nav-text">设备参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cuda执行模型"><span class="nav-number">4.</span> <span class="nav-text">CUDA执行模型</span></a></li></ol></div>
             
 
           </div>
