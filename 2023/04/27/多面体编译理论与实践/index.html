@@ -126,7 +126,7 @@
 <meta property="og:image" content="http://haotianmcihael.github.io/2023/04/27/多面体编译理论与实践/1.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2023/04/27/多面体编译理论与实践/2.png">
 <meta property="og:image" content="http://haotianmcihael.github.io/2023/04/27/多面体编译理论与实践/3.png">
-<meta property="og:updated_time" content="2023-04-27T13:10:05.242Z">
+<meta property="og:updated_time" content="2023-04-27T13:28:39.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多面体编译(Polyhedral Compilation)">
 <meta name="twitter:description" content="Abstract 对《Presburger Formulas and Polyhedral Compilation》做一个总结。 这是一本由isl和PPCG的作者Sven Verdoolaege写的关于多面体编译的入门小册子。主要介绍了多面体编译相关的基础知识（数学基础-凸优化/编译基础-依赖分析）。在实践层面则使用PPCG这种isl-based的编译器——尽管isl不能和多面体编译划等号，但已成">
@@ -436,7 +436,7 @@
                   <span class="post-meta-item-text">Words count in article</span>
                 
                 <span title="Words count in article">
-                  688
+                  693
                 </span>
               
 
@@ -497,7 +497,7 @@
 <li>依赖关系：<strong>语句实例之间因为对内存的读写关系因此有了依赖</strong>，上图表示<code>S[i]</code>和<code>T[i]</code>语句实例之间的依赖关系。</li>
 </ul>
 <p><font color="red">多面体编译就是在不改变语句实例依赖关系（语义）的基础上，对程序进行变换来挖掘程序的并行性与局部性，针对不同特征的程序会有不一样的变换和约束。</font></p>
-<p>上面的例子中，将开始需要串行执行6次的程序，分割成为{S[i]-&gt;[i]; T[i]-&gt;[2-i]}这样的并行块——<code>c=0,1,2</code>三次迭代之间没有依赖关系可以并行执行。</p>
+<p>上面的例子中，将开始需要串行执行6次的程序，分割成为{S[i]-&gt;[i]; T[i]-&gt;[2-i]}这样的并行块——<code>c=0,1,2</code>三次迭代之间没有依赖关系可以并行执行。原图更完整。</p>
 <h4 id="工具">工具</h4>
 
       

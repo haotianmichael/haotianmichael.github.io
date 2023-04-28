@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://haotianmcihael.github.io/"/>
-  <updated>2023-04-27T13:10:05.242Z</updated>
+  <updated>2023-04-27T13:28:39.562Z</updated>
   <id>http://haotianmcihael.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://haotianmcihael.github.io/2023/04/27/%E5%A4%9A%E9%9D%A2%E4%BD%93%E7%BC%96%E8%AF%91%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5/"/>
     <id>http://haotianmcihael.github.io/2023/04/27/多面体编译理论与实践/</id>
     <published>2023-04-27T11:33:39.000Z</published>
-    <updated>2023-04-27T13:10:05.242Z</updated>
+    <updated>2023-04-27T13:28:39.562Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><p>对《Presburger Formulas and Polyhedral Compilation》做一个总结。</p><p>这是一本由<code>isl</code>和<code>PPCG</code>的作者<code>Sven Verdoolaege</code>写的关于多面体编译的入门小册子。主要介绍了多面体编译相关的基础知识（数学基础-凸优化/编译基础-依赖分析）。在实践层面则使用<code>PPCG</code>这种<code>isl-based</code>的编译器——尽管<code>isl</code>不能和多面体编译划等号，但已成为多面体编译事实上的标准库。</p><p><strong><code>Polyhedral Compilation</code>通过一系列的<code>program analysis/compilation techniques</code>对程序中的语句实例<code>dynamic-execution instances</code>进行分析。</strong></p><a id="more"></a><h4 id="例子">例子</h4><p><font color="red">语句实例<code>dynamic-execution instance</code></font>，简称实例。指的是在<strong>运行时</strong>执行的一组指令或操作<code>operations</code>。比如对于循环程序，语句实例个数就是迭代<code>iterations</code>个数。因为迭代个数有可能是很大甚至无限的，故我们采用数学方法来表示实例——<code>polyhedral and Presburger formulas</code>。下面举个例子：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i ++)</span><br><span class="line">B[i] = f(A[i]);    <span class="comment">// S</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i ++) </span><br><span class="line">C[i] = g(B[<span class="number">2</span>-i]);  <span class="comment">// T</span></span><br></pre></td></tr></table></figure><ul><li>语句实例：两个循环，每个循环有一个语句。故该例中的语句实例就是两个语句的迭代执行实例——<strong>两个语句分别用<code>S</code>和<code>T</code>表示，则每一次迭代产生的语句实例可以表示成为<code>S[i]/T[i]</code>，其中<code>i</code>表示第几次迭代。</strong></li></ul><p><img src="1.png" width="50%" height="50%" alt=""></p><ul><li>执行顺序：语句实例的执行顺序是多面体编译的一个很重要的话题——<strong>调度</strong>。在代码层面用调度树来表示，这里给出两种方式，都表示<code>S[0]-&gt;S[1]-&gt;S[2]-&gt;T[0]-&gt;T[1]-&gt;T[2]</code>的执行顺序。其中左边直接列出顺序，<strong>而右边的则用<code>S[i]-&gt;[i]</code>表示语句实例根据<code>i</code>的增加顺序来执行，其中<code>i</code>表示外层循环的迭代次数</strong>。</li></ul><p><img src="2.png" width="50%" height="50%" alt=""></p><ul><li>访存关系：上图中的箭头表示语句实例与B数组的访问关系。<strong>注意这里S是写内存访问，而T是读内存访问。</strong></li></ul><p><img src="3.png" width="50%" height="50%" alt=""></p><ul><li>依赖关系：<strong>语句实例之间因为对内存的读写关系因此有了依赖</strong>，上图表示<code>S[i]</code>和<code>T[i]</code>语句实例之间的依赖关系。</li></ul><p><font color="red">多面体编译就是在不改变语句实例依赖关系（语义）的基础上，对程序进行变换来挖掘程序的并行性与局部性，针对不同特征的程序会有不一样的变换和约束。</font></p><p>上面的例子中，将开始需要串行执行6次的程序，分割成为{S[i]-&gt;[i]; T[i]-&gt;[2-i]}这样的并行块——<code>c=0,1,2</code>三次迭代之间没有依赖关系可以并行执行。</p><h4 id="工具">工具</h4>]]></content>
+    <content type="html"><![CDATA[<h3 id="abstract">Abstract</h3><p>对《Presburger Formulas and Polyhedral Compilation》做一个总结。</p><p>这是一本由<code>isl</code>和<code>PPCG</code>的作者<code>Sven Verdoolaege</code>写的关于多面体编译的入门小册子。主要介绍了多面体编译相关的基础知识（数学基础-凸优化/编译基础-依赖分析）。在实践层面则使用<code>PPCG</code>这种<code>isl-based</code>的编译器——尽管<code>isl</code>不能和多面体编译划等号，但已成为多面体编译事实上的标准库。</p><p><strong><code>Polyhedral Compilation</code>通过一系列的<code>program analysis/compilation techniques</code>对程序中的语句实例<code>dynamic-execution instances</code>进行分析。</strong></p><a id="more"></a><h4 id="例子">例子</h4><p><font color="red">语句实例<code>dynamic-execution instance</code></font>，简称实例。指的是在<strong>运行时</strong>执行的一组指令或操作<code>operations</code>。比如对于循环程序，语句实例个数就是迭代<code>iterations</code>个数。因为迭代个数有可能是很大甚至无限的，故我们采用数学方法来表示实例——<code>polyhedral and Presburger formulas</code>。下面举个例子：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i ++)</span><br><span class="line">B[i] = f(A[i]);    <span class="comment">// S</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i ++) </span><br><span class="line">C[i] = g(B[<span class="number">2</span>-i]);  <span class="comment">// T</span></span><br></pre></td></tr></table></figure><ul><li>语句实例：两个循环，每个循环有一个语句。故该例中的语句实例就是两个语句的迭代执行实例——<strong>两个语句分别用<code>S</code>和<code>T</code>表示，则每一次迭代产生的语句实例可以表示成为<code>S[i]/T[i]</code>，其中<code>i</code>表示第几次迭代。</strong></li></ul><p><img src="1.png" width="50%" height="50%" alt=""></p><ul><li>执行顺序：语句实例的执行顺序是多面体编译的一个很重要的话题——<strong>调度</strong>。在代码层面用调度树来表示，这里给出两种方式，都表示<code>S[0]-&gt;S[1]-&gt;S[2]-&gt;T[0]-&gt;T[1]-&gt;T[2]</code>的执行顺序。其中左边直接列出顺序，<strong>而右边的则用<code>S[i]-&gt;[i]</code>表示语句实例根据<code>i</code>的增加顺序来执行，其中<code>i</code>表示外层循环的迭代次数</strong>。</li></ul><p><img src="2.png" width="50%" height="50%" alt=""></p><ul><li>访存关系：上图中的箭头表示语句实例与B数组的访问关系。<strong>注意这里S是写内存访问，而T是读内存访问。</strong></li></ul><p><img src="3.png" width="50%" height="50%" alt=""></p><ul><li>依赖关系：<strong>语句实例之间因为对内存的读写关系因此有了依赖</strong>，上图表示<code>S[i]</code>和<code>T[i]</code>语句实例之间的依赖关系。</li></ul><p><font color="red">多面体编译就是在不改变语句实例依赖关系（语义）的基础上，对程序进行变换来挖掘程序的并行性与局部性，针对不同特征的程序会有不一样的变换和约束。</font></p><p>上面的例子中，将开始需要串行执行6次的程序，分割成为{S[i]-&gt;[i]; T[i]-&gt;[2-i]}这样的并行块——<code>c=0,1,2</code>三次迭代之间没有依赖关系可以并行执行。原图更完整。</p><h4 id="工具">工具</h4>]]></content>
     
     <summary type="html">
     
@@ -189,9 +189,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -214,9 +214,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
       <category term="Software-Analysis" scheme="http://haotianmcihael.github.io/tags/Software-Analysis/"/>
     
@@ -577,9 +577,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
@@ -609,9 +609,9 @@
       <category term="C++" scheme="http://haotianmcihael.github.io/categories/C/"/>
     
     
-      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
-    
       <category term="LLVM" scheme="http://haotianmcihael.github.io/tags/LLVM/"/>
+    
+      <category term="Compiler" scheme="http://haotianmcihael.github.io/tags/Compiler/"/>
     
   </entry>
   
